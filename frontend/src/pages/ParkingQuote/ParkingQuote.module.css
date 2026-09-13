@@ -1,0 +1,9 @@
+.section {
+  padding: 0 0 5rem;
+  background: #f5f5f7;
+}
+
+.wrap {
+  width: min(48rem, calc(100% - 2rem));
+  margin: 0 auto;
+}

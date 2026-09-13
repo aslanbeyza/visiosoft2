@@ -1,0 +1,41 @@
+.hero {
+  padding: 9rem 0 4rem;
+  background: #fff;
+}
+
+.inner {
+  width: min(64rem, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: #0071e3;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.inner h1 {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.copy {
+  max-width: 40rem;
+  margin: 1.25rem 0 0;
+  color: #6e6e73;
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}

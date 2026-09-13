@@ -1,0 +1,234 @@
+.sticky {
+  position: sticky;
+  top: 4rem;
+  z-index: 30;
+  transition: transform 0.45s var(--ease-apple);
+}
+
+/* Navbar aşağı kaydırırken gizlenince çubuk onun bıraktığı boşluğa kayar. */
+:global(html[data-navbar='hidden']) .sticky {
+  transform: translateY(-4rem);
+}
+
+@media (min-width: 1024px) {
+  :global(html[data-navbar='hidden']) .sticky {
+    transform: translateY(-4.5rem);
+  }
+}
+
+.bar {
+  border-bottom: 1px solid var(--color-corp-line);
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(15 20 48 / 0.04);
+}
+
+.inner {
+  display: flex;
+  align-items: stretch;
+  gap: 1.25rem;
+  width: min(80rem, calc(100% - 2rem));
+  height: 3.25rem;
+  margin-inline: auto;
+}
+
+.heading {
+  display: none;
+}
+
+.scrollWrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Kaydırılabilir alanın kenarlarında içeriğin devam ettiğini gösteren yumuşak geçiş. */
+.scrollWrap::before,
+.scrollWrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 1px;
+  z-index: 1;
+  width: 2.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-apple);
+}
+
+.scrollWrap::before {
+  left: 0;
+  background: linear-gradient(90deg, #fff 20%, rgb(255 255 255 / 0));
+}
+
+.scrollWrap::after {
+  right: 0;
+  background: linear-gradient(270deg, #fff 20%, rgb(255 255 255 / 0));
+}
+
+.scrollWrap[data-fade-start='true']::before,
+.scrollWrap[data-fade-end='true']::after {
+  opacity: 1;
+}
+
+.list {
+  display: flex;
+  gap: 0.15rem;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: none;
+}
+
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 0.85rem;
+  color: var(--color-corp-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s var(--ease-apple);
+}
+
+.item:first-child .link {
+  padding-left: 0;
+}
+
+.link:hover {
+  color: var(--color-corp-ink);
+}
+
+.link[aria-current='page'] {
+  color: var(--color-navy-600);
+  font-weight: 600;
+}
+
+.link:focus-visible {
+  border-radius: 0.5rem;
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: -0.5rem;
+}
+
+.activeBar,
+.hoverBar {
+  position: absolute;
+  right: 0.85rem;
+  bottom: 0;
+  left: 0.85rem;
+  height: 2px;
+}
+
+.item:first-child .activeBar,
+.item:first-child .hoverBar {
+  left: 0;
+}
+
+.activeBar {
+  background: var(--color-navy-600);
+  transform-origin: left center;
+}
+
+.hoverBar {
+  background: var(--color-navy-100);
+}
+
+.all {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    width: min(80rem, calc(100% - 3rem));
+  }
+
+  .all {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 0.4rem;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--color-corp-line);
+    color: var(--color-navy-600);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .all:hover {
+    color: var(--color-navy-700);
+  }
+
+  .all:focus-visible {
+    border-radius: 0.5rem;
+    outline: 2px solid var(--color-navy-600);
+    outline-offset: -0.35rem;
+  }
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.all:hover .arrow {
+  transform: translateX(3px);
+}
+
+@media (min-width: 1024px) {
+  .sticky {
+    top: 4.5rem;
+  }
+
+  .heading {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    padding-right: 1.25rem;
+    border-right: 1px solid var(--color-corp-line);
+    color: var(--color-corp-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .item:first-child .link {
+    padding-left: 0.85rem;
+  }
+
+  .item:first-child .activeBar,
+  .item:first-child .hoverBar {
+    left: 0.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky,
+  .scrollWrap::before,
+  .scrollWrap::after,
+  .link,
+  .arrow {
+    transition: none;
+  }
+
+  .all:hover .arrow {
+    transform: none;
+  }
+}

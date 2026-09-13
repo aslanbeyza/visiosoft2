@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #1d1d1f;
+  --color-muted: #6e6e73;
+  --color-soft: #86868b;
+  --color-paper: #ffffff;
+  --color-fog: #f5f5f7;
+  --color-line: #e5e5ea;
+  --color-brand: #0071e3;
+  --color-brand-hover: #0077ed;
+  --color-header: #161617;
+  --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* Kurumsal tasarım sistemi (2026-09) */
+  --color-navy-50: #eef0fb;
+  --color-navy-100: #dfe2f7;
+  --color-navy-300: #9aa1e3;
+  --color-navy-600: #171b99;
+  --color-navy-700: #12157c;
+  --color-navy-900: #0b0e44;
+  --color-navy-950: #060822;
+  --color-corp-ink: #0f1430;
+  --color-corp-body: #4b5168;
+  --color-corp-muted: #737a8f;
+  --color-corp-line: #e2e5ee;
+  --color-corp-surface: #f5f6f9;
+  --color-success: #12805c;
+}
+
+html {
+  overflow-x: clip;
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+/* Tailwind v4 utilities bir cascade layer'ında olduğu için katmansız `a { color }` kuralı tüm text-* sınıflarını eziyordu. */
+@layer base {
+  a {
+    color: inherit;
+  }
+}
+
+::selection {
+  background: var(--color-navy-600);
+  color: #fff;
+}

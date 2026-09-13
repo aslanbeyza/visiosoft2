@@ -1,0 +1,27 @@
+{
+  "fps": 24,
+  "xfade": 0.5,
+  "total": 10.167,
+  "paidAtInGate": 1.0,
+  "posApprovedAtInGate": 0.6,
+  "segments": [
+    {
+      "name": "alpr",
+      "xfadeStart": 0.0,
+      "fullyIn": 0.0,
+      "duration": 5.625
+    },
+    {
+      "name": "gate",
+      "xfadeStart": 5.125,
+      "fullyIn": 5.625,
+      "duration": 5.042
+    },
+    {
+      "name": "loop",
+      "xfadeStart": 9.667,
+      "fullyIn": 10.167,
+      "duration": 0.5
+    }
+  ]
+}

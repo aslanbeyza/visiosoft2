@@ -1,0 +1,250 @@
+.section {
+  --gutter: max(1rem, calc((100% - 80rem) / 2));
+
+  position: relative;
+  overflow: clip;
+  padding-block: clamp(4rem, 7vw, 6.5rem);
+  background: var(--color-corp-surface);
+  color: var(--color-corp-ink);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  width: min(80rem, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.arrows {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.arrowButton {
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  padding: 0;
+  border: 1px solid #cdd2de;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  cursor: pointer;
+  transition:
+    border-color 0.3s var(--ease-apple),
+    color 0.3s var(--ease-apple),
+    opacity 0.3s var(--ease-apple);
+}
+
+.arrowButton:hover:not(:disabled) {
+  border-color: var(--color-navy-600);
+  color: var(--color-navy-600);
+}
+
+.arrowButton:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.arrowButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.arrowIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+/* Şerit, başlıkla aynı hizadan başlar ve ekranın sağ kenarına kadar taşar. */
+.rail {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  margin: 0;
+  padding: 0.5rem var(--gutter) 1rem;
+  list-style: none;
+}
+
+.item {
+  flex: none;
+  width: min(78vw, 19rem);
+  scroll-snap-align: start;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 0.35s var(--ease-apple),
+    border-color 0.35s var(--ease-apple);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.stage {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  background: #eef0f5;
+}
+
+.reveal {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.image,
+.illustration {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.6s var(--ease-apple);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.25rem 1.25rem 1.35rem;
+}
+
+.tag {
+  color: var(--color-navy-600);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.name {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  transition: color 0.35s var(--ease-apple);
+}
+
+.desc {
+  flex: 1;
+  color: var(--color-corp-body);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  color: var(--color-navy-600);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.more .arrowIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.card:hover {
+  border-color: var(--color-navy-600);
+  transform: translateY(-4px);
+}
+
+.card:hover .image,
+.card:hover .illustration {
+  transform: scale(1.04);
+}
+
+.card:hover .name {
+  color: var(--color-navy-600);
+}
+
+.card:hover .more .arrowIcon {
+  transform: translateX(3px);
+}
+
+@media (min-width: 768px) {
+  .section {
+    --gutter: max(1.5rem, calc((100% - 80rem) / 2));
+  }
+
+  .header {
+    width: min(80rem, calc(100% - 3rem));
+  }
+
+  .track {
+    gap: 1.25rem;
+  }
+
+  .item {
+    width: clamp(18rem, 30vw, 22rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrowButton,
+  .arrowIcon,
+  .card,
+  .image,
+  .illustration,
+  .name {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:hover .image,
+  .card:hover .illustration,
+  .card:hover .more .arrowIcon {
+    transform: none;
+  }
+}

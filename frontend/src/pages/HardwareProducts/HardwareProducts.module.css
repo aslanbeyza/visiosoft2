@@ -1,0 +1,314 @@
+.page {
+  width: min(80rem, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 8rem 0 5rem;
+  display: grid;
+  gap: 2.5rem;
+}
+
+.heroWrap {
+  width: 100%;
+}
+
+.heroCard {
+  border: 1px solid #e6ebf2;
+  border-radius: 2.25rem;
+  background: #fff;
+  padding: 1.5rem;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.06);
+}
+
+.heroGrid {
+  display: grid;
+  gap: 2rem;
+}
+
+.heroCopy {
+  border-radius: 1.75rem;
+  background: #f7f9fc;
+  padding: 1.75rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #6b7280;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.eyebrowLine {
+  width: 2.5rem;
+  height: 1px;
+  background: #3b82f6;
+}
+
+.heroCopy h1 {
+  max-width: 11ch;
+  margin: 1.25rem 0 0;
+  color: #111827;
+  font-size: clamp(2.35rem, 5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.heroCopy p {
+  max-width: 34rem;
+  margin: 1.25rem 0 0;
+  color: #5f6470;
+  font-size: 1.05rem;
+  line-height: 2;
+}
+
+.points {
+  display: grid;
+  gap: 1rem;
+}
+
+.point {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #e9edf4;
+  border-radius: 1.6rem;
+  background: #fbfcfe;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+}
+
+.pointNum {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: #eef4ff;
+  color: #2563eb;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.point h2 {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(1.12rem, 2vw, 1.28rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.point p {
+  margin: 0.5rem 0 0;
+  color: #5f6470;
+  font-size: 0.97rem;
+  line-height: 1.75;
+}
+
+.nav {
+  position: sticky;
+  top: 5.75rem;
+  z-index: 40;
+}
+
+.navScroll {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.navScroll a {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.7rem;
+  background: #fff;
+  color: #374151;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+
+.navScroll a:hover {
+  background: #f9fafb;
+}
+
+.catalogHead {
+  max-width: 48rem;
+}
+
+.catalogHead h2 {
+  margin: 1rem 0 0;
+  color: #111827;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.catalogHead p {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  color: #5f6470;
+  font-size: 1rem;
+  line-height: 2;
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e7ebf2;
+  border-radius: 1.75rem;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.05);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.1);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.tag {
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: #eef4ff;
+  color: #3557d6;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cardNum {
+  color: #98a2b3;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cardImage {
+  display: flex;
+  min-height: 13.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #fff;
+}
+
+.cardImage img {
+  max-width: 100%;
+  max-height: 11.25rem;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.card:hover img {
+  transform: scale(1.03);
+}
+
+.cardBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.cardBody h3 {
+  margin: 0;
+  color: #111827;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.cardBody p {
+  margin: 0.75rem 0 0;
+  color: #5f6470;
+  font-size: 0.96rem;
+  line-height: 1.75;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .navScroll {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .heroCard {
+    padding: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .navScroll {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .navScroll a {
+    min-height: 0;
+    justify-content: flex-start;
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .heroCard {
+    padding: 3rem;
+  }
+
+  .heroGrid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: start;
+    gap: 3rem;
+  }
+
+  .heroCopy {
+    padding: 2.5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

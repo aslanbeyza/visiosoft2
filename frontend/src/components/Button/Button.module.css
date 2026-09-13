@@ -1,0 +1,102 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.9rem;
+  padding: 0 1.35rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  background: var(--color-navy-600);
+  color: #fff !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.button:hover {
+  background: var(--color-navy-700);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.lg {
+  min-height: 3.25rem;
+  padding: 0 1.6rem;
+  font-size: 1rem;
+}
+
+.primary {
+  background: var(--color-navy-600);
+}
+
+.secondary {
+  border-color: #cdd2de;
+  background: #fff;
+  color: var(--color-corp-ink) !important;
+}
+
+.secondary:hover {
+  border-color: var(--color-navy-600);
+  background: #fff;
+  color: var(--color-navy-600) !important;
+}
+
+.light {
+  background: #fff;
+  color: var(--color-navy-900) !important;
+}
+
+.light:hover {
+  background: var(--color-navy-50);
+}
+
+.outlineLight {
+  border-color: rgb(255 255 255 / 0.35);
+  background: transparent;
+  color: #fff !important;
+}
+
+.outlineLight:hover {
+  border-color: rgb(255 255 255 / 0.65);
+  background: rgb(255 255 255 / 0.08);
+}
+
+.light:focus-visible,
+.outlineLight:focus-visible {
+  outline-color: #fff;
+}
+
+.arrow {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.25s var(--ease-apple);
+}
+
+.button:hover .arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .arrow {
+    transition: none;
+  }
+}

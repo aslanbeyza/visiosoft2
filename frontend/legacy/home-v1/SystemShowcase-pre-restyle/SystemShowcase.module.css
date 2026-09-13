@@ -1,0 +1,601 @@
+.section {
+  --navy: #171b99;
+  --navy-deep: #10136b;
+  --ink: #10142e;
+  --muted: #555b70;
+  --line: #dde1e9;
+  --success: #12805c;
+
+  padding: 3.5rem 0 4.5rem;
+  background: #f4f5f7;
+  color: var(--ink);
+  /* Sabit navbar bölüm başlığının üzerine binmesin. */
+  scroll-margin-top: 5.5rem;
+}
+
+.wrap {
+  display: grid;
+  grid-template-areas:
+    'scene'
+    'copy'
+    'features';
+  gap: 2rem;
+  width: min(80rem, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+/* Metin */
+
+.copy {
+  grid-area: copy;
+  max-width: 36rem;
+}
+
+.kicker {
+  margin: 0 0 1rem;
+  color: var(--navy);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(2rem, 2.6vw + 1.1rem, 3.35rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 1.25rem 0 0;
+  color: var(--muted);
+  font-size: 1.075rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3rem;
+  padding: 0 1.35rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.primary {
+  background: var(--navy);
+  color: #fff;
+}
+
+.primary:hover {
+  background: var(--navy-deep);
+}
+
+.secondary {
+  border: 1px solid #c8cedb;
+  background: #fff;
+  color: var(--ink);
+}
+
+.secondary:hover {
+  border-color: var(--navy);
+  color: var(--navy);
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.primary:hover .arrow {
+  transform: translateX(3px);
+}
+
+.primary:focus-visible,
+.secondary:focus-visible,
+.cardLink:focus-visible,
+.hotspotButton:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 3px;
+}
+
+/* Sahne */
+
+.sceneColumn {
+  grid-area: scene;
+  width: 100%;
+  min-width: 0;
+}
+
+.scene {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 0.75rem 0.75rem 0 0;
+  background: #c9ced6;
+  container-type: size;
+}
+
+/*
+ * Sahne katmanı sabit orana sahiptir (fotoğrafla aynı); kutuyu "cover" mantığıyla doldurur.
+ * Böylece kiosk, gölge ve bilgi noktaları her ekran oranında fotoğraftaki yerinde kalır.
+ */
+.stage {
+  --stage-ratio: calc(1280 / 1016);
+  --focus-x: 0;
+  --focus-y: 0.45;
+
+  position: absolute;
+  top: calc((100cqh - max(100cqh, 100cqw / var(--stage-ratio))) * var(--focus-y));
+  left: calc((100cqw - max(100cqw, 100cqh * var(--stage-ratio))) * var(--focus-x));
+  width: max(100cqw, 100cqh * var(--stage-ratio));
+  height: max(100cqh, 100cqw / var(--stage-ratio));
+  transform-origin: 25% 60%;
+}
+
+.fieldPhoto {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Fotoğraf ~1,8 m yükseklikten çekildi: 1,8 m'lik kioskun üst kenarı ufuk çizgisine denk gelir. */
+.kiosk {
+  position: absolute;
+  top: 22.24%;
+  left: 11.33%;
+  display: block;
+  width: 13.53%;
+  height: 64.37%;
+}
+
+/* Kapalı havada yumuşak temas gölgesi. */
+.kioskShadow {
+  position: absolute;
+  top: 82.6%;
+  left: 9.3%;
+  width: 16.8%;
+  height: 4%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(18 22 30 / 0.52), rgb(18 22 30 / 0.24) 55%, rgb(18 22 30 / 0) 100%);
+}
+
+.status {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 0.375rem;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.statusDot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 3px rgb(18 128 92 / 0.16);
+}
+
+/* Bilgi noktaları (masaüstü) */
+
+.hotspot {
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  height: 0;
+}
+
+.hotspot[data-open='true'] {
+  z-index: 3;
+}
+
+.hotspotButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  translate: -50% -50%;
+}
+
+.hotspotDot {
+  position: relative;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgb(16 20 46 / 0.2),
+    0 2px 6px rgb(16 20 46 / 0.35);
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.hotspotDot::after {
+  content: '';
+  position: absolute;
+  inset: 0.28rem;
+  border-radius: 50%;
+  background: var(--navy);
+  transition: background-color 0.25s ease;
+}
+
+/* İşlem akışında sırası gelen nokta: sakin bir halka. */
+.hotspotDot::before {
+  content: '';
+  position: absolute;
+  inset: -0.42rem;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5px rgb(255 255 255 / 0.9);
+  opacity: 0;
+  transform: scale(0.7);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.hotspot[data-current='true'] .hotspotDot::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hotspotButton:hover .hotspotDot {
+  transform: scale(1.15);
+}
+
+.hotspot[data-open='true'] .hotspotDot {
+  background: var(--navy);
+}
+
+.hotspot[data-open='true'] .hotspotDot::after {
+  background: #fff;
+}
+
+.hotspotCard {
+  position: absolute;
+  width: min(16rem, 62cqw);
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 18px 40px -18px rgb(16 20 46 / 0.45);
+}
+
+.hotspot[data-placement='right'] .hotspotCard {
+  top: -1.1rem;
+  left: 1.6rem;
+}
+
+.hotspot[data-placement='bottom'] .hotspotCard {
+  top: 1.6rem;
+  left: 0;
+  translate: -50% 0;
+}
+
+/* Bilgi noktaları (mobil): listedeki kartlarla aynı numara */
+
+.marker {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--navy);
+  font-size: 0.68rem;
+  font-weight: 700;
+  box-shadow:
+    0 0 0 1px rgb(16 20 46 / 0.18),
+    0 2px 6px rgb(16 20 46 / 0.3);
+  opacity: 0;
+  translate: -50% -50%;
+  transition:
+    opacity 0.45s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.marker[data-revealed='true'] {
+  opacity: 1;
+}
+
+.marker[data-current='true'] {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* Kart içeriği (bilgi noktası kartı ve mobil liste) */
+
+.cardIndex {
+  color: var(--navy);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cardTitle {
+  margin: 0.3rem 0 0;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.cardText {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.cardLink {
+  display: inline-block;
+  margin-top: 0.7rem;
+  color: var(--navy);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* İşlem akışı */
+
+.flow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1rem;
+  margin: 0;
+  padding: 0.95rem 1rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0 0 0.75rem 0.75rem;
+  background: #fff;
+  list-style: none;
+}
+
+.flowStep {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  padding-top: 0.8rem;
+}
+
+/* Adım çizgisi: aktif adımda lacivert dolar, tamamlanınca yeşile döner. */
+.flowStep::before,
+.flowStep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.flowStep::before {
+  right: 0;
+  background: #e4e7ee;
+}
+
+.flowStep::after {
+  width: 0;
+  background: var(--navy);
+}
+
+.flowStep[data-state='active']::after {
+  width: 100%;
+  transition: width var(--flow-step, 1.8s) linear;
+}
+
+.flowStep[data-state='done']::after {
+  width: 100%;
+  background: var(--success);
+  transition: background-color 0.3s ease;
+}
+
+.flowMarker {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 1.5px solid #c3c8d4;
+  border-radius: 50%;
+  background: #fff;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.flowCheck {
+  width: 0.7rem;
+  height: 0.7rem;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.flowStep[data-state='active'] .flowMarker {
+  border-color: var(--navy);
+  background: var(--navy);
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+.flowStep[data-state='done'] .flowMarker {
+  border-color: var(--success);
+  background: var(--success);
+}
+
+.flowStep[data-state='done'] .flowCheck {
+  opacity: 1;
+}
+
+.flowLabel {
+  overflow: hidden;
+  color: #858b9b;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.25;
+  transition: color 0.3s ease;
+}
+
+.flowStep[data-state='active'] .flowLabel,
+.flowStep[data-state='done'] .flowLabel {
+  color: var(--ink);
+}
+
+.flowStep[data-state='active'] .flowLabel {
+  font-weight: 600;
+}
+
+/* Mobil özellik listesi */
+
+.featureList {
+  display: grid;
+  grid-area: features;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.featureItem {
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .sceneColumn {
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+
+  .scene {
+    aspect-ratio: 5 / 4;
+  }
+
+  .flow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .featureList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    display: flex;
+    align-items: center;
+    min-height: 88svh;
+    padding: 7rem 0 4.5rem;
+  }
+
+  .wrap {
+    grid-template-areas: 'copy scene';
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    align-items: center;
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .sceneColumn {
+    max-width: none;
+    margin: 0;
+  }
+
+  .scene {
+    aspect-ratio: auto;
+    height: clamp(28rem, calc(88svh - 15rem), 44rem);
+  }
+
+  .featureList {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow,
+  .hotspotDot,
+  .hotspotDot::before,
+  .marker,
+  .flowStep::after,
+  .flowMarker,
+  .flowCheck,
+  .flowLabel {
+    transition: none !important;
+  }
+
+  .marker {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,91 @@
+.page {
+  min-height: 100svh;
+  padding: 8.5rem 1.25rem 6rem;
+  background: #f5f5f7;
+}
+
+.hero {
+  width: min(56rem, 100%);
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  letter-spacing: -0.05em;
+}
+
+.hero p {
+  margin: 0 auto;
+  max-width: 36rem;
+  color: #6b7280;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.6;
+}
+
+.grid {
+  width: min(80rem, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 12rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 1.4rem;
+  background: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+.logoWrap {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 6rem;
+}
+
+.logoWrap img {
+  max-width: 100%;
+  max-height: 5rem;
+  object-fit: contain;
+}
+
+.card p {
+  min-height: 2.4rem;
+  margin: 0.6rem 0 0;
+  color: #4b5563;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,176 @@
+.head {
+  display: grid;
+  gap: 1.75rem;
+  align-items: end;
+}
+
+.headAction {
+  justify-self: start;
+}
+
+.steps {
+  --gap: clamp(1.5rem, 3vw, 3rem);
+
+  display: grid;
+  margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  min-width: 0;
+}
+
+.stepInner {
+  --marker: 2.75rem;
+
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--marker) minmax(0, 1fr);
+  column-gap: 1.25rem;
+  height: 100%;
+  padding-bottom: 2.25rem;
+}
+
+.step:last-child .stepInner {
+  padding-bottom: 0;
+}
+
+.marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--marker);
+  height: var(--marker);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background-color 0.45s var(--ease-apple),
+    border-color 0.45s var(--ease-apple),
+    color 0.45s var(--ease-apple);
+}
+
+.stepInner[data-on='true'] .marker {
+  border-color: var(--color-navy-600);
+  background: var(--color-navy-600);
+  color: #fff;
+}
+
+/* Mobil: işaretin altından bir sonraki adıma inen dikey çizgi. */
+.segment {
+  position: absolute;
+  top: calc(var(--marker) + 0.5rem);
+  left: calc(var(--marker) / 2 - 1px);
+  width: 2px;
+  height: calc(100% - var(--marker) - 1rem);
+  overflow: hidden;
+  background: var(--color-corp-line);
+}
+
+.fillX,
+.fillY {
+  position: absolute;
+  inset: 0;
+  background: var(--color-navy-600);
+}
+
+.fillX {
+  display: none;
+  transform-origin: left center;
+}
+
+.fillY {
+  transform-origin: center top;
+}
+
+.body {
+  min-width: 0;
+  padding-top: 0.35rem;
+}
+
+.icon {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-corp-muted);
+  transition: color 0.45s var(--ease-apple);
+}
+
+.stepInner[data-on='true'] .icon {
+  color: var(--color-navy-600);
+}
+
+.title {
+  margin: 0.85rem 0 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.25rem, 0.5vw + 1.1rem, 1.5rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.text {
+  max-width: 26rem;
+  margin: 0.55rem 0 0;
+  color: var(--color-corp-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--gap);
+  }
+
+  .stepInner {
+    display: block;
+    padding-bottom: 0;
+  }
+
+  /* Masaüstü: işaretin sağından bir sonraki adımın işaretine uzanan yatay çizgi. */
+  .segment {
+    top: calc(var(--marker) / 2 - 1px);
+    right: calc(-1 * var(--gap) + 0.75rem);
+    left: calc(var(--marker) + 0.75rem);
+    width: auto;
+    height: 2px;
+  }
+
+  .fillX {
+    display: block;
+  }
+
+  .fillY {
+    display: none;
+  }
+
+  .body {
+    padding-top: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .head {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .headAction {
+    justify-self: end;
+    padding-bottom: 0.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marker,
+  .icon {
+    transition: none;
+  }
+}

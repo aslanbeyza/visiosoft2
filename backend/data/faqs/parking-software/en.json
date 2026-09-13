@@ -1,0 +1,86 @@
+{
+    "meta_description": "Technical parking management FAQ for cloud and on-prem deployments: offline operation, LPR accuracy, backup strategy, compliance, accounting integration, and scalability.",
+    "meta_keywords": "parking software faq, municipal parking management system, license plate recognition system, offline parking system, compliance-ready parking software, accounting integrated parking software, barrier control system",
+    "section_title": "Parking Management System FAQ",
+    "section_intro": "These questions summarize the most critical technical details around hybrid architecture, offline operation, performance, data security, revenue control, and integration.",
+    "question_label": "Question:",
+    "answer_label": "Answer:",
+    "items": [
+        {
+            "question": "Is the system cloud-based, or can it be deployed in a municipal data center?",
+            "answer": "The architecture is hybrid. Central management can run in the cloud, and the full platform can also be deployed on-premise in a municipal data center. Critical data can stay on institutional servers, and data ownership remains with the municipality."
+        },
+        {
+            "question": "Does entry/exit operation stop during an internet outage?",
+            "answer": "No. With the Edge Controller architecture, plate recognition, barrier control, and transition logs continue in offline mode. Accumulated records are synchronized automatically when connectivity returns."
+        },
+        {
+            "question": "How long can the system run during power outages?",
+            "answer": "Standard installations include at least 2 hours of UPS backup. For critical locations, 4-6+ hour capacities can be provided. Depending on load profile, optimized 3 kVA online UPS setups can support longer operation windows."
+        },
+        {
+            "question": "How are backup and disaster recovery implemented?",
+            "answer": "The platform supports daily incremental backups, weekly full backups, and instant snapshots. Backups can be stored in municipal infrastructure or Turkey-based data centers, with optional automatic transfer to the municipality IT unit."
+        },
+        {
+            "question": "Which technical controls are used for data security?",
+            "answer": "Data in transit is protected with SSL/TLS, and data at rest is encrypted at AES-256 level. Access is restricted through role-based permissions and tracked with timestamped audit logs."
+        },
+        {
+            "question": "How many barriers per site and how many parking facilities centrally?",
+            "answer": "Stable operation has been validated in single-site scenarios with 10 active entry/exit barriers. On the central side, simulations and load tests were performed up to 10,000 parking facilities."
+        },
+        {
+            "question": "What is the barrier command latency and high-traffic performance?",
+            "answer": "Barrier commands are processed at millisecond-level latency. Edge processing, queue management, and load balancing reduce central dependency during peak traffic, with support for at least 25 FPS processing."
+        },
+        {
+            "question": "What is the LPR (license plate recognition) accuracy level?",
+            "answer": "In field conditions, Turkish plates target 98%+ accuracy and can reach up to 99.8% with correct camera configuration. Foreign plate recognition performance is typically 90%+."
+        },
+        {
+            "question": "Is plate recognition reliable at night?",
+            "answer": "Yes. IR-assisted night vision, anti-glare optics, and correct field positioning provide strong low-light performance. Optional dual-camera validation further reduces error rates."
+        },
+        {
+            "question": "What are the concurrent user and vehicle capacities?",
+            "answer": "Single-site scenarios with 100,000+ active vehicle records have been tested. The platform runs on clustered architecture; user limits are not hard-coded and scale with server resources."
+        },
+        {
+            "question": "Can debt, subscription, and blacklist checks work without internet?",
+            "answer": "Yes. Field transactions are stored in the local database, and debt/subscription/blacklist checks continue offline. Once connection is restored, data reconciliation runs automatically."
+        },
+        {
+            "question": "Can existing plate debt records be migrated to the new system?",
+            "answer": "Yes. Migration is supported via CSV, Excel, or API. The process includes validation, duplicate detection, format standardization, and data cleansing."
+        },
+        {
+            "question": "Is it compatible with existing barriers, turnstiles, and cameras?",
+            "answer": "Yes. The open protocol approach supports dry contact, RS485/TCP-IP, ONVIF, and RTSP-based integrations. A pre-install inventory analysis is performed and a compatibility report is prepared."
+        },
+        {
+            "question": "How does the licensing and update model work?",
+            "answer": "The commercial model is finalized contractually per project. A perpetual one-time licensing approach can be combined with maintenance/support coverage, while committed core updates are managed under the agreed scope."
+        },
+        {
+            "question": "How detailed are revenue and payment reports?",
+            "answer": "Daily, monthly, yearly, and custom date-range reports are available with parking-lot and staff breakdowns. Cash, card, QR, mobile, and subscription collections are tracked separately and exported as PDF, Excel, or CSV."
+        },
+        {
+            "question": "What integration options are available for accounting systems?",
+            "answer": "REST API is the primary method. SOAP/web services and file-based integrations (JSON/XML/CSV) are also supported when required. Daily batch transfer, real-time transaction transfer, and bi-directional reconciliation can be implemented."
+        },
+        {
+            "question": "How are revenue leakage and unauthorized exits detected?",
+            "answer": "Entry-exit plate matching, manual barrier-open logs, camera-transaction matching, and suspicious transaction reports run together. Immutable logs provide full retrospective auditability."
+        },
+        {
+            "question": "How are compliance, data ownership, and retention handled?",
+            "answer": "Data ownership belongs to the relevant institution. Operations are designed for KVKK-aligned compliance processes, and retention rules are configured by policy and regulation. At end-of-retention, deletion/anonymization/destruction actions are logged."
+        },
+        {
+            "question": "What is the support and scaling approach in production?",
+            "answer": "For software incidents, 24/7 remote support is provided with priority handling for critical cases. The modular architecture enables stepwise expansion by adding parking sites, cameras, barriers, and server resources."
+        }
+    ]
+}

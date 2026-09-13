@@ -1,0 +1,35 @@
+{
+  "name": "visiosoft-backend",
+  "version": "1.0.0",
+  "description": "VisioSoft backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node seed.js",
+    "migrate": "node db/migrate.js",
+    "jobs": "node scripts/process-jobs.js",
+    "traffic:prune": "node scripts/prune-traffic.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-pg-simple": "^10.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.11",
+    "nodemailer": "^10.0.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "pg": "^8.23.0",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^14.0.2"
+  }
+}

@@ -1,0 +1,135 @@
+{
+    "page_title": "Field User Manual | Visiosoft",
+    "meta_description": "User manual explaining technical installation, field operations, critical precautions, daily usage, maintenance, and support processes for parking systems in a corporate and clear language.",
+    "document_type": "TECHNICAL INSTALLATION AND USER HANDBOOK",
+    "title": "Parking System Field User Manual and Operational Guidelines",
+    "subtitle": "This document is prepared to present required field actions, critical technical criteria, and daily operational approach in a clear and professional format that is easy for all teams to follow.",
+    "version_label": "Version",
+    "version": "3.1",
+    "publish_date_label": "Publication Date",
+    "publish_date": "03.04.2025",
+    "print_button": "Print",
+    "download_pdf_button": "Download PDF",
+    "pdf_loading_button": "Preparing PDF...",
+    "pdf_error_message": "Server-side PDF generation failed. Please review the technical details below.",
+    "pdf_error_title": "PDF could not be generated",
+    "pdf_error_detail_label": "Error Detail",
+    "pdf_error_diagnostics_label": "Component Diagnostics",
+    "pdf_error_empty_diagnostics": "No component diagnostics output was found.",
+    "pdf_filename": "field-user-manual-v3-1",
+    "toc_title": "Contents",
+    "overview_title": "Document Scope",
+    "overview": "This manual covers the process end-to-end, from system components to installation and commissioning, mounting criteria, daily operational flow, maintenance planning, technical parameters, and warranty/support governance. The content is prepared according to general operational principles without customer-specific information, and serves as a shared reference for field teams, operations managers, and audit units.",
+    "status_panel_title": "Information, Warning, and Alert Guide",
+    "status_info_label": "Information",
+    "status_info_text": "Green areas show standard process flow and operational information notes.",
+    "status_warning_label": "Warning",
+    "status_warning_text": "Yellow areas indicate control items that require attention and operational risks.",
+    "status_alert_label": "Alert",
+    "status_alert_text": "Red areas highlight critical violations, safety risks, or situations requiring urgent intervention.",
+    "simple_points_title": "Simple Bullet Summary",
+    "paragraphs_title": "Corporate Explanation",
+    "info_notes_title": "Information Notes",
+    "steps_title": "Implementation Steps",
+    "checklist_title": "Checklist",
+    "specs_title": "Technical Specifications",
+    "specs_key_label": "Specification",
+    "specs_value_label": "Value",
+    "warning_notes_title": "Warnings",
+    "alert_notes_title": "Alerts",
+    "warnings_title": "Important Precautions",
+    "empty_section_message": "No content found for this section.",
+    "footer_note": "This document is prepared for general operational use. It does not contain customer-specific data or institution-specific information.",
+    "sections": [
+        {
+            "title": "System Components",
+            "summary": "For successful field installation and uninterrupted operation, the physical and functional integrity of all system components must be verified before deployment.",
+            "paragraphs": [
+                "The system architecture consists of kiosk hardware, barrier infrastructure, camera units, LED/advertising panel components, and rack cabinet units, designed to manage field and central operations together. Each component is important on its own, but real performance is achieved when all parts run together with the correct configuration.",
+                "On the kiosk side, the setup includes an Android display, POS device, fuse panel, converter, speaker, Type-C charging unit, and cable infrastructure. On the barrier side, photocell sensor, barrier arm, strip band, and impact sleeve form the core of safe vehicle transition. On the LED and advertising panel side, 32x64 LED module and mini PC components support information display and visual management needs.",
+                "The camera unit should be evaluated as a whole with motorized camera, metal housing, and appropriate pole structure. Inside the rack cabinet, Jetson Nano, PoE switch, IO card, fuse units, and optionally UPS with 4G modem play a central role in system decision flow and field control processes.",
+                "Before installation, field teams must complete checks for part completeness, power compatibility, communication continuity, and cabling integrity. Incomplete checks can delay commissioning and reduce long-term operational quality."
+            ]
+        },
+        {
+            "title": "Installation and Commissioning",
+            "summary": "Installation is not only hardware assembly; it is a holistic process that must include secure commissioning, network definitions, and test validation.",
+            "paragraphs": [
+                "At installation start, it is recommended to mount the display while it is powered on with sufficient charge level. This approach reduces post-mount boot delays and minimizes time loss during field testing. Applying liquid sealant to connection points for all outdoor equipment creates the first defense layer against environmental effects.",
+                "Correctly delivering power and internet lines to the rack cabinet is a critical step for both local and central communication accuracy. After network infrastructure is ready, IP assignments must be completed, camera units should be registered in the system, and data flow must be verified end-to-end.",
+                "During commissioning, the virtual reading zone must be designed correctly and pass-through tests should be executed with real field scenarios. Tests should monitor entry/exit detection, plate reading behavior, barrier command response, and log consistency together.",
+                "Field acceptance should be considered complete not only when devices are running, but when the system manages expected operational scenarios without error. Therefore, test results must be recorded, and corrective actions must be closed before live operation starts."
+            ]
+        },
+        {
+            "title": "Camera and Barrier Mounting Criteria",
+            "summary": "To ensure plate recognition success and safe barrier management, physical mounting criteria must be applied according to standard reference values.",
+            "paragraphs": [
+                "The reference camera mounting height is 1.40 meters. This height balances plate visibility and viewing angle, providing more consistent recognition performance for different vehicle types. Camera angle should be positioned to reduce glare and opposing light impact.",
+                "For barrier infrastructure, a concrete base height of at least 20 centimeters is a fundamental requirement for mechanical stability and long-term durability. Insufficient base implementation can lead to vibration-related alignment issues and mechanical stress during operation.",
+                "Photocell sensor alignment is a critical point for barrier safety. Even small deviations in sensor line can cause false triggers, unnecessary waiting, or transition safety risks. Therefore, alignment must be retested and validated under different speed and approach scenarios.",
+                "Mounting accuracy affects not only first-day performance but also stability between maintenance intervals. For this reason, camera and barrier mounting criteria should be treated as an essential quality item in field delivery."
+            ]
+        },
+        {
+            "title": "Daily Usage and Operational Flow",
+            "summary": "The goal of daily operation is to preserve automatic system behavior and ensure continuity through controlled manual intervention when needed.",
+            "paragraphs": [
+                "At shift start, verifying power and internet connectivity is the primary control step. This short check enables early detection of possible interruptions and reduces operational risk during the day.",
+                "In normal scenarios, vehicle plates are read automatically at entry and barriers are managed automatically according to authorization status. To preserve uninterrupted flow, operator panel usage should remain a manual intervention tool only for exception cases.",
+                "When manual action is required, every operator intervention must remain traceable in system records. Logging discipline provides corporate transparency for both audits and later technical analysis.",
+                "Daily operations should be built on fast transition, low wait time, and traceable transaction logic. This protects user experience while maintaining consistent revenue and security control."
+            ]
+        },
+        {
+            "title": "Periodic Maintenance and Sustainability",
+            "summary": "Periodic maintenance is the corporate application of preventive operation, focusing on preventing failures instead of reacting after failure occurs.",
+            "paragraphs": [
+                "In monthly maintenance cycles, physical cleaning, alignment, and functional checks of camera and sensor components must be performed. Because outdoor conditions can quickly reduce performance due to dirt, vibration, or environmental effects, this step is treated as critical.",
+                "In three-month cycles, rack cabinet connections, power continuity, and network lines should be reviewed in detail. Early detection of looseness, contact loss, or cabinet heat-related weaknesses helps prevent major interruptions.",
+                "In annual maintenance, overall system performance tests should be executed by evaluating plate recognition accuracy, barrier response behavior, transaction log integrity, and general operational capacity together. This test also feeds the next-cycle improvement plan.",
+                "Maintenance activities should be recorded with date, responsible team, and completed actions. A corporate maintenance history is a strong reference for quality management as well as warranty/replacement processes."
+            ]
+        },
+        {
+            "title": "System Technical Specifications",
+            "summary": "Core technical parameters to be referenced in the field are provided below; these values should be used as standard acceptance criteria during installation and audit.",
+            "paragraphs": [
+                "Technical values are defined to maintain a common quality level across different sites and to ground installation decisions on measurable criteria. Energy, network, and physical mounting parameters directly influence operational reliability.",
+                "Parameters in the table should be used as control items in field verification forms; measurements after installation or maintenance should be compared against these values to confirm compliance."
+            ],
+            "specs": [
+                {
+                    "label": "Operating Voltage",
+                    "value": "220V AC"
+                },
+                {
+                    "label": "Network Connection",
+                    "value": "Ethernet (Cat6)"
+                },
+                {
+                    "label": "Camera Height",
+                    "value": "1.40 m"
+                },
+                {
+                    "label": "Barrier Concrete Height",
+                    "value": "Minimum 20 cm"
+                },
+                {
+                    "label": "IP Management",
+                    "value": "Static IP"
+                }
+            ]
+        },
+        {
+            "title": "Warranty and Technical Support Processes",
+            "summary": "Warranty and support management progresses faster and more reliably when installation and usage standards are followed together with disciplined records.",
+            "paragraphs": [
+                "Compliance with installation and usage steps defined in this manual is a core criterion in warranty evaluation. Non-standard applications or unauthorized interventions may result in warranty scope reassessment.",
+                "When opening a technical support case, device serial number and site/location information must be shared completely. In addition, symptom description, first occurrence time, and the last action before failure help support teams classify the issue quickly.",
+                "The corporate support approach aims not only to close the current issue but also to define permanent actions that reduce recurrence of similar incidents. Therefore, support records should be analyzed periodically, and improvements should be reflected in maintenance and operation procedures.",
+                "Regular and accurate information flow between field teams and support teams is one of the most critical factors determining total operational quality."
+            ]
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="45" viewBox="0 0 176 45" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">GDPR, ISO 27001 and ISO 9001</title>
+  <desc id="desc">Compliance logo strip with GDPR, ISO 27001 and ISO 9001 badges.</desc>
+
+  <g fill="#6E6E73" font-family="Arial, sans-serif">
+    <text x="10" y="8.3" font-size="7">*</text>
+    <text x="16" y="6.2" font-size="7">*</text>
+    <text x="22" y="5.2" font-size="7">*</text>
+    <text x="28" y="6.2" font-size="7">*</text>
+    <text x="34" y="8.3" font-size="7">*</text>
+    <text x="6.2" y="13.8" font-size="7">*</text>
+    <text x="3.6" y="20.5" font-size="7">*</text>
+    <text x="3.6" y="27.4" font-size="7">*</text>
+    <text x="6.2" y="34.2" font-size="7">*</text>
+    <text x="10" y="39.4" font-size="7">*</text>
+    <text x="16" y="41.2" font-size="7">*</text>
+    <text x="22" y="42.1" font-size="7">*</text>
+    <text x="28" y="41.2" font-size="7">*</text>
+    <text x="34" y="39.4" font-size="7">*</text>
+    <text x="38.8" y="34.2" font-size="7">*</text>
+    <text x="41.4" y="27.4" font-size="7">*</text>
+    <text x="41.4" y="20.5" font-size="7">*</text>
+    <text x="38.8" y="13.8" font-size="7">*</text>
+    <text x="9.8" y="25.8" font-size="12.6" font-weight="700" letter-spacing="0.2">GDPR</text>
+    <text x="44" y="18.4" font-size="6.2" font-weight="700">R</text>
+  </g>
+
+  <g transform="translate(64 0)" stroke="#6E6E73" fill="#6E6E73" font-family="Arial, sans-serif">
+    <path d="M4.5 14.6C7.8 9.1 14.4 7.7 19 10.1C23.6 7.7 30.2 9.1 33.5 14.6" stroke-width="1.2" fill="none"/>
+    <ellipse cx="19" cy="14.6" rx="14.3" ry="5.9" stroke-width="1.2" fill="none"/>
+    <path d="M7.2 14.6H30.8" stroke-width="1.2" fill="none"/>
+    <text x="6.4" y="24.2" font-size="13.2" font-weight="700" stroke="none">ISO</text>
+    <text x="2" y="38" font-size="12.2" font-weight="700" stroke="none">27001</text>
+  </g>
+
+  <g transform="translate(130 0)" stroke="#6E6E73" fill="#6E6E73" font-family="Arial, sans-serif">
+    <path d="M4.5 14.6C7.8 9.1 14.4 7.7 19 10.1C23.6 7.7 30.2 9.1 33.5 14.6" stroke-width="1.2" fill="none"/>
+    <ellipse cx="19" cy="14.6" rx="14.3" ry="5.9" stroke-width="1.2" fill="none"/>
+    <path d="M7.2 14.6H30.8" stroke-width="1.2" fill="none"/>
+    <text x="6.4" y="24.2" font-size="13.2" font-weight="700" stroke="none">ISO</text>
+    <text x="4.2" y="38" font-size="12.2" font-weight="700" stroke="none">9001</text>
+  </g>
+
+</svg>

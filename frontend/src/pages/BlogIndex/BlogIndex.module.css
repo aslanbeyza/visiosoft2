@@ -1,0 +1,36 @@
+.section {
+  padding: 0 0 5rem;
+  background: #f5f5f7;
+}
+
+.grid {
+  width: min(75rem, calc(100% - 2rem));
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background: #fff;
+  text-decoration: none;
+}
+
+.card p,
+.card span {
+  color: #6e6e73;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

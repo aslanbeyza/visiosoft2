@@ -1,0 +1,184 @@
+.layout {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.copy {
+  min-width: 0;
+}
+
+.dimsWrap {
+  margin-top: 2rem;
+}
+
+.dims {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 30rem;
+  margin: 0;
+  border-top: 1px solid var(--color-corp-line);
+  border-bottom: 1px solid var(--color-corp-line);
+}
+
+.dim {
+  padding: 1rem 0.75rem 1rem 0;
+}
+
+.dim + .dim {
+  padding-left: 1rem;
+  border-left: 1px solid var(--color-corp-line);
+}
+
+.dim dt {
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.dim dd {
+  margin: 0.3rem 0 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.05rem, 0.5vw + 0.95rem, 1.3rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.action {
+  margin-top: 2rem;
+}
+
+.buttonIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.frame {
+  overflow: hidden;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+}
+
+.trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 0;
+  background: #fff;
+  cursor: zoom-in;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: -4px;
+  border-radius: 0.75rem;
+}
+
+.imageWrap {
+  display: block;
+}
+
+.picture {
+  display: block;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s var(--ease-apple);
+}
+
+.chip {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.5rem;
+  background: rgb(255 255 255 / 0.95);
+  color: var(--color-corp-ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.35s var(--ease-apple),
+    transform 0.35s var(--ease-apple),
+    border-color 0.35s var(--ease-apple),
+    color 0.35s var(--ease-apple);
+}
+
+.chipIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.trigger:hover .image {
+  transform: scale(1.02);
+}
+
+.trigger:hover .chip,
+.trigger:focus-visible .chip {
+  border-color: var(--color-navy-600);
+  color: var(--color-navy-600);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dokunmatik ekranlarda üzerine gelme olmadığı için ipucu sürekli görünür. */
+@media (hover: none) {
+  .chip {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.note {
+  margin-top: 0.85rem;
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    column-gap: clamp(3rem, 5vw, 5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  .chip {
+    transition: none;
+  }
+
+  .trigger:hover .image {
+    transform: none;
+  }
+}

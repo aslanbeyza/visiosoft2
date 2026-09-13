@@ -1,0 +1,135 @@
+{
+    "page_title": "Saha Kullanım Kılavuzu | Visiosoft",
+    "meta_description": "Otopark sistemi için teknik kurulum, saha operasyonu, kritik dikkat noktaları, günlük kullanım, bakım ve teknik destek süreçlerini kurumsal dilde açıklayan kullanıcı kılavuzu.",
+    "document_type": "TEKNİK KURULUM VE KULLANIM EL KİTABI",
+    "title": "Otopark Sistemi Saha Kullanım Kılavuzu ve Operasyon Yönergeleri",
+    "subtitle": "Bu doküman; sahada yapılması gereken adımları, dikkat edilmesi gereken teknik kriterleri ve günlük işletim yaklaşımını herkesin anlayabileceği açık bir dille, kurumsal standartlarda sunmak amacıyla hazırlanmıştır.",
+    "version_label": "Versiyon",
+    "version": "3.1",
+    "publish_date_label": "Yayın Tarihi",
+    "publish_date": "03.04.2025",
+    "print_button": "Yazdır",
+    "download_pdf_button": "PDF İndir",
+    "pdf_loading_button": "PDF Hazırlanıyor...",
+    "pdf_error_message": "PDF sunucu tarafında oluşturulamadı. Lütfen aşağıdaki teknik detayı kontrol edin.",
+    "pdf_error_title": "PDF oluşturulamadı",
+    "pdf_error_detail_label": "Hata Detayı",
+    "pdf_error_diagnostics_label": "Bileşen Kontrolleri",
+    "pdf_error_empty_diagnostics": "Bileşen kontrol çıktısı bulunamadı.",
+    "pdf_filename": "saha-kullanim-kilavuzu-v3-1",
+    "toc_title": "İçindekiler",
+    "overview_title": "Doküman Kapsamı",
+    "overview": "Bu kılavuz; sistem bileşenlerinden başlayarak kurulum-devreye alma, montaj kriterleri, günlük kullanım akışı, bakım planı, teknik parametreler ile garanti ve destek yönetimini uçtan uca ele alır. İçerik, müşteriye özel bilgi içermeden genel kullanım prensiplerine göre hazırlanmış olup sahadaki teknik ekipler, operasyon sorumluları ve denetim birimleri için ortak referans doküman niteliğindedir.",
+    "status_panel_title": "Bilgilendirme, Uyarı ve İkaz Rehberi",
+    "status_info_label": "Bilgilendirme",
+    "status_info_text": "Yeşil alanlar standart işlem akışını ve operasyonel bilgilendirme notlarını gösterir.",
+    "status_warning_label": "Uyarı",
+    "status_warning_text": "Sarı alanlar dikkat edilmesi gereken kontrol maddelerini ve operasyonel riskleri belirtir.",
+    "status_alert_label": "İkaz",
+    "status_alert_text": "Kırmızı alanlar kritik ihlal, güvenlik riski veya acil müdahale gerektiren durumları vurgular.",
+    "simple_points_title": "Basit Madde Özeti",
+    "paragraphs_title": "Kurumsal Açıklama",
+    "info_notes_title": "Bilgilendirme Notları",
+    "steps_title": "Uygulama Adımları",
+    "checklist_title": "Kontrol Listesi",
+    "specs_title": "Teknik Özellikler",
+    "specs_key_label": "Özellik",
+    "specs_value_label": "Değer",
+    "warning_notes_title": "Uyarılar",
+    "alert_notes_title": "İkazlar",
+    "warnings_title": "Dikkat Edilmesi Gerekenler",
+    "empty_section_message": "Bu bölüm için içerik bulunamadı.",
+    "footer_note": "Bu doküman genel kullanım amaçlı hazırlanmıştır. Müşteriye özel veri veya kurum bilgisi içermez.",
+    "sections": [
+        {
+            "title": "Sistem Bileşenleri",
+            "summary": "Sahada başarılı bir kurulum ve kesintisiz işletim için sistem bileşenlerinin hem fiziksel hem de fonksiyonel bütünlüğü kurulum öncesinde doğrulanmalıdır.",
+            "paragraphs": [
+                "Sistem mimarisi; saha ile merkez arasındaki operasyonu birlikte yönetecek şekilde kiosk donanımı, bariyer altyapısı, kamera birimleri, LED/reklam paneli ve rack kabin bileşenlerinden oluşur. Bu bileşenlerin her biri tek başına önemli olmakla birlikte asıl performans, tüm parçaların birlikte ve doğru konfigürasyonla çalışmasıyla elde edilir.",
+                "Kiosk tarafında Android ekran, POS cihazı, sigorta paneli, dönüştürücü, hoparlör, Type-C şarj ünitesi ve kablo tesisatı bulunur. Bariyer tarafında fotosel sensör, bariyer kolu, şerit bant ve darbe kılıfı güvenli geçişin temel unsurlarıdır. LED ve reklam paneli tarafında 32x64 LED modül ve mini PC bileşenleri bilgilendirme ile görsel yönetim ihtiyaçlarını karşılar.",
+                "Kamera biriminde motorize kamera, metal muhafaza ve uygun direk yapısı bir arada değerlendirilmelidir. Rack kabin içinde yer alan Jetson Nano, PoE switch, IO kart, sigorta birimleri ve ihtiyaç halinde UPS ile 4G modem, sistemin karar alma ve saha kontrol süreçlerinde merkez rol üstlenir.",
+                "Saha ekibi kurulumdan önce parça tamlık, enerji uyumu, haberleşme sürekliliği ve kablolama bütünlüğü kontrollerini tamamlamalıdır. Bu kontrollerin eksik yapılması, devreye alma sürecinde gecikme yaratabileceği gibi uzun vadeli operasyon kalitesini de olumsuz etkileyebilir."
+            ]
+        },
+        {
+            "title": "Kurulum ve Devreye Alma",
+            "summary": "Kurulum süreci, yalnızca donanım montajı değil; güvenli devreye alma, ağ tanımları ve test doğrulamasıyla birlikte ele alınması gereken bütüncül bir operasyondur.",
+            "paragraphs": [
+                "Kurulum başlangıcında ekranın yeterli şarj seviyesinde açık durumda monte edilmesi önerilir. Bu yaklaşım, montaj sonrası ilk açılış gecikmelerini ve saha testindeki zaman kayıplarını azaltır. Dış ortamda çalışan tüm ekipmanlar için birleşim noktalarına sıvı conta uygulanması, çevresel etkilere karşı ilk savunma katmanını oluşturur.",
+                "Rack kabine enerji ve internet hattının doğru şekilde alınması, sistemin hem yerel hem merkezi haberleşme doğruluğu açısından kritik adımdır. Ağ altyapısı hazırlandıktan sonra IP atamaları yapılmalı, kamera birimleri sisteme tanımlanmalı ve veri akışı uçtan uca kontrol edilmelidir.",
+                "Devreye alma aşamasında sanal okuma alanı doğru kurgulanmalı ve gerçek saha senaryosu ile test geçişleri gerçekleştirilmelidir. Testlerde giriş-çıkış tespiti, plaka okuma davranışı, bariyer komutu ve log tutarlılığı birlikte izlenmelidir.",
+                "Saha kabulü, yalnızca cihazların çalışmasıyla değil; sistemin beklenen operasyonel senaryoları hatasız yönetmesiyle tamamlanmış sayılmalıdır. Bu nedenle test sonuçları kayıt altına alınmalı, varsa düzeltici aksiyonlar kapatılmadan canlı işletime geçilmemelidir."
+            ]
+        },
+        {
+            "title": "Kamera ve Bariyer Montaj Kriterleri",
+            "summary": "Plaka okuma başarısı ve güvenli bariyer yönetimi için fiziksel montaj kriterleri standart değerlere uygun uygulanmalıdır.",
+            "paragraphs": [
+                "Kamera yerleşiminde referans yükseklik 1,40 metredir. Bu yükseklik, plaka görünürlüğü ile görüş açısı dengesini koruyarak farklı araç tiplerinde daha tutarlı okuma performansı sağlar. Kamera açısı belirlenirken parlamayı ve karşıdan gelen ışık etkisini azaltacak konumlandırma tercih edilmelidir.",
+                "Bariyer altyapısında beton yüksekliğinin en az 20 santimetre olması, mekanik stabilite ve uzun dönem dayanıklılık açısından temel gerekliliktir. Yetersiz temel uygulamaları, titreşim kaynaklı hizalama problemlerine ve işletim sırasında mekanik zorlanmalara yol açabilir.",
+                "Fotosel sensör hizalaması bariyer güvenliği açısından kritik noktadır. Sensör hattındaki küçük sapmalar dahi yanlış tetikleme, gereksiz bekleme veya geçiş güvenliği riskleri oluşturabilir. Bu nedenle hizalama sonrası tekrar test uygulanmalı, farklı hız ve yaklaşma senaryolarında sensör davranışı doğrulanmalıdır.",
+                "Montaj doğruluğu yalnızca ilk kurulum performansını değil, bakım periyodları arasındaki istikrarı da doğrudan etkiler. Bu nedenle kamera-bariyer montaj kriterleri saha tesliminin ayrılmaz bir kalite maddesi olarak değerlendirilmelidir."
+            ]
+        },
+        {
+            "title": "Günlük Kullanım ve Operasyon Akışı",
+            "summary": "Günlük kullanım sürecinde amaç; sistemin otomatik davranışlarını koruyarak gerektiğinde kontrollü manuel müdahale ile operasyon sürekliliğini sağlamaktır.",
+            "paragraphs": [
+                "Vardiya başlangıcında enerji ve internet bağlantılarının doğrulanması temel kontrol adımıdır. Bu kısa kontrol, olası kesintilerin erken tespit edilmesini sağlar ve gün içindeki operasyonel riskleri azaltır.",
+                "Normal çalışma senaryosunda araç girişlerinde plaka otomatik okunur ve yetki durumuna göre bariyer otomatik yönetilir. Bu akışın kesintisiz sürmesi için operatör paneli yalnızca istisnai durumlarda manuel müdahale aracı olarak kullanılmalıdır.",
+                "Manuel işlem gerektiğinde operatörün yaptığı her müdahalenin sistem kayıtlarında izlenebilir olması önemlidir. Kayıt disiplini hem denetim hem de sonradan yapılacak teknik analizler açısından kurumsal şeffaflık sağlar.",
+                "Günlük operasyon yaklaşımı; hızlı geçiş, düşük bekleme süresi ve izlenebilir işlem mantığı üzerine kurulmalıdır. Böylece kullanıcı deneyimi korunurken gelir ve güvenlik kontrolleri de tutarlı biçimde sürdürülebilir."
+            ]
+        },
+        {
+            "title": "Periyodik Bakım ve Sürdürülebilirlik",
+            "summary": "Periyodik bakım, sistemin arızaya tepki vermesini beklemek yerine arızayı önleyici yaklaşımın kurumsal uygulamasıdır.",
+            "paragraphs": [
+                "Aylık bakım periyodunda kamera ve sensör bileşenlerinin fiziksel temizlik, hizalama ve fonksiyon kontrolleri yapılmalıdır. Dış ortam koşulları nedeniyle kirlenme, titreşim veya çevresel etkiler kısa sürede performans düşüşüne neden olabileceğinden bu adım kritik kabul edilir.",
+                "Üç aylık periyotta rack kabin içi bağlantılar, enerji sürekliliği ve ağ hatları detaylı gözden geçirilmelidir. Özellikle gevşeme, temas kaybı veya kabin içi ısı kaynaklı zafiyetler erken tespit edildiğinde büyük kesintiler önlenebilir.",
+                "Yıllık bakım kapsamında sistemin genel performans testi uygulanmalı; plaka okuma doğruluğu, bariyer tepki davranışı, işlem log bütünlüğü ve genel operasyon kapasitesi bir arada değerlendirilmelidir. Bu test, bir sonraki dönem için iyileştirme planını da besler.",
+                "Bakım faaliyetleri tarih, sorumlu ekip ve yapılan işlemlerle birlikte kayıt altına alınmalıdır. Kurumsal bakım geçmişi, hem kalite yönetimi hem de garanti/değişim süreçlerinde güçlü referans oluşturur."
+            ]
+        },
+        {
+            "title": "Sistem Teknik Özellikleri",
+            "summary": "Sahada referans alınacak temel teknik parametreler aşağıdaki tabloda sunulmuştur; bu değerler kurulum ve denetim sırasında standart kabul kriteri olarak kullanılmalıdır.",
+            "paragraphs": [
+                "Teknik değerler, farklı sahalarda ortak kalite seviyesini korumak ve kurulum kararlarını ölçülebilir temele oturtmak için belirlenmiştir. Özellikle enerji, ağ ve fiziksel montaj parametreleri operasyon güvenilirliğini doğrudan etkiler.",
+                "Tablodaki parametreler saha doğrulama formlarında kontrol maddesi olarak kullanılmalı; kurulum veya bakım sonrası ölçümler bu değerlerle karşılaştırılarak uygunluk teyidi yapılmalıdır."
+            ],
+            "specs": [
+                {
+                    "label": "Çalışma Voltajı",
+                    "value": "220V AC"
+                },
+                {
+                    "label": "Ağ Bağlantısı",
+                    "value": "Ethernet (Cat6)"
+                },
+                {
+                    "label": "Kamera Yüksekliği",
+                    "value": "1.40 m"
+                },
+                {
+                    "label": "Bariyer Beton Yüksekliği",
+                    "value": "Minimum 20 cm"
+                },
+                {
+                    "label": "IP Yönetimi",
+                    "value": "Statik IP"
+                }
+            ]
+        },
+        {
+            "title": "Garanti ve Teknik Destek Süreçleri",
+            "summary": "Garanti ve teknik destek yönetimi, kurulum-kullanım standartlarına uyum ve doğru kayıt disiplini ile birlikte ele alındığında hızlı ve sağlıklı ilerler.",
+            "paragraphs": [
+                "Kurulum ve kullanım adımlarına dokümanda tanımlandığı şekilde uyulması, garanti değerlendirmelerinde temel kriterdir. Standart dışı uygulamalar veya yetkisiz müdahaleler, garanti kapsamının yeniden değerlendirilmesine neden olabilir.",
+                "Teknik destek talebi açılırken cihaz seri numarası ve saha/lokasyon bilgisinin eksiksiz paylaşılması gerekir. Buna ek olarak arızanın belirtisi, ilk görülme zamanı ve arıza öncesi yapılan son işlem bilgisi destek ekiplerinin sorunu hızla sınıflandırmasını sağlar.",
+                "Kurumsal destek yaklaşımında amaç yalnızca mevcut sorunu kapatmak değil, benzer olayların tekrarını azaltacak kalıcı aksiyonları tanımlamaktır. Bu nedenle destek kayıtları periyodik olarak analiz edilmeli, gerekli iyileştirmeler bakım ve işletim prosedürlerine yansıtılmalıdır.",
+                "Saha ekipleri ile teknik destek ekibi arasındaki düzenli ve doğru bilgi akışı, sistemin toplam işletim kalitesini belirleyen en kritik unsurlardan biridir."
+            ]
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  perspective: 420px;
+}
+
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.55rem;
+}
+
+.center .line {
+  justify-content: center;
+}
+
+.word {
+  display: inline-block;
+  transform-origin: 50% 50% -120px;
+  will-change: transform, opacity;
+}

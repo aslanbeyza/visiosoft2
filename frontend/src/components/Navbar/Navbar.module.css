@@ -1,0 +1,496 @@
+/* İçeriğe geç bağlantısı: yalnızca klavye odağında görünür. */
+.skip {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 70;
+  padding: 0.75rem 1.1rem;
+  border-radius: 0.5rem;
+  background: var(--color-navy-600);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+  transform: translateY(calc(-100% - 1.5rem));
+  transition: transform 0.25s var(--ease-apple);
+}
+
+.skip:focus,
+.skip:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -5px;
+  transform: none;
+}
+
+.header {
+  --nav-height: 4rem;
+  --nav-fg: var(--color-corp-ink);
+  --nav-fg-soft: var(--color-corp-body);
+  --nav-hover: var(--color-navy-600);
+  --nav-accent: var(--color-navy-600);
+  --nav-line: var(--color-corp-line);
+  --nav-focus: var(--color-navy-600);
+  --nav-hover-bg: var(--color-navy-50);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 50;
+  height: var(--nav-height);
+  border-bottom: 1px solid var(--nav-line);
+  background-color: #fff;
+  color: var(--nav-fg);
+  transform: translateY(0);
+  transition:
+    transform 0.45s var(--ease-apple),
+    background-color 0.3s var(--ease-apple),
+    border-color 0.3s var(--ease-apple),
+    color 0.3s var(--ease-apple);
+}
+
+.header[data-theme='hero'] {
+  --nav-fg: #fff;
+  --nav-fg-soft: rgb(255 255 255 / 0.84);
+  --nav-hover: #fff;
+  --nav-accent: #fff;
+  --nav-line: rgb(255 255 255 / 0.14);
+  --nav-focus: #fff;
+  --nav-hover-bg: rgb(255 255 255 / 0.1);
+
+  background-color: transparent;
+}
+
+/* Koyu hero videosu üzerinde okunurluk için çok hafif üst ton. */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: -1.5rem;
+  left: 0;
+  z-index: -1;
+  background: linear-gradient(rgb(6 8 34 / 0.34), rgb(6 8 34 / 0));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-apple);
+}
+
+.header[data-theme='hero']::before {
+  opacity: 1;
+}
+
+/* Kaydırınca beliren yumuşak gölge; box-shadow canlandırılmaz, katmanın opaklığı değişir. */
+.header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-apple);
+}
+
+.header[data-theme='solid'][data-elevated='true']::after {
+  opacity: 1;
+}
+
+.header[data-hidden='true'] {
+  transform: translateY(-100%);
+}
+
+/* Klavye odağı navbar'a gelirse gizli olsa bile görünür olur. */
+.header[data-hidden='true']:focus-within {
+  transform: none;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: min(80rem, calc(100% - 2rem));
+  height: 100%;
+  margin-inline: auto;
+}
+
+.brand {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  margin-inline-start: -0.25rem;
+  padding: 0.25rem;
+  border-radius: 0.375rem;
+  outline: none;
+}
+
+.brand:focus-visible {
+  outline: 2px solid var(--nav-focus);
+  outline-offset: 2px;
+}
+
+.logo {
+  display: block;
+  width: auto;
+  height: 26px;
+  filter: brightness(1) invert(0);
+  transition: filter 0.3s var(--ease-apple);
+}
+
+.header[data-theme='hero'] .logo {
+  filter: brightness(0) invert(1);
+}
+
+/* Masaüstü menü */
+.nav {
+  display: none;
+  flex: 1;
+  align-self: stretch;
+  justify-content: center;
+  min-width: 0;
+}
+
+.list {
+  display: flex;
+  align-items: stretch;
+  gap: 0.125rem;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+}
+
+.trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* Üzerine gelince beliren ince önizleme çizgisi */
+.trigger::after {
+  content: '';
+  position: absolute;
+  right: 0.625rem;
+  bottom: -1px;
+  left: 0.625rem;
+  z-index: 2;
+  height: 2px;
+  background: var(--nav-accent);
+  opacity: 0.3;
+  transform: scaleX(0);
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.item:hover .trigger::after,
+.item[data-open='true'] .trigger::after {
+  transform: scaleX(1);
+}
+
+.item[data-active='true'] .trigger::after {
+  display: none;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  height: 2.5rem;
+  padding-inline: 0.625rem;
+  border-radius: 0.375rem;
+  color: var(--nav-fg-soft);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  white-space: nowrap;
+  text-decoration: none;
+  outline: none;
+  transition: color 0.3s var(--ease-apple);
+}
+
+.item[data-menu='true'] .link {
+  padding-inline-end: 0.125rem;
+}
+
+.item[data-active='true'] .link {
+  color: var(--nav-fg);
+}
+
+.link:hover,
+.item[data-open='true'] .link {
+  color: var(--nav-hover);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--nav-focus);
+  outline-offset: 0;
+}
+
+.chevronButton {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 2.5rem;
+  margin-inline-end: 0.375rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: var(--nav-fg-soft);
+  cursor: pointer;
+  transition: color 0.3s var(--ease-apple);
+}
+
+.chevronButton:hover,
+.item[data-open='true'] .chevronButton {
+  color: var(--nav-hover);
+}
+
+.chevronButton:focus-visible {
+  outline: 2px solid var(--nav-focus);
+  outline-offset: 0;
+}
+
+.chevron {
+  width: 0.95rem;
+  height: 0.95rem;
+  transition: transform 0.3s var(--ease-apple);
+}
+
+.item[data-open='true'] .chevron {
+  transform: rotate(180deg);
+}
+
+/* Etkin sayfa göstergesi: layoutId ile öğeler arasında kayar. */
+.indicator {
+  position: absolute;
+  right: 0.625rem;
+  bottom: -1px;
+  left: 0.625rem;
+  z-index: 2;
+  height: 2px;
+  background: var(--nav-accent);
+}
+
+/* Sağ blok */
+.actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  margin-inline-start: auto;
+}
+
+.textLink {
+  position: relative;
+  display: none;
+  align-items: center;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  color: var(--nav-fg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  white-space: nowrap;
+  text-decoration: none;
+  outline: none;
+  transition: color 0.3s var(--ease-apple);
+}
+
+.textLink::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0.55rem;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.textLink:hover {
+  color: var(--nav-hover);
+}
+
+.textLink:hover::after,
+.textLink[aria-current='page']::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.textLink:focus-visible {
+  outline: 2px solid var(--nav-focus);
+  outline-offset: 4px;
+}
+
+.ctaWrap {
+  display: none;
+}
+
+.menuButton {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-inline-end: -0.625rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--nav-fg);
+  cursor: pointer;
+  transition:
+    color 0.3s var(--ease-apple),
+    background-color 0.3s var(--ease-apple);
+}
+
+.menuButton:hover {
+  background: var(--nav-hover-bg);
+}
+
+.menuButton:focus-visible {
+  outline: 2px solid var(--nav-focus);
+  outline-offset: -2px;
+}
+
+.burger {
+  position: relative;
+  display: block;
+  width: 1.25rem;
+  height: 0.875rem;
+}
+
+.burger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.6px;
+  border-radius: 1px;
+  background: currentColor;
+  transition:
+    transform 0.35s var(--ease-apple),
+    opacity 0.2s var(--ease-apple);
+}
+
+.burger span:nth-child(1) {
+  top: 0;
+}
+
+.burger span:nth-child(2) {
+  top: calc(50% - 0.8px);
+}
+
+.burger span:nth-child(3) {
+  bottom: 0;
+}
+
+.menuButton[data-open='true'] .burger span:nth-child(1) {
+  transform: translateY(calc(0.4375rem - 0.8px)) rotate(45deg);
+}
+
+.menuButton[data-open='true'] .burger span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.4);
+}
+
+.menuButton[data-open='true'] .burger span:nth-child(3) {
+  transform: translateY(calc(-0.4375rem + 0.8px)) rotate(-45deg);
+}
+
+/* Mega menü açıkken sayfayı hafifçe karartan katman (navbar'ın altında). */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  display: none;
+  background: rgb(6 8 34 / 0.24);
+}
+
+@media (min-width: 560px) {
+  .ctaWrap {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .bar {
+    width: min(80rem, calc(100% - 3rem));
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    --nav-height: 4.5rem;
+  }
+
+  .bar {
+    gap: 2rem;
+  }
+
+  .nav {
+    display: flex;
+  }
+
+  .menuButton {
+    display: none;
+  }
+
+  .scrim {
+    display: block;
+  }
+}
+
+@media (min-width: 1280px) {
+  .list {
+    gap: 0.25rem;
+  }
+
+  .link {
+    padding-inline: 0.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .trigger::after,
+  .indicator {
+    right: 0.75rem;
+    left: 0.75rem;
+  }
+
+  .actions {
+    gap: 1.5rem;
+  }
+
+  .textLink {
+    display: inline-flex;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip,
+  .header,
+  .header::before,
+  .header::after,
+  .logo,
+  .trigger::after,
+  .link,
+  .chevronButton,
+  .chevron,
+  .textLink,
+  .textLink::after,
+  .menuButton,
+  .burger span {
+    transition: none;
+  }
+}

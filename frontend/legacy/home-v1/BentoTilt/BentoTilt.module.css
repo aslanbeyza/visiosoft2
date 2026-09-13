@@ -1,0 +1,6 @@
+.tilt {
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.35s var(--ease-apple, cubic-bezier(0.25, 1, 0.5, 1));
+}

@@ -1,0 +1,269 @@
+/* Başlık ve açılış cümlesi */
+
+.top {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.statementColumn {
+  min-width: 0;
+}
+
+.statement {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.3rem, 1vw + 1.05rem, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  line-height: 1.42;
+  text-wrap: pretty;
+}
+
+/* İlkeler */
+
+.pillars {
+  display: grid;
+  gap: 1rem;
+  margin: clamp(3.5rem, 7vw, 5.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pillar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  padding: 1.75rem 1.6rem 1.9rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.pillarRule {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-navy-600);
+  transform-origin: left center;
+}
+
+.pillarHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.pillarIcon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.5rem;
+  background: var(--color-navy-50);
+  color: var(--color-navy-600);
+}
+
+.pillarSvg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.pillarIndex {
+  color: var(--color-corp-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+}
+
+.pillarTitle {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.2rem, 0.4vw + 1.05rem, 1.4rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.pillarText {
+  margin: 0.7rem 0 0;
+  color: var(--color-corp-body);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* Kısa bilgiler */
+
+.factsBar {
+  display: grid;
+  gap: 1.75rem;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.facts {
+  display: grid;
+  margin: 0;
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: 5.75rem minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-corp-line);
+}
+
+.fact:first-child {
+  padding-top: 0;
+}
+
+.fact:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.factValue {
+  grid-row: 1 / span 2;
+  grid-column: 1;
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(2rem, 2.4vw + 1.1rem, 3.5rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.factLabel {
+  grid-row: 1;
+  grid-column: 2;
+  color: var(--color-corp-ink);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.factDetail {
+  grid-row: 2;
+  grid-column: 2;
+  margin: 0.25rem 0 0;
+  color: var(--color-corp-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.aboutLink {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 0.5rem;
+  padding-block: 0.35rem;
+  color: var(--color-navy-600);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.35s var(--ease-apple);
+}
+
+.aboutLink:hover {
+  color: var(--color-navy-700);
+}
+
+.aboutLink:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 4px;
+}
+
+.arrow {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.aboutLink:hover .arrow {
+  transform: translateX(3px);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .fact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 0 1.5rem;
+    border-bottom: 0;
+    border-left: 1px solid var(--color-corp-line);
+  }
+
+  .fact:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .factValue {
+    order: -1;
+    margin-bottom: 0.7rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .pillars {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .top {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  /* Cümlenin ilk satırı başlığın ilk satırıyla aynı hizada başlar. */
+  .statementColumn {
+    padding-top: 2.2rem;
+  }
+
+  .factsBar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    column-gap: 3rem;
+  }
+
+  .facts {
+    max-width: 52rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aboutLink,
+  .arrow {
+    transition: none;
+  }
+}

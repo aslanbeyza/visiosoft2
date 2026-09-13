@@ -1,0 +1,282 @@
+.page {
+  padding: 7.5rem 1.25rem 5rem;
+  background: #f5f5f7;
+}
+
+.hello {
+  display: flex;
+  align-items: center;
+  width: min(80rem, 100%);
+  margin: 0 auto 2rem;
+  font-size: clamp(1.9rem, 4.4vw, 4.2rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.12em;
+  height: 0.85em;
+  margin-left: 0.12em;
+  background: #1d1d1f;
+  animation: blink 1s steps(1) infinite;
+}
+
+.contacts,
+.locations,
+.corporate,
+.mapCard,
+.meet {
+  width: min(80rem, 100%);
+  margin: 0 auto 2rem;
+}
+
+.contacts {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  min-height: 10rem;
+  padding: 1.25rem;
+  border-radius: 1.4rem;
+  text-decoration: none;
+}
+
+.tile p {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.tile strong {
+  margin-top: auto;
+  font-size: clamp(1.3rem, 2vw, 2rem);
+}
+
+.tile span {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.wa {
+  border: 1px solid #bbf7d0;
+  background: linear-gradient(135deg, #f3fff7, #bbf7d0);
+  color: #047857;
+}
+
+.phone {
+  border: 1px solid #bae6fd;
+  background: linear-gradient(135deg, #f4faff, #e0f2fe);
+  color: #0369a1;
+}
+
+.mail {
+  border: 1px solid #e5e7eb;
+  background: #fbfbfc;
+  color: #1d4ed8;
+}
+
+.page h2 {
+  width: min(80rem, 100%);
+  margin: 3rem auto 1.25rem;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  text-align: center;
+}
+
+.locations {
+  display: grid;
+  gap: 1rem;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+  min-height: 16rem;
+  padding: 1.6rem;
+  border: 1px solid #f3f4f6;
+  border-radius: 1.8rem;
+  background: #fff;
+}
+
+.location b {
+  margin: 0.8rem 0;
+}
+
+.location p,
+.location small {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.location a {
+  margin-top: auto;
+  padding-top: 1rem;
+  color: #2563eb;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.pin {
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.9rem;
+  font-weight: 700;
+}
+
+.green { background: #ecfdf5; color: #059669; }
+.amber { background: #fffbeb; color: #d97706; }
+.sky { background: #f0f9ff; color: #0284c7; }
+.violet { background: #f5f3ff; color: #7c3aed; }
+
+.mapCard,
+.corporate,
+.meet {
+  padding: 1.25rem;
+  border: 1px solid #f3f4f6;
+  border-radius: 1.8rem;
+  background: #fff;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.chips a {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: #f5f5f7;
+  color: #4b5563;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.mapCard iframe,
+.meet iframe {
+  width: 100%;
+  height: 22rem;
+  border: 0;
+  border-radius: 1.2rem;
+}
+
+.corpHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.corpHead a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.facts {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.facts span {
+  display: block;
+  color: #6b7280;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.facts div {
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  background: #f8fafc;
+}
+
+.logos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.logos div {
+  display: grid;
+  justify-items: center;
+  padding: 1rem;
+  border-radius: 1.2rem;
+  background: #f8f8fa;
+}
+
+.logos img {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+}
+
+.logos span {
+  margin-top: 0.5rem;
+  color: #6b7280;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.meet {
+  text-align: center;
+}
+
+.meet h2 {
+  margin: 0 0 0.6rem;
+}
+
+.meet p {
+  color: #86868b;
+}
+
+.meet iframe {
+  height: 40rem;
+  margin-top: 1rem;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@media (min-width: 768px) {
+  .locations,
+  .facts,
+  .logos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .contacts {
+    grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  }
+
+  .locations {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .logos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,54 @@
+.page {
+  min-height: 100svh;
+  padding: 8.5rem 1.25rem 6rem;
+  background: #fff;
+}
+
+.inner {
+  width: min(48rem, 100%);
+  margin: 0 auto;
+}
+
+.inner h1 {
+  margin: 0 0 2rem;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+}
+
+.inner h2 {
+  margin: 2rem 0 0.8rem;
+  font-size: 1.4rem;
+}
+
+.inner p,
+.inner li {
+  color: #4b5563;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.updated {
+  margin-bottom: 1.5rem;
+}
+
+.inner ul {
+  padding-left: 1.25rem;
+}
+
+.facts {
+  padding: 1.5rem;
+  border: 1px solid #f3f4f6;
+  border-radius: 1.25rem;
+  background: #f9fafb;
+}
+
+.facts p {
+  margin: 0 0 0.6rem;
+}
+
+.facts p:last-child {
+  margin-bottom: 0;
+}
+
+.facts strong {
+  color: #1d1d1f;
+}

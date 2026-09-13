@@ -1,0 +1,22 @@
+.logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.mark {
+  height: 1.5rem;
+  width: auto;
+  display: block;
+}
+
+.invert {
+  color: #fff;
+  filter: brightness(0) invert(1);
+}

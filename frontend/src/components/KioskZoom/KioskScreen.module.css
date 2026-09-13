@@ -1,0 +1,190 @@
+/*
+ * Ekran camı kesitte 157x308 px görünür. Kioskun ön yüzü izleyiciye ~%83 kısalmış (yaklaşık 31-34°) göründüğü için
+ * arayüz gerçek oranında (~0,615, 16:10 dikey tablet) tasarlanır ve hafif perspektifle Y ekseninde döndürülür.
+ * Tüm ölçüler kabın yüksekliğine göre (cqh); yakınlaşmada orantılı büyür ve net kalır.
+ */
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 6% / 3%;
+  background: #0b0c10;
+  container-type: size;
+}
+
+.ui {
+  position: absolute;
+  top: 1.6cqh;
+  left: 0.6cqh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60cqh;
+  height: 96.8cqh;
+  padding: 3.2cqh 0 2.6cqh;
+  overflow: hidden;
+  border-radius: 2cqh;
+  background: radial-gradient(130% 70% at 50% 0%, #f51d1d 0%, #dc0000 50%, #bd0000 100%);
+  color: #fff;
+  font-family: var(--font-sans);
+  line-height: 1.15;
+  filter: saturate(0.92) brightness(0.97);
+  transform: perspective(800cqh) rotateY(-31deg);
+  transform-origin: 0 50%;
+}
+
+.status {
+  position: absolute;
+  top: 2.4cqh;
+  left: 3cqh;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8cqh;
+  padding: 0.9cqh 1.6cqh;
+  border-radius: 999px;
+  background: #22a447;
+  font-size: 2cqh;
+  font-weight: 600;
+}
+
+.statusDot {
+  width: 1.1cqh;
+  height: 1.1cqh;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.lang {
+  position: absolute;
+  top: 2.2cqh;
+  right: 3cqh;
+  padding: 1cqh 2.2cqh;
+  border-radius: 999px;
+  background: #fff;
+  color: #c40000;
+  font-size: 2cqh;
+  font-weight: 700;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 12cqh;
+  height: 12cqh;
+  margin-top: 13cqh;
+  border: 0.6cqh solid rgb(255 255 255 / 0.3);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.icon svg {
+  width: 6.4cqh;
+  height: 6.4cqh;
+}
+
+.welcome {
+  margin: 5cqh 0 0;
+  font-size: 5.8cqh;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin-top: 4.2cqh;
+  padding: 3.2cqh 0;
+  border-radius: 2.6cqh;
+  background: #fff5f5;
+  color: #111827;
+  text-align: center;
+}
+
+.cardLead {
+  color: #374151;
+  font-size: 2.8cqh;
+  font-weight: 500;
+}
+
+.cardRule {
+  width: 38%;
+  height: 0.65cqh;
+  margin: 2cqh 0;
+  border-radius: 999px;
+  background: #e60000;
+}
+
+.cardTitle {
+  font-size: 3.6cqh;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.dots {
+  display: flex;
+  gap: 1.5cqh;
+  margin-top: 4.2cqh;
+}
+
+.dots span {
+  width: 2.3cqh;
+  height: 2.3cqh;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.85);
+  animation: dot 1.4s ease-in-out infinite;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.support {
+  margin-top: auto;
+  padding: 1.8cqh 4.4cqh;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.5);
+  color: #cc0000;
+  font-size: 2.5cqh;
+  font-weight: 700;
+}
+
+.powered {
+  margin-top: 1.9cqh;
+  font-size: 1.8cqh;
+  opacity: 0.9;
+}
+
+.powered b {
+  letter-spacing: 0.08em;
+}
+
+/* Camdaki yansıma; ürün görselindeki parlak yüzeyle aynı yönde. */
+.gloss {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(112deg, rgb(255 255 255 / 0.2) 0%, rgb(255 255 255 / 0.04) 30%, rgb(255 255 255 / 0) 42%);
+  pointer-events: none;
+}
+
+@keyframes dot {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dots span {
+    animation: none;
+  }
+}

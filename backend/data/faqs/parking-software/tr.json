@@ -1,0 +1,86 @@
+{
+    "meta_description": "Bulut veya kurum içi kurulum destekleyen otopark yönetim sistemi hakkında teknik SSS: offline çalışma, LPR doğruluğu, yedekleme, KVKK, muhasebe entegrasyonu ve ölçeklenebilirlik.",
+    "meta_keywords": "otopark yazılımı sss, belediye otopark yönetim sistemi, plaka tanıma sistemi, offline otopark sistemi, kvkk uyumlu otopark, muhasebe entegrasyonlu otopark yazılımı, bariyer yönetim sistemi",
+    "section_title": "Otopark Yönetim Sistemi Sıkça Sorulan Sorular",
+    "section_intro": "Aşağıdaki sorular, hibrit mimari, offline çalışma, performans, veri güvenliği, gelir kontrolü ve entegrasyon başlıklarında en kritik teknik detayları net şekilde özetler.",
+    "question_label": "Soru:",
+    "answer_label": "Cevap:",
+    "items": [
+        {
+            "question": "Sistem bulut tabanlı mı, belediye veri merkezinde kurulabiliyor mu?",
+            "answer": "Mimari hibrittir. Merkezi yönetim bulutta çalışabilir; talep edilirse sistem tamamen belediye veri merkezinde (on-premise) kurulur. Kritik veriler kurum sunucularında tutulabilir ve veri mülkiyeti belediyededir."
+        },
+        {
+            "question": "İnternet kesilirse giriş-çıkış operasyonu duruyor mu?",
+            "answer": "Hayır. Edge Controller mimarisi sayesinde plaka okuma, bariyer kontrolü ve geçiş logları offline modda çalışmaya devam eder. Bağlantı geri geldiğinde biriken veriler merkezi sunucuya otomatik senkronize edilir."
+        },
+        {
+            "question": "Elektrik kesintilerinde sistem ne kadar çalışır?",
+            "answer": "Standart kurulumda minimum 2 saat UPS desteği sağlanır. Kritik noktalarda 4-6 saat ve üzeri kapasite sunulabilir. Yük senaryosuna bağlı olarak optimize edilmiş 3 kVA online UPS kurulumlarında daha uzun süreli çalışma sağlanabilir."
+        },
+        {
+            "question": "Yedekleme ve felaket kurtarma politikası nasıl uygulanıyor?",
+            "answer": "Günlük artımlı yedekleme, haftalık tam yedekleme ve anlık snapshot akışı desteklenir. Yedekler belediye altyapısında veya Türkiye lokasyonlu veri merkezlerinde saklanabilir; talep halinde belediye bilgi işlem birimine otomatik aktarım yapılır."
+        },
+        {
+            "question": "Veri güvenliğinde hangi teknik kontroller var?",
+            "answer": "Veri transferi SSL/TLS ile, depolama AES-256 seviyesinde şifrelenir. Erişimler rol bazlı yetkilendirme ile sınırlandırılır ve zaman damgalı loglarla izlenir."
+        },
+        {
+            "question": "Tek bir tesiste kaç bariyer, merkezde kaç otopark yönetilebilir?",
+            "answer": "Tek tesiste 10 aktif giriş-çıkış bariyeri senaryosunda stabil çalışma test edilmiştir. Merkezi mimari tarafında 10.000 otopark ölçeğine kadar simülasyon ve yük testleri gerçekleştirilmiştir."
+        },
+        {
+            "question": "Bariyer komut gecikmesi ve yoğun trafikte performans nasıldır?",
+            "answer": "Bariyer komutları milisaniye seviyesinde işlenir. Edge processing, kuyruk yönetim algoritması ve yük dengeleme ile yoğun saatlerde merkezi sunucuya bağımlılık azaltılır; minimum 25 FPS işleme kapasitesi desteklenir."
+        },
+        {
+            "question": "LPR (plaka tanıma) doğruluğu hangi seviyededir?",
+            "answer": "Türkiye plakalarında sahada %98+ doğruluk hedeflenir; uygun kamera konfigürasyonu ile %99,8 seviyesine çıkılabilir. Yabancı plakalarda ortalama %90+ başarı sağlanır."
+        },
+        {
+            "question": "Gece koşullarında plaka okuma güvenilir mi?",
+            "answer": "IR destekli gece görüş, parlama önleyici lens ve doğru saha açılandırması ile düşük ışıkta yüksek doğruluk elde edilir. Opsiyonel çift kamera doğrulama ile hata payı daha da düşürülür."
+        },
+        {
+            "question": "Eşzamanlı kullanıcı ve araç kapasitesi nedir?",
+            "answer": "Tek otoparkta 100.000+ aktif araç kaydı senaryoları test edilmiştir. Altyapı cluster mimaride çalışır; kullanıcı limitleri yazılımsal değil, sunucu kaynaklarına bağlı olarak ölçeklenir."
+        },
+        {
+            "question": "İnternet yokken borç, abonelik ve kara liste kontrolü yapılır mı?",
+            "answer": "Evet. Saha hareketleri lokal veritabanında saklanır; borç, abonelik ve kara liste kontrolleri offline modda da çalışır. Bağlantı geri geldiğinde merkezi veri ile otomatik mutabakat yapılır."
+        },
+        {
+            "question": "Mevcut sistemdeki plaka borçları yeni yazılıma aktarılabilir mi?",
+            "answer": "Aktarım CSV, Excel veya API ile yapılabilir. Migrasyon sürecinde veri doğrulama, mükerrer kayıt kontrolü, format standardizasyonu ve veri temizleme adımları uygulanır."
+        },
+        {
+            "question": "Mevcut bariyer, turnike ve kameralarla uyumlu mu?",
+            "answer": "Açık protokol yaklaşımıyla kuru kontak, RS485/TCP-IP, ONVIF ve RTSP tabanlı sistemlerle entegrasyon desteklenir. Kurulum öncesi envanter analizi yapılarak uyumluluk raporu hazırlanır."
+        },
+        {
+            "question": "Lisanslama ve güncelleme modeli nasıl çalışıyor?",
+            "answer": "Model projeye göre sözleşmeyle netleştirilir. Tek seferlik, süresiz lisans yaklaşımıyla birlikte bakım-destek kapsamı planlanabilir; taahhüt edilen çekirdek fonksiyon güncellemeleri ayrıca yönetilir."
+        },
+        {
+            "question": "Gelir raporları ve ödeme kırılımları hangi detayda alınır?",
+            "answer": "Günlük, aylık, yıllık ve tarih aralıklı raporlar; otopark ve personel kırılımlarıyla alınabilir. Nakit, kart, QR, mobil ve abonelik tahsilatları ayrı izlenir; PDF, Excel, CSV dışa aktarımı yapılır."
+        },
+        {
+            "question": "Muhasebe sistemi entegrasyonu için hangi yöntemler var?",
+            "answer": "REST API ana yöntemdir; ihtiyaç halinde SOAP/web servis ve dosya tabanlı (JSON/XML/CSV) entegrasyon da uygulanır. Günlük toplu aktarım, anlık işlem aktarımı ve çift yönlü mutabakat senaryoları desteklenir."
+        },
+        {
+            "question": "Gelir kaybı ve kaçak geçişler nasıl tespit ediliyor?",
+            "answer": "Giriş-çıkış plaka eşleştirme, manuel bariyer açma logları, kamera-işlem eşleştirme ve şüpheli işlem raporları birlikte çalışır. Değiştirilemez log yapısı sayesinde geriye dönük denetim yapılabilir."
+        },
+        {
+            "question": "KVKK, veri mülkiyeti ve saklama süresi nasıl yönetiliyor?",
+            "answer": "Veri mülkiyeti ilgili kuruma aittir. Sistem KVKK uyumlu süreçlerle çalışır; saklama süreleri kurum politikası ve mevzuata göre tanımlanır, süre sonunda silme/anonimleştirme/imha işlemleri kayıt altına alınır."
+        },
+        {
+            "question": "Arıza durumunda teknik destek ve ölçek büyütme yaklaşımı nedir?",
+            "answer": "Yazılımsal olaylarda 7/24 uzaktan destek ve kritik durumlarda öncelikli müdahale sağlanır. Mimari modüler olduğu için yeni otopark, kamera, bariyer ve sunucu kaynağı eklenerek kapasite kademeli büyütülür."
+        }
+    ]
+}

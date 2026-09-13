@@ -1,0 +1,166 @@
+.slot {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: #07080c;
+  color: #fff;
+}
+
+.media,
+.fallback {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-apple, cubic-bezier(0.25, 1, 0.5, 1));
+}
+
+.ready .media {
+  opacity: 1;
+}
+
+.fallback {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  filter: saturate(0.7) contrast(1.05);
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.1rem 1.15rem 1.2rem;
+  background:
+    radial-gradient(120% 80% at 20% 0%, rgba(0, 113, 227, 0.28), transparent 55%),
+    radial-gradient(90% 70% at 100% 100%, rgba(16, 185, 129, 0.18), transparent 50%),
+    linear-gradient(180deg, rgba(7, 8, 12, 0.2) 0%, rgba(7, 8, 12, 0.88) 100%);
+  pointer-events: none;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.35) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 78%);
+  pointer-events: none;
+}
+
+.scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 28%;
+  background: linear-gradient(180deg, transparent, rgba(56, 189, 248, 0.18), transparent);
+  animation: scan 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: auto;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.9);
+}
+
+.file {
+  margin: 0.35rem 0 0.15rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(0.72rem, 1.4vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.meta {
+  margin: 0;
+  max-width: 28rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.copy,
+.engine {
+  min-height: 2rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.copy {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.copy:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.engine {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ready .placeholder {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-40%);
+  }
+  100% {
+    transform: translateY(280%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan {
+    animation: none;
+    opacity: 0.35;
+  }
+}
