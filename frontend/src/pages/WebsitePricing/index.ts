@@ -1,1 +1,1 @@
-export { default } from './WebsitePricing.tsx'
+export { default } from './WebsitePricingPage.tsx'

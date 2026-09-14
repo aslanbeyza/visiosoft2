@@ -1,1 +1,1 @@
-export { default } from './Quote.tsx'
+export { default } from './QuotePage.tsx'

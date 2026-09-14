@@ -1,1 +1,1 @@
-export { default } from './BlogShow.tsx'
+export { default } from './BlogShowPage.tsx'

@@ -1,0 +1,235 @@
+.root {
+  --grid: rgb(23 27 153 / 0.07);
+
+  display: grid;
+  gap: 1rem;
+}
+
+.strip {
+  position: relative;
+  height: clamp(6.5rem, 10vw + 2rem, 10rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background-color: #fff;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  background-position: -1px -1px;
+  overflow: clip;
+}
+
+.base,
+.brightSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.base path {
+  stroke: var(--color-navy-100);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.bright {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 100% 0 0);
+  animation: trace var(--dur) linear infinite paused;
+}
+
+.brightSvg path {
+  stroke: var(--color-navy-600);
+  stroke-width: 2.25;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* Tarama çizgisi: tam genişlikte katman sağa kayar, çizgi katmanın sol kenarındadır. */
+.head {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  animation: head var(--dur) linear infinite paused;
+}
+
+.head::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 2px;
+  background: linear-gradient(transparent, rgb(23 27 153 / 0.55) 30%, rgb(23 27 153 / 0.55) 70%, transparent);
+}
+
+.root[data-running='true'] .bright,
+.root[data-running='true'] .head,
+.root[data-running='true'] .marker {
+  animation-play-state: running;
+}
+
+@keyframes trace {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 1;
+  }
+
+  72% {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+  }
+
+  90%,
+  100% {
+    clip-path: inset(0 0% 0 0);
+    opacity: 0;
+  }
+}
+
+@keyframes head {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  72% {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+
+  78%,
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toggle {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  cursor: pointer;
+  transition: border-color 0.35s var(--ease-apple), color 0.35s var(--ease-apple);
+}
+
+.toggle svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+.toggle:hover {
+  border-color: var(--color-navy-600);
+  color: var(--color-navy-600);
+}
+
+.toggle:focus-visible,
+.link:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+/* Atım etiketleri: geniş ekranda atımların altında, dar ekranda 2×2 ızgara. */
+.beats ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.beat {
+  min-width: 0;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  border-radius: 0.25rem;
+  color: var(--color-corp-ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.35s var(--ease-apple);
+}
+
+.link:hover {
+  color: var(--color-navy-600);
+}
+
+.marker {
+  position: relative;
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--color-navy-600);
+  opacity: 0.35;
+  animation: pulse var(--dur) linear var(--delay) infinite paused;
+}
+
+@keyframes pulse {
+  0%,
+  14%,
+  100% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+
+  3% {
+    transform: scale(1.7);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .beats ul {
+    position: relative;
+    display: block;
+    height: 2.5rem;
+  }
+
+  .beat {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bright {
+    clip-path: none;
+    animation: none;
+  }
+
+  .head {
+    display: none;
+  }
+
+  .marker {
+    opacity: 1;
+    animation: none;
+  }
+
+  .toggle,
+  .link {
+    transition: none;
+  }
+}

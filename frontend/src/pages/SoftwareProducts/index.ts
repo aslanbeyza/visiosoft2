@@ -1,1 +1,1 @@
-export { default } from './SoftwareProducts.tsx'
+export { default } from './SoftwareHub.tsx'

@@ -59,10 +59,15 @@
   gap: 0.75rem;
 }
 
+@media (min-width: 768px) {
+  .inner {
+    width: min(80rem, calc(100% - 3rem));
+  }
+}
+
 @media (min-width: 1024px) {
   .inner {
     grid-template-columns: minmax(0, 1fr) auto;
-    width: min(80rem, calc(100% - 3rem));
   }
 
   .actions {

@@ -1,0 +1,62 @@
+.root {
+  --tr-delay: 0s;
+  --tr-stagger: 0.08s;
+  --tr-duration: 0.9s;
+}
+
+.frags {
+  display: inline;
+}
+
+.line {
+  display: block;
+}
+
+/*
+ * Kırpma kutusu: overflow yerine clip-path kullanılır; overflow: hidden inline-block'un taban çizgisini
+ * alt kenara taşırdı. Negatif kenar boşluğu iç dolguyu dengeler; satır yüksekliği düz metinle aynı kalır,
+ * sıkı satır aralığında (1.02) çıkıntı ve kuyruklu harfler (ç, ş, g) kırpılmaz.
+ */
+.frag {
+  display: inline-block;
+  margin: -0.14em -0.05em;
+  clip-path: inset(0);
+  vertical-align: baseline;
+}
+
+.inner {
+  display: inline-block;
+  padding: 0.14em 0.05em;
+  transform: translate3d(0, 110%, 0);
+}
+
+.root[data-in='true'] .inner {
+  animation: rise var(--tr-duration) var(--ease-apple) both;
+  animation-delay: calc(var(--tr-delay) + var(--i, 0) * var(--tr-stagger));
+}
+
+@keyframes rise {
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    animation: none;
+    transform: none;
+  }
+}

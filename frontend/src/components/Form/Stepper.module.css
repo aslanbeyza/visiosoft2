@@ -1,0 +1,179 @@
+.stepper {
+  min-width: 0;
+}
+
+.list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-corp-muted);
+  font: inherit;
+  text-align: center;
+}
+
+button.trigger {
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+button.trigger:hover .label {
+  color: var(--color-navy-600);
+}
+
+button.trigger:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 4px;
+}
+
+/* İşaretçi: numara ve çizilen onay işareti üst üste durur. */
+.marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid #aab1c6;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-corp-muted);
+  font-size: 0.85rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  transition:
+    border-color 0.4s var(--ease-apple),
+    background-color 0.4s var(--ease-apple),
+    color 0.4s var(--ease-apple);
+}
+
+.number,
+.checkSvg {
+  grid-area: 1 / 1;
+  transition: opacity 0.3s var(--ease-apple);
+}
+
+.checkSvg {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0;
+}
+
+.check {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.45s var(--ease-apple) 0.1s;
+}
+
+.label {
+  max-width: 100%;
+  padding-inline: 0.25rem;
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+  text-wrap: balance;
+  transition: color 0.3s var(--ease-apple);
+}
+
+/* Bağlantı çizgisi: bu işaretçinin sağ kenarından sonrakinin sol kenarına. */
+.line {
+  position: absolute;
+  top: calc(1.125rem - 1px);
+  left: calc(50% + 1.125rem);
+  width: calc(100% - 2.25rem);
+  height: 2px;
+  overflow: hidden;
+  background: var(--color-corp-line);
+}
+
+.lineFill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-navy-600);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s var(--ease-apple);
+}
+
+/* Durumlar */
+
+.step[data-state='current'] .marker {
+  border-color: var(--color-navy-600);
+  background: var(--color-navy-600);
+  color: #fff;
+  box-shadow: 0 0 0 4px var(--color-navy-100);
+}
+
+.step[data-state='current'] .label {
+  color: var(--color-corp-ink);
+}
+
+.step[data-state='done'] .marker {
+  border-color: var(--color-navy-600);
+  color: var(--color-navy-600);
+}
+
+.step[data-state='done'] .number {
+  opacity: 0;
+}
+
+.step[data-state='done'] .checkSvg {
+  opacity: 1;
+}
+
+.step[data-state='done'] .check {
+  stroke-dashoffset: 0;
+}
+
+.step[data-state='done'] .label {
+  color: var(--color-corp-body);
+}
+
+.step[data-state='done'] .lineFill {
+  transform: scaleX(1);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .label {
+    font-size: 0.88rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marker,
+  .number,
+  .checkSvg,
+  .check,
+  .label,
+  .lineFill {
+    transition: none;
+  }
+}

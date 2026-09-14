@@ -1,1 +1,1 @@
-export { default } from './Discovery.tsx'
+export { default } from './DiscoveryPage.tsx'

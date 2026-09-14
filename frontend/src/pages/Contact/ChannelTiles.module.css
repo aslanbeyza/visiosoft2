@@ -1,0 +1,183 @@
+.list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Üç sütun yalnızca geniş ekranda: tablette telefon ve e-posta değerleri satır ortasında bölünüyordu. */
+@media (min-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.item {
+  display: flex;
+  min-width: 0;
+}
+
+.tile {
+  --spot: rgb(23 27 153 / 0.07);
+
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(1.35rem, 2.2vw, 1.75rem);
+  overflow: hidden;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  text-decoration: none;
+  transition:
+    border-color 0.35s var(--ease-apple),
+    transform 0.35s var(--ease-apple);
+}
+
+.tile::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(16rem circle at var(--mx, 50%) var(--my, 40%), var(--spot), transparent 65%);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-apple);
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover {
+    border-color: var(--color-navy-600);
+    transform: translateY(-4px);
+  }
+
+  .tile:hover::after {
+    opacity: 1;
+  }
+
+  .tile:hover .arrow {
+    transform: translateX(3px);
+  }
+
+  .tile:hover .iconTile {
+    background: var(--color-navy-600);
+    color: #fff;
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.iconTile {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.6rem;
+  background: var(--color-navy-50);
+  color: var(--color-navy-600);
+  transition:
+    background-color 0.35s var(--ease-apple),
+    color 0.35s var(--ease-apple);
+}
+
+.icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.eyebrow {
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.value {
+  color: var(--color-corp-ink);
+  font-size: clamp(1.3rem, 1vw + 1rem, 1.6rem);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  overflow-wrap: break-word;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail {
+  margin-top: 0.3rem;
+  color: var(--color-corp-body);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.description {
+  margin-top: 0.75rem;
+  color: var(--color-corp-muted);
+  font-size: 0.925rem;
+  line-height: 1.55;
+}
+
+.action {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: clamp(1.5rem, 3vw, 2rem);
+  color: var(--color-navy-600);
+  font-size: 0.925rem;
+  font-weight: 600;
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .tile::after,
+  .iconTile,
+  .arrow {
+    transition: none;
+  }
+
+  .tile:hover {
+    transform: none;
+  }
+}

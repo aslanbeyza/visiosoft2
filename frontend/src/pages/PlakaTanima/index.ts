@@ -1,1 +1,1 @@
-export { default } from './PlakaTanima.tsx'
+export { default } from './PlakaTanimaPage.tsx'

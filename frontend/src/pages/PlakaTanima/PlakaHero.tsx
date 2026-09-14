@@ -1,0 +1,91 @@
+import { motion, useReducedMotion } from 'framer-motion'
+import type { Variants } from 'framer-motion'
+import Button from '../../components/Button/index.ts'
+import Magnetic from '../../components/Magnetic/index.ts'
+import ParkingFlow from '../../components/ParkingFlow/index.ts'
+import { revealEase } from '../../components/Reveal/index.ts'
+import TextReveal from '../../components/TextReveal/index.ts'
+import { useMediaQuery } from '../../hooks/useMediaQuery/index.ts'
+import { usePath } from '../../hooks/usePath/index.ts'
+import { plakaCopy } from './plakaCopy.ts'
+import styles from './PlakaHero.module.css'
+
+const copy = plakaCopy.hero
+export const PLAKA_TITLE_ID = 'plaka-tanima-baslik'
+
+const factList: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.75 } },
+}
+const factItem: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: revealEase } },
+}
+const factLine: Variants = {
+  hidden: { scaleX: 0 },
+  show: { scaleX: 1, transition: { duration: 1, ease: revealEase } },
+}
+
+/**
+ * "Okuma" anı: masaüstünde sol metin sabitlenir, sağda kaydırmayla ilerleyen ParkingFlow sahnesi
+ * aracı şeride sokar, kamera plakayı okur ve bariyeri açar. Mobilde ve hareket azaltmada alt alta, sabitlemesiz.
+ */
+export default function PlakaHero() {
+  const reduce = Boolean(useReducedMotion())
+  const wide = useMediaQuery('(min-width: 1024px)')
+  const path = usePath()
+  const pinned = wide && !reduce
+
+  const rise = (delay: number) => ({
+    initial: reduce ? false : { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, delay, ease: revealEase },
+  })
+
+  return (
+    <section className={styles.hero} aria-labelledby={PLAKA_TITLE_ID} data-pin={pinned}>
+      <div className={styles.inner}>
+        <div className={styles.copyCell}>
+          <div className={styles.copy}>
+            <motion.p className={styles.eyebrow} {...rise(0)}>
+              <motion.span
+                className={styles.rule}
+                aria-hidden="true"
+                initial={reduce ? false : { scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.9, delay: 0.1, ease: revealEase }}
+              />
+              {copy.eyebrow}
+            </motion.p>
+            <TextReveal as="h1" id={PLAKA_TITLE_ID} lines={copy.title} className={styles.title} delay={0.15} amount={0.1} />
+            <motion.p className={styles.lead} {...rise(0.45)}>
+              {copy.lead}
+            </motion.p>
+            <motion.div className={styles.actions} {...rise(0.6)}>
+              <Magnetic>
+                <Button to={path('quote.index')} size="lg" arrow>
+                  {copy.primary}
+                </Button>
+              </Magnetic>
+              <Button to={path('discovery.show')} variant="secondary" size="lg">
+                {copy.secondary}
+              </Button>
+            </motion.div>
+            <motion.dl className={styles.facts} initial={reduce ? false : 'hidden'} animate="show" variants={factList}>
+              {copy.facts.map((fact) => (
+                <motion.div key={fact.term} className={styles.fact} variants={factItem}>
+                  <motion.span className={styles.factLine} aria-hidden="true" variants={factLine} />
+                  <dt className={styles.factTerm}>{fact.term}</dt>
+                  <dd className={styles.factValue}>{fact.value}</dd>
+                </motion.div>
+              ))}
+            </motion.dl>
+          </div>
+        </div>
+        <motion.div className={styles.flowCell} {...rise(0.3)}>
+          <ParkingFlow steps={plakaCopy.flowSteps} mode="scroll" label={copy.flowLabel} scrollLength={2.2} />
+        </motion.div>
+      </div>
+    </section>
+  )
+}

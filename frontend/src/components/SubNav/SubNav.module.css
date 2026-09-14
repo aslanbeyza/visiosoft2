@@ -1,0 +1,258 @@
+/* Çubuğun akıştaki (yapışmamış) konumunu veren sıfır yükseklikli işaretçi; bkz. useStickyShift. */
+.sentinel {
+  height: 0;
+  pointer-events: none;
+}
+
+/*
+ * Navbar gizlenince yapışmış çubuk onun bıraktığı boşluğa kayar. Kayma useStickyShift ile transform olarak yazılır;
+ * akıştaki çubuk yerinde kalır (html[data-navbar] seçicisi yapışmamış çubuğu da kaydırıp boş yuva bırakıyordu).
+ */
+.sticky {
+  position: sticky;
+  top: 4rem;
+  z-index: 30;
+}
+
+/* Çubuk varken bağlantı hedefleri navbar + çubuğun (7.25rem / 7.75rem) altında kalmasın. */
+:global(html):has(.sticky) {
+  scroll-padding-top: 7.75rem;
+}
+
+.bar {
+  border-bottom: 1px solid var(--color-corp-line);
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(15 20 48 / 0.04);
+}
+
+.inner {
+  display: flex;
+  align-items: stretch;
+  gap: 1.25rem;
+  width: min(80rem, calc(100% - 2rem));
+  height: 3.25rem;
+  margin-inline: auto;
+}
+
+.scrollWrap {
+  /* Liste odak halkası kırpılmasın diye kutunun iki yanına bu kadar taşar; etiketler hizasını korur. */
+  --ring-room: 0.5rem;
+  --fade: 2.5rem;
+
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Kaydırılabilir alanın kenarlarında içeriğin devam ettiğini gösteren yumuşak geçiş. */
+.scrollWrap::before,
+.scrollWrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 1px;
+  z-index: 1;
+  width: var(--fade);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-apple);
+}
+
+.scrollWrap::before {
+  left: calc(var(--ring-room) * -1);
+  background: linear-gradient(90deg, #fff 25%, rgb(255 255 255 / 0));
+}
+
+.scrollWrap::after {
+  right: calc(var(--ring-room) * -1);
+  background: linear-gradient(270deg, #fff 25%, rgb(255 255 255 / 0));
+}
+
+.scrollWrap[data-fade-start='true']::before,
+.scrollWrap[data-fade-end='true']::after {
+  opacity: 1;
+}
+
+/*
+ * Geçişin üstündeki ok düğmesi: geçiş bir etiketin değil boşluğun üstüne düştüğünde de şeridin devam ettiğini gösterir.
+ * Görünen daire 1.75rem; tıklama alanı 2.75rem × çubuk yüksekliği. Yalnızca ilgili kenarda içerik varken görünür.
+ */
+.scrollButton {
+  position: absolute;
+  top: 0;
+  bottom: 1px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  width: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-corp-ink);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-apple);
+}
+
+.scrollStart {
+  left: calc(var(--ring-room) * -1);
+  justify-content: flex-start;
+}
+
+.scrollEnd {
+  right: calc(var(--ring-room) * -1);
+  justify-content: flex-end;
+}
+
+.scrollWrap[data-fade-start='true'] .scrollStart,
+.scrollWrap[data-fade-end='true'] .scrollEnd {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scrollIcon {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(15 20 48 / 0.12);
+  transition: color 0.3s var(--ease-apple);
+}
+
+.scrollIcon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.scrollButton:hover .scrollIcon {
+  color: var(--color-navy-600);
+}
+
+.list {
+  display: flex;
+  gap: 0.15rem;
+  height: 100%;
+  margin: 0 calc(var(--ring-room) * -1);
+  padding: 0 var(--ring-room);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  list-style: none;
+  scrollbar-width: none;
+  /* Klavyeyle odaklanan bağlantı kenar geçişinin altında kalmasın. */
+  scroll-padding-inline: calc(var(--fade) + var(--ring-room));
+}
+
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: none;
+}
+
+.link {
+  --pad-start: 0.85rem;
+  --pad-end: 0.85rem;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 var(--pad-end) 0 var(--pad-start);
+  color: var(--color-corp-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s var(--ease-apple);
+}
+
+.item:first-child .link {
+  --pad-start: 0rem;
+}
+
+.link:hover {
+  color: var(--color-corp-ink);
+}
+
+.link[aria-current] {
+  color: var(--color-navy-600);
+  font-weight: 600;
+}
+
+/*
+ * Odak halkası etiketin tamamını çevreler: dolgusuz ilk bağlantıda da harfin üstünden geçmez.
+ * Halka yalancı öğede çizilir; listenin --ring-room dolgusu sayesinde kaydırma kutusunca kırpılmaz.
+ * Çizgi yalnızca odakta tanımlanır: boştaki saydam bir outline, forced-colors kipinde her bağlantıda halka olarak çizilirdi.
+ */
+.link::before {
+  content: '';
+  position: absolute;
+  inset: 0.5rem calc(var(--pad-end) - 0.375rem) 0.5rem calc(var(--pad-start) - 0.375rem);
+  border-radius: 0.5rem;
+  pointer-events: none;
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+.link:focus-visible::before {
+  outline: 2px solid var(--color-navy-600);
+}
+
+/* Etkin çizgi: etiketin yarısı kadar (en az 1,5rem), etiket metninin altında ortalı, 3 px ve yuvarlak uçlu. */
+.activeBar {
+  position: absolute;
+  right: var(--pad-end);
+  bottom: -1px;
+  left: var(--pad-start);
+  width: max(1.5rem, calc((100% - var(--pad-start) - var(--pad-end)) * 0.5));
+  height: 3px;
+  margin-inline: auto;
+  border-radius: 3px;
+  background: var(--color-navy-600);
+}
+
+.extra {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    width: min(80rem, calc(100% - 3rem));
+  }
+
+  .extra {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--color-corp-line);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sticky {
+    top: 4.5rem;
+  }
+
+  :global(html):has(.sticky) {
+    scroll-padding-top: 8.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollWrap::before,
+  .scrollWrap::after,
+  .scrollButton,
+  .scrollIcon,
+  .link {
+    transition: none;
+  }
+}

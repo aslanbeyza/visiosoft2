@@ -1,0 +1,72 @@
+/* Başlık solda, açıklama sağda (≥1024); dar ekranda alt alta. */
+.headSplit {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.headSplit > :first-child,
+.headCenter > :first-child {
+  margin-bottom: 0;
+}
+
+.sideLead {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: clamp(1.02rem, 0.3vw + 0.95rem, 1.15rem);
+  line-height: 1.7;
+}
+
+.sideLead[data-tone='dark'] {
+  color: rgb(255 255 255 / 0.72);
+}
+
+/* Ortalanmış başlık: SectionHeading'in max-width kutusu da sayfa ortasına alınır. */
+.headCenter {
+  display: grid;
+  justify-items: center;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.split {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.splitMedia {
+  display: grid;
+  align-content: start;
+  gap: clamp(2rem, 4vw, 2.75rem);
+  min-width: 0;
+}
+
+.splitMedia > :first-child {
+  margin-bottom: 0;
+}
+
+.frame {
+  min-width: 0;
+}
+
+.splitGrid {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .headSplit {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: end;
+    column-gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .sideLead {
+    padding-bottom: 0.35rem;
+  }
+
+  .split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    column-gap: clamp(3rem, 6vw, 6rem);
+  }
+}

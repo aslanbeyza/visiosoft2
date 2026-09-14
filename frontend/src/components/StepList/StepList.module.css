@@ -1,0 +1,201 @@
+.list {
+  --marker: 2.75rem;
+  --gap: clamp(1.5rem, 3vw, 3rem);
+  --line: var(--color-corp-line);
+  --fill: var(--color-navy-600);
+  --ink: var(--color-corp-ink);
+  --body: var(--color-corp-body);
+  --muted: var(--color-corp-muted);
+  --marker-bg: #fff;
+  --marker-on-bg: var(--color-navy-600);
+  --marker-on-fg: #fff;
+
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list[data-tone='dark'] {
+  --line: rgb(255 255 255 / 0.16);
+  --fill: var(--color-navy-300);
+  --ink: #fff;
+  --body: rgb(255 255 255 / 0.72);
+  --muted: rgb(255 255 255 / 0.55);
+  --marker-bg: transparent;
+  --marker-on-bg: #fff;
+  --marker-on-fg: var(--color-navy-900);
+}
+
+.step {
+  min-width: 0;
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--marker) minmax(0, 1fr);
+  column-gap: 1.25rem;
+  height: 100%;
+  padding-bottom: 2.25rem;
+}
+
+.step:last-child .inner {
+  padding-bottom: 0;
+}
+
+.marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--marker);
+  height: var(--marker);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--marker-bg);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background-color 0.45s var(--ease-apple),
+    border-color 0.45s var(--ease-apple),
+    color 0.45s var(--ease-apple);
+}
+
+.inner[data-on='true'] .marker {
+  border-color: var(--marker-on-bg);
+  background: var(--marker-on-bg);
+  color: var(--marker-on-fg);
+}
+
+/* Dikey: işaretin altından bir sonraki adıma inen çizgi. */
+.segment {
+  position: absolute;
+  top: calc(var(--marker) + 0.5rem);
+  left: calc(var(--marker) / 2 - 1px);
+  width: 2px;
+  height: calc(100% - var(--marker) - 1rem);
+  overflow: hidden;
+  background: var(--line);
+}
+
+.fillX,
+.fillY {
+  position: absolute;
+  inset: 0;
+  background: var(--fill);
+}
+
+.fillX {
+  display: none;
+  transform-origin: left center;
+}
+
+.fillY {
+  transform-origin: center top;
+}
+
+.body {
+  min-width: 0;
+  padding-top: 0.35rem;
+}
+
+.icon {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-bottom: 0.85rem;
+  color: var(--muted);
+  transition: color 0.45s var(--ease-apple);
+}
+
+.icon > :global(svg) {
+  width: 100%;
+  height: 100%;
+}
+
+.inner[data-on='true'] .icon {
+  color: var(--fill);
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.2rem, 0.5vw + 1.05rem, 1.45rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.text {
+  max-width: 26rem;
+  margin: 0.55rem 0 0;
+  color: var(--body);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+/* Yatay: tablette 2 sütunlu ızgara, masaüstünde adımlar yan yana; çizgi işaretin sağından sonraki işarete uzanır. */
+@media (min-width: 768px) {
+  .list[data-direction='horizontal'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--gap);
+    row-gap: 2.75rem;
+  }
+
+  /* Üç adım tablette de tek satırda sığar; 2×2'de sonuncusu yalnız kalırdı. */
+  .list[data-direction='horizontal'][data-tablet='row'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .list[data-direction='horizontal'] .inner {
+    display: block;
+    padding-bottom: 0;
+  }
+
+  .list[data-direction='horizontal'] .segment {
+    top: calc(var(--marker) / 2 - 1px);
+    right: calc(-1 * var(--gap) + 0.75rem);
+    left: calc(var(--marker) + 0.75rem);
+    width: auto;
+    height: 2px;
+  }
+
+  .list[data-direction='horizontal'] .fillX {
+    display: block;
+  }
+
+  .list[data-direction='horizontal'] .fillY {
+    display: none;
+  }
+
+  .list[data-direction='horizontal'] .body {
+    padding-top: 1.5rem;
+  }
+}
+
+/* Tablet 2 sütun: satır sonundaki adımın çizgisi boşluğa uzanmasın. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .list[data-direction='horizontal'][data-tablet='pairs'] .step:nth-child(2n) .segment {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .list[data-direction='horizontal'],
+  .list[data-direction='horizontal'][data-tablet='row'] {
+    grid-template-columns: repeat(var(--count, 3), minmax(0, 1fr));
+    row-gap: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marker,
+  .icon {
+    transition: none;
+  }
+}

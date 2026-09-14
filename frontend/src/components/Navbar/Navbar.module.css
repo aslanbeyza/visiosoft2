@@ -250,6 +250,23 @@
   transition: color 0.3s var(--ease-apple);
 }
 
+/* Dokunmatik işaretçide (dokunmatik dizüstü, yatay iPad) en az 44×44 px dokunma alanı; yerleşim değişmez. */
+@media (any-pointer: coarse) {
+  .chevronButton {
+    position: relative;
+  }
+
+  .chevronButton::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 2.75rem);
+    height: max(100%, 2.75rem);
+    transform: translate(-50%, -50%);
+  }
+}
+
 .chevronButton:hover,
 .item[data-open='true'] .chevronButton {
   color: var(--nav-hover);
@@ -449,6 +466,47 @@
   .scrim {
     display: block;
   }
+
+  .textLink {
+    display: inline-flex;
+  }
+}
+
+/* 1024–1279: ikincil bağlantı da görünür; menü öğeleri gizlenmeden yalnızca boşluklar sıkılaşır. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .link {
+    padding-inline: 0.5rem;
+  }
+
+  .trigger::after,
+  .indicator {
+    right: 0.5rem;
+    left: 0.5rem;
+  }
+
+  .chevronButton {
+    width: 1.5rem;
+    margin-inline-end: 0.25rem;
+  }
+
+  .actions {
+    gap: 1rem;
+  }
+
+  .ctaWrap > a {
+    padding-inline: 1.05rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1179.98px) {
+  .link,
+  .textLink {
+    font-size: 0.8125rem;
+  }
+
+  .ctaWrap > a {
+    font-size: 0.875rem;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -472,7 +530,6 @@
   }
 
   .textLink {
-    display: inline-flex;
     font-size: 0.9375rem;
   }
 }

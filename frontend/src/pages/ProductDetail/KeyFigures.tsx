@@ -2,7 +2,7 @@ import { useEffect, useId, useRef } from 'react'
 import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from 'framer-motion'
 import Section from '../../components/Section/index.ts'
 import { revealEase } from '../../components/Reveal/index.ts'
-import type { KeyFigure } from './productDetailCopy.ts'
+import type { KeyFigure } from './detailTypes.ts'
 import styles from './KeyFigures.module.css'
 
 type KeyFiguresProps = {

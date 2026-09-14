@@ -1,0 +1,155 @@
+.card {
+  position: relative;
+  padding: 1.5rem 1.25rem 1.25rem 1.75rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+}
+
+.spine {
+  position: absolute;
+  inset: 1.25rem auto 1.25rem 0.75rem;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--color-navy-600);
+  transform-origin: center top;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-navy-600);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.count {
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.note {
+  margin: 0.5rem 0 0;
+  color: var(--color-corp-muted);
+  font-size: 0.95rem;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+}
+
+.line {
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--color-corp-line);
+  transform-origin: left center;
+}
+
+.item:last-child .line {
+  display: none;
+}
+
+.link {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) 1rem;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.9rem;
+  padding: 0.55rem 0;
+  color: var(--color-corp-ink);
+  font-size: 0.95rem;
+  font-weight: 550;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: color 0.35s var(--ease-apple);
+}
+
+.link:hover {
+  color: var(--color-navy-600);
+}
+
+.link:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 2px;
+}
+
+.number {
+  color: var(--color-corp-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+
+.link:hover .number {
+  color: var(--color-navy-600);
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-navy-600);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.35s var(--ease-apple),
+    transform 0.35s var(--ease-apple);
+}
+
+.link:hover .arrow,
+.link:focus-visible .arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (hover: none) {
+  .arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 1.75rem 1.75rem 1.5rem 2.25rem;
+  }
+
+  .spine {
+    left: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .arrow {
+    transition: none;
+  }
+}
+
+@media print {
+  .card {
+    box-shadow: none;
+  }
+}

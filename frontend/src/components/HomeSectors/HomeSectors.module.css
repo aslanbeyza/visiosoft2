@@ -1,0 +1,239 @@
+/*
+ * Kullanım alanları: kart değil, saç çizgisi ızgara. Hücreler beyaz; aradaki 1px boşluk çizgi rengini gösterir.
+ * Dış köşe ve kırpma yalnızca listededir, böylece Güvence kartlarından ayrı bir yüzey okunur.
+ */
+.grid {
+  display: grid;
+  gap: 1px;
+  margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: var(--color-corp-line);
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  background: #fff;
+}
+
+/* Üzerine gelince hücre çok hafif lacivertle dolar; yalnızca opaklık değişir. */
+.item::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--color-navy-50), rgb(238 240 251 / 0));
+  content: '';
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-apple);
+  pointer-events: none;
+}
+
+.item:hover::before,
+.item:focus-within::before {
+  opacity: 1;
+}
+
+.tile {
+  position: relative;
+  display: grid;
+  flex: 1;
+  grid-template-columns: 1.5rem minmax(0, 1fr) 1.25rem;
+  align-items: start;
+  column-gap: 0.9rem;
+  padding: 1.05rem 1.25rem 1.1rem;
+}
+
+/* Hücrenin içinde, üst kenarda çizilen lacivert vurgu. */
+.accent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-navy-600);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s var(--ease-apple);
+}
+
+.item:hover .accent,
+.item:focus-within .accent {
+  transform: scaleX(1);
+}
+
+.icon {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.1rem;
+  color: var(--color-navy-600);
+}
+
+.body {
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1.02rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Tüm hücre tek bağlantıdır. */
+.link::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: '';
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+/* Liste kırptığı için halka hücrenin içine çizilir. */
+.link:focus-visible::after {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: -4px;
+  border-radius: 0.5rem;
+}
+
+.text {
+  margin: 0.3rem 0 0;
+  color: var(--color-corp-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* Mobilde referanslar tek küçük satırdır; etiket satır içinde durur. */
+.refs {
+  margin: 0.4rem 0 0;
+  color: var(--color-corp-ink);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.refsLabel {
+  margin-right: 0.4rem;
+  color: var(--color-corp-muted);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  color: var(--color-navy-600);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.moreText {
+  display: none;
+}
+
+.arrow {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: none;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.item:hover .arrow,
+.item:focus-within .arrow {
+  transform: translateX(4px);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(1.5rem, 2.4vw, 2.1rem);
+  }
+
+  .icon {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 0 1.35rem;
+  }
+
+  .title {
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  .text {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .refs {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .refsLabel {
+    display: block;
+    margin: 0 0 0.2rem;
+    font-size: 0.68rem;
+  }
+
+  .more {
+    align-self: flex-start;
+    margin-top: 1.25rem;
+  }
+
+  .moreText {
+    display: inline;
+  }
+
+  .arrow {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item::before,
+  .accent,
+  .arrow {
+    transition: none;
+  }
+
+  .item:hover .arrow,
+  .item:focus-within .arrow {
+    transform: none;
+  }
+}

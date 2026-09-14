@@ -1,0 +1,133 @@
+.root {
+  --gap: clamp(0.6rem, 1.2vw, 1rem);
+  position: relative;
+  height: clamp(18rem, 60vw, 24rem);
+  overflow: hidden;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: var(--color-corp-surface);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  height: 100%;
+  padding-inline: var(--gap);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+}
+
+.column {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.column[data-dir='down'] {
+  padding-top: calc(var(--gap) * 3);
+}
+
+.track {
+  display: grid;
+  gap: var(--gap);
+  animation: drift-up var(--duration, 60s) linear infinite;
+  animation-play-state: paused;
+}
+
+.column[data-dir='down'] .track {
+  animation-name: drift-down;
+}
+
+.root[data-play='true'] .track {
+  animation-play-state: running;
+  will-change: transform;
+}
+
+.root:hover .track {
+  animation-play-state: paused;
+}
+
+/* Karo oranı logodan bağımsız sabit kalır; logo iç boşlukta ortalanıp sığdırılır */
+.tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+/* İç pay kırpılmış logo dosyasında (logos/); görsel karonun neredeyse tamamını kullanır. */
+.tile img {
+  position: absolute;
+  inset: 8% 7%;
+  display: block;
+  width: 86%;
+  height: 84%;
+  object-fit: contain;
+}
+
+.toggle {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgb(15 20 48 / 0.06), 0 16px 40px -20px rgb(15 20 48 / 0.28);
+  transition: border-color 0.35s var(--ease-apple);
+}
+
+.toggle:hover {
+  border-color: var(--color-navy-600);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.toggle svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+@keyframes drift-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-50% - var(--gap) / 2));
+  }
+}
+
+@keyframes drift-down {
+  from {
+    transform: translateY(calc(-50% - var(--gap) / 2));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 1024px) {
+  .root {
+    height: clamp(26rem, 38vw, 34rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+
+  .toggle {
+    transition: none;
+  }
+}

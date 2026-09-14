@@ -1,0 +1,102 @@
+.wrap {
+  position: relative;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ink {
+  fill: none;
+  stroke: var(--color-corp-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.slabFill {
+  fill: #fff;
+}
+
+.windows {
+  fill: var(--color-navy-100);
+}
+
+.car {
+  fill: #c9cde0;
+}
+
+.wheel {
+  fill: var(--color-corp-ink);
+}
+
+.track {
+  fill: none;
+  stroke: var(--color-corp-line);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.fill {
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.limit {
+  fill: var(--color-navy-600);
+  stroke: var(--color-navy-600);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.link {
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cloud {
+  fill: var(--color-navy-50);
+  stroke: var(--color-navy-600);
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+.device {
+  fill: #fff;
+  stroke: var(--color-navy-600);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.dot {
+  fill: var(--color-navy-600);
+}
+
+.labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  color: var(--color-corp-muted);
+  font-size: clamp(0.6rem, 0.35vw + 0.5rem, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.strong {
+  color: var(--color-navy-600);
+}

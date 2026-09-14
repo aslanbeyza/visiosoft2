@@ -1,0 +1,138 @@
+.panel {
+  overflow: clip;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+}
+
+.head {
+  position: relative;
+  padding: 1.25rem 1.35rem 1.35rem;
+  background: var(--color-navy-900);
+  color: #fff;
+}
+
+.headTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.count {
+  display: inline-grid;
+  justify-items: end;
+  overflow: clip;
+  color: rgb(255 255 255 / 0.72);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.countValue {
+  display: block;
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+
+.title {
+  margin: 0.9rem 0 0;
+  font-size: clamp(1.4rem, 1vw + 1.1rem, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.progress {
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  background: rgb(255 255 255 / 0.12);
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  background: var(--color-navy-300);
+  transform-origin: left center;
+}
+
+.body {
+  display: grid;
+  gap: 1.1rem;
+  padding: 1.1rem 1.1rem 1.35rem;
+}
+
+.note {
+  display: grid;
+  min-height: 1.5rem;
+  margin: 0;
+  color: var(--color-navy-600);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Henüz hiçbir kural çalışmadıysa boş satır boşluk bırakmasın. */
+.note:empty {
+  display: none;
+}
+
+.noteText {
+  display: block;
+  grid-area: 1 / 1;
+}
+
+.summary {
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.summaryTitle {
+  margin: 0 0 0.6rem;
+  color: var(--color-corp-ink);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.rows {
+  display: grid;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px solid var(--color-corp-line);
+  font-size: 0.875rem;
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.rowLabel {
+  color: var(--color-corp-muted);
+}
+
+.rowValue {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-weight: 600;
+  text-align: end;
+}
+
+.row[data-pending] .rowValue {
+  color: var(--color-corp-muted);
+  font-weight: 500;
+}
+
+.rowValueText {
+  display: inline-block;
+}

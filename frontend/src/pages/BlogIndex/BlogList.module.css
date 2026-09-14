@@ -1,0 +1,16 @@
+.all {
+  display: grid;
+  gap: clamp(2rem, 3vw, 2.75rem);
+  margin-top: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+/* Yükleniyor/hata/boş durum kartı geniş bölümde okunur bir genişlikte ortalanır. */
+.state {
+  width: min(44rem, 100%);
+  margin-inline: auto;
+}
+
+/* İskelet üç sütunlu kart ızgarası olduğundan tam genişliği korur. */
+.state[data-variant='loading'] {
+  width: 100%;
+}

@@ -1,0 +1,20 @@
+.top {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.checks {
+  min-width: 0;
+}
+
+.flow {
+  margin-block: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+@media (min-width: 1024px) {
+  .top {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: end;
+  }
+}

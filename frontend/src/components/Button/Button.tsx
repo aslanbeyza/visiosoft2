@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { MouseEventHandler, ReactNode } from 'react'
+import { buttonCopy } from './buttonCopy.ts'
 import styles from './Button.module.css'
 
 type ButtonProps = {
@@ -14,7 +15,7 @@ type ButtonProps = {
   size?: 'md' | 'lg'
   /** Metnin sağında ok ikonu gösterir. */
   arrow?: boolean
-  /** href bağlantısını yeni sekmede açar. */
+  /** href bağlantısını yeni sekmede açar; ekran okuyucu için görünmez "(yeni sekmede açılır)" eklenir. */
   external?: boolean
   type?: 'button' | 'submit'
   disabled?: boolean
@@ -65,6 +66,7 @@ export default function Button({
     return (
       <a href={href} className={classes} onClick={onClick} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
         {content}
+        {external ? <span className="sr-only"> {buttonCopy.newTab}</span> : null}
       </a>
     )
   }

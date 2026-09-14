@@ -1,0 +1,21 @@
+export const paymentCopy = {
+  seoTitle: 'Ödeme - Visiosoft',
+  seoDescription: 'Visiosoft ürün ve hizmet ödemelerinizi PayTR ödeme altyapısı üzerinden yapabilirsiniz.',
+  eyebrow: 'Online ödeme',
+  title: 'Ödeme',
+  lead: 'Visiosoft ürün ve hizmet ödemelerinizi PayTR ödeme altyapısı üzerinden yapabilirsiniz.',
+  railFrom: 'Visiosoft',
+  railTo: 'PayTR',
+  railNote: 'Kart bilgileriniz PayTR ödeme ekranında girilir.',
+  frameTitle: 'PayTR ödeme ekranı',
+  frameDescription: 'Ödeme ekranı sayfa göründüğünde yüklenir.',
+  frameFallback: 'Ödeme ekranını yeni sekmede açın',
+  loading: 'Ödeme ekranı hazırlanıyor',
+  emptyTitle: 'Ödeme ekranı şu anda kullanılamıyor',
+  emptyBody:
+    'Ödeme bağlantısı için bizimle iletişime geçebilir ya da banka hesaplarımız üzerinden havale/EFT ile ödeme yapabilirsiniz.',
+  contact: 'İletişime geçin',
+  bank: 'Banka hesapları',
+  helpTitle: 'Havale/EFT ile ödemek ister misiniz?',
+  helpBody: 'Banka hesap bilgilerimize ulaşabilir, ödemenizle ilgili sorularınızı ekibimize iletebilirsiniz.',
+} as const

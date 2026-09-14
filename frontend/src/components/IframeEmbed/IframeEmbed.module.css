@@ -1,0 +1,169 @@
+.root {
+  min-width: 0;
+}
+
+.box {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--ratio, 16 / 9);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: var(--color-corp-surface);
+}
+
+.box[data-fixed='true'] {
+  height: var(--height);
+  aspect-ratio: auto;
+}
+
+.box:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-apple);
+}
+
+.frame[data-loaded='true'] {
+  opacity: 1;
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  pointer-events: none;
+}
+
+.coverInner {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  max-width: 28rem;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.35rem;
+  color: var(--color-navy-600);
+}
+
+.coverTitle {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.coverText {
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.coverActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.loading {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: var(--color-corp-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.loadingDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-navy-600);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.note {
+  margin: 0.65rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.noteLink {
+  display: inline-flex;
+  gap: 0.3rem;
+  align-items: center;
+  color: var(--color-navy-600);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.noteLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.noteLink:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.noteIcon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame {
+    transition: none;
+  }
+
+  .loadingDot {
+    animation: none;
+  }
+}

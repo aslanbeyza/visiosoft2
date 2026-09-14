@@ -1,0 +1,267 @@
+.grid {
+  display: grid;
+  row-gap: 1rem;
+  margin-top: clamp(2.5rem, 4.5vw, 3.75rem);
+}
+
+/* 768–1023 px: destek + güvenlik yan yana; entegrasyon tam genişlikte, başlık solda, çip grupları sağda. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .column[data-id='integration'] {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-rows: auto auto 1fr;
+    column-gap: 2rem;
+  }
+
+  .column[data-id='integration'] .head {
+    grid-area: 1 / 1;
+  }
+
+  .column[data-id='integration'] .title {
+    grid-area: 2 / 1;
+  }
+
+  .column[data-id='integration'] .groups {
+    grid-area: 1 / 2 / 4 / 3;
+    margin: 0;
+  }
+
+  /* Sağ sütun ikon karosuyla aynı hizada başlar. */
+  .column[data-id='integration'] .group:first-child {
+    padding-top: 0.2rem;
+    border-top: 0;
+  }
+
+  .column[data-id='integration'] .linkRow {
+    grid-area: 3 / 1;
+    align-self: end;
+    margin-top: 1.25rem;
+  }
+}
+
+/* 1024 px ve üstü: üç eşit sütun; 1024–1279 px'de iç boşluk biraz daralır. */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 1.25rem;
+  }
+
+  .grid > .column {
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    column-gap: 1.5rem;
+  }
+
+  .grid > .column {
+    padding: clamp(1.5rem, 2vw, 2rem);
+  }
+}
+
+/* Eşit yükseklikte kurumsal panel; üst kenar çizgisi sırayla çizilir */
+.column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(1.5rem, 2vw, 2rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.04),
+    0 18px 40px -28px rgb(15 20 48 / 0.18);
+  overflow: clip;
+}
+
+.rule {
+  position: absolute;
+  inset: 0 0 auto;
+  display: block;
+  height: 3px;
+}
+
+/* Tek parça, tam genişlikte lacivert kenar çizgisi; bitmiş hâli yarım dolu bir ilerleme çubuğuna benzemez. */
+.ruleAccent {
+  position: absolute;
+  inset: 0;
+  background: var(--color-navy-600);
+  transform-origin: left center;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iconTile {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  background: var(--color-navy-50);
+  color: var(--color-navy-600);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.index {
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  margin: 1.25rem 0 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.35rem, 0.5vw + 1.15rem, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.list,
+.groups {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Eşit yükseklikteki kartlarda kısa liste satırları paylaşır; kartın altında boş alan kalmaz. */
+.list {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+
+.item {
+  flex: 1 0 auto;
+  align-content: center;
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  align-items: start;
+  padding-block: 0.9rem;
+  border-top: 1px solid var(--color-corp-line);
+  color: var(--color-corp-body);
+  font-size: 0.975rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.check {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-navy-600);
+}
+
+.group {
+  padding-block: 0.8rem;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 999px;
+  background: var(--color-corp-surface);
+  color: var(--color-corp-ink);
+  font-size: 0.875rem;
+  font-weight: 550;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.linkRow {
+  margin: auto 0 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  color: var(--color-navy-600);
+  font-size: 0.975rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.linkLabel {
+  position: relative;
+}
+
+.linkLabel::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.2rem;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s var(--ease-apple);
+}
+
+.link:hover .linkLabel::after,
+.link:focus-visible .linkLabel::after {
+  transform: scaleX(1);
+}
+
+.link:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.arrow {
+  width: 1.1rem;
+  height: 1.1rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.link:hover .arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .linkLabel::after,
+  .arrow {
+    transition: none;
+  }
+}

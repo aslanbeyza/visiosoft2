@@ -1,1 +1,1 @@
-export { default } from './Hgs.tsx'
+export { default } from './HgsPage.tsx'

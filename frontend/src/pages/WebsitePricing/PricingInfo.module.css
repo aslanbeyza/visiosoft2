@@ -1,0 +1,78 @@
+.wrap {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 clamp(1.75rem, 3vw, 2.5rem);
+  color: var(--color-navy-300);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.eyebrowRule {
+  display: block;
+  width: 1.75rem;
+  height: 2px;
+  background: currentColor;
+  transform-origin: left center;
+}
+
+.prose {
+  max-width: none;
+}
+
+.grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.item {
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.index {
+  color: var(--color-navy-300);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.rule {
+  display: block;
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-navy-300) 0 2.5rem, rgb(255 255 255 / 0.14) 2.5rem);
+  transform-origin: left center;
+}
+
+.grid .item h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.6rem, 1.4vw + 1.1rem, 2.25rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.grid .item p:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(3rem, 6vw, 6rem);
+  }
+}

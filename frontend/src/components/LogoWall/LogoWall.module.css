@@ -1,0 +1,311 @@
+.root {
+  --line: var(--color-corp-line);
+  --line-hover: var(--color-navy-600);
+  --ink: var(--color-corp-ink);
+  --muted: var(--color-corp-muted);
+  --accent: var(--color-navy-600);
+  --tile-bg: #fff;
+  --button-bg: #fff;
+  --button-line: #cdd2de;
+  --fade: #fff;
+}
+
+.root[data-tone='dark'] {
+  --line: rgb(255 255 255 / 0.16);
+  --line-hover: rgb(255 255 255 / 0.6);
+  --ink: #fff;
+  --muted: rgb(255 255 255 / 0.6);
+  --accent: var(--color-navy-300);
+  --tile-bg: #fff;
+  --button-bg: transparent;
+  --button-line: rgb(255 255 255 / 0.25);
+  --fade: transparent;
+}
+
+/* Ortak kutu */
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.logoBox {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--tile-bg);
+  box-sizing: border-box;
+  transition: border-color 0.35s var(--ease-apple);
+}
+
+/* Çizilen çerçeve: gerçek CSS kenarlığı; açılışı clip-path ile, kutunun kendi kenarlığı saydam. */
+.tile[data-drawn='true'] .logoBox {
+  border-color: transparent;
+}
+
+.border {
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--line);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: border-color 0.35s var(--ease-apple);
+}
+
+.tile:hover .logoBox,
+.tile:focus-visible .logoBox {
+  border-color: var(--line-hover);
+}
+
+.tile[data-drawn='true']:hover .logoBox,
+.tile[data-drawn='true']:focus-visible .logoBox {
+  border-color: transparent;
+}
+
+.tile:hover .border,
+.tile:focus-visible .border {
+  border-color: var(--line-hover);
+}
+
+a.tile:focus-visible {
+  border-radius: 0.5rem;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Logo katmanı: ölçülene kadar ortada güvenli bir kutu; ölçülünce fitLogo.ts optik alana göre konumlar. */
+.art {
+  position: absolute;
+  inset: 22% 14%;
+  user-select: none;
+}
+
+.logo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+}
+
+/* --logo-ink: açık renkli logolar için fitLogo.ts'nin seçtiği gama süzgeci (beyazı korur); yoksa yalnızca gri. */
+.grey {
+  filter: grayscale(1) var(--logo-ink, );
+  opacity: 0.85;
+}
+
+/* Renkli katman üstte; yalnızca opaklığı değişir, filtre canlandırılmaz. */
+.colour {
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-apple);
+}
+
+.tile:hover .colour,
+.tile:focus-visible .colour {
+  opacity: 1;
+}
+
+.name {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* Izgara */
+
+/* Karo genişliği kapsayıcı genişliğine göre sabit sütun sayısından (--cap) gelir; logolar ortalanır.
+   round() destekleniyorsa satırlar dengelenir: 6 logo 4'lük alanda 3 + 3 olur, 2 logo tek satırda ortada durur. */
+.root[data-variant='grid'] {
+  container-type: inline-size;
+}
+
+.grid {
+  --cap: 2;
+  --gap: 0.75rem;
+  --tile: calc((100cqi - (var(--cap) - 1) * var(--gap)) / var(--cap));
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+@supports (width: calc(round(up, 3.2, 1) * 1px)) {
+  .grid {
+    --rows: round(up, calc(var(--n, 1) / var(--cap)), 1);
+    --fit: min(var(--cap), round(up, calc(var(--n, 1) / var(--rows)), 1));
+
+    max-width: calc(var(--fit) * var(--tile) + (var(--fit) - 1) * var(--gap) + 1px);
+  }
+}
+
+.cell {
+  flex: 0 0 var(--tile);
+  min-width: 0;
+}
+
+@container (min-width: 28rem) {
+  .grid {
+    --cap: 3;
+  }
+}
+
+@container (min-width: 40rem) {
+  .grid {
+    --cap: 4;
+    --gap: 1rem;
+  }
+}
+
+@container (min-width: 50rem) {
+  .grid {
+    --cap: 5;
+  }
+}
+
+@container (min-width: 58rem) {
+  .grid {
+    --cap: 6;
+  }
+}
+
+/* Kayan satırlar */
+
+.marquee {
+  display: grid;
+  gap: 1rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--duration, 60s) linear infinite;
+  animation-play-state: paused;
+}
+
+.row[data-direction='right'] .track {
+  animation-direction: reverse;
+}
+
+/* Yalnızca görünürken kayar. */
+.marqueeRoot[data-running='true'] .track {
+  animation-play-state: running;
+  will-change: transform;
+}
+
+.marquee:hover .track,
+.marquee:focus-within .track {
+  animation-play-state: paused;
+}
+
+/* Liste genişliği sondaki boşluğu da içerir; -%50 kayma kesintisiz döngü verir. */
+.list {
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0 1rem 0 0;
+  list-style: none;
+}
+
+.marqueeCell {
+  flex: none;
+  width: 9.5rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.25rem;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--button-line);
+  border-radius: 0.5rem;
+  background: var(--button-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.35s var(--ease-apple),
+    color 0.35s var(--ease-apple);
+}
+
+.toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.toggleIcon {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 768px) {
+  .marqueeCell {
+    width: 11rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+
+  .logoBox,
+  .border,
+  .colour,
+  .toggle {
+    transition: none;
+  }
+}

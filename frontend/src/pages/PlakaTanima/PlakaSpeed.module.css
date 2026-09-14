@@ -1,0 +1,28 @@
+.inner {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.head {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    align-items: start;
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  /* Başlık, kartlar boyunca alt gezinme çubuğunun altında sabit kalır. */
+  .head {
+    position: sticky;
+    top: 10rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .head {
+    top: 9rem;
+  }
+}

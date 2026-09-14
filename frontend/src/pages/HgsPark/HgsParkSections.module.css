@@ -1,0 +1,101 @@
+/* Geleceğin teknolojisi: başlık | şema (≥1024), altında kartlar. */
+.split {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+  align-items: center;
+}
+
+.split > * {
+  min-width: 0;
+}
+
+.features {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* Ortalanmış başlık: SectionHeading'in max-width kutusu da sayfa ortasına alınır. */
+.headCenter {
+  display: grid;
+  justify-items: center;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.headCenter > :first-child {
+  margin-bottom: 0;
+}
+
+.panels {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel {
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 0.04);
+}
+
+.panelHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.panelTitle {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.25rem, 0.8vw + 1rem, 1.5rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.count {
+  color: var(--color-navy-300);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.headSplit {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.sideLead {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: clamp(1.02rem, 0.3vw + 0.95rem, 1.15rem);
+  line-height: 1.7;
+}
+
+@media (min-width: 1024px) {
+  .split {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    column-gap: clamp(3rem, 6vw, 5rem);
+  }
+
+  .panels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .headSplit {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: end;
+    column-gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .sideLead {
+    padding-bottom: 0.35rem;
+  }
+}

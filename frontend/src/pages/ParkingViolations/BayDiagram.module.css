@@ -1,0 +1,125 @@
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ground {
+  fill: #fff;
+  stroke: var(--color-corp-line);
+  stroke-width: 1;
+}
+
+.zone {
+  fill: var(--color-navy-50);
+}
+
+.ev {
+  fill: rgb(23 27 153 / 0.035);
+}
+
+.hatch {
+  fill: none;
+  stroke: #c9cde0;
+  stroke-width: 1.5;
+}
+
+.line {
+  fill: none;
+  stroke: #aeb4c8;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.aisle {
+  fill: none;
+  stroke: #cfd3e1;
+  stroke-width: 2;
+  stroke-dasharray: 14 12;
+  stroke-linecap: round;
+}
+
+.arrow {
+  fill: none;
+  stroke: #b8bdd0;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.glyph {
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.glyph [data-fill] {
+  fill: var(--color-navy-300);
+  stroke: none;
+}
+
+.glyphFill {
+  fill: var(--color-navy-300);
+}
+
+.car[data-kind='parked'] .carBody {
+  fill: #f1f2f6;
+  stroke: #c3c7d6;
+}
+
+.carShadow {
+  fill: rgb(15 20 48 / 0.06);
+}
+
+.carBody {
+  fill: #fff;
+  stroke: var(--color-corp-ink);
+  stroke-width: 1.6;
+}
+
+.carActive {
+  fill: var(--color-navy-600);
+  stroke: var(--color-navy-700);
+  stroke-width: 1.6;
+}
+
+.carGlass {
+  fill: rgb(15 20 48 / 0.14);
+  stroke: none;
+}
+
+.carTrim {
+  fill: none;
+  stroke: var(--color-corp-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+
+.car[data-kind='parked'] .carTrim {
+  stroke: #aeb4c8;
+}
+
+.bracket {
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.marker circle {
+  fill: #fff;
+  stroke: var(--color-navy-600);
+  stroke-width: 1.6;
+}
+
+.marker path {
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}

@@ -1,0 +1,150 @@
+.root {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1.75rem;
+  width: 100%;
+  padding-top: 1rem;
+  overflow-x: clip;
+}
+
+.arc {
+  position: absolute;
+  top: 14%;
+  left: 4%;
+  width: 92%;
+  height: auto;
+  pointer-events: none;
+}
+
+.arcPath {
+  fill: none;
+  stroke: var(--color-navy-100);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.fan {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
+.item {
+  grid-area: 1 / 1;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: clamp(2rem, 3.5vw, 3rem);
+  width: clamp(8rem, 26vw, 16.5rem);
+}
+
+/* Paralaks sarmalayıcısı: grid'in justify-items: center'ı onu içerik genişliğine (0) daraltmasın */
+.lift {
+  justify-self: stretch;
+  width: 100%;
+}
+
+.device {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 726 / 1444;
+  transform-origin: 50% 100%;
+}
+
+/* Ekran görüntüsü çerçevenin saydam açıklığının altında durur */
+.screen {
+  position: absolute;
+  left: 6.9%;
+  top: 2.8%;
+  width: 86.2%;
+  height: 94.4%;
+  border-radius: 9.5% / 4.4%;
+  overflow: hidden;
+  background: #fff;
+}
+
+.screen img,
+.frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.screen img {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.label {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-corp-body);
+  white-space: nowrap;
+}
+
+.label[data-center='true'] {
+  color: var(--color-corp-ink);
+}
+
+.step {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  padding-inline: 0.35rem;
+  border-radius: 999px;
+  background: var(--color-navy-50);
+  color: var(--color-navy-600);
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.label[data-center='true'] .step {
+  background: var(--color-navy-600);
+  color: #fff;
+}
+
+.caption {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-corp-muted);
+  text-align: center;
+}
+
+@media (max-width: 639px) {
+  .arc {
+    display: none;
+  }
+
+  .label {
+    flex-direction: column;
+    gap: 0.3rem;
+    max-width: 5.5rem;
+    font-size: 0.75rem;
+    line-height: 1.25;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .step {
+    min-width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.625rem;
+  }
+}

@@ -1,0 +1,65 @@
+.stage {
+  width: min(56rem, 100%);
+  min-height: 16rem;
+  margin-inline: auto;
+}
+
+/* Boş/yükleniyor durum kartı, blog ve kılavuz durumlarıyla aynı okunur genişlikte durur. */
+.stage[data-kind='state'] {
+  width: min(44rem, 100%);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.help {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  width: min(56rem, 100%);
+  margin: clamp(2.5rem, 4vw, 3.5rem) auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.help .actions {
+  justify-content: flex-start;
+}
+
+.helpCopy {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.helpTitle {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.helpBody {
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .help {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .help .actions {
+    flex: none;
+  }
+}

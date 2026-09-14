@@ -1,1 +1,1 @@
-export { default } from './Developers.tsx'
+export { default } from './DevelopersPage.tsx'

@@ -36,7 +36,7 @@
         },
         {
             "question": "LPR (plaka tanıma) doğruluğu hangi seviyededir?",
-            "answer": "Türkiye plakalarında sahada %98+ doğruluk hedeflenir; uygun kamera konfigürasyonu ile %99,8 seviyesine çıkılabilir. Yabancı plakalarda ortalama %90+ başarı sağlanır."
+            "answer": "Türkiye plakalarında uygun kamera konfigürasyonu ile %99 üzeri doğruluk hedeflenir. Yabancı plakalarda sonuç, plaka formatına ve kamera konumuna göre değişir."
         },
         {
             "question": "Gece koşullarında plaka okuma güvenilir mi?",

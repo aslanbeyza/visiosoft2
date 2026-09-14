@@ -55,7 +55,7 @@ const ui = loc(
     request_discovery: 'Ücretsiz Keşif İste',
     show_technical_image: 'Teknik Resim Göster',
     open_catalog: 'Donanım Kataloğunu Aç',
-    viewer_kicker: '3D inceleme',
+    viewer_kicker: 'Yakından inceleme',
     viewer_title: 'Modeli döndürün, detaylara yakınlaşın.',
     viewer_fullscreen: 'Tam ekran',
     viewer_hint: 'Sürükleyin, yakınlaştırmak için kaydırın.',
@@ -70,7 +70,7 @@ const ui = loc(
     request_discovery: 'Request Free Discovery',
     show_technical_image: 'Show Technical Image',
     open_catalog: 'Open Hardware Catalog',
-    viewer_kicker: '3D preview',
+    viewer_kicker: 'Close-up view',
     viewer_title: 'Rotate the model and zoom in on details.',
     viewer_fullscreen: 'Full screen',
     viewer_hint: 'Drag to rotate, scroll to zoom.',
@@ -85,7 +85,7 @@ const ui = loc(
     request_discovery: 'Запросить бесплатное обследование',
     show_technical_image: 'Показать техническое изображение',
     open_catalog: 'Открыть каталог оборудования',
-    viewer_kicker: '3D предварительный просмотр',
+    viewer_kicker: 'Детальный просмотр',
     viewer_title: 'Поверните модель и увеличьте детали.',
     viewer_fullscreen: 'Полный экран',
     viewer_hint: 'Перетащите для поворота, прокрутите для масштабирования.',
@@ -107,7 +107,7 @@ const kiosk = loc(
   withUi('tr', {
     page_title: 'İnsansız Çıkış Ödeme Kiosk | Visiosoft',
     meta_desc:
-      'İnsansız Çıkış Ödeme Kiosk 3D ürün sayfası: plaka girişi olmadan temassız ödeme, HGS + POS + QR ve uzaktan 7/24 takip.',
+      'İnsansız Çıkış Ödeme Kiosk ürün sayfası: plaka girişi olmadan temassız ödeme, HGS + POS + QR ve uzaktan 7/24 takip.',
     eyebrow: 'Otopark Kiosk Sistemleri',
     name: 'İnsansız Çıkış Ödeme Kiosk',
     lead:
@@ -143,7 +143,7 @@ const kiosk = loc(
   withUi('en', {
     page_title: 'Unmanned Exit Payment Kiosk | Visiosoft',
     meta_desc:
-      'Unmanned Exit Payment Kiosk 3D product page with no plate entry requirement, HGS + POS + QR, and 24/7 remote monitoring.',
+      'Unmanned Exit Payment Kiosk product page with no plate entry requirement, HGS + POS + QR, and 24/7 remote monitoring.',
     eyebrow: 'Parking Kiosk Systems',
     name: 'Unmanned Exit Payment Kiosk',
     lead: 'A kiosk solution that enables contactless exit payment without requiring drivers to manually enter a plate number.',
@@ -178,7 +178,7 @@ const kiosk = loc(
   withUi('ru', {
     page_title: 'Киоск бесконтактной оплаты на выезде | Visiosoft',
     meta_desc:
-      '3D-страница киоска бесконтактной оплаты на выезде: без ввода номера, HGS + POS + QR и удаленный контроль 24/7.',
+      'Страница киоска бесконтактной оплаты на выезде: без ввода номера, HGS + POS + QR и удаленный контроль 24/7.',
     eyebrow: 'Киосковые системы парковки',
     name: 'Киоск бесконтактной оплаты на выезде',
     lead: 'Киоск позволяет принимать бесконтактную оплату на выезде без ручного ввода номера автомобиля.',
@@ -216,7 +216,7 @@ const tirKiosk = loc(
   withUi('tr', {
     page_title: 'İnsansız Çıkış Ödeme Kiosk TIR Versiyonu | Visiosoft',
     meta_desc:
-      'İnsansız Çıkış Ödeme Kiosk TIR Versiyonu 3D ürün sayfası: iki katlı paralel yapı, üst/alt panel ödeme, araç sınıfı ve çekici-dorse tanıma.',
+      'İnsansız Çıkış Ödeme Kiosk TIR Versiyonu ürün sayfası: iki katlı paralel yapı, üst/alt panel ödeme, araç sınıfı ve çekici-dorse tanıma.',
     eyebrow: 'TIR Kiosk',
     name: 'İnsansız Çıkış Ödeme Kiosk TIR Versiyonu',
     lead: 'İki katlı paralel çalışan yapısı sayesinde TIR ve kamyon garajlarına özel geliştirilen insansız çıkış ödeme kioskudur.',
@@ -251,7 +251,7 @@ const tirKiosk = loc(
   withUi('en', {
     page_title: 'Unmanned Exit Payment Kiosk TIR Version | Visiosoft',
     meta_desc:
-      'Unmanned Exit Payment Kiosk TIR Version 3D product page: dual-level parallel structure, upper/lower panel payment, vehicle class and tractor-trailer recognition.',
+      'Unmanned Exit Payment Kiosk TIR Version product page: dual-level parallel structure, upper/lower panel payment, vehicle class and tractor-trailer recognition.',
     eyebrow: 'Truck Kiosk',
     name: 'Unmanned Exit Payment Kiosk TIR Version',
     lead: 'An unmanned exit payment kiosk built for truck and lorry yards, with a dual-level structure that operates in parallel.',
@@ -286,7 +286,7 @@ const tirKiosk = loc(
   withUi('ru', {
     page_title: 'Киоск бесконтактной оплаты на выезде (версия TIR) | Visiosoft',
     meta_desc:
-      '3D-страница киоска оплаты на выезде версии TIR: двухуровневая параллельная конструкция, оплата с верхней/нижней панели, распознавание класса и тягач-полуприцеп.',
+      'Страница киоска оплаты на выезде версии TIR: двухуровневая параллельная конструкция, оплата с верхней/нижней панели, распознавание класса и тягач-полуприцеп.',
     eyebrow: 'TIR Киоск',
     name: 'Киоск бесконтактной оплаты на выезде (версия TIR)',
     lead: 'Безоператорный киоск оплаты на выезде для стоянок TIR и грузовиков с двухуровневой параллельной конструкцией.',
@@ -323,14 +323,14 @@ const tirKiosk = loc(
 const visiobox = loc(
   withUi('tr', {
     page_title: 'Visiobox | Visiosoft',
-    meta_desc: 'Visiobox 3D ürün sayfası: Box Lite ve Box Pro seçenekleriyle kompakt kontrol kutusu.',
+    meta_desc: 'Visiobox ürün sayfası: Box Lite ve Box Pro seçenekleriyle kompakt kontrol kutusu.',
     eyebrow: 'Kontrol Kutusu',
     name: 'Visiobox',
     lead: 'Box Lite ve Box Pro olmak üzere iki seçenek sunan, otopark kontrolünü sadeleştiren kompakt yönetim kutusu.',
     meta: [
       { label: 'Kategori', value: 'Kontrol kutusu' },
       { label: 'Entegrasyon', value: 'Bariyer ve sensörler' },
-      { label: 'Kullanım', value: '24/7 çalışma' },
+      { label: 'Kullanım', value: '7/24 çalışma' },
       { label: 'Destek', value: 'Keşif ve planlama' },
     ],
     highlights_desc: 'Otopark otomasyonunu daha düzenli ve yönetilebilir hale getirir.',
@@ -356,7 +356,7 @@ const visiobox = loc(
   }),
   withUi('en', {
     page_title: 'Visiobox | Visiosoft',
-    meta_desc: 'Visiobox 3D product page: compact control box with Box Lite and Box Pro options.',
+    meta_desc: 'Visiobox product page: compact control box with Box Lite and Box Pro options.',
     eyebrow: 'Control Box',
     name: 'Visiobox',
     lead: 'A compact management box that simplifies parking control, offered as Box Lite and Box Pro.',
@@ -389,7 +389,7 @@ const visiobox = loc(
   }),
   withUi('ru', {
     page_title: 'Visiobox | Visiosoft',
-    meta_desc: '3D-страница Visiobox: компактный блок управления с вариантами Box Lite и Box Pro.',
+    meta_desc: 'Страница Visiobox: компактный блок управления с вариантами Box Lite и Box Pro.',
     eyebrow: 'Блок управления',
     name: 'Visiobox',
     lead: 'Компактный блок управления парковкой с двумя вариантами: Box Lite и Box Pro.',
@@ -425,7 +425,7 @@ const visiobox = loc(
 const rackKabin = loc(
   withUi('tr', {
     page_title: 'Visio Rack Kabin | Visiosoft',
-    meta_desc: 'Visio Rack Kabin 3D ürün sayfası: saha ekipmanları için güvenli kabin sistemi.',
+    meta_desc: 'Visio Rack Kabin ürün sayfası: saha ekipmanları için güvenli kabin sistemi.',
     eyebrow: 'Kabin Sistemleri',
     name: 'Visio Rack Kabin',
     lead: 'Saha ekipmanlarını güvenli ve düzenli şekilde barındıran rack kabin.',
@@ -459,7 +459,7 @@ const rackKabin = loc(
   }),
   withUi('en', {
     page_title: 'Visio Rack Cabinet | Visiosoft',
-    meta_desc: 'Visio Rack Cabinet 3D product page: a secure cabinet system for field equipment.',
+    meta_desc: 'Visio Rack Cabinet product page: a secure cabinet system for field equipment.',
     eyebrow: 'Cabinet Systems',
     name: 'Visio Rack Cabinet',
     lead: 'A rack cabinet that houses field equipment in a secure and organized way.',
@@ -493,7 +493,7 @@ const rackKabin = loc(
   }),
   withUi('ru', {
     page_title: 'Visio Rack Cabin | Visiosoft',
-    meta_desc: '3D-страница Visio Rack Cabin: безопасный шкаф для полевого оборудования.',
+    meta_desc: 'Страница Visio Rack Cabin: безопасный шкаф для полевого оборудования.',
     eyebrow: 'Кабинные системы',
     name: 'Visio Rack Cabin',
     lead: 'Стоечный шкаф, который надежно и упорядоченно размещает полевое оборудование.',
@@ -530,7 +530,7 @@ const rackKabin = loc(
 const kameraMuhafaza = loc(
   withUi('tr', {
     page_title: 'Visio Kamera | Visiosoft',
-    meta_desc: 'Visio Kamera 3D ürün sayfası: dış ortam kameraları için koruma donanımı.',
+    meta_desc: 'Visio Kamera ürün sayfası: dış ortam kameraları için koruma donanımı.',
     eyebrow: 'Koruma Donanımı',
     name: 'Visio Kamera',
     lead: 'Kameraları dış koşullara karşı koruyan, kompakt ve sağlam muhafaza.',
@@ -563,7 +563,7 @@ const kameraMuhafaza = loc(
   }),
   withUi('en', {
     page_title: 'Visio Camera | Visiosoft',
-    meta_desc: 'Visio Camera 3D product page: protective hardware for outdoor cameras.',
+    meta_desc: 'Visio Camera product page: protective hardware for outdoor cameras.',
     eyebrow: 'Protective Hardware',
     name: 'Visio Camera',
     lead: 'A compact, rugged housing that protects cameras from outdoor conditions.',
@@ -596,7 +596,7 @@ const kameraMuhafaza = loc(
   }),
   withUi('ru', {
     page_title: 'Visio камера | Visiosoft',
-    meta_desc: '3D-страница Visio камеры: защитное оборудование для наружных камер.',
+    meta_desc: 'Страница Visio камеры: защитное оборудование для наружных камер.',
     eyebrow: 'Защитное оборудование',
     name: 'Visio камера',
     lead: 'Компактный прочный корпус, защищающий камеры от внешних условий.',
@@ -632,7 +632,7 @@ const kameraMuhafaza = loc(
 const kameraMontajKulesi = loc(
   withUi('tr', {
     page_title: 'Visio Kamera Montaj Kulesi | Visiosoft',
-    meta_desc: 'Visio Kamera Montaj Kulesi 3D ürün sayfası: yüksek montaj için modüler kule.',
+    meta_desc: 'Visio Kamera Montaj Kulesi ürün sayfası: yüksek montaj için modüler kule.',
     eyebrow: 'Montaj Sistemleri',
     name: 'Visio Kamera Montaj Kulesi',
     lead: 'Kameraları yüksekten konumlandırmak için modüler ve dayanıklı montaj kulesi.',
@@ -665,7 +665,7 @@ const kameraMontajKulesi = loc(
   }),
   withUi('en', {
     page_title: 'Visio Camera Mount Tower | Visiosoft',
-    meta_desc: 'Visio Camera Mount Tower 3D product page for modular elevated camera mounting.',
+    meta_desc: 'Visio Camera Mount Tower product page for modular elevated camera mounting.',
     eyebrow: 'Mounting Systems',
     name: 'Visio Camera Mount Tower',
     lead: 'Modular, durable mount tower for elevated camera positioning.',
@@ -698,7 +698,7 @@ const kameraMontajKulesi = loc(
   }),
   withUi('ru', {
     page_title: 'Visio монтажная башня камеры | Visiosoft',
-    meta_desc: 'Страница 3D продукта монтажной башни камеры Visio: модульная башня для высокого монтажа.',
+    meta_desc: 'Страница продукта монтажной башни камеры Visio: модульная башня для высокого монтажа.',
     eyebrow: 'Монтажные системы',
     name: 'Visio монтажная башня камеры',
     lead: 'Модульная и прочная монтажная башня для высокого позиционирования камер.',
@@ -733,10 +733,10 @@ const kameraMontajKulesi = loc(
 
 const ledliReklamPaneli = loc(
   withUi('tr', {
-    page_title: 'Visio Ledli Reklam Paneli | Visiosoft',
-    meta_desc: 'Visio Ledli Reklam Paneli 3D ürün sayfası: yönlendirme ve duyuru için yüksek görünürlüklü panel.',
+    page_title: 'LED Bilgilendirme Paneli | Visiosoft',
+    meta_desc: 'LED Bilgilendirme Paneli ürün sayfası: yönlendirme ve duyuru için yüksek görünürlüklü panel.',
     eyebrow: 'Bilgilendirme ve Reklam',
-    name: 'Visio Ledli Reklam Paneli',
+    name: 'LED Bilgilendirme Paneli',
     lead: 'Girişlerde ve yönlendirmede yüksek görünürlüklü LED panel çözümü.',
     meta: [
       { label: 'Kategori', value: 'Bilgilendirme panelleri' },
@@ -768,7 +768,7 @@ const ledliReklamPaneli = loc(
   }),
   withUi('en', {
     page_title: 'Visio LED Advertising Panel | Visiosoft',
-    meta_desc: 'Visio LED Advertising Panel 3D product page for guidance and announcements.',
+    meta_desc: 'Visio LED Advertising Panel product page for guidance and announcements.',
     eyebrow: 'Information & Advertising',
     name: 'Visio LED Advertising Panel',
     lead: 'High-visibility LED panel solution for entries and wayfinding.',
@@ -802,7 +802,7 @@ const ledliReklamPaneli = loc(
   }),
   withUi('ru', {
     page_title: 'Visio LED рекламная панель | Visiosoft',
-    meta_desc: 'Страница 3D продукта LED рекламной панели Visio: панель с высокой видимостью для навигации и объявлений.',
+    meta_desc: 'Страница продукта LED рекламной панели Visio: панель с высокой видимостью для навигации и объявлений.',
     eyebrow: 'Информация и реклама',
     name: 'Visio LED рекламная панель',
     lead: 'Решение LED панели с высокой видимостью для входов и навигации.',
@@ -839,14 +839,14 @@ const ledliReklamPaneli = loc(
 const togerbox = loc(
   withUi('tr', {
     page_title: 'Togerbox | Visiosoft',
-    meta_desc: 'Togerbox 3D ürün sayfası: kompakt kontrol kutusu.',
+    meta_desc: 'Togerbox ürün sayfası: kompakt kontrol kutusu.',
     eyebrow: 'Kontrol Kutusu',
     name: 'Togerbox',
     lead: 'Otopark kontrolünü sadeleştiren kompakt yönetim kutusu.',
     meta: [
       { label: 'Kategori', value: 'Kontrol kutusu' },
       { label: 'Entegrasyon', value: 'Bariyer ve sensörler' },
-      { label: 'Kullanım', value: '24/7 çalışma' },
+      { label: 'Kullanım', value: '7/24 çalışma' },
       { label: 'Destek', value: 'Keşif ve planlama' },
     ],
     highlights_desc: 'Otopark otomasyonunu daha düzenli ve yönetilebilir hale getirir.',
@@ -872,7 +872,7 @@ const togerbox = loc(
   }),
   withUi('en', {
     page_title: 'Togerbox | Visiosoft',
-    meta_desc: 'Togerbox 3D product page: compact control box.',
+    meta_desc: 'Togerbox product page: compact control box.',
     eyebrow: 'Control Box',
     name: 'Togerbox',
     lead: 'A compact management box that simplifies parking control.',
@@ -905,7 +905,7 @@ const togerbox = loc(
   }),
   withUi('ru', {
     page_title: 'Togerbox | Visiosoft',
-    meta_desc: '3D-страница Togerbox: компактный блок управления.',
+    meta_desc: 'Страница Togerbox: компактный блок управления.',
     eyebrow: 'Блок управления',
     name: 'Togerbox',
     lead: 'Компактный блок управления, упрощающий контроль парковки.',
@@ -944,7 +944,8 @@ export const products: Record<HardwareSlug, HardwareProductDef> = {
     route: 'hardware-products.kiosk',
     model: '/parking-product-3d/kiosk/kiosk.glb',
     technicalImage: '/parking-product-3d/kiosk/kiosk.png',
-    navLabel: loc('Kiosk', 'Kiosk', 'Киоск'),
+    // Kısa adlar müşterinin onayladığı menü adlarıyla aynıdır (siteNav hardwareMenu).
+    navLabel: loc('Ödeme Kiosku', 'Kiosk', 'Киоск'),
     copy: kiosk,
   },
   'tir-kiosk': {
@@ -952,7 +953,7 @@ export const products: Record<HardwareSlug, HardwareProductDef> = {
     route: 'hardware-products.tir-kiosk',
     model: '/parking-product-3d/tir-kiosk/truck_kiosk.glb',
     technicalImage: '/parking-product-3d/tir-kiosk/tir_kiosk.png',
-    navLabel: loc('TIR Kiosk', 'Truck Kiosk', 'TIR Киоск'),
+    navLabel: loc('TIR Ödeme Kiosku', 'Truck Kiosk', 'TIR Киоск'),
     copy: tirKiosk,
   },
   visiobox: {
@@ -976,7 +977,7 @@ export const products: Record<HardwareSlug, HardwareProductDef> = {
     route: 'hardware-products.kamera-muhafaza',
     model: '/parking-product-3d/kamera-muhafaza/camera.glb',
     technicalImage: '/parking-product-3d/kamera-muhafaza/technical.png',
-    navLabel: loc('Kamera Muhafaza', 'Camera Housing', 'Корпус камеры'),
+    navLabel: loc('Visio Kamera', 'Camera Housing', 'Корпус камеры'),
     copy: kameraMuhafaza,
   },
   'kamera-montaj-kulesi': {
@@ -991,7 +992,7 @@ export const products: Record<HardwareSlug, HardwareProductDef> = {
     route: 'hardware-products.ledli-reklam-paneli',
     model: '/parking-product-3d/ledli-reklam-paneli/visio-ledli-reklam-paneli.glb',
     technicalImage: '/parking-product-3d/ledli-reklam-paneli/led_panel.png',
-    navLabel: loc('Ledli Reklam Paneli', 'LED Panel', 'LED рекламная панель'),
+    navLabel: loc('LED Bilgilendirme Paneli', 'LED Panel', 'LED рекламная панель'),
     copy: ledliReklamPaneli,
   },
   togerbox: {

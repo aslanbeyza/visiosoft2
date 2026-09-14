@@ -1,72 +1,116 @@
 import Button from '../../components/Button/index.ts'
+import CtaBand from '../../components/CtaBand/index.ts'
+import Faq from '../../components/Faq/index.ts'
+import FeatureGrid, { FeatureIcon } from '../../components/FeatureGrid/index.ts'
+import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
+import Magnetic from '../../components/Magnetic/index.ts'
+import PageHero from '../../components/PageHero/index.ts'
+import Prose from '../../components/Prose/index.ts'
+import Section from '../../components/Section/index.ts'
+import SectionHeading from '../../components/SectionHeading/index.ts'
 import Seo from '../../components/Seo/index.ts'
-import { useLocale } from '../../hooks/useLocale/index.ts'
+import StepList from '../../components/StepList/index.ts'
+import SubNav from '../../components/SubNav/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
-import styles from './PlateRecognitionSystem.module.css'
+import HeroMap from './HeroMap.tsx'
+import PlateAnatomy from './PlateAnatomy.tsx'
+import { prsCopy as copy } from './prsCopy.ts'
+import styles from './PrsSections.module.css'
 
-const features = [
-  { title: 'Hızlı Tanıma', copy: 'Milisaniyeler içinde plaka okuma ve tanıma' },
-  { title: 'Yüksek Doğruluk', copy: '%99 üzeri doğruluk oranı ile güvenilir sonuçlar' },
-  { title: 'Gece Görüşü', copy: '7/24 kesintisiz çalışma, gece-gündüz fark etmez' },
-  { title: 'Bulut Tabanlı', copy: 'Her yerden erişim ve merkezi yönetim imkanı' },
-  { title: 'Veri Analizi', copy: 'Detaylı raporlama ve iş zekası analitiği' },
-  { title: 'Mobil Erişim', copy: 'Mobil uygulama ile anlık takip ve yönetim' },
-]
+const stepIcons: FeatureIconName[] = ['camera', 'plate', 'settings', 'barrier']
 
+/** /plaka-tanima-sistemi — eğitici çözüm sayfası. */
 export default function PlateRecognitionSystem() {
-  const { t } = useLocale()
   const path = usePath()
 
   return (
     <>
-      <Seo title={t('Plaka Tanıma Sistemi | PTS Teknolojisi | Visiosoft')} description={t('lpr_page_meta_desc')} />
+      <Seo title={copy.metaTitle} description={copy.metaDescription} />
 
-      <section className={styles.page}>
-        <main className={styles.inner}>
-          <section className={styles.hero}>
-            <div>
-              <h1>{t('Plaka Tanıma Sistemi')}</h1>
-              <p>{t('lpr_hero_description')}</p>
-            </div>
-            <div className={styles.heroImage}>
-              <img src="/img/pages/gercek_otopark_isvev_kus_bakisi.webp" alt={t('Plaka Tanıma Sistemi')} />
-              <span className={styles.liveChip}>
-                <i />
-                {t('Otomatik Tanıma')}
-              </span>
-            </div>
-          </section>
-
-          <section className={styles.explainer}>
-            <h2>{t('Plaka Tanıma Sistemi Nedir?')}</h2>
-            <p>{t('what_is_lpr_desc_1')}</p>
-            <p>{t('what_is_lpr_desc_2')}</p>
-          </section>
-
-          <section className={styles.features}>
-            <h2>{t('Sistem Özellikleri')}</h2>
-            <div className={styles.featureGrid}>
-              {features.map((item) => (
-                <article key={item.title}>
-                  <h3>{t(item.title)}</h3>
-                  <p>{t(item.copy)}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.cta}>
-            <h2>{t('Başlamaya Hazır mısınız?')}</h2>
-            <p>{t('lpr_ready_to_start_desc')}</p>
-            <div className={styles.actions}>
-              <Button to={path('quote.index')}>{t('Teklif Al')}</Button>
-              <Button to={path('contact')} variant="ghost">
-                {t('İletişim')}
+      <PageHero
+        variant="split"
+        breadcrumbs={[{ label: copy.breadcrumbHome, to: path('home') }, { label: copy.title }]}
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        lead={copy.lead}
+        mediaOrder="last"
+        media={<HeroMap />}
+        actions={
+          <div className={styles.actions}>
+            <Magnetic>
+              <Button to={path('quote.index')} size="lg" arrow>
+                {copy.quote}
               </Button>
-            </div>
-          </section>
-        </main>
-      </section>
+            </Magnetic>
+            <Button to={path('contact')} size="lg" variant="secondary">
+              {copy.contact}
+            </Button>
+          </div>
+        }
+      />
+
+      <SubNav items={copy.subNav} />
+
+      <Section id="nedir" tone="surface" spacing="lg" labelledBy="nedir-baslik">
+        <div className={styles.split}>
+          <div className={styles.copy}>
+            <SectionHeading id="nedir-baslik" eyebrow={copy.about.eyebrow} title={copy.about.title} />
+            <Prose size="lg">
+              {copy.about.paragraphs.map((paragraph) => (
+                <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+              ))}
+            </Prose>
+          </div>
+          <PlateAnatomy />
+        </div>
+      </Section>
+
+      <Section id="ozellikler" spacing="lg" labelledBy="ozellikler-baslik">
+        <div className={styles.stack}>
+          <SectionHeading
+            id="ozellikler-baslik"
+            eyebrow={copy.features.eyebrow}
+            title={copy.features.title}
+            lead={copy.features.lead}
+          />
+          <FeatureGrid
+            columns={3}
+            items={copy.features.items.map((item) => ({
+              icon: <FeatureIcon name={item.icon} />,
+              title: item.title,
+              description: item.description,
+            }))}
+          />
+        </div>
+      </Section>
+
+      <Section id="nasil-calisir" tone="night" spacing="lg" labelledBy="nasil-baslik">
+        <div className={styles.stack}>
+          <SectionHeading id="nasil-baslik" tone="dark" eyebrow={copy.how.eyebrow} title={copy.how.title} lead={copy.how.lead} />
+          <StepList
+            tone="dark"
+            label={copy.how.title}
+            steps={copy.how.steps.map((step, index) => ({ ...step, icon: <FeatureIcon name={stepIcons[index]} /> }))}
+          />
+        </div>
+      </Section>
+
+      <Section id="sss" spacing="lg" labelledBy="sss-baslik">
+        <div className={styles.faqLayout}>
+          <div className={styles.faqHead}>
+            <SectionHeading id="sss-baslik" eyebrow={copy.faq.eyebrow} title={copy.faq.title} lead={copy.faq.lead} />
+          </div>
+          <Faq items={copy.faq.items} label={copy.faq.title} schema single />
+        </div>
+      </Section>
+
+      <CtaBand
+        eyebrow={copy.cta.eyebrow}
+        title={copy.cta.title}
+        description={copy.cta.description}
+        primary={{ label: copy.quote, to: path('quote.index') }}
+        secondary={{ label: copy.contact, to: path('contact') }}
+      />
     </>
   )
 }

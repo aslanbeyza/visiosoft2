@@ -5,12 +5,21 @@
   transition: transform 0.45s var(--ease-apple);
 }
 
+/* Çubuk varken odaklanan öğeler navbar + çubuğun (7.25rem / 7.75rem) altında kalmasın. */
+:global(html):has(.sticky) {
+  scroll-padding-top: 8rem;
+}
+
 /* Navbar aşağı kaydırırken gizlenince çubuk onun bıraktığı boşluğa kayar. */
 :global(html[data-navbar='hidden']) .sticky {
   transform: translateY(-4rem);
 }
 
 @media (min-width: 1024px) {
+  :global(html):has(.sticky) {
+    scroll-padding-top: 8.5rem;
+  }
+
   :global(html[data-navbar='hidden']) .sticky {
     transform: translateY(-4.5rem);
   }
@@ -78,6 +87,8 @@
   padding: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  /* Kenar geçişleri (2.5rem) odak halkasını örtmesin. */
+  scroll-padding-inline: 2.5rem;
   list-style: none;
   scrollbar-width: none;
 }

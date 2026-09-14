@@ -13,8 +13,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Saydam dış çizgi normalde görünmez; zorunlu renk modunda sistem rengiyle odak göstergesine dönüşür. */
 .button:focus-visible {
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
 }
 
 .circle {

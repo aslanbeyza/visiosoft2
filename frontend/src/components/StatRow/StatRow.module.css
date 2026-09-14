@@ -1,0 +1,122 @@
+.grid {
+  --sr-ink: var(--color-corp-ink);
+  --sr-muted: var(--color-corp-muted);
+  --sr-line: var(--color-corp-line);
+  --sr-accent: var(--color-navy-600);
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem 1.5rem;
+  margin: 0;
+  color: var(--sr-ink);
+}
+
+.grid[data-tone='dark'] {
+  --sr-ink: #fff;
+  --sr-muted: rgb(255 255 255 / 0.62);
+  --sr-line: rgb(255 255 255 / 0.14);
+  --sr-accent: var(--color-navy-300);
+}
+
+.stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: 1.35rem;
+}
+
+.hairline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--sr-line);
+  transform-origin: left center;
+}
+
+.hairline::after {
+  content: '';
+  position: absolute;
+  top: -0.5px;
+  left: 0;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--sr-accent);
+}
+
+/* Görsel sıra: değer, etiket, not (dl semantiği dt → dd olarak kalır). */
+.value {
+  order: -1;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(2.6rem, 3vw + 1.4rem, 4rem);
+  margin: 0 0 0.6rem;
+  color: var(--sr-ink);
+  font-size: clamp(2.1rem, 2.6vw + 1.1rem, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat[data-kind='text'] .value {
+  padding-bottom: 0.2em;
+  font-size: clamp(1.3rem, 1.2vw + 0.95rem, 2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* CountUp'ın kendi inline kuralını yükleme sırasından bağımsız olarak ezer. */
+.grid .count {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.grid .count [data-part='prefix'],
+.grid .count [data-part='suffix'] {
+  color: var(--sr-muted);
+  font-size: 0.42em;
+  font-weight: 600;
+  letter-spacing: 0;
+  white-space: pre;
+}
+
+.grid .count [data-part='prefix'] {
+  margin-right: 0.1em;
+}
+
+.text {
+  text-wrap: balance;
+}
+
+.label {
+  color: var(--sr-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.note {
+  margin: 0.25rem 0 0;
+  color: var(--sr-muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+@media (min-width: 768px) {
+  .grid[data-columns='3'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    gap: 2rem;
+  }
+
+  .grid[data-columns='4'] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

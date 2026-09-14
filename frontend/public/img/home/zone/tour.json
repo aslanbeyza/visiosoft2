@@ -1,0 +1,362 @@
+{
+  "version": 1,
+  "generated": "2026-09-14",
+  "note": "Regions are normalised 0-1 of the image; regionPx is in the listed imageWidth/imageHeight. zone2/zone3 also exist at 1200 w (same aspect).",
+  "variants": {
+    "zone2": {
+      "1896": "/img/home/zone/zone2-1896",
+      "1200": "/img/home/zone/zone2-1200"
+    },
+    "zone3": {
+      "1896": "/img/home/zone/zone3-1896",
+      "1200": "/img/home/zone/zone3-1200"
+    }
+  },
+  "items": [
+    {
+      "id": "giris-cikis",
+      "label": "Anlık giriş-çıkış",
+      "image": "/img/home/zone/sessions.webp",
+      "imageAvif": "/img/home/zone/sessions.avif",
+      "imageWidth": 996,
+      "imageHeight": 436,
+      "region": {
+        "x": 0.0743,
+        "y": 0.4083,
+        "w": 0.9116,
+        "h": 0.4358
+      },
+      "regionPx": {
+        "x": 74,
+        "y": 178,
+        "w": 908,
+        "h": 190
+      },
+      "caption": "Oturumlar ekranı: her satırda plaka, giriş ve çıkış saati, süre, ücret, ödeme ve oturum durumu; üstte Tümü, İçeride/Çıkış ve Ödendi/Ödenmedi filtreleri.",
+      "honesty": "Satırlar demo verisidir (34ABC001–34ABC003, otopark \"Merkez\", 07/06/2026); yalnızca 3 oturum var. Ekran canlı akış ya da otomatik güncelleme göstermez; bir aracın içeride kaldığı yalnızca boş çıkış ve \"Hesaplanmadı\" ücretinden anlaşılır.",
+      "also": [
+        {
+          "image": "/img/home/zone/zone3-1896.webp",
+          "imageAvif": "/img/home/zone/zone3-1896.avif",
+          "imageWidth": 1896,
+          "imageHeight": 862,
+          "region": {
+            "x": 0.2321,
+            "y": 0.4443,
+            "w": 0.7489,
+            "h": 0.0882
+          },
+          "regionPx": {
+            "x": 440,
+            "y": 383,
+            "w": 1420,
+            "h": 76
+          },
+          "caption": "Kamera & Bariyer sayfasında Giriş Kameraları ve Çıkış Kameraları ayrı sütunlarda.",
+          "honesty": "Kamera kareleri video değil, 12-02-2026 tarihli durağan görüntülerdir."
+        }
+      ]
+    },
+    {
+      "id": "doluluk-gelir",
+      "label": "Doluluk ve gelir",
+      "image": "/img/home/zone/finans.webp",
+      "imageAvif": "/img/home/zone/finans.avif",
+      "imageWidth": 668,
+      "imageHeight": 251,
+      "region": {
+        "x": 0.0,
+        "y": 0.1713,
+        "w": 1.0,
+        "h": 0.8287
+      },
+      "regionPx": {
+        "x": 0,
+        "y": 43,
+        "w": 668,
+        "h": 208
+      },
+      "caption": "Finansal Rapor (Günlük): Toplam Geçiş 100, Ücretli Geçiş 50, Abone 15, Ücretsiz / Beyaz Liste 35 ve Toplam Ciro ₺2000; yanında Ciro Trend Analizi grafiği.",
+      "honesty": "Türkçe/ZonE bir doluluk ekranı (boş-dolu yer sayısı, yüzde) yok; bu görüntü doluluğu göstermez, yalnızca geçiş sayıları ve ciroyu gösterir. Değerler demo verisidir ve kendi içinde tutarsızdır (oranlar %100/%0, trend çizgisi düz). Kaynak küçültülmüş olduğu için küçük etiketler bulanıktır; ödeme yöntemi tablosu bilerek kırpıldı.",
+      "also": []
+    },
+    {
+      "id": "cihaz-durumu",
+      "label": "Bariyer/kamera cihaz durumu",
+      "image": "/img/home/zone/zone3-1896.webp",
+      "imageAvif": "/img/home/zone/zone3-1896.avif",
+      "imageWidth": 1896,
+      "imageHeight": 862,
+      "region": {
+        "x": 0.2321,
+        "y": 0.5684,
+        "w": 0.7489,
+        "h": 0.3852
+      },
+      "regionPx": {
+        "x": 440,
+        "y": 490,
+        "w": 1420,
+        "h": 332
+      },
+      "caption": "Kamera & Bariyer: iki giriş ve iki çıkış kamerasının son karesi, her kartta BARİYERİ AÇ düğmesi; üstte 30/45/60/90 sn otomatik yenileme ve Tüm Kameraları Yenile.",
+      "honesty": "Cihaz başına çevrimiçi/çevrimdışı rozeti, Cihazlar listesi ya da bariyerin açık/kapalı durumu gösterilmez. Kareler durağan görüntülerdir; tüm plakalar bulanıklaştırıldı.",
+      "also": [
+        {
+          "image": "/img/home/zone/zone3-1896.webp",
+          "imageAvif": "/img/home/zone/zone3-1896.avif",
+          "imageWidth": 1896,
+          "imageHeight": 862,
+          "region": {
+            "x": 0.3085,
+            "y": 0.8376,
+            "w": 0.0907,
+            "h": 0.0534
+          },
+          "regionPx": {
+            "x": 585,
+            "y": 722,
+            "w": 172,
+            "h": 46
+          },
+          "caption": "Giriş kamerası kartında BARİYERİ AÇ düğmesi.",
+          "honesty": "Düğmeye basıldığında ne olduğu (onay, kayıt) görünmez."
+        },
+        {
+          "image": "/img/home/zone/zone2-1896.webp",
+          "imageAvif": "/img/home/zone/zone2-1896.avif",
+          "imageWidth": 1896,
+          "imageHeight": 703,
+          "region": {
+            "x": 0.2305,
+            "y": 0.7653,
+            "w": 0.7505,
+            "h": 0.1323
+          },
+          "regionPx": {
+            "x": 437,
+            "y": 538,
+            "w": 1423,
+            "h": 93
+          },
+          "caption": "Panel bildirimi: \"Son 3 saatte hata yok · Tüm sistemler düzgün çalışıyor\" ve Teknik Logları Gör.",
+          "honesty": "Hangi cihazların izlendiği veya hata olduğunda nasıl göründüğü gösterilmez."
+        },
+        {
+          "image": "/img/home/zone/zone2-1896.webp",
+          "imageAvif": "/img/home/zone/zone2-1896.avif",
+          "imageWidth": 1896,
+          "imageHeight": 703,
+          "region": {
+            "x": 0.8049,
+            "y": 0.064,
+            "w": 0.1762,
+            "h": 0.6629
+          },
+          "regionPx": {
+            "x": 1526,
+            "y": 45,
+            "w": 334,
+            "h": 466
+          },
+          "caption": "Teknik kartı: Kamera & Bariyer, PMSP Logları, Cihazlar, Kameralar.",
+          "honesty": "Yalnızca menü girişleridir; alt sayfalar gösterilmez."
+        }
+      ]
+    },
+    {
+      "id": "abonelik-ihlal",
+      "label": "Abonelik ve ihlal yönetimi",
+      "image": "/img/home/zone/zone2-1896.webp",
+      "imageAvif": "/img/home/zone/zone2-1896.avif",
+      "imageWidth": 1896,
+      "imageHeight": 703,
+      "region": {
+        "x": 0.6139,
+        "y": 0.064,
+        "w": 0.1756,
+        "h": 0.6629
+      },
+      "regionPx": {
+        "x": 1164,
+        "y": 45,
+        "w": 333,
+        "h": 466
+      },
+      "caption": "Panelde Abonelik kartı: Abone Paketleri ve Aboneler.",
+      "honesty": "İhlal listesi ya da ceza ekranı yok; en yakın öğe Kara Liste menüsüdür. Aboneler ve Abone Paketleri sayfalarının kendisi yok, yalnızca menü girişleri görünür.",
+      "also": [
+        {
+          "image": "/img/home/zone/zone2-1896.webp",
+          "imageAvif": "/img/home/zone/zone2-1896.avif",
+          "imageWidth": 1896,
+          "imageHeight": 703,
+          "region": {
+            "x": 0.2442,
+            "y": 0.5334,
+            "w": 0.153,
+            "h": 0.1494
+          },
+          "regionPx": {
+            "x": 463,
+            "y": 375,
+            "w": 290,
+            "h": 105
+          },
+          "caption": "Temel Otopark kartında Beyaz Liste ve Kara Liste girişleri.",
+          "honesty": "Listelerin içeriği gösterilmez."
+        },
+        {
+          "image": "/img/home/zone/app-abonelik-sec.webp",
+          "imageAvif": "/img/home/zone/app-abonelik-sec.avif",
+          "imageWidth": 516,
+          "imageHeight": 1124,
+          "region": {
+            "x": 0.0388,
+            "y": 0.516,
+            "w": 0.9302,
+            "h": 0.1824
+          },
+          "regionPx": {
+            "x": 20,
+            "y": 580,
+            "w": 480,
+            "h": 205
+          },
+          "caption": "Mobil uygulamada Abonelik Seç: Aylık Abonelik 450₺, başlangıç 18 Nis 2024 (30 Gün).",
+          "honesty": "Müşteri tarafı ekranıdır, demo verisidir (34 TC 001); ödeme sonucu ekranı dahil değildir."
+        }
+      ]
+    },
+    {
+      "id": "merkezi-raporlama",
+      "label": "Merkezi raporlama",
+      "image": "/img/home/zone/zone2-1896.webp",
+      "imageAvif": "/img/home/zone/zone2-1896.avif",
+      "imageWidth": 1896,
+      "imageHeight": 703,
+      "region": {
+        "x": 0.4225,
+        "y": 0.064,
+        "w": 0.1772,
+        "h": 0.6629
+      },
+      "regionPx": {
+        "x": 801,
+        "y": 45,
+        "w": 336,
+        "h": 466
+      },
+      "caption": "Panelde Finansal kartı: Ödemeler, Borç Sorgulama, Fiyat Tarifeleri, Ödeme Ayarları, Finansal Rapor.",
+      "honesty": "Birden çok otoparkı birleştiren rapor, dışa aktarma ya da Grafana panosu gösterilmez; mevcut rapor tek otoparka (DEFAULT OTOPARK) aittir.",
+      "also": [
+        {
+          "image": "/img/home/zone/finans.webp",
+          "imageAvif": "/img/home/zone/finans.avif",
+          "imageWidth": 668,
+          "imageHeight": 251,
+          "region": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 1.0,
+            "h": 0.1116
+          },
+          "regionPx": {
+            "x": 0,
+            "y": 0,
+            "w": 668,
+            "h": 28
+          },
+          "caption": "Finansal Rapor dönem filtresi: Günlük, Haftalık, Aylık, Son 24 Saat, Son 7 Gün, Son 30 Gün, Yıllık, Tüm Zamanlar, Özel.",
+          "honesty": "Etiketler küçük ve bulanıktır; yakın plan netlik kaldırmaz."
+        }
+      ]
+    },
+    {
+      "id": "coklu-otopark",
+      "label": "Çoklu otopark yönetimi",
+      "image": "/img/home/zone/zone3-1896.webp",
+      "imageAvif": "/img/home/zone/zone3-1896.avif",
+      "imageWidth": 1896,
+      "imageHeight": 862,
+      "region": {
+        "x": 0.0074,
+        "y": 0.1067,
+        "w": 0.193,
+        "h": 0.0673
+      },
+      "regionPx": {
+        "x": 14,
+        "y": 92,
+        "w": 366,
+        "h": 58
+      },
+      "caption": "Kenar çubuğunda otopark seçici (açılır menü).",
+      "honesty": "Birden çok otoparkı aynı anda gösteren genel bakış ekranı yok; seçicinin açık hali ve başka otopark adları görünmez. Seçicide gerçek bir otopark adı (Bakırköy Zuhuratbaba) yazar; gösterimi müşteri onayı gerektirir.",
+      "also": [
+        {
+          "image": "/img/home/zone/sessions.webp",
+          "imageAvif": "/img/home/zone/sessions.avif",
+          "imageWidth": 996,
+          "imageHeight": 436,
+          "region": {
+            "x": 0.1084,
+            "y": 0.3257,
+            "w": 0.0803,
+            "h": 0.5229
+          },
+          "regionPx": {
+            "x": 108,
+            "y": 142,
+            "w": 80,
+            "h": 228
+          },
+          "caption": "Oturumlar tablosunda OTOPARK sütunu.",
+          "honesty": "Sütunda yalnızca \"Merkez\" yazar; birden fazla otopark satırı yoktur."
+        }
+      ]
+    }
+  ],
+  "loop": {
+    "webm": "/img/home/zone/loop.webm",
+    "mp4": "/img/home/zone/loop.mp4",
+    "poster": "/img/home/zone/loop-poster.webp",
+    "width": 960,
+    "height": 540,
+    "duration": 9.0,
+    "fps": 24,
+    "frames": 216,
+    "crossfade": 0.5,
+    "cues": [
+      {
+        "shot": "zone2-modules-to-health",
+        "start": 0.0,
+        "fullyVisible": 0.0,
+        "fadeOutStart": 2.25,
+        "end": 2.75
+      },
+      {
+        "shot": "zone3-grid-to-bariyer",
+        "start": 2.25,
+        "fullyVisible": 2.75,
+        "fadeOutStart": 4.75,
+        "end": 5.25
+      },
+      {
+        "shot": "sessions-rows",
+        "start": 4.75,
+        "fullyVisible": 5.25,
+        "fadeOutStart": 6.75,
+        "end": 7.25
+      },
+      {
+        "shot": "finans-kpi",
+        "start": 6.75,
+        "fullyVisible": 7.25,
+        "fadeOutStart": 8.5,
+        "end": 9.0,
+        "note": "last 0.5 s blends into shot 1 frame 0 (seamless loop)"
+      }
+    ]
+  }
+}

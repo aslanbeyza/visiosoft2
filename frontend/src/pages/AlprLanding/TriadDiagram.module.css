@@ -1,0 +1,158 @@
+.root {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(60% 55% at 50% 48%, var(--color-navy-50), transparent 70%),
+    var(--color-corp-surface);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.orbit {
+  fill: none;
+  stroke: var(--color-navy-100);
+  stroke-width: 1;
+  stroke-dasharray: 2 7;
+}
+
+.link {
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: stroke 0.35s var(--ease-apple), opacity 0.35s var(--ease-apple);
+}
+
+.dot {
+  fill: var(--color-navy-600);
+}
+
+.node {
+  transition: opacity 0.35s var(--ease-apple);
+}
+
+.disc {
+  fill: #fff;
+  stroke: var(--color-corp-line);
+  stroke-width: 1.5;
+  transition: stroke 0.35s var(--ease-apple), fill 0.35s var(--ease-apple);
+}
+
+.glyph {
+  fill: none;
+  stroke: var(--color-corp-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.35s var(--ease-apple);
+}
+
+.badge {
+  fill: var(--color-navy-600);
+}
+
+.badgeText,
+.nodeLabel,
+.hubText {
+  text-anchor: middle;
+  font-variant-numeric: tabular-nums;
+}
+
+.badgeText,
+.hubText {
+  dominant-baseline: central;
+}
+
+.badgeText {
+  fill: #fff;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.nodeLabel {
+  fill: var(--color-corp-ink);
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.hub {
+  fill: var(--color-navy-600);
+}
+
+.hubText {
+  fill: #fff;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+/* Kart vurgusu: seçili düğüm ve bağlantısı öne çıkar, diğerleri geri çekilir */
+.svg:not([data-active='none']) .node,
+.svg:not([data-active='none']) .link {
+  opacity: 0.4;
+}
+
+.svg[data-active='0'] [data-node='0'],
+.svg[data-active='1'] [data-node='1'],
+.svg[data-active='2'] [data-node='2'] {
+  opacity: 1;
+}
+
+.svg[data-active='0'] .link[data-node='0'],
+.svg[data-active='1'] .link[data-node='1'],
+.svg[data-active='2'] .link[data-node='2'] {
+  stroke: var(--color-navy-600);
+}
+
+.svg[data-active='0'] [data-node='0'] .disc,
+.svg[data-active='1'] [data-node='1'] .disc,
+.svg[data-active='2'] [data-node='2'] .disc {
+  fill: var(--color-navy-50);
+  stroke: var(--color-navy-600);
+}
+
+.svg[data-active='0'] [data-node='0'] .glyph,
+.svg[data-active='1'] [data-node='1'] .glyph,
+.svg[data-active='2'] [data-node='2'] .glyph {
+  stroke: var(--color-navy-600);
+}
+
+/* Tek sütunlu yerleşimde (tablet) şema paneli doldurup ilk ekranı kaplamasın. */
+@media (max-width: 1023px) {
+  .svg {
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+}
+
+/* Dar ekranlarda SVG küçülür; metinleri okunur boyutta tut */
+@media (max-width: 639px) {
+  .nodeLabel {
+    font-size: 23px;
+  }
+
+  .badgeText {
+    font-size: 15px;
+  }
+
+  .hubText {
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .node,
+  .disc,
+  .glyph {
+    transition: none;
+  }
+}

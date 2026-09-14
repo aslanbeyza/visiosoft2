@@ -1,1 +1,1 @@
-export { default } from './References.tsx'
+export { default } from './ReferencesPage.tsx'

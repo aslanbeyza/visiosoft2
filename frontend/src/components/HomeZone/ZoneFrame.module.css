@@ -1,0 +1,271 @@
+/* Zone tarayıcı çerçevesi: gece zemininde hafif açık lacivert yüzey, sabit gölge. */
+.frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(154 161 227 / 0.2);
+  border-radius: 0.9rem;
+  background: #0c0f2e;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.06) inset,
+    0 40px 90px -40px rgb(0 0 0 / 0.75),
+    0 0 0 1px rgb(0 0 0 / 0.25);
+}
+
+.chrome {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding: 0 0.25rem 0 0.95rem;
+  border-bottom: 1px solid rgb(154 161 227 / 0.14);
+  background: rgb(255 255 255 / 0.025);
+}
+
+.dots {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.dots span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.16);
+}
+
+.address {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  gap: 0.45rem;
+  min-width: 0;
+  max-width: min(26rem, 100%);
+  margin: 0;
+  padding: 0.38rem 0.9rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.06);
+  color: rgb(255 255 255 / 0.82);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+
+.address svg {
+  flex: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.addressText {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.addressLabel {
+  color: #fff;
+  animation: labelIn 0.45s var(--ease-apple);
+}
+
+.toggle,
+.toggleSpacer {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.toggle {
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgb(255 255 255 / 0.82);
+  cursor: pointer;
+}
+
+.toggleIcon {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 50%;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.toggle svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: currentColor;
+}
+
+.toggle:hover .toggleIcon {
+  border-color: rgb(255 255 255 / 0.5);
+  background: rgb(255 255 255 / 0.08);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+/* 7 sn ilerleme çizgisi: yalnızca scaleX. */
+.track {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  overflow: hidden;
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgb(154 161 227 / 0.4), var(--color-navy-300));
+  transform-origin: left center;
+}
+
+.viewport {
+  position: relative;
+  overflow: hidden;
+  background: #0b0b0c;
+  isolation: isolate;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform-origin: 0 0;
+  /* Ad değiştirme yamaları görsel genişliğine (cqw) göre ölçeklenir. */
+  container-type: inline-size;
+}
+
+.canvas[data-active='true'] {
+  will-change: transform;
+}
+
+/* Kırpılmış görselde kırpım dışı hiçbir koşulda görünmez. */
+.canvas[data-crop='true'] {
+  overflow: hidden;
+}
+
+/* Tam kaynak görsel ve ad değiştirme yamaları; yamalar bu katmanın genişliğine (cqw) göre ölçeklenir. */
+.source {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  container-type: inline-size;
+}
+
+.shot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Odak halkası görsel katmanıyla birlikte ölçeklenir; çizgi kalınlığı hedef ölçeğe göre dengelenir. */
+.ring {
+  position: absolute;
+  border: var(--ring, 2px) solid var(--color-navy-300);
+  border-radius: calc(var(--ring, 2px) * 5);
+  box-shadow:
+    0 0 0 calc(var(--ring, 2px) * 3) rgb(154 161 227 / 0.18),
+    0 0 0 100vmax rgb(6 8 34 / 0.28);
+  pointer-events: none;
+}
+
+/* Kenarlarda çok hafif gölge: görüntü çerçeveye gömülü görünür (sabit). */
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.35);
+  background: linear-gradient(180deg, rgb(6 8 34 / 0.18) 0%, rgb(6 8 34 / 0) 14%, rgb(6 8 34 / 0) 86%, rgb(6 8 34 / 0.22) 100%);
+  pointer-events: none;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  min-height: 4rem;
+  padding: 0.7rem 1.1rem;
+  border-top: 1px solid rgb(154 161 227 / 0.14);
+}
+
+.shotCaption {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: rgb(255 255 255 / 0.72);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+@keyframes labelIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .dots {
+    display: none;
+  }
+
+  .chrome {
+    grid-template-columns: 1fr auto;
+    padding-left: 0.6rem;
+  }
+
+  .address {
+    justify-self: start;
+  }
+
+  /* Dar ekranda açıklama üç satıra kadar tam görünür; yükseklik sabit kalır, altındaki metin zıplamaz. */
+  .footer {
+    align-items: flex-start;
+    min-height: 5.3rem;
+    padding-inline: 0.85rem;
+  }
+
+  .shotCaption {
+    -webkit-line-clamp: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .addressLabel {
+    animation: none;
+  }
+
+  .toggleIcon {
+    transition: none;
+  }
+}

@@ -1,0 +1,129 @@
+.wrap {
+  display: grid;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+/* Dar ekranda çipler yatay kayar; kenarlar maskeyle yumuşar. */
+.scroller {
+  margin-inline: -1rem;
+  padding: 0.25rem 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  mask-image: linear-gradient(90deg, transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.chips {
+  display: flex;
+  gap: 0.5rem;
+  width: max-content;
+}
+
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-corp-ink);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 550;
+  white-space: nowrap;
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    border-color 0.3s var(--ease-apple),
+    color 0.3s var(--ease-apple);
+}
+
+.chip:hover {
+  border-color: var(--color-navy-300);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: var(--color-navy-600);
+  color: #fff;
+}
+
+.pill {
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--color-navy-600);
+}
+
+.chipLabel {
+  position: relative;
+}
+
+.count {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.35rem;
+  height: 1.35rem;
+  padding-inline: 0.3rem;
+  border-radius: 999px;
+  background: var(--color-navy-50);
+  color: var(--color-navy-600);
+  font-size: 0.72rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background-color 0.3s var(--ease-apple),
+    color 0.3s var(--ease-apple);
+}
+
+.chip[aria-pressed='true'] .count {
+  background: rgb(255 255 255 / 0.18);
+  color: #fff;
+}
+
+.result {
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.82rem;
+}
+
+.resultNumber {
+  color: var(--color-corp-ink);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 768px) {
+  .scroller {
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+    mask-image: none;
+  }
+
+  .chips {
+    flex-wrap: wrap;
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip,
+  .count {
+    transition: none;
+  }
+}

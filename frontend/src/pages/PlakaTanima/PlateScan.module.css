@@ -1,0 +1,414 @@
+/* Kamera görüntüsü çizimi (PlateSvg + PlateOverlays) */
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.feed {
+  fill: var(--color-navy-900);
+}
+
+.carBody {
+  fill: rgb(255 255 255 / 0.035);
+  stroke: rgb(255 255 255 / 0.16);
+  stroke-width: 1.5;
+}
+
+.carGlass {
+  fill: rgb(154 161 227 / 0.1);
+  stroke: rgb(255 255 255 / 0.14);
+  stroke-width: 1.5;
+}
+
+.carLine {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.12);
+  stroke-width: 1.5;
+}
+
+.lamp {
+  fill: none;
+  stroke: rgb(154 161 227 / 0.45);
+  stroke-width: 1.5;
+}
+
+.recess {
+  fill: rgb(0 0 0 / 0.22);
+  stroke: rgb(255 255 255 / 0.1);
+}
+
+.plate {
+  fill: #fff;
+  stroke: #c9cee0;
+  stroke-width: 1.5;
+}
+
+.band {
+  fill: #1d2fa3;
+}
+
+.bandText {
+  fill: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.plateText {
+  fill: var(--color-corp-ink);
+  font-size: 50px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.rainDrop {
+  stroke: rgb(223 226 247 / 0.5);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.snowFlake {
+  fill: rgb(255 255 255 / 0.85);
+}
+
+.mud {
+  fill: #3a3226;
+  opacity: 0.72;
+}
+
+.scanLine {
+  fill: var(--color-navy-300);
+}
+
+.scanTrail {
+  fill: rgb(154 161 227 / 0.22);
+}
+
+.charBox {
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 1.5;
+}
+
+.bracket {
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 3;
+  stroke-linecap: square;
+}
+
+.lock {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.lockDisc {
+  fill: var(--color-success);
+}
+
+.lockCheck {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Yağış yalnızca görünürken ve otomatik geçiş açıkken akar. */
+.svg[data-live='true'] .fall[data-kind='rain'] {
+  animation: rain 0.7s linear infinite;
+}
+
+.svg[data-live='true'] .fall[data-kind='snow'] {
+  animation: snow 5s linear infinite;
+}
+
+@keyframes rain {
+  to {
+    transform: translate(-10.64px, 42.69px);
+  }
+}
+
+@keyframes snow {
+  to {
+    transform: translate(0, 60px);
+  }
+}
+
+/* Bölüm yerleşimi */
+.layout {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.intro,
+.figure {
+  min-width: 0;
+}
+
+.conditions {
+  min-width: 0;
+  margin: clamp(1.75rem, 3vw, 2.25rem) 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  margin-bottom: 0.75rem;
+  padding: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--color-corp-body);
+  font-size: 0.92rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition:
+    border-color 0.35s var(--ease-apple),
+    background-color 0.35s var(--ease-apple),
+    color 0.35s var(--ease-apple);
+}
+
+.option:hover {
+  border-color: var(--color-navy-300);
+  color: var(--color-corp-ink);
+}
+
+.option[data-active='true'] {
+  border-color: var(--color-navy-600);
+  background: var(--color-navy-600);
+  color: #fff;
+}
+
+.option:has(.radio:focus-visible) {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.radio {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.optionText {
+  position: relative;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  margin-top: 1rem;
+  padding: 0 0.95rem 0 0.8rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-corp-body);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.35s var(--ease-apple),
+    color 0.35s var(--ease-apple);
+}
+
+.toggle:hover {
+  border-color: var(--color-navy-300);
+  color: var(--color-navy-600);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.toggleIcon {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.figure {
+  margin: 0;
+}
+
+.stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.75rem;
+  background: var(--color-navy-900);
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+}
+
+.conditionTag,
+.accuracy {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  border-radius: 999px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.conditionTag {
+  top: clamp(0.6rem, 2vw, 1rem);
+  left: clamp(0.6rem, 2vw, 1rem);
+  padding: 0.4rem 0.7rem;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  background: rgb(6 8 34 / 0.72);
+  color: rgb(255 255 255 / 0.9);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.accuracy {
+  right: clamp(0.6rem, 2vw, 1rem);
+  bottom: clamp(0.6rem, 2vw, 1rem);
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  font-size: clamp(0.76rem, 0.4vw + 0.68rem, 0.9rem);
+  box-shadow: 0 10px 30px -14px rgb(0 0 0 / 0.5);
+}
+
+.accuracy::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-success);
+  content: '';
+}
+
+.phases {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.phase {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.5rem;
+}
+
+.phaseTrack {
+  position: relative;
+  flex: 1 0 100%;
+  height: 2px;
+  margin-bottom: 0.7rem;
+  overflow: hidden;
+  background: var(--color-corp-line);
+}
+
+.phaseFill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-navy-600);
+  transform-origin: left center;
+}
+
+.phaseIndex {
+  color: var(--color-corp-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.phaseLabel {
+  color: var(--color-corp-muted);
+  font-size: clamp(0.9rem, 0.3vw + 0.82rem, 1rem);
+  font-weight: 600;
+  transition: color 0.35s var(--ease-apple);
+}
+
+.phase[data-state='active'] .phaseIndex {
+  color: var(--color-navy-600);
+}
+
+.phase[data-state='active'] .phaseLabel,
+.phase[data-state='done'] .phaseLabel {
+  color: var(--color-corp-ink);
+}
+
+.caption {
+  margin-top: 0.9rem;
+  color: var(--color-corp-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Dar ekranda beş koşul tek satırda eşit hücreler; "Çamur" alt satırda yalnız kalmaz. */
+@media (max-width: 519px) {
+  .options {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.375rem;
+  }
+
+  .option {
+    justify-content: center;
+    padding: 0 0.25rem;
+    font-size: 0.86rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    column-gap: clamp(3rem, 5vw, 5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option,
+  .toggle,
+  .phaseLabel {
+    transition: none;
+  }
+
+  .svg .fall {
+    animation: none !important;
+  }
+}

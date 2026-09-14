@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+import type { HTMLMotionProps } from 'framer-motion'
 import { revealEase } from './motion.ts'
 
 const tags = {
@@ -46,18 +47,29 @@ export default function Reveal({ children, as = 'div', className, delay = 0, y =
   )
 }
 
-type RevealGroupProps = Omit<RevealProps, 'y'> & {
-  /** Çocuklar arasındaki gecikme (s). */
-  stagger?: number
-}
+/** Hareket durumunu bileşen yönetir; bu yüzden variants/initial/animate dışarıdan verilemez. */
+type PassThroughProps = Omit<
+  HTMLMotionProps<'div'>,
+  'children' | 'className' | 'variants' | 'initial' | 'animate' | 'whileInView' | 'exit' | 'viewport'
+>
 
-/** İçindeki RevealItem öğelerini sırayla gösterir. */
-export function RevealGroup({ children, as = 'div', className, delay = 0, stagger = 0.09, amount = 0.2 }: RevealGroupProps) {
+type RevealGroupProps = Omit<RevealProps, 'y'> &
+  PassThroughProps & {
+    /** Çocuklar arasındaki gecikme (s). */
+    stagger?: number
+  }
+
+/**
+ * İçindeki RevealItem öğelerini sırayla gösterir. Ek özellikler (aria-*, id, data-*, role, style) kapsayıcıya aktarılır:
+ * `<RevealGroup as="ul" aria-label="Özellikler">`
+ */
+export function RevealGroup({ children, as = 'div', className, delay = 0, stagger = 0.09, amount = 0.2, ...rest }: RevealGroupProps) {
   const reduce = useReducedMotion()
   const Component = tags[as] as typeof motion.div
 
   return (
     <Component
+      {...rest}
       className={className}
       initial={reduce ? false : 'hidden'}
       whileInView="show"
@@ -69,13 +81,18 @@ export function RevealGroup({ children, as = 'div', className, delay = 0, stagge
   )
 }
 
-type RevealItemProps = Pick<RevealProps, 'children' | 'as' | 'className' | 'y'>
+type RevealItemProps = Pick<RevealProps, 'children' | 'as' | 'className' | 'y'> & PassThroughProps
 
-export function RevealItem({ children, as = 'div', className, y = 24 }: RevealItemProps) {
+/**
+ * RevealGroup içindeki sıralı öğe. Ek özellikler (data-*, id, olay işleyicileri, style, aria-*) öğeye aktarılır:
+ * `<RevealItem as="li" data-active={on} onPointerEnter={…}>`
+ */
+export function RevealItem({ children, as = 'div', className, y = 24, ...rest }: RevealItemProps) {
   const Component = tags[as] as typeof motion.div
 
   return (
     <Component
+      {...rest}
       className={className}
       variants={{
         hidden: { opacity: 0, y },

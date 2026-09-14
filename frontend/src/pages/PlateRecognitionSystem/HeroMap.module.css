@@ -1,0 +1,96 @@
+/* Hero: gerçek Zone ekranı üzerinde kamera dalgası ve plaka kilidi */
+.root {
+  position: relative;
+  min-width: 0;
+}
+
+.stage {
+  position: relative;
+  aspect-ratio: 1600 / 762;
+  width: 100%;
+}
+
+.stage > picture,
+.stage > picture > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cam {
+  position: absolute;
+  width: 3.4%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+}
+
+.wave,
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.wave {
+  border: 2px solid rgb(255 255 255 / 0.9);
+}
+
+.ring {
+  inset: -18%;
+  border: 1.5px solid var(--color-navy-300);
+}
+
+.lock {
+  position: absolute;
+  left: 85.1%;
+  top: 22.6%;
+  width: 11.2%;
+  height: 10.6%;
+}
+
+.lock svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.lock path {
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.scan {
+  position: absolute;
+  inset: 8% 0;
+}
+
+.scan::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--color-navy-600);
+}
+
+@media (max-width: 639px) {
+  .wave {
+    border-width: 1.5px;
+  }
+
+  .lock path {
+    stroke-width: 2;
+  }
+}

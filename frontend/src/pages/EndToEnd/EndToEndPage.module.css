@@ -1,0 +1,5 @@
+.stack {
+  display: grid;
+  gap: clamp(2.5rem, 4vw, 3.75rem);
+  min-width: 0;
+}

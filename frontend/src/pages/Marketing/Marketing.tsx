@@ -1,30 +1,37 @@
+import { lazy } from 'react'
 import type { ComponentType } from 'react'
-import ContentPage from '../../components/ContentPage/index.ts'
-import About from '../About/index.ts'
-import AlprLanding from '../AlprLanding/index.ts'
-import BankAccounts from '../BankAccounts/index.ts'
-import Comparison from '../Comparison/index.ts'
-import Developers from '../Developers/index.ts'
-import EndToEnd from '../EndToEnd/index.ts'
-import HardwareProduct from '../HardwareProduct/index.ts'
-import HardwareProducts from '../HardwareProducts/index.ts'
-import Hgs from '../Hgs/index.ts'
-import HgsPark from '../HgsPark/index.ts'
-import Legal from '../Legal/index.ts'
-import OnStreet from '../OnStreet/index.ts'
-import ParkingReports from '../ParkingReports/index.ts'
-import ParkingSoftware from '../ParkingSoftware/index.ts'
-import ParkingViolations from '../ParkingViolations/index.ts'
-import PlakaTanima from '../PlakaTanima/index.ts'
-import PlateRecognitionSystem from '../PlateRecognitionSystem/index.ts'
-import ProductDetail from '../ProductDetail/index.ts'
-import References from '../References/index.ts'
-import Services from '../Services/index.ts'
-import Showcase from '../Showcase/index.ts'
-import WebsitePricing from '../WebsitePricing/index.ts'
+import type { ProductDetailSlug } from '../ProductDetail/index.ts'
+import { pages } from '../registry.ts'
 import { copyFor } from './pageCopy.ts'
 
-const hardwareSlugs: Record<string, string> = {
+/*
+ * Pazarlama rotalarını sayfa şablonlarına dağıtır. Sayfalar registry'den tembel yüklenir;
+ * Suspense sınırı MainLayout içindeki PageTransition'dadır. Tüm donanım ürünleri ProductDetail şablonunu kullanır.
+ */
+const ContentPage = lazy(pages.contentPage)
+const About = lazy(pages.about)
+const AlprLanding = lazy(pages.alprLanding)
+const BankAccounts = lazy(pages.bankAccounts)
+const Comparison = lazy(pages.comparison)
+const Developers = lazy(pages.developers)
+const EndToEnd = lazy(pages.endToEnd)
+const HardwareProducts = lazy(pages.hardwareProducts)
+const Hgs = lazy(pages.hgs)
+const HgsPark = lazy(pages.hgsPark)
+const Legal = lazy(pages.legal)
+const OnStreet = lazy(pages.onStreet)
+const ParkingReports = lazy(pages.parkingReports)
+const ParkingSoftware = lazy(pages.parkingSoftware)
+const ParkingViolations = lazy(pages.parkingViolations)
+const PlakaTanima = lazy(pages.plakaTanima)
+const PlateRecognitionSystem = lazy(pages.plateRecognitionSystem)
+const ProductDetail = lazy(pages.productDetail)
+const References = lazy(pages.references)
+const Services = lazy(pages.services)
+const Showcase = lazy(pages.showcase)
+const WebsitePricing = lazy(pages.websitePricing)
+
+const hardwareSlugs: Record<string, ProductDetailSlug> = {
   'hardware-products.kiosk': 'kiosk',
   'hardware-products.tir-kiosk': 'tir-kiosk',
   'hardware-products.togerbox': 'togerbox',
@@ -67,14 +74,9 @@ const legalRoutes = [
 ]
 
 export default function Marketing({ routeName }: { routeName: string }) {
-  // Kiosk yeni ürün detay şablonunu kullanır; diğer donanımlar şimdilik eski sayfada kalır.
-  if (routeName === 'hardware-products.kiosk') {
-    return <ProductDetail slug="kiosk" />
-  }
-
   const hardwareSlug = hardwareSlugs[routeName]
   if (hardwareSlug) {
-    return <HardwareProduct slug={hardwareSlug} />
+    return <ProductDetail key={hardwareSlug} slug={hardwareSlug} />
   }
 
   if (showcaseRoutes.includes(routeName)) {

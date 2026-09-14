@@ -1,0 +1,373 @@
+{
+  "phoneFrame": {
+    "src": "/img/home/zone/phone-frame.webp",
+    "avif": "/img/home/zone/phone-frame.avif",
+    "width": 726,
+    "height": 1444,
+    "screen": {
+      "x": 52,
+      "y": 47,
+      "w": 623,
+      "h": 1351,
+      "radius": 58
+    },
+    "notch": {
+      "x": 185,
+      "y": 47,
+      "w": 357,
+      "h": 51
+    }
+  },
+  "brand": {
+    "name": "ParkBiz",
+    "primary": "#133b68",
+    "appStoreUrl": "https://apps.apple.com/tr/app/parkbiz-otopark-abonelik-%C3%B6de/id6764524587?l=tr",
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.parkbiz.app",
+    "mark": "/img/app/parkbiz-mark.webp",
+    "markPng": "/img/app/parkbiz-mark.png",
+    "markWhite": "/img/app/parkbiz-mark-white.webp",
+    "markWhitePng": "/img/app/parkbiz-mark-white.png",
+    "website": "https://parkbiz.com.tr",
+    "contactEmail": "info@visiosoft.com.tr"
+  },
+  "capture": {
+    "app": "ParkBiz (parkbiz-port) v1.1.5, Expo web build, APP_BRAND=parkbiz",
+    "viewport": "390x782 CSS px @3x, mobile, light",
+    "date": "2026-09-14",
+    "units": "width/height/safeTop/safeBottom are pixels of the exported image (2x of 390 CSS px)",
+    "lang": "document lang=tr (Turkish CSS uppercase)",
+    "tabBar": "number of bottom tabs visible in the screenshot (0 = stack screen without tab bar)",
+    "note": "safeTop/safeBottom are plain #ffffff bands added for the notch and home indicator; map view not captured (needs Google Maps key)"
+  },
+  "screens": [
+    {
+      "id": "otoparklar",
+      "title": "Otoparklar",
+      "file": "/img/app/otoparklar.webp",
+      "avif": "/img/app/otoparklar.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/otoparklar-frameless.webp",
+        "avif": "/img/app/otoparklar-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 4,
+      "shows": "Yakındaki otoparkların mesafeye göre sıralı listesi; müsaitlik rozeti, mesafe ve adres. Alt sekme çubuğu görünür.",
+      "demoData": [
+        "Otopark adları genel/uydurma: Merkez Kapalı Otopark, Park Caddesi Otoparkı, Sahil Açık Otopark; adresler yalnızca ilçe düzeyinde",
+        "Konum Başakşehir civarına sabitlendi; görünen mesafeler 332 m, 12.3 km, 13.8 km",
+        "Liste 70 CSS px kaydırıldı",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "otopark-detay",
+      "title": "Otopark detayı",
+      "file": "/img/app/otopark-detay.webp",
+      "avif": "/img/app/otopark-detay.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/otopark-detay-frameless.webp",
+        "avif": "/img/app/otopark-detay-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 5,
+      "shows": "Seçilen otoparkın durumu (Sistem Online), yol tarifi butonu, varsayılan araç, abonelik paketleri ve Hemen Abonelik Al butonu; bu ekranda uygulama 5 sekmeli alt çubuk gösterir.",
+      "demoData": [
+        "Otopark adları genel/uydurma: Merkez Kapalı Otopark; adresler yalnızca ilçe düzeyinde",
+        "Plaka: 34 PB 101 (uydurma)",
+        "Paket fiyatları örnektir: 1250 / 3500 / 12500 TRY",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "abonelik",
+      "title": "Abonelik: otopark seçimi",
+      "file": "/img/app/abonelik.webp",
+      "avif": "/img/app/abonelik.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/abonelik-frameless.webp",
+        "avif": "/img/app/abonelik-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 4,
+      "shows": "Abonelik akışının ilk adımı: abonelik satan otoparkların listesi, arama alanı ve açık/kapalı durumu.",
+      "demoData": [
+        "Otopark adları genel/uydurma: Merkez Kapalı Otopark, Park Caddesi Otoparkı, Sahil Açık Otopark, Çarşı Otoparkı, İstasyon Katlı Otopark; adresler yalnızca ilçe düzeyinde",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "paketler",
+      "title": "Abonelik paketleri",
+      "file": "/img/app/paketler.webp",
+      "avif": "/img/app/paketler.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/paketler-frameless.webp",
+        "avif": "/img/app/paketler-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 0,
+      "shows": "Seçili otopark, araç seçimi (plaka kartları) ve uygun paketler; Aylık Abonelik seçili.",
+      "demoData": [
+        "Otopark adları genel/uydurma: Merkez Kapalı Otopark; adresler yalnızca ilçe düzeyinde",
+        "Plakalar: 34 PB 101, 06 PB 204 (uydurma)",
+        "Paket fiyatları örnektir: 1250 / 3500 / 12500 TRY",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "abonelik-odeme",
+      "title": "Abonelik ödeme özeti",
+      "file": "/img/app/abonelik-odeme.webp",
+      "avif": "/img/app/abonelik-odeme.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/abonelik-odeme-frameless.webp",
+        "avif": "/img/app/abonelik-odeme-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 0,
+      "shows": "Otopark, araç ve paket özeti, ödeme yöntemi seçimi, toplam tutar ve iletişim telefonu. Ödeme gönderilmedi.",
+      "demoData": [
+        "Otopark adları genel/uydurma: Merkez Kapalı Otopark; adresler yalnızca ilçe düzeyinde",
+        "Plaka: 34 PB 101 (uydurma)",
+        "Paket fiyatları örnektir: 1250 / 3500 / 12500 TRY",
+        "İletişim telefonu: 555 000 00 00 (uydurma)",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "abonelik-basarili",
+      "title": "Abonelik başarılı",
+      "file": "/img/app/abonelik-basarili.webp",
+      "avif": "/img/app/abonelik-basarili.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/abonelik-basarili-frameless.webp",
+        "avif": "/img/app/abonelik-basarili-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 0,
+      "shows": "Ödeme sonrası onay ekranı: paket, otopark, plaka, başlangıç-bitiş tarihleri, kalan süre (bugün başladı, çubukta ince dolu başlangıç) ve otomatik yenileme önerisi.",
+      "demoData": [
+        "Otopark adları genel/uydurma: Merkez Kapalı Otopark; adresler yalnızca ilçe düzeyinde",
+        "Plaka: 34 PB 101 (uydurma)",
+        "Başlangıç 14.09.2026, bitiş 14.10.2026, kalan 30 gün",
+        "Ekran rota parametreleriyle açıldı; gerçek ödeme yapılmadı",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "aboneliklerim",
+      "title": "Aboneliklerim",
+      "file": "/img/app/aboneliklerim.webp",
+      "avif": "/img/app/aboneliklerim.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/aboneliklerim-frameless.webp",
+        "avif": "/img/app/aboneliklerim-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 0,
+      "shows": "Aktif abonelikler: kalan gün rozeti, süre çubuğu, tarih aralığı ve otomatik yenileme anahtarı.",
+      "demoData": [
+        "Plakalar: 34 PB 101, 06 PB 204 (uydurma)",
+        "Otopark adları genel/uydurma: Merkez Kapalı Otopark, Park Caddesi Otoparkı; adresler yalnızca ilçe düzeyinde",
+        "Kayıtlı kart maskesi **** 0000 (uydurma)",
+        "Paketler: Aylık Abonelik 18 gün kaldı, 3 Aylık Abonelik 60 gün kaldı",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "araclarim",
+      "title": "Araçlarım",
+      "file": "/img/app/araclarim.webp",
+      "avif": "/img/app/araclarim.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/araclarim-frameless.webp",
+        "avif": "/img/app/araclarim-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 0,
+      "shows": "Kullanıcının kayıtlı araç plakaları, silme butonları ve \"Ekle\" bağlantısı.",
+      "demoData": [
+        "Plakalar: 34 PB 101, 06 PB 204 (uydurma)",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "plaka-ekle",
+      "title": "Araç / plaka ekle",
+      "file": "/img/app/plaka-ekle.webp",
+      "avif": "/img/app/plaka-ekle.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/plaka-ekle-frameless.webp",
+        "avif": "/img/app/plaka-ekle-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 0,
+      "shows": "Yeni araç ekleme: plaka önizlemesi ve plaka giriş alanı. Form gönderilmedi.",
+      "demoData": [
+        "Girilen plaka: 35 PB 307 (uydurma)",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "borclar",
+      "title": "Borç sorgulama",
+      "file": "/img/app/borclar.webp",
+      "avif": "/img/app/borclar.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/borclar-frameless.webp",
+        "avif": "/img/app/borclar-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 4,
+      "shows": "Hızlı Borç Ödeme: plaka ile bekleyen otopark borçlarını sorgulama ekranı (uygulamanın kendi yer tutucusu 34ABC123).",
+      "demoData": [
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "borc-sonuc",
+      "title": "Borç listesi",
+      "file": "/img/app/borc-sonuc.webp",
+      "avif": "/img/app/borc-sonuc.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/borc-sonuc-frameless.webp",
+        "avif": "/img/app/borc-sonuc-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 0,
+      "shows": "Plakaya ait toplam borç ve otopark bazında geçiş kayıtları (tarih, süre, tutar).",
+      "demoData": [
+        "Plaka: 34 PB 101 (uydurma)",
+        "Otopark adları genel/uydurma: Merkez Kapalı Otopark, Park Caddesi Otoparkı; adresler yalnızca ilçe düzeyinde",
+        "Tutarlar örnektir: 120 ₺ + 80 ₺ = 200 ₺",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "borc-odeme",
+      "title": "Borç ödeme özeti",
+      "file": "/img/app/borc-odeme.webp",
+      "avif": "/img/app/borc-odeme.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/borc-odeme-frameless.webp",
+        "avif": "/img/app/borc-odeme-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 0,
+      "shows": "Seçilen geçişin detayı (plaka, otopark, giriş-çıkış), ödenecek tutar ve seçili kayıtlı kart; Güvenli Ödeme Yap etkin. Ödeme gönderilmedi.",
+      "demoData": [
+        "Plaka: 34 PB 101 (uydurma)",
+        "Otopark adları genel/uydurma: Merkez Kapalı Otopark; adresler yalnızca ilçe düzeyinde",
+        "Tutar (120 ₺) ve işlem no (#90001) örnektir",
+        "Kayıtlı kart: PARKBIZ KULLANICISI, **** **** **** 0000 (uydurma)",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "borc-basarili",
+      "title": "Borç ödemesi başarılı",
+      "file": "/img/app/borc-basarili.webp",
+      "avif": "/img/app/borc-basarili.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/borc-basarili-frameless.webp",
+        "avif": "/img/app/borc-basarili-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 0,
+      "shows": "Borç ödemesi sonrası işlem özeti: plaka, ödeme tarihi ve ödenen tutar.",
+      "demoData": [
+        "Plaka: 34 PB 101 (uydurma)",
+        "Ödenen tutar 120 TRY (örnek)",
+        "Ekran rota parametreleriyle açıldı; gerçek ödeme yapılmadı",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    },
+    {
+      "id": "profil",
+      "title": "Profil ve menü",
+      "file": "/img/app/profil.webp",
+      "avif": "/img/app/profil.avif",
+      "width": 780,
+      "height": 1692,
+      "safeTop": 88,
+      "safeBottom": 40,
+      "frameless": {
+        "file": "/img/app/profil-frameless.webp",
+        "avif": "/img/app/profil-frameless.avif",
+        "width": 780,
+        "height": 1564
+      },
+      "tabBar": 4,
+      "shows": "Kullanıcı adı ve iletişim satırı, işlemler menüsü (Araçlarım, Kayıtlı Kartlarım, Mevcut Abonelikler, Destek, İletişim, Bildirimler) ve Çıkış Yap / Hesabımı Sil; 144 CSS px kaydırıldı, avatar görünmüyor.",
+      "demoData": [
+        "Kullanıcı: \"ParkBiz Kullanıcısı\", 555 000 00 00, kullanici@ornek.com (uydurma)",
+        "Tüm veriler yerel sahte API ile sağlanan demo verisidir; gerçek müşteri verisi yoktur"
+      ]
+    }
+  ]
+}

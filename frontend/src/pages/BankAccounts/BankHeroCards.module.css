@@ -1,0 +1,129 @@
+.stage {
+  position: relative;
+  /* Kartlar çapraz dizilir; öndeki kart arkadakinin yalnızca sağ alt kenarına biner, banka adı ve para birimleri açık kalır. */
+  aspect-ratio: 50 / 43;
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.slot {
+  position: absolute;
+  width: 72%;
+}
+
+.slot[data-index='0'] {
+  top: 2%;
+  left: 1%;
+  z-index: 1;
+}
+
+.slot[data-index='1'] {
+  right: 1%;
+  bottom: 2%;
+  z-index: 2;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 1.586;
+  padding: clamp(1rem, 3.2vw, 1.6rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 1rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  box-shadow: 0 1.5rem 3rem -1.5rem rgb(15 20 48 / 0.25);
+}
+
+.card[data-tone='navy'] {
+  border-color: transparent;
+  background:
+    radial-gradient(80% 90% at 100% 0%, rgb(154 161 227 / 0.22), rgb(154 161 227 / 0) 60%),
+    var(--color-navy-900);
+  color: #fff;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code {
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.chip {
+  width: clamp(1.9rem, 5vw, 2.5rem);
+  height: auto;
+  fill: rgb(201 206 220 / 0.35);
+  stroke: #b7bdcd;
+  stroke-width: 1.2;
+}
+
+.card[data-tone='navy'] .chip {
+  fill: rgb(255 255 255 / 0.12);
+  stroke: rgb(255 255 255 / 0.5);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: auto;
+}
+
+.bankName {
+  font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.rule {
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--color-navy-600);
+  transform-origin: left center;
+}
+
+.card[data-tone='navy'] .rule {
+  background: var(--color-navy-300);
+}
+
+.holder {
+  color: var(--color-corp-muted);
+  font-size: clamp(0.62rem, 1.4vw, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.card[data-tone='navy'] .holder {
+  color: rgb(255 255 255 / 0.72);
+}
+
+.currencies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: clamp(0.6rem, 1.8vw, 1rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.currencies li {
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 999px;
+  font-size: clamp(0.6rem, 1.3vw, 0.72rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.card[data-tone='navy'] .currencies li {
+  border-color: rgb(255 255 255 / 0.24);
+}

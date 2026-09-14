@@ -1,0 +1,124 @@
+.header {
+  display: grid;
+  gap: 2rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.1rem;
+  color: var(--color-navy-600);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.rule {
+  display: block;
+  width: 1.75rem;
+  height: 2px;
+  background: currentColor;
+  transform-origin: left center;
+}
+
+.title {
+  margin: 0;
+  max-width: 13ch;
+  color: var(--color-corp-ink);
+  font-size: clamp(2.1rem, 2.6vw + 1.1rem, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 36rem;
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: clamp(1.125rem, 0.45vw + 1rem, 1.375rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.pillars {
+  display: grid;
+  margin: 2.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pillar {
+  position: relative;
+  padding: 1.25rem 0 1.3rem;
+}
+
+.pillarRule {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--color-corp-line);
+  transform-origin: left center;
+}
+
+.pillarBody {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  row-gap: 0.3rem;
+  align-items: start;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  height: 1.5rem;
+  color: var(--color-navy-600);
+}
+
+.pillarTitle {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}
+
+.pillarText {
+  grid-column: 2;
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .pillarBody {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+
+  .pillarText {
+    max-width: 40rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(3rem, 5vw, 6rem);
+  }
+
+  /* Başlık, ilkeler boyunca görünür kalır; sağ sütun uzadıkça sol boşluk okunur bir hizaya dönüşür. */
+  .headingCol {
+    position: sticky;
+    top: 7rem;
+    align-self: start;
+  }
+
+  .bodyCol {
+    padding-top: 2.05rem;
+  }
+}

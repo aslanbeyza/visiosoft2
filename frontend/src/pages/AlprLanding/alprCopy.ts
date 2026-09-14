@@ -1,0 +1,116 @@
+import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
+
+// /plaka-tanima-cozumu metinleri — önceki satış sayfasının Türkçe metinleri; mutlak vaatler yumuşatıldı.
+// Gri tonlamada ve küçük kutuda okunaklı kalan yatay logolar seçildi (açık gri Intetra/Autopia kayboluyor,
+// kare belediye amblemleri 2,75rem yükseklik sınırında okunamıyordu). BYUAŞ bir belediye şirketidir.
+const logoFiles = ['Crowne Plaza.png', 'Metropark awm.png', 'YTÜ.png', 'Vema Holding.png', 'byuas.png', 'marmara teknokent.png']
+
+export const alprCopy = {
+  metaTitle: 'Uçtan Uca Plaka Tanıma Çözümü | Visiosoft',
+  metaDescription: 'Otopark yönetimi için gereken her şey: plaka tanıma yazılımı, donanım ve sürekli destek.',
+  eyebrow: 'Uçtan uca otopark çözümü',
+  headline: 'Otopark yönetmek için 3 şey gerekir.',
+  subtitle: 'Bu üç bileşeni tek satış modeliyle birleştiriyoruz.',
+  quote: 'Teklif Al',
+  discovery: 'Ücretsiz Keşif',
+  contact: 'İletişim',
+  subNav: [
+    { id: 'surec', label: 'Süreç' },
+    { id: 'referanslar', label: 'Referanslar' },
+    { id: 'onizleme', label: 'Önizleme' },
+    { id: 'sss', label: 'SSS' },
+  ],
+  triad: {
+    label: 'Yazılım, donanım ve destek bileşenlerinin tek çözümde birleştiğini gösteren şema',
+    hub: 'Tek çözüm',
+    nodes: ['Yazılım', 'Donanım', 'Destek'],
+    cardsLabel: 'Otopark yönetiminin üç bileşeni',
+  },
+  needs: [
+    {
+      key: 'software',
+      title: 'Plaka Tanıma ve Otomasyon Yazılımı',
+      description: 'Yapay zeka destekli otomatik plaka tanıma teknolojisi ile otoparkınızı yönetin.',
+      action: 'Detaylı Bilgi',
+      route: 'alpr.index',
+      icon: 'plate',
+    },
+    {
+      key: 'hardware',
+      title: 'Kamera, Kiosk ve Diğer Donanım',
+      description: 'Sahaya uygun otopark donanımları: kamera, kiosk, bariyer ve saha ekipmanları.',
+      action: 'Donanımlar',
+      route: 'hardware-products',
+      icon: 'kiosk',
+    },
+    {
+      key: 'support',
+      title: 'Destek ve Takip',
+      description: 'Canlıya alır, otopark süreçlerinizi sürekli izler ve destekleriz.',
+      action: 'Detaylı Bilgi',
+      route: 'services',
+      icon: 'support',
+    },
+  ] satisfies { key: string; title: string; description: string; action: string; route: string; icon: FeatureIconName }[],
+  process: {
+    eyebrow: 'Süreç',
+    title: 'Keşiften Operasyona',
+    intro: 'Hızlı başlamak ve sürdürülebilir işletim için sade süreç.',
+    metrics: ['Hızlı keşif planlaması', 'Planlı kurulum takvimi', '7/24 izleme ve destek'],
+    steps: [
+      { title: 'Ücretsiz Keşif', description: 'Sahanızı inceler, maliyetsiz ilk kapsamı netleştiririz.', action: 'Ücretsiz Keşif', route: 'discovery.show' },
+      { title: 'Teklif ve Sözleşme', description: 'Ticari şartlar şeffaf şekilde iletilir ve online tamamlanır.', action: 'Teklif Al', route: 'quote.index' },
+      { title: 'Operasyon', description: 'Canlıya alır, otopark süreçlerinizi sürekli izler ve destekleriz.', action: 'Hizmetlerimiz', route: 'services' },
+    ],
+    stepIcons: ['map', 'invoice', 'settings'] satisfies FeatureIconName[],
+    linksLabel: 'Süreç adımlarına git',
+    servicesLabel: 'Hizmetlerimiz',
+  },
+  proof: {
+    eyebrow: 'Referanslar',
+    title: 'Önde gelen işletmelerin tercihi',
+    desc: 'Otopark işletmeleri, belediyeler ve kampüsler tarafından seçilir.',
+    logoFiles,
+    all: 'Tüm referanslar',
+  },
+  demo: {
+    eyebrow: 'Sahadan',
+    title: 'Canlı sistem önizleme',
+    desc: 'Plaka yakalama, geçiş kontrolü ve raporlamanın birlikte nasıl çalıştığını görün.',
+    alt: 'Otopark çıkış kamera görünümü: kamera, LED panel ve bariyer',
+    caption: 'Otopark çıkışı — plaka bölgesi gizlenmiştir.',
+    chip: 'Kamera görüntüsü',
+    markersLabel: 'Görseldeki ekipmanlar',
+    markers: [
+      { key: 'camera', label: 'Kamera', text: 'Çıkışa yaklaşan aracın plakasını okur.', x: 9, y: 40 },
+      { key: 'led', label: 'LED panel', text: 'Sürücüyü yönlendiren çıkış bilgisini gösterir.', x: 7, y: 57 },
+      { key: 'barrier', label: 'Bariyer', text: 'Geçiş onaylandığında otomatik açılır.', x: 55, y: 61.2 },
+    ],
+  },
+  compliance: {
+    title: 'Güvenlik ve uyumluluk',
+    items: ['KVKK uyumlu veri yönetimi', 'Rol bazlı erişim kontrolü', 'Denetime hazır raporlama'],
+  },
+  faq: {
+    eyebrow: 'SSS',
+    title: 'Sık Sorulan Sorular',
+    items: [
+      { question: 'Kurulum ne kadar sürer?', answer: 'Keşif ve planlama sonrası birkaç gün içinde net takvim çıkarılır.' },
+      { question: 'Mevcut kameralarla çalışır mı?', answer: 'Birçok IP kamera ile entegre olur, gerekiyorsa öneri sunarız.' },
+      { question: 'Bakım ve güncellemeler nasıl olur?', answer: 'Sürekli izleme ve planlı güncelleme süreçleri yürütürüz.' },
+      { question: 'Destek SLA var mı?', answer: 'Evet, 7/24 destek sunuyoruz.' },
+      { question: 'Çoklu lokasyon için uygun mu?', answer: 'Evet, platform çoklu lokasyon yönetimi için tasarlandı.' },
+    ],
+  },
+  finale: {
+    eyebrow: 'Destek',
+    title: 'Sürekli destek, sürekli takip.',
+    desc: 'Kesintisiz çalışma hedefi ve 7/24 destek.',
+    text: 'E-posta veya WhatsApp üzerinden bize ulaşın. Her zaman yanınızdayız.',
+    email: 'E-posta',
+    whatsapp: 'WhatsApp',
+    dialLabel: '7/24',
+    newTab: ' (yeni sekmede açılır)',
+    whatsappMessage: 'Merhaba, uçtan uca plaka tanıma otopark çözümünüz hakkında bilgi almak istiyorum.',
+  },
+}

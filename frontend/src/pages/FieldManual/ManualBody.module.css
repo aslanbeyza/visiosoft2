@@ -1,0 +1,152 @@
+.body {
+  width: min(66rem, 100%);
+  margin-inline: auto;
+}
+
+.docHead {
+  display: grid;
+  gap: 0.6rem;
+  max-width: 46rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--color-corp-line);
+}
+
+.docType {
+  margin: 0;
+  color: var(--color-navy-600);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.docTitle {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.5rem, 1.4vw + 1.1rem, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.chunk {
+  position: relative;
+}
+
+.chunk + .chunk {
+  margin-top: 3rem;
+}
+
+.chunk > h2:first-child {
+  margin-top: 0;
+}
+
+.hairline {
+  position: absolute;
+  inset: -1.5rem 0 auto;
+  height: 1px;
+  background: var(--color-corp-line);
+  transform-origin: left center;
+}
+
+/* Bölüm numarası CSS sayacıyla üretilir; içindekiler metnine karışmaz. */
+.body {
+  counter-reset: chapter;
+}
+
+.body .chapterTitle {
+  counter-increment: chapter;
+}
+
+.body .chapterTitle::before {
+  content: counter(chapter, decimal-leading-zero);
+  display: inline-block;
+  min-width: 2.25rem;
+  margin-right: 0.6rem;
+  color: var(--color-navy-600);
+  font-size: 0.7em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  vertical-align: 0.12em;
+}
+
+.summary {
+  color: var(--color-corp-ink);
+  font-weight: 500;
+}
+
+.empty {
+  color: var(--color-corp-muted);
+  font-style: italic;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  margin: 1.75rem 0 0;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+}
+
+.body .table {
+  width: 100%;
+  min-width: 26rem;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.body .table th,
+.body .table td {
+  padding: 0.8rem 1.1rem;
+  border-bottom: 1px solid var(--color-corp-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.body .table thead th {
+  background: var(--color-corp-surface);
+  color: var(--color-corp-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.body .table tbody th {
+  color: var(--color-corp-ink);
+  font-weight: 600;
+}
+
+.body .table td {
+  font-variant-numeric: tabular-nums;
+}
+
+.body .table tbody tr:last-child th,
+.body .table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.footerNote {
+  max-width: 46rem;
+  margin: clamp(2.5rem, 4vw, 3.5rem) 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-corp-line);
+  color: var(--color-corp-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@media print {
+  .body aside {
+    display: none;
+  }
+
+  .chunk {
+    break-inside: auto;
+  }
+
+  .chunk h2 {
+    break-after: avoid;
+  }
+}

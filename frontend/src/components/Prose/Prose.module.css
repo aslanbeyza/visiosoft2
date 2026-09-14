@@ -1,0 +1,432 @@
+.prose {
+  --ink: var(--color-corp-ink);
+  --body: var(--color-corp-body);
+  --muted: var(--color-corp-muted);
+  --line: var(--color-corp-line);
+  --accent: var(--color-navy-600);
+  --accent-hover: var(--color-navy-700);
+  --code-bg: var(--color-navy-50);
+  --pre-bg: var(--color-navy-950);
+  --pre-fg: rgb(255 255 255 / 0.9);
+  --surface: var(--color-corp-surface);
+
+  min-width: 0;
+  color: var(--body);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  text-wrap: pretty;
+}
+
+.prose[data-size='lg'] {
+  font-size: 1.15rem;
+}
+
+.prose[data-tone='dark'] {
+  --ink: #fff;
+  --body: rgb(255 255 255 / 0.78);
+  --muted: rgb(255 255 255 / 0.58);
+  --line: rgb(255 255 255 / 0.16);
+  --accent: var(--color-navy-300);
+  --accent-hover: #fff;
+  --code-bg: rgb(255 255 255 / 0.1);
+  --pre-bg: rgb(0 0 0 / 0.35);
+  --surface: rgb(255 255 255 / 0.06);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--ink);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-wrap: balance;
+  scroll-margin-top: 6.5rem;
+}
+
+.prose h2 {
+  margin: 2.75rem 0 1rem;
+  font-size: clamp(1.6rem, 1vw + 1.15rem, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.prose h3 {
+  margin: 2.25rem 0 0.75rem;
+  font-size: clamp(1.25rem, 0.5vw + 1.05rem, 1.5rem);
+}
+
+.prose h4 {
+  margin: 1.75rem 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.prose p {
+  margin: 0 0 1.25em;
+}
+
+.prose strong,
+.prose b {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.prose a {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 0.25s var(--ease-apple);
+}
+
+.prose a:hover {
+  color: var(--accent-hover);
+}
+
+.prose a:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Genel sıfırlama liste imlerini kaldırır; metin içindeki listeler imleriyle okunur. */
+.prose ul,
+.prose ol {
+  margin: 0 0 1.25em;
+  padding-left: 1.5rem;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose ul ul {
+  list-style-type: circle;
+}
+
+.prose li {
+  margin: 0.4em 0;
+  padding-left: 0.2rem;
+}
+
+.prose li::marker {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.prose li > ul,
+.prose li > ol {
+  margin: 0.4em 0 0;
+}
+
+.prose blockquote {
+  margin: 1.75rem 0;
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  border-left: 2px solid var(--accent);
+  color: var(--ink);
+  font-size: 1.08em;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.prose blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.prose hr {
+  height: 1px;
+  margin: 2.5rem 0;
+  border: 0;
+  background: var(--line);
+}
+
+.prose img,
+.prose video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.75rem 0;
+  border-radius: 0.75rem;
+}
+
+.prose figure {
+  margin: 1.75rem 0;
+}
+
+.prose figure img {
+  margin: 0;
+}
+
+.prose figcaption {
+  margin-top: 0.6rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.prose iframe {
+  display: block;
+  max-width: 100%;
+  margin: 1.75rem 0;
+  border: 0;
+  border-radius: 0.75rem;
+}
+
+.prose code {
+  padding: 0.12em 0.4em;
+  border-radius: 0.3rem;
+  background: var(--code-bg);
+  color: var(--ink);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.88em;
+}
+
+.prose pre {
+  overflow-x: auto;
+  margin: 1.75rem 0;
+  padding: 1.1rem 1.3rem;
+  border-radius: 0.75rem;
+  background: var(--pre-bg);
+  color: var(--pre-fg);
+  font-size: 0.86em;
+  line-height: 1.6;
+}
+
+.prose pre code {
+  padding: 0;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.prose dl {
+  margin: 0 0 1.25em;
+}
+
+.prose dt {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.prose dd {
+  margin: 0.2em 0 0.9em;
+}
+
+/* Tablolar: html modunda sarmalayıcıya alınır; çocuk modunda tablo kendi kaydırma alanını taşır. */
+.tableWrap {
+  overflow-x: auto;
+  margin: 1.75rem 0;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+}
+
+.tableWrap table {
+  margin: 0;
+}
+
+.prose table {
+  width: 100%;
+  margin: 1.75rem 0;
+  border-collapse: collapse;
+  font-size: 0.92em;
+  line-height: 1.5;
+}
+
+.prose th,
+.prose td {
+  padding: 0.75rem 0.95rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.prose tr:last-child td {
+  border-bottom: 0;
+}
+
+/* İçindekiler düzeni */
+
+.layout {
+  --ink: var(--color-corp-ink);
+  --muted: var(--color-corp-muted);
+  --line: var(--color-corp-line);
+  --accent: var(--color-navy-600);
+
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.layout[data-tone='dark'] {
+  --ink: #fff;
+  --muted: rgb(255 255 255 / 0.6);
+  --line: rgb(255 255 255 / 0.16);
+  --accent: var(--color-navy-300);
+}
+
+.aside {
+  order: -1;
+  min-width: 0;
+}
+
+.toc {
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+}
+
+.tocTitle {
+  display: none;
+  margin: 0;
+  padding: 1rem 1.1rem 0.5rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.tocToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tocToggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.chevron {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted);
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.tocToggle[aria-expanded='true'] .chevron {
+  transform: rotate(180deg);
+}
+
+.tocList {
+  margin: 0;
+  padding: 0.25rem 1.1rem 0.9rem;
+  list-style: none;
+}
+
+.tocList[data-open='false'] {
+  display: none;
+}
+
+.tocItem[data-level='3'] {
+  padding-left: 0.9rem;
+}
+
+.tocLink {
+  display: block;
+  padding: 0.4rem 0 0.4rem 0.85rem;
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-decoration: none;
+  transition:
+    color 0.3s var(--ease-apple),
+    border-color 0.3s var(--ease-apple);
+}
+
+.tocLink:hover {
+  color: var(--ink);
+}
+
+.tocLink[aria-current='location'] {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.tocLink:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (min-width: 1024px) {
+  /* İki sütun yalnızca içindekiler çizildiğinde; metin geniş sütunda, liste sağdaki dar sütunda. */
+  .layout[data-toc='true'] {
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  /* DOM'da liste metinden önce gelir (dar ekranda üstte); masaüstünde sağ sütuna taşınır. */
+  .aside {
+    position: sticky;
+    top: 6.5rem;
+    order: 1;
+  }
+
+  .toc {
+    border: 0;
+    border-left: 1px solid var(--line);
+    border-radius: 0;
+  }
+
+  .tocTitle {
+    display: block;
+    padding: 0 0 0.6rem 1.1rem;
+  }
+
+  .tocToggle {
+    display: none;
+  }
+
+  .tocList,
+  .tocList[data-open='false'] {
+    display: block;
+    padding: 0;
+  }
+
+  .tocLink {
+    padding-left: 1rem;
+    margin-left: -1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prose a,
+  .chevron,
+  .tocLink {
+    transition: none;
+  }
+}

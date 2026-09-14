@@ -1,0 +1,180 @@
+.layout {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.copy {
+  min-width: 0;
+}
+
+.list {
+  display: grid;
+  margin: clamp(2rem, 3vw, 2.75rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry {
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.entry:last-child {
+  border-bottom: 1px solid var(--color-corp-line);
+}
+
+.entryInner {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  column-gap: 1rem;
+  padding: 1.15rem 0;
+}
+
+.index {
+  grid-row: span 2;
+  color: var(--color-navy-600);
+  font-size: 0.8rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.9;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.entryInner[data-active='true'] .index {
+  transform: translateX(3px);
+}
+
+.entryTitle {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1.12rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+.entryText {
+  margin: 0.35rem 0 0;
+  color: var(--color-corp-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Teknik pafta zemini: kahraman sahnesiyle aynı ızgara dili. */
+.figure {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(2rem, 4vw, 3rem) 1rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background-color: #fff;
+  background-image:
+    linear-gradient(rgb(23 27 153 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(23 27 153 / 0.06) 1px, transparent 1px);
+  background-position: center;
+  background-size: 2.5rem 2.5rem;
+}
+
+/* Kutu solda, etiketler için sağda boşluk; kılavuz uzunlukları kutu genişliğine (cqw) göre çözülür. */
+.box {
+  position: relative;
+  width: min(calc(100% - 11rem), 19rem);
+  margin-right: 11rem;
+  container-type: inline-size;
+}
+
+.reveal {
+  position: absolute;
+  inset: 0;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pin {
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  height: 0;
+}
+
+.marker {
+  position: absolute;
+  top: -0.8rem;
+  left: -0.8rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: var(--color-navy-600);
+  box-shadow: 0 2px 8px rgb(15 20 48 / 0.25);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.leader {
+  position: absolute;
+  top: 0;
+  left: 0.8rem;
+  display: block;
+  width: calc((100 - var(--x)) * 1cqw + 1rem);
+  height: 1px;
+  background: var(--color-navy-600);
+  opacity: 0.6;
+  transform-origin: left center;
+}
+
+.label {
+  position: absolute;
+  top: 0;
+  left: calc((100 - var(--x)) * 1cqw + 1.75rem);
+  translate: 0 -50%;
+  /* Dar ekranda uzun etiket iki satıra iner, sahneden taşmaz. */
+  width: max-content;
+  max-width: 8.75rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-wrap: balance;
+  transition: border-color 0.3s var(--ease-apple), color 0.3s var(--ease-apple);
+}
+
+.pin[data-active='true'] .marker {
+  outline: 3px solid rgb(23 27 153 / 0.25);
+  outline-offset: 2px;
+}
+
+.pin[data-active='true'] .label {
+  border-color: var(--color-navy-600);
+  color: var(--color-navy-600);
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .index,
+  .label {
+    transition: none;
+  }
+}

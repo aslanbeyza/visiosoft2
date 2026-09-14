@@ -1,42 +1,189 @@
-.shell {
+.hero {
   position: relative;
-  background: #f5f5f7;
-  color: #fff;
-}
-
-.echo {
-  display: none;
-  position: absolute;
-  right: 1.25rem;
-  bottom: 1.1rem;
-  z-index: 0;
-  margin: 0;
-  color: #1d1d1f;
-  font-size: clamp(3rem, 10vw, 7.5rem);
-  font-weight: 800;
-  letter-spacing: -0.07em;
-  line-height: 0.85;
-  pointer-events: none;
-  user-select: none;
-}
-
-.frame {
-  position: relative;
-  z-index: 1;
   isolation: isolate;
   overflow: hidden;
   background: #06070b;
-  will-change: clip-path;
+  color: #fff;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shadeStack {
+  background: linear-gradient(180deg, rgb(6 7 11 / 0.9) 0%, rgb(6 7 11 / 0.62) 38%, rgb(6 7 11 / 0.34) 62%, rgb(6 7 11 / 0.88) 100%);
+}
+
+.shadeSide {
+  display: none;
+  background: linear-gradient(90deg, rgb(6 7 11 / 0.94) 0%, rgb(6 7 11 / 0.72) 30%, rgb(6 7 11 / 0.28) 58%, rgb(6 7 11 / 0.06) 100%);
+}
+
+/* ≥1024: videonun sağ üstündeki kiosk ekranını geri planda tutar; kart tek açıklayıcı katman kalır. */
+.shadeCorner {
+  display: none;
+  background: radial-gradient(
+    ellipse 38% 72% at 100% 30%,
+    rgb(6 7 11 / 0.8) 0%,
+    rgb(6 7 11 / 0.62) 45%,
+    rgb(6 7 11 / 0) 100%
+  );
+}
+
+.shadeBottom {
+  top: auto;
+  height: 40%;
+  background: linear-gradient(0deg, #06070b 0%, rgb(6 7 11 / 0.7) 50%, rgb(6 7 11 / 0) 100%);
+}
+
+.shadeTop {
+  bottom: auto;
+  height: 11rem;
+  background: linear-gradient(180deg, rgb(0 0 0 / 0.6) 0%, rgb(0 0 0 / 0) 100%);
+}
+
+/* Navbar .bar ile aynı içerik kenarı: 2rem, ≥768 px 3rem boşluk, en fazla 80rem. */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: min(80rem, calc(100% - 2rem));
+  min-height: 100svh;
+  margin-inline: auto;
+  padding: 7rem 0 1.5rem;
+}
+
+.grid {
+  display: grid;
+  flex: 1;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+/* Kart başlık satırının sağ ucunda: görünen daire 32 px, ::before ile 44 px dokunma alanı.
+   Negatif dikey kenar, başlık satırının yüksekliğini metinle aynı tutar. */
+.toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  margin: -0.5rem -0.25rem -0.5rem 0;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.24);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.06);
+  color: #fff;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.toggle::before {
+  content: '';
+  position: absolute;
+  inset: -0.4375rem;
+  border-radius: 50%;
+}
+
+.toggle:hover {
+  border-color: rgb(255 255 255 / 0.55);
+  background: rgb(255 255 255 / 0.14);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.toggleIcon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* Telefonda kart, sağ alttaki sabit WhatsApp düğmesinin (52 px + 20 px) üstünde biter. */
+@media (max-width: 639.98px) {
+  .container {
+    padding: 6rem 0 5.5rem;
+  }
+
+  .grid {
+    gap: 1.75rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-top: 8rem;
+  }
 }
 
 @media (min-width: 768px) {
-  .echo {
+  .container {
+    width: min(80rem, calc(100% - 3rem));
+  }
+}
+
+@media (min-width: 1024px) {
+  .shadeStack {
+    display: none;
+  }
+
+  .shadeSide {
+    display: block;
+  }
+
+  .shadeBottom {
+    height: 58%;
+    background: linear-gradient(0deg, #06070b 0%, rgb(6 7 11 / 0.75) 50%, rgb(6 7 11 / 0) 100%);
+  }
+
+  /* Alt boşluk, sağ alttaki sabit WhatsApp düğmesinin (≈52 px + 20 px) kartın köşesine binmemesi için. */
+  .container {
+    padding: 9rem 0 5.5rem;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 2rem;
+  }
+
+  /* Kart sağ altta, içerik kenarına hizalı; duraklat düğmesi kartın içinde. */
+  .aside {
+    align-items: flex-end;
+    align-self: end;
+  }
+
+  .shadeCorner {
     display: block;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .frame {
-    will-change: auto;
+  .toggle {
+    transition: none;
   }
 }

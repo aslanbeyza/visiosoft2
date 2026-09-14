@@ -1,0 +1,129 @@
+.outcomes {
+  margin-top: 0.25rem;
+}
+
+.panel {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(70% 55% at 85% 0%, rgb(154 161 227 / 0.1), rgb(154 161 227 / 0) 70%),
+    #0b0e3a;
+}
+
+.kicker {
+  margin: 0 0 1.25rem;
+  color: rgb(255 255 255 / 0.6);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.stack {
+  display: flex;
+  align-items: center;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  padding: 0;
+  list-style: none;
+}
+
+.stackItem {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  min-width: 0;
+}
+
+.stackItem:last-child {
+  flex: 0 0 auto;
+}
+
+.tag {
+  display: inline-grid;
+  place-items: center;
+  min-width: 3.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+}
+
+.stackItem:first-child .tag {
+  border-color: var(--color-navy-300);
+  background: rgb(154 161 227 / 0.16);
+}
+
+.link {
+  flex: 1 1 auto;
+  height: 1px;
+  margin-inline: 0.65rem;
+  background: rgb(255 255 255 / 0.28);
+  transform-origin: left center;
+}
+
+.facts {
+  margin: 0;
+}
+
+.fact {
+  position: relative;
+  display: grid;
+  gap: 0.3rem;
+  padding: 1.1rem 0;
+}
+
+/* Satır çizgisi CSS geçişiyle çizilir; dl içinde ek öğe gerekmez. */
+.fact::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: rgb(255 255 255 / 0.14);
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1s var(--ease-apple) calc(0.5s + var(--i, 0) * 0.12s);
+}
+
+.panel[data-in='true'] .fact::before {
+  transform: scaleX(1);
+}
+
+.fact dt {
+  color: #fff;
+  font-size: clamp(1.45rem, 1.1vw + 1.1rem, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.fact dd {
+  margin: 0;
+  color: rgb(255 255 255 / 0.72);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.fact:last-child {
+  padding-bottom: 0;
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fact::before {
+    transform: scaleX(1);
+    transition: none;
+  }
+}

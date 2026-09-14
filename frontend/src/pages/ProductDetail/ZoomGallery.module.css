@@ -1,0 +1,26 @@
+.grid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin: clamp(2.5rem, 4vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  min-width: 0;
+}
+
+/* Arka planı ayrılmış görseller beyaz sahnede, kenarlardan nefes alarak durur (başlık zemini boyanmaz). */
+.contain {
+  box-sizing: border-box;
+  padding: 7%;
+  background: #fff;
+}
+
+/* Üç kare aynı oranda yan yana; alt kenarlar ve başlıklar hizalı kalır. */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}

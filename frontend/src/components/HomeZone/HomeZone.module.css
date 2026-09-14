@@ -1,0 +1,46 @@
+/* Gece tonu: sabit ince ızgara ve çerçevenin arkasında durağan lacivert ışık. Hareket yok. */
+.section {
+  overflow: clip;
+  isolation: isolate;
+}
+
+.inner {
+  position: relative;
+}
+
+.section::before,
+.section::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  pointer-events: none;
+}
+
+/* Izgara: 72 px aralıklı çizgiler, kenarlara doğru maskeyle kaybolur. */
+.section::before {
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(154 161 227 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(154 161 227 / 0.07) 1px, transparent 1px);
+  background-position: center top;
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 55% at 60% 30%, #000 0%, rgb(0 0 0 / 0.5) 45%, transparent 80%);
+}
+
+/* Işık: çerçeve sütununun arkasında, geniş ve yumuşak radyal lacivert. */
+.section::after {
+  top: 8%;
+  right: -10%;
+  width: min(70rem, 90vw);
+  height: min(46rem, 80vh);
+  background: radial-gradient(closest-side, rgb(23 27 153 / 0.45), rgb(23 27 153 / 0.12) 55%, transparent);
+}
+
+.head {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.heading {
+  max-width: 44rem;
+}

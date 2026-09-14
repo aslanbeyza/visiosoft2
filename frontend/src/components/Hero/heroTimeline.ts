@@ -1,48 +1,56 @@
 /**
- * Hero videosunun zaman çizelgesi (saniye).
- * Değerler scripts/hero-video/build.py'nin ürettiği /public/video/hero/timeline.json ile eşleşir
- * (bölüm sınırı = ikinci sahnenin xfadeStart değeri + 0,25 sn). Video yeniden üretilirse güncellenmelidir.
+ * Hero videosunun zaman çizelgesi (saniye, 24 fps, 245 kare).
+ * Kare zamanları scripts/hero-video/build.py çıktısından ölçülmüştür (home3/u4-hero-video.md §2, §6).
+ * Video yeniden üretilirse bu değerler de güncellenmelidir.
  */
-export type ChapterId = 'alpr' | 'kiosk'
+export const VIDEO_DURATION = 10.208
 
-export type CueId = 'detect' | 'scan' | 'locked' | 'kioskWait' | 'paid' | 'open'
+/** Kartın üç ana durumu: algılama → doğrulama → bariyer. */
+export type StageId = 'detect' | 'verified' | 'open'
 
-export type Tone = 'sky' | 'emerald' | 'amber' | 'neutral'
+/** Ayrıntı satırı dahil ince evre; kart yalnızca evre değişince yeniden çizilir. */
+export type Phase = 'detect' | 'reading' | 'verified' | 'paid' | 'open'
 
-export type Chapter = { id: ChapterId; start: number; end: number; route: string }
+export const stages: StageId[] = ['detect', 'verified', 'open']
 
-/** `line`: başlıktaki hangi satırın (Plakayı okur / Ödemeyi alır / Bariyeri açar) vurgulanacağı. */
-export type Cue = { id: CueId; start: number; end: number; tone: Tone; line?: 0 | 1 | 2 }
+export const cueTimes = {
+  /** Görüntüdeki köşe çerçevesi plakayı sarar. */
+  readStart: 2.667,
+  /** Çerçeve ve tarama çizgisi biter; plaka net ve sabit. */
+  verified: 4.667,
+  /** Kiosk ekranı "ÖDENDİ" gösterir. */
+  paid: 6.125,
+  /** Bariyer kolu ilk kez kalkar (n164). */
+  open: 6.833,
+  /** Döngü geçişinde gri araç yeniden baskın olur (n237). */
+  loopDetect: 9.875,
+} as const
 
-export const VIDEO_DURATION = 10.167
-
-export const chapters: Chapter[] = [
-  { id: 'alpr', start: 0, end: 5.375, route: 'plate-recognition-system' },
-  { id: 'kiosk', start: 5.375, end: VIDEO_DURATION, route: 'hardware-products.kiosk' },
-]
-
-export const cues: Cue[] = [
-  { id: 'detect', start: 0, end: 2.4, tone: 'sky', line: 0 },
-  { id: 'scan', start: 2.4, end: 4.2, tone: 'sky', line: 0 },
-  { id: 'locked', start: 4.2, end: 5.375, tone: 'emerald', line: 0 },
-  { id: 'kioskWait', start: 5.375, end: 6.125, tone: 'amber', line: 1 },
-  { id: 'paid', start: 6.125, end: 6.7, tone: 'emerald', line: 1 },
-  { id: 'open', start: 6.7, end: VIDEO_DURATION, tone: 'emerald', line: 2 },
-]
-
-export function chapterIndexAt(time: number) {
-  for (let index = chapters.length - 1; index >= 0; index -= 1) {
-    if (time >= chapters[index].start) return index
-  }
-  return 0
+export function phaseAt(time: number): Phase {
+  const t = Number.isFinite(time) ? time : 0
+  if (t >= cueTimes.loopDetect) return 'detect'
+  if (t >= cueTimes.open) return 'open'
+  if (t >= cueTimes.paid) return 'paid'
+  if (t >= cueTimes.verified) return 'verified'
+  if (t >= cueTimes.readStart) return 'reading'
+  return 'detect'
 }
 
-export function cueAt(time: number): Cue {
-  for (let index = cues.length - 1; index >= 0; index -= 1) {
-    if (time >= cues[index].start) return cues[index]
-  }
-  return cues[0]
+export function stageOf(phase: Phase): StageId {
+  if (phase === 'verified' || phase === 'paid') return 'verified'
+  if (phase === 'open') return 'open'
+  return 'detect'
 }
+
+/** "Plaka okunuyor…" rayı: 2,667 → 4,667 sn arasında 0 → 1. */
+export function readProgressAt(time: number) {
+  if (!Number.isFinite(time) || time >= cueTimes.loopDetect) return 0
+  const span = cueTimes.verified - cueTimes.readStart
+  return Math.min(1, Math.max(0, (time - cueTimes.readStart) / span))
+}
+
+/** Hareket azaltma tercihinde afiş (4,875 sn doğrulanmış plaka karesi) ile eşleşen sabit evre. */
+export const STATIC_PHASE: Phase = 'verified'
 
 export const heroVideo = {
   poster: '/video/hero/poster.webp',

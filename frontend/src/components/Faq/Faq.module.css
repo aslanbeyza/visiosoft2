@@ -1,0 +1,199 @@
+.faq {
+  --line: var(--color-corp-line);
+  --ink: var(--color-corp-ink);
+  --body: var(--color-corp-body);
+  --accent: var(--color-navy-600);
+  --icon-fg: var(--color-navy-600);
+  --icon-on-bg: var(--color-navy-600);
+  --icon-on-fg: #fff;
+
+  position: relative;
+}
+
+.faq[data-tone='dark'] {
+  --line: rgb(255 255 255 / 0.14);
+  --ink: #fff;
+  --body: rgb(255 255 255 / 0.72);
+  --accent: var(--color-navy-300);
+  --icon-fg: var(--color-navy-300);
+  --icon-on-bg: #fff;
+  --icon-on-fg: var(--color-navy-900);
+}
+
+.item {
+  position: relative;
+}
+
+/* Sorular arasındaki çizgi görünüme girince soldan sağa çizilir; son sorunun altı sabit çizgi. */
+.hairline {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--line);
+  transform-origin: left center;
+}
+
+.item:last-child::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.heading {
+  margin: 0;
+  font: inherit;
+}
+
+.trigger {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  width: 100%;
+  padding: 1.35rem 0;
+  border: 0;
+  border-radius: 0.25rem;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.3s var(--ease-apple);
+}
+
+.trigger:hover {
+  color: var(--accent);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.question {
+  font-size: clamp(1.02rem, 0.3vw + 0.95rem, 1.2rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-top: 0.05rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--icon-fg);
+  transition:
+    background-color 0.35s var(--ease-apple),
+    border-color 0.35s var(--ease-apple),
+    color 0.35s var(--ease-apple),
+    transform 0.45s var(--ease-apple);
+}
+
+.icon svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.iconH,
+.iconV {
+  transform-origin: center;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+/* Açıkken artı işareti döner, yatay çizgi kaybolur: geriye eksi kalır. */
+.trigger[aria-expanded='true'] .icon {
+  border-color: var(--icon-on-bg);
+  background: var(--icon-on-bg);
+  color: var(--icon-on-fg);
+  transform: rotate(90deg);
+}
+
+.trigger[aria-expanded='true'] .iconH {
+  transform: scaleX(0);
+}
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.5s var(--ease-apple),
+    visibility 0s linear 0.5s;
+}
+
+.panel[data-open='true'] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 0.5s var(--ease-apple),
+    visibility 0s;
+}
+
+.panelInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.answer {
+  max-width: 44rem;
+  padding: 0 3rem 1.6rem 0;
+  color: var(--body);
+  font-size: 1rem;
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.35s var(--ease-apple),
+    transform 0.45s var(--ease-apple);
+}
+
+.panel[data-open='true'] .answer {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.45s var(--ease-apple) 0.12s,
+    transform 0.5s var(--ease-apple) 0.12s;
+}
+
+.answer p {
+  margin: 0;
+}
+
+.answer p + p {
+  margin-top: 0.85rem;
+}
+
+@media (max-width: 639px) {
+  .answer {
+    padding-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .icon,
+  .iconH,
+  .iconV,
+  .panel,
+  .panel[data-open='true'],
+  .answer,
+  .panel[data-open='true'] .answer {
+    transition: none;
+  }
+
+  .answer {
+    transform: none;
+  }
+}

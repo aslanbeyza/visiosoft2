@@ -1,0 +1,31 @@
+/**
+ * Saha Kullanım Kılavuzu çerçeve metinleri. Kılavuzun kendisi backend'den gelir (data/manuals/field-user-manual);
+ * buradaki değerler yalnızca veri gelmeden önce ve alan eksik olduğunda kullanılır.
+ */
+export const fieldManualCopy = {
+  seoTitle: 'Saha Kullanım Kılavuzu | Visiosoft',
+  seoDescription:
+    'Otopark sistemi için teknik kurulum, saha operasyonu, kritik dikkat noktaları, günlük kullanım, bakım ve teknik destek süreçlerini kurumsal dilde açıklayan kullanıcı kılavuzu.',
+  eyebrow: 'Destek',
+  title: 'Saha Kullanım Kılavuzu',
+  lead: 'Otopark sistemi için teknik kurulum, saha operasyonu, bakım ve teknik destek süreçlerini açık bir dille anlatan kullanıcı kılavuzu.',
+  pdf: 'PDF İndir',
+  print: 'Yazdır',
+  versionLabel: 'Versiyon',
+  dateLabel: 'Yayın Tarihi',
+  chaptersLabel: 'Kılavuz bölümleri',
+  chaptersTitle: 'İçindekiler',
+  chapterCount: (count: number) => `${count} bölüm`,
+  overviewTitle: 'Doküman Kapsamı',
+  specsKey: 'Özellik',
+  specsValue: 'Değer',
+  loading: 'Kılavuz yükleniyor',
+  errorTitle: 'Kılavuz şu anda yüklenemedi',
+  errorBody: 'Sunucuya ulaşılamadı. Lütfen biraz sonra yeniden deneyin.',
+  emptyTitle: 'Kılavuz içeriği henüz yayınlanmadı',
+  emptyBody: 'Güncel kılavuz için bizimle iletişime geçebilirsiniz.',
+  emptySection: 'Bu bölüm için içerik bulunamadı.',
+  supportTitle: 'Sahada desteğe mi ihtiyacınız var?',
+  supportBody: 'Kurulum, bakım ve teknik destek talepleriniz için ekibimize ulaşabilirsiniz.',
+  supportAction: 'İletişime geçin',
+} as const

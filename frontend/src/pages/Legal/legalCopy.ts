@@ -197,7 +197,7 @@ export const legalPages: Record<string, LegalPage> = {
       {
         type: 'facts',
         items: [
-          { label: 'Ünvan', value: 'VİSİOSOFT TEKNOLOJİ ANONİM ŞİRKETİ' },
+          { label: 'Unvan', value: 'VİSİOSOFT TEKNOLOJİ ANONİM ŞİRKETİ' },
           { label: 'Adres', value: 'Yıldız Teknik Üniversitesi İkitelli Teknopark 1B24-C 34490 Başakşehir / İstanbul' },
           { label: 'Vergi Dairesi', value: 'İKİTELLİ' },
           { label: 'Vergi No', value: '9251021443' },

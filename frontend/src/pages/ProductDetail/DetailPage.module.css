@@ -1,0 +1,8 @@
+/* Yapışkan ürün çubuğu bu kabın sonuna kadar görünür kalır. */
+.page {
+  position: relative;
+}
+
+.zoom {
+  position: relative;
+}

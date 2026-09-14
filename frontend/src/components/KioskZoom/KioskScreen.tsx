@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+import { useInView } from 'framer-motion'
 import styles from './KioskScreen.module.css'
 
 /**
@@ -5,8 +7,12 @@ import styles from './KioskScreen.module.css'
  * görsel yerine DOM olduğu için yakınlaşmada net kalır. Ekran 3/4 açıdan göründüğü için yatayda sıkıştırılır.
  */
 export default function KioskScreen() {
+  const ref = useRef<HTMLDivElement>(null)
+  // Bekleme noktaları yalnızca ekran görünürken döner; sahne kırpması da hesaba katılır.
+  const inView = useInView(ref, { margin: '200px 0px' })
+
   return (
-    <div className={styles.screen}>
+    <div ref={ref} className={styles.screen} data-running={inView ? 'true' : 'false'}>
       <div className={styles.ui}>
         <span className={styles.status}>
           <span className={styles.statusDot} />

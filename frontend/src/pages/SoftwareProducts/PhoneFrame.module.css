@@ -1,0 +1,63 @@
+/*
+ * Çerçeve 726 × 1444; şeffaf ekran alanı x 52, y 47, 623 × 1351, köşe yarıçapı 58 (screens.json phoneFrame.screen).
+ * Uygulama ekranları (780 × 1692) bu alanla aynı en-boy oranındadır; kırpılmadan oturur.
+ */
+.phone {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 726 / 1444;
+  isolation: isolate;
+}
+
+.screen {
+  position: absolute;
+  top: 3.255%;
+  left: 7.163%;
+  width: 85.813%;
+  height: 93.56%;
+  overflow: hidden;
+  border-radius: 9.31% / 4.293%;
+  background: #fff;
+  z-index: 0;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.zoom {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 0%;
+}
+
+.picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0%;
+}
+
+.framePicture {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  pointer-events: none;
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

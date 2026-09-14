@@ -1,0 +1,150 @@
+import { useEffect, useId, useRef, useState } from 'react'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { revealEase } from '../../components/Reveal/index.ts'
+import SectionHeading from '../../components/SectionHeading/index.ts'
+import { usePageVisible } from '../../hooks/usePageVisible/index.ts'
+import { plakaCopy } from './plakaCopy.ts'
+import PlateSvg from './PlateSvg.tsx'
+import type { ScanPhase } from './PlateSvg.tsx'
+import styles from './PlateScan.module.css'
+
+const copy = plakaCopy.scan
+// Görür → Tanır süreleri (ms); Onaylar sonrası bekleme.
+const PHASE_MS = [1100, 1300, 0] as const
+const FILL_S = [1, 1.2, 0.4] as const
+const HOLD_MS = 2600
+const pad = (value: number) => String(value).padStart(2, '0')
+
+/**
+ * Başarı bölümü: kamera görüntüsündeki TR plakası seçilen koşulda (gece, yağmur, kar, sis, çamur)
+ * bulunur, karakterleri okunur ve ayraç kilitlenir. Görünürken koşullar kendiliğinden döner (duraklatılabilir);
+ * kullanıcı bir koşul seçince döngü durur. Hareket azaltmada kilitli son kare gösterilir.
+ */
+export default function PlateScan() {
+  const reduce = Boolean(useReducedMotion())
+  const pageVisible = usePageVisible()
+  const uid = `plate${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`
+  const figureRef = useRef<HTMLElement>(null)
+  const inView = useInView(figureRef, { amount: 0.35 })
+  const revealed = useInView(figureRef, { once: true, amount: 0.2 })
+
+  const [index, setIndex] = useState(0)
+  const [phase, setPhase] = useState<ScanPhase>(0)
+  const [paused, setPaused] = useState(false)
+
+  const condition = copy.conditions[index]
+  const shown: ScanPhase = reduce ? 2 : phase
+  const running = !reduce && inView && pageVisible
+  const cycling = running && !paused
+
+  useEffect(() => {
+    if (!running) return
+    if (phase < 2) {
+      const timer = window.setTimeout(() => setPhase(phase === 0 ? 1 : 2), PHASE_MS[phase])
+      return () => window.clearTimeout(timer)
+    }
+    if (!cycling) return
+    const timer = window.setTimeout(() => {
+      setIndex((value) => (value + 1) % copy.conditions.length)
+      setPhase(0)
+    }, HOLD_MS)
+    return () => window.clearTimeout(timer)
+  }, [running, cycling, phase])
+
+  const select = (next: number) => {
+    setIndex(next)
+    setPhase(0)
+    setPaused(true)
+  }
+
+  return (
+    <div className={styles.layout}>
+      <div className={styles.intro}>
+        <SectionHeading eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} id="basari-baslik" />
+        <fieldset className={styles.conditions}>
+          <legend className={styles.legend}>{copy.legend}</legend>
+          <div className={styles.options}>
+            {copy.conditions.map((item, itemIndex) => (
+              <label key={item.id} className={styles.option} data-active={itemIndex === index}>
+                <input
+                  type="radio"
+                  className={styles.radio}
+                  name={`${uid}-kosul`}
+                  value={item.id}
+                  checked={itemIndex === index}
+                  onChange={() => select(itemIndex)}
+                />
+                <span className={styles.optionText}>{item.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        {!reduce ? (
+          <button
+            type="button"
+            className={styles.toggle}
+            aria-label={paused ? copy.play : copy.pause}
+            onClick={() => setPaused((value) => !value)}
+          >
+            <svg viewBox="0 0 16 16" className={styles.toggleIcon} fill="currentColor" aria-hidden="true">
+              {paused ? <path d="M5 3.2v9.6L12.6 8z" /> : <path d="M4.5 3h2.2v10H4.5zM9.3 3h2.2v10H9.3z" />}
+            </svg>
+            <span aria-hidden="true">{paused ? copy.playShort : copy.pauseShort}</span>
+          </button>
+        ) : null}
+      </div>
+
+      <figure ref={figureRef} className={styles.figure}>
+        <motion.div
+          className={styles.stage}
+          initial={reduce ? false : { clipPath: 'inset(0% 0% 100% 0% round 0.75rem)' }}
+          animate={revealed ? { clipPath: 'inset(0% 0% 0% 0% round 0.75rem)' } : undefined}
+          transition={{ duration: 1.1, ease: revealEase }}
+        >
+          <PlateSvg condition={condition.id} phase={shown} reduce={reduce} live={cycling} uid={uid} plateText={copy.plateText} />
+          <span className={styles.conditionTag} aria-hidden="true">
+            {condition.label}
+          </span>
+          <motion.p
+            className={styles.accuracy}
+            initial={false}
+            animate={{ opacity: shown === 2 ? 1 : 0, y: shown === 2 ? 0 : 8 }}
+            transition={{ duration: reduce ? 0 : 0.5, delay: reduce || shown !== 2 ? 0 : 0.35, ease: revealEase }}
+          >
+            {copy.accuracy}
+          </motion.p>
+        </motion.div>
+        <ol className={styles.phases}>
+          {copy.phases.map((label, phaseIndex) => {
+            const done = shown > phaseIndex || shown === 2
+            const state = done ? 'done' : shown === phaseIndex ? 'active' : 'idle'
+            return (
+              <li key={label} className={styles.phase} data-state={state}>
+                <span className={styles.phaseTrack} aria-hidden="true">
+                  <motion.span
+                    className={styles.phaseFill}
+                    initial={false}
+                    animate={{ scaleX: shown >= phaseIndex ? 1 : 0 }}
+                    transition={
+                      reduce
+                        ? { duration: 0 }
+                        : shown >= phaseIndex
+                          ? { duration: FILL_S[phaseIndex], ease: 'linear' }
+                          : { duration: 0.3, ease: revealEase }
+                    }
+                  />
+                </span>
+                <span className={styles.phaseIndex}>{pad(phaseIndex + 1)}</span>
+                <span className={styles.phaseLabel}>{label}</span>
+              </li>
+            )
+          })}
+        </ol>
+        <figcaption className={styles.caption}>
+          <span className={styles.srOnly}>{copy.figureDescription(condition.label)} </span>
+          {copy.note}
+        </figcaption>
+      </figure>
+    </div>
+  )
+}

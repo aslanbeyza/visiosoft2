@@ -1,20 +1,27 @@
+import { lazy } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { LocaleProvider } from './context/Locale/index.ts'
 import { marketingRouteNames, pathFor, redirectToTurkish } from './lib/index.ts'
 import MainLayout from './layout/MainLayout/index.ts'
-import BlogIndex from './pages/BlogIndex/index.ts'
-import BlogShow from './pages/BlogShow/index.ts'
-import Contact from './pages/Contact/index.ts'
-import Discovery from './pages/Discovery/index.ts'
-import FieldManual from './pages/FieldManual/index.ts'
-import Home from './pages/Home/index.ts'
 import Marketing from './pages/Marketing/index.ts'
-import NotFound from './pages/NotFound/index.ts'
-import ParkingQuote from './pages/ParkingQuote/index.ts'
-import Payment from './pages/Payment/index.ts'
-import Quote from './pages/Quote/index.ts'
-import Sitemap from './pages/Sitemap/index.ts'
-import SoftwareProducts from './pages/SoftwareProducts/index.ts'
+import { pages } from './pages/registry.ts'
+
+/*
+ * Tüm sayfalar registry üzerinden tembel yüklenir; tek Suspense sınırı MainLayout içindeki PageTransition'dadır.
+ * Marketing küçük bir dağıtıcıdır ve kendi içinde aynı registry'den tembel bileşenler kullanır.
+ */
+const Home = lazy(pages.home)
+const SoftwareProducts = lazy(pages.softwareProducts)
+const Contact = lazy(pages.contact)
+const Quote = lazy(pages.quote)
+const Discovery = lazy(pages.discovery)
+const ParkingQuote = lazy(pages.parkingQuote)
+const BlogIndex = lazy(pages.blogIndex)
+const BlogShow = lazy(pages.blogShow)
+const FieldManual = lazy(pages.fieldManual)
+const Sitemap = lazy(pages.sitemap)
+const Payment = lazy(pages.payment)
+const NotFound = lazy(pages.notFound)
 
 function LegacyLocaleRedirect() {
   const { pathname } = useLocation()

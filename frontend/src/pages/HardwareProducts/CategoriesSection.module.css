@@ -1,0 +1,186 @@
+.layout {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: 4rem;
+  }
+
+  .heading {
+    position: sticky;
+    top: 9rem;
+  }
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--color-corp-line);
+  list-style: none;
+}
+
+.row {
+  position: relative;
+}
+
+/* M12: satır açılırken üst çizgi soldan sağa süpürür; lacivert uç hover'da uzar. */
+.sweep {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-navy-600) 0 2.5rem, var(--color-corp-line) 2.5rem);
+  transform-origin: left center;
+}
+
+.button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  width: 100%;
+  padding: 1.35rem 0.25rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: -2px;
+  border-radius: 0.5rem;
+}
+
+.index {
+  align-self: start;
+  padding-top: 0.2rem;
+  color: var(--color-navy-600);
+  font-size: 0.75rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.text {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.label {
+  color: var(--color-corp-ink);
+  font-size: clamp(1.15rem, 0.6vw + 1rem, 1.4rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  transition: color 0.3s var(--ease-apple);
+}
+
+.description {
+  color: var(--color-corp-body);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.thumbs {
+  display: none;
+}
+
+.count {
+  grid-column: 2;
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.arrow {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--color-navy-600);
+  transition: transform 0.4s var(--ease-apple);
+}
+
+.button:hover .label,
+.button:focus-visible .label {
+  color: var(--color-navy-600);
+}
+
+.button:hover .arrow {
+  transform: translateY(3px);
+}
+
+@media (min-width: 640px) {
+  .button {
+    grid-template-columns: 2rem minmax(0, 1fr) auto auto 1.1rem;
+    gap: 1.25rem;
+  }
+
+  .thumbs {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    height: 3.25rem;
+  }
+
+  .count,
+  .arrow {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .count {
+    min-width: 3.5rem;
+    text-align: right;
+  }
+}
+
+.thumbPicture {
+  display: block;
+  height: 100%;
+}
+
+.thumb {
+  display: block;
+  width: auto;
+  max-width: 4rem;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s var(--ease-apple);
+}
+
+.button:hover .thumb {
+  transform: translateY(-3px);
+}
+
+.stats {
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .label,
+  .arrow,
+  .thumb {
+    transition: none;
+  }
+
+  .button:hover .arrow,
+  .button:hover .thumb {
+    transform: none;
+  }
+}

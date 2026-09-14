@@ -1,0 +1,249 @@
+.step {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.head {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.position {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: var(--color-navy-600);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+}
+
+.positionRule {
+  display: block;
+  width: 1.75rem;
+  height: 2px;
+  background: currentColor;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.6rem, 1.4vw + 1.15rem, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.title:focus {
+  outline: none;
+}
+
+.title:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.lead {
+  max-width: 40rem;
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgb(180 35 24 / 0.28);
+  border-radius: 0.5rem;
+  background: rgb(180 35 24 / 0.05);
+  color: #b42318;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.alertIcon {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.1rem;
+}
+
+.block {
+  display: grid;
+  gap: 0.6rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.blockLabel {
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.scenarioNote {
+  display: grid;
+  justify-items: start;
+  gap: 0.6rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--color-navy-100);
+  border-radius: 0.5rem;
+  background: var(--color-navy-50);
+}
+
+.scenarioNote p {
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.choices {
+  min-width: 0;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.back {
+  margin-inline-end: auto;
+}
+
+.next {
+  min-width: 10rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0 0.25rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: none;
+  color: var(--color-corp-body);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.35s var(--ease-apple);
+}
+
+.backLink svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.backLink:hover {
+  color: var(--color-navy-600);
+}
+
+.backLink:hover svg {
+  transform: translateX(-3px);
+}
+
+.backLink:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.form {
+  min-width: 0;
+}
+
+/*
+ * İki sütunlu satırda yalnızca bir alan hata gösterdiğinde komşu kutu kaymasın:
+ * alanlar satırın 4 izini (etiket / ipucu / kutu / hata) subgrid ile paylaşır.
+ */
+@media (min-width: 640px) {
+  .pair {
+    grid-template-rows: repeat(4, auto);
+    row-gap: 0;
+  }
+
+  .pair > .pairField {
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+
+  .pairField > label {
+    grid-row: 1;
+    margin-bottom: 0.45rem;
+  }
+
+  .pairField > [id$='-hint'] {
+    grid-row: 2;
+    margin: -0.15rem 0 0.45rem;
+  }
+
+  .pairField > :not(label, [id$='-hint'], [id$='-error']) {
+    grid-row: 3;
+  }
+
+  .pairField > [id$='-error'] {
+    grid-row: 4;
+    margin-top: 0.45rem;
+  }
+}
+
+/* Başarı panelinde adım başlığı gizlenir; panelin kendi başlığı okunur. */
+.step:has([data-status='success']) .head {
+  display: none;
+}
+
+.turnstile {
+  min-height: 4.1rem;
+}
+
+@media (max-width: 479px) {
+  .nav {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .back {
+    margin-inline-end: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backLink,
+  .backLink svg {
+    transition: none;
+  }
+
+  .backLink:hover svg {
+    transform: none;
+  }
+}

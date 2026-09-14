@@ -1,0 +1,119 @@
+.root {
+  display: grid;
+  justify-items: center;
+  gap: 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 0.03);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 0.5rem;
+  color: rgb(255 255 255 / 0.85);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Dar ekranda dört kaynak 3+1 kırılmasın: 2×2 ızgara. */
+.list[data-side='inputs'] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 22rem);
+}
+
+.list[data-side='inputs'] .item {
+  text-align: center;
+}
+
+.item[data-output='true'] {
+  border-color: var(--color-navy-300);
+  color: #fff;
+}
+
+.connector {
+  display: block;
+  width: 2px;
+  height: 2.25rem;
+}
+
+.connectorLine {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgb(154 161 227 / 0.35), var(--color-navy-300));
+  transform-origin: top center;
+}
+
+.hub {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  padding: 0.9rem 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--color-navy-600);
+  box-shadow: 0 0 0 1px rgb(154 161 227 / 0.4);
+  text-align: center;
+}
+
+.hubName {
+  color: #fff;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.channel {
+  color: rgb(255 255 255 / 0.75);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .root {
+    grid-template-columns: minmax(0, 1fr) minmax(2rem, 4rem) auto minmax(2rem, 4rem) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .list {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .list[data-side='inputs'] {
+    display: flex;
+    width: auto;
+    justify-self: stretch;
+  }
+
+  .list[data-side='outputs'] {
+    justify-self: stretch;
+  }
+
+  .item {
+    text-align: center;
+  }
+
+  .connector {
+    width: 100%;
+    height: 2px;
+  }
+
+  .connectorLine {
+    background: linear-gradient(90deg, rgb(154 161 227 / 0.35), var(--color-navy-300));
+    transform-origin: left center;
+  }
+}

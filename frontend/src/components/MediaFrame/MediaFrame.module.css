@@ -1,0 +1,152 @@
+.frame {
+  --mf-line: var(--color-corp-line);
+  --mf-bg: var(--color-corp-surface);
+  --mf-caption: var(--color-corp-muted);
+  --mf-radius: 0.75rem;
+  --mf-matte: color-mix(in srgb, var(--color-corp-line) 45%, var(--color-corp-surface));
+  --mf-inner-line: rgb(15 20 48 / 0.1);
+  --mf-shadow: 0 1px 2px rgb(15 20 48 / 0.05), 0 18px 36px -20px rgb(15 20 48 / 0.3);
+
+  min-width: 0;
+  margin: 0;
+}
+
+.frame[data-tone='dark'] {
+  --mf-line: rgb(255 255 255 / 0.12);
+  --mf-bg: var(--color-navy-900);
+  --mf-caption: rgb(255 255 255 / 0.6);
+  --mf-matte: color-mix(in srgb, #fff 5%, var(--color-navy-900));
+  --mf-inner-line: rgb(255 255 255 / 0.1);
+  --mf-shadow: 0 18px 36px -20px rgb(0 0 0 / 0.6);
+}
+
+.frame[data-radius='md'] {
+  --mf-radius: 0.5rem;
+}
+
+.stage {
+  position: relative;
+}
+
+.clip {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--mf-line);
+  border-radius: var(--mf-radius);
+  background: var(--mf-bg);
+  will-change: clip-path;
+}
+
+.parallax,
+.zoom {
+  height: 100%;
+}
+
+/* Ekran görüntüsü kipi: .clip güvenli iç pay (12 px) ve nötr paspartudur; oran iç kutuya uygulanır, görsel contain ile sığar.
+   İç kutu en fazla 6 px kayar; 1 px çizgisiyle birlikte paydan 5 px önce durur, bu yüzden hiçbir kenar kırpılmaz.
+   Gölge .clip'in kardeşi olan .shadow'dadır; clip-path ve overflow onu kesmez. */
+.frame[data-mode='screenshot'] {
+  --mf-mat: 0.75rem;
+}
+
+.frame[data-mode='screenshot'] .clip {
+  padding: var(--mf-mat);
+  background: var(--mf-matte);
+}
+
+.frame[data-mode='screenshot'] .parallax {
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0 1px var(--mf-inner-line);
+}
+
+.frame[data-mode='screenshot'] .zoom {
+  overflow: hidden;
+  border-radius: 0.25rem;
+}
+
+.shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--mf-radius);
+  box-shadow: var(--mf-shadow);
+  pointer-events: none;
+}
+
+.zoom > :global(img),
+.zoom > :global(video),
+.zoom > :global(picture) > :global(img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: var(--fit, cover);
+  user-select: none;
+}
+
+.zoom > :global(picture) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.chips {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Ekran görüntüsü kipinde etiketler görüntünün üzerine binmez: paspartu içinde, görüntünün üstünde akışta bir satırdır.
+   Alt boşluk iç payla eşittir; iç kutu 6 px yukarı kaysa bile etiketlerle arasında 6 px kalır. */
+.frame[data-mode='screenshot'] .chips {
+  position: static;
+  margin-bottom: var(--mf-mat);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.6rem;
+  padding: 0 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.chip[data-tone='neutral'] {
+  border-color: var(--color-corp-line);
+  background: rgb(255 255 255 / 0.94);
+  color: var(--color-corp-ink);
+}
+
+.chip[data-tone='navy'] {
+  background: var(--color-navy-600);
+  color: #fff;
+}
+
+.chip[data-tone='success'] {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.caption {
+  margin-top: 0.8rem;
+  color: var(--mf-caption);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clip {
+    will-change: auto;
+  }
+}

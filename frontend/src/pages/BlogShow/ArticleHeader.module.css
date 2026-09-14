@@ -1,0 +1,123 @@
+.header {
+  padding: clamp(6rem, 5vw + 4.5rem, 8.5rem) 0 clamp(2.5rem, 4vw, 3.5rem);
+  background: #fff;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: min(48rem, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  color: var(--color-navy-600);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--color-navy-700);
+}
+
+.back:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.backIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.back:hover .backIcon {
+  transform: translateX(-3px);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.75rem;
+  margin: 1.25rem 0 0;
+  color: var(--color-corp-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.dot {
+  display: block;
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 50%;
+  background: var(--color-navy-600);
+}
+
+.title {
+  margin: 0.9rem 0 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(2.2rem, 2.8vw + 1.2rem, 3.75rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 1.25rem 0 0;
+  color: var(--color-corp-body);
+  font-size: clamp(1.075rem, 0.3vw + 1rem, 1.2rem);
+  line-height: 1.7;
+}
+
+.media {
+  width: min(64rem, calc(100% - 2rem));
+  margin: clamp(2.5rem, 4vw, 3.5rem) auto 0;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    width: min(48rem, calc(100% - 3rem));
+  }
+
+  .media {
+    width: min(64rem, calc(100% - 3rem));
+  }
+}
+
+/*
+ * İçindekiler olan yazılarda gövde 64rem'lik iki sütundur (metin + 15rem içindekiler; Prose ile aynı ölçüler).
+ * Başlık da aynı ızgarayı kurar ve metin sütununa oturur; böylece geri bağlantı, h1 ve paragraflar tek sol kenarda hizalanır.
+ */
+@media (min-width: 1024px) {
+  .header[data-layout='toc'] .inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+    justify-items: start;
+    width: min(64rem, calc(100% - 3rem));
+  }
+
+  .header[data-layout='toc'] .inner > * {
+    grid-column: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backIcon {
+    transition: none;
+  }
+
+  .back:hover .backIcon {
+    transform: none;
+  }
+}

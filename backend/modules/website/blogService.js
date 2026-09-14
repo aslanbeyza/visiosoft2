@@ -14,12 +14,46 @@ function slugFromPath(filePath) {
   return slug.replace(/\.(en|ru)$/, "");
 }
 
+const EXCERPT_MAX = 160;
+const NAMED_ENTITIES = { nbsp: " ", amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", hellip: "…", ndash: "–", mdash: "—", rsquo: "’", lsquo: "‘", rdquo: "”", ldquo: "“" };
+
+function decodeEntities(text) {
+  return text.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (match, code) => {
+    if (code[0] === "#") {
+      const point = code[1] === "x" || code[1] === "X" ? parseInt(code.slice(2), 16) : parseInt(code.slice(1), 10);
+      return Number.isFinite(point) && point > 0 && point <= 0x10ffff ? String.fromCodePoint(point) : match;
+    }
+    return NAMED_ENTITIES[code.toLowerCase()] ?? match;
+  });
+}
+
+/** Plain text of rendered HTML: tags removed, entities decoded, whitespace (incl. &nbsp;) collapsed. */
+function plainText(html) {
+  return decodeEntities(String(html || "").replace(/<[^>]+>/g, " "))
+    .replace(/[\s ]+/gu, " ")
+    .trim();
+}
+
+/** Cuts at the last sentence end within the limit, else at the last word boundary (with an ellipsis). */
+function truncate(text, max = EXCERPT_MAX) {
+  if (text.length <= max) {
+    return text;
+  }
+  const head = text.slice(0, max + 1);
+  const sentenceEnd = Math.max(...[". ", "! ", "? "].map((mark) => head.lastIndexOf(mark)));
+  if (sentenceEnd >= max * 0.5) {
+    return head.slice(0, sentenceEnd + 1);
+  }
+  const wordEnd = head.lastIndexOf(" ");
+  const cut = (wordEnd > 0 ? head.slice(0, wordEnd) : text.slice(0, max - 1)).slice(0, max - 1).replace(/[\s,;:–—-]+$/u, "");
+  return `${cut}…`;
+}
+
 function excerpt(entry) {
   if (typeof entry.excerpt === "string" && entry.excerpt.trim()) {
-    return entry.excerpt.trim();
+    return plainText(entry.excerpt);
   }
-  const text = String(entry.content || "").replace(/<[^>]+>/g, "");
-  return text.slice(0, 160);
+  return truncate(plainText(entry.content));
 }
 
 function readingMinutes(entry) {
@@ -79,7 +113,8 @@ function loadAll() {
     .map((file) => {
       const filePath = path.join(BLOG_DIR, file);
       const parsed = matter(fs.readFileSync(filePath, "utf8"));
-      const html = /<[a-z][\s\S]*>/i.test(parsed.content) ? parsed.content : marked.parse(parsed.content);
+      // marked passes inline and block HTML through, so mixed Markdown + HTML files render correctly too.
+      const html = marked.parse(parsed.content);
       const { headings, content } = parseHeadings(String(html));
 
       return {

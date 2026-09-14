@@ -1,1 +1,1 @@
-export { default } from './Comparison.tsx'
+export { default } from './ComparisonPage.tsx'

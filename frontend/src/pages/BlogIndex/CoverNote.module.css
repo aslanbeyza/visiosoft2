@@ -1,0 +1,28 @@
+/*
+ * Kart kapaklarındaki içerik notu (LinkCard'a yalnızca className geçilebildiği için görsel sahnesinin üstüne
+ * sözde öğeyle yazılır). Metinler blogCopy.coverNotes ile aynıdır. Sahne klip açılışıyla birlikte görünür olur.
+ */
+.render article > div:first-child::after,
+.demo article > div:first-child::after {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 1;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgb(10 12 40 / 0.72);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+}
+
+.render article > div:first-child::after {
+  content: 'Temsilî görsel';
+}
+
+.demo article > div:first-child::after {
+  content: 'Ekran görüntüsü, demo verisi';
+}

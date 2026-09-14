@@ -1,0 +1,46 @@
+.stage {
+  position: relative;
+  min-width: 0;
+}
+
+.panel {
+  padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1rem, 2.5vw, 1.75rem) clamp(3.75rem, 7vw, 5.25rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(120% 80% at 70% 0%, rgb(23 27 153 / 0.05), transparent 60%),
+    var(--color-corp-surface);
+}
+
+.cardSlot {
+  position: relative;
+  width: min(27rem, calc(100% - 1.5rem));
+  margin: calc(-1 * clamp(3rem, 6vw, 4.25rem)) clamp(0.75rem, 3vw, 2rem) 0 auto;
+}
+
+@media (max-width: 479px) {
+  .cardSlot {
+    width: calc(100% - 1.5rem);
+    margin-inline: 0.75rem;
+  }
+}
+
+/*
+ * Masaüstünde sahne metin sütunundan uzun kalıp başlığı ekranın ortasına itiyordu: çizim sınırlanır, kart yatay
+ * (fiyat | başlıklar) düzene geçer ve panelin alt boşluğuna oturur; sahne yüksekliği metin sütununa yaklaşır.
+ */
+@media (min-width: 1024px) {
+  .panel {
+    padding: 1.5rem 1.5rem 3.5rem;
+  }
+
+  .diagram {
+    width: min(100%, 27rem);
+    margin-inline: auto;
+  }
+
+  .cardSlot {
+    width: calc(100% - 2.5rem);
+    margin: -2.5rem auto 0;
+  }
+}

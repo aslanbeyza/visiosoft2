@@ -1,0 +1,221 @@
+.band {
+  border-top: 1px solid var(--color-corp-line);
+  background: var(--color-corp-surface);
+}
+
+.inner {
+  display: grid;
+  row-gap: 2.25rem;
+  width: min(80rem, calc(100% - 2rem));
+  margin-inline: auto;
+  padding-block: clamp(3.5rem, 6vw, 5rem);
+}
+
+@media (min-width: 768px) {
+  .inner {
+    width: min(80rem, calc(100% - 3rem));
+  }
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.35rem, 0.5vw + 1.15rem, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+@media (min-width: 1024px) {
+  .label {
+    min-height: 3rem;
+  }
+}
+
+.labelRule {
+  flex: none;
+  width: 1.75rem;
+  height: 2px;
+  background: var(--color-navy-600);
+}
+
+.steps {
+  --gap: clamp(1.5rem, 3vw, 3rem);
+  --marker: 3rem;
+
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--marker) minmax(0, 1fr);
+  align-content: start;
+  column-gap: 1.25rem;
+  min-width: 0;
+  padding-bottom: 2rem;
+}
+
+.step:last-child {
+  padding-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--gap);
+  }
+
+  .step {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.35rem;
+    padding-bottom: 0;
+  }
+}
+
+/* İlerleme çizgisi: işaret merkezinden bir sonraki işaret merkezine */
+.segment {
+  position: absolute;
+  top: calc(var(--marker) / 2);
+  left: calc(var(--marker) / 2 - 1px);
+  width: 2px;
+  height: 100%;
+  background: var(--color-corp-line);
+}
+
+.fillX,
+.fillY {
+  position: absolute;
+  inset: 0;
+  background: var(--color-navy-600);
+}
+
+.fillX {
+  display: none;
+  transform-origin: left center;
+}
+
+.fillY {
+  transform-origin: center top;
+}
+
+@media (min-width: 768px) {
+  .segment {
+    top: calc(var(--marker) / 2 - 1px);
+    left: calc(var(--marker) / 2);
+    width: calc(100% + var(--gap));
+    height: 2px;
+  }
+
+  .fillX {
+    display: block;
+  }
+
+  .fillY {
+    display: none;
+  }
+}
+
+.marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--marker);
+  height: var(--marker);
+  border: 1px solid #c9cedb;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-navy-600);
+}
+
+.markerFill {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: var(--color-navy-600);
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity 0.35s var(--ease-apple),
+    transform 0.55s var(--ease-apple);
+}
+
+.markerIcon {
+  position: relative;
+  grid-area: 1 / 1;
+  width: 1.35rem;
+  height: 1.35rem;
+  transition: opacity 0.35s var(--ease-apple);
+}
+
+.iconOn {
+  color: #fff;
+  opacity: 0;
+}
+
+.step[data-on='true'] .markerFill,
+.step[data-on='true'] .iconOn {
+  opacity: 1;
+}
+
+.step[data-on='true'] .markerFill {
+  transform: scale(1);
+}
+
+.step[data-on='true'] .iconOff {
+  opacity: 0;
+}
+
+.body {
+  min-width: 0;
+  padding-top: 0.2rem;
+}
+
+.index {
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  margin: 0.35rem 0 0;
+  color: var(--color-corp-ink);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.text {
+  margin: 0.45rem 0 0;
+  max-width: 22rem;
+  color: var(--color-corp-body);
+  font-size: 0.975rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .markerFill,
+  .markerIcon {
+    transition: none;
+  }
+}

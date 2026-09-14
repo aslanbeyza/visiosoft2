@@ -7,13 +7,13 @@ import Button from '../Button/index.ts'
 import { revealEase } from '../Reveal/index.ts'
 import { company, whatsappUrl } from '../../data/company.ts'
 import { navCta } from '../../data/siteNav.ts'
-import type { NavItem, NavMenuLink } from '../../data/siteNav.ts'
+import type { NavItem } from '../../data/siteNav.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
-import NavIcon, { LedPanelArt } from './NavIcon.tsx'
-import { navbarCopy } from './navbarCopy.ts'
-import { cardImageSize, isItemActive, menuKind } from './navData.ts'
-import type { MenuKind } from './navData.ts'
+import { GroupLinks, SubLink } from './MobileMenuItems.tsx'
+import NavIcon from './NavIcon.tsx'
+import { menuCtas, menuIntros, navbarCopy } from './navbarCopy.ts'
+import { isItemActive, menuKind, splitHardware } from './navData.ts'
 import styles from './MobileMenu.module.css'
 
 const sheetVariants: Variants = {
@@ -95,6 +95,14 @@ export default function MobileMenu({ id, items, current, reduce, sheetRef, onNav
               const open = expanded === item.key
               const groupId = `${baseId}-${item.key}`
               const kind = menuKind(item)
+              const split = splitHardware(item.menu)
+              const primary = kind === 'hardware' ? split.cards : item.menu
+              const accessories = kind === 'hardware' ? split.accessories : []
+              const cta = menuCtas[kind]
+              const footLinks = [
+                { to: path(item.route), label: menuIntros[kind].linkLabel, active: item.route === current },
+                { to: path(cta.route), label: cta.linkLabel, active: cta.route === current },
+              ]
 
               return (
                 <motion.li key={item.key} className={styles.item} variants={itemVariants}>
@@ -113,13 +121,34 @@ export default function MobileMenu({ id, items, current, reduce, sheetRef, onNav
                   </div>
                   <div id={groupId} className={styles.group} data-open={open} inert={!open}>
                     <div className={styles.groupClip}>
-                      <ul className={styles.sublist} data-kind={kind}>
-                        {item.menu.map((child) => (
-                          <li key={child.route}>
-                            <SubLink link={child} kind={kind} to={path(child.route)} active={child.route === current} onNavigate={onNavigate} />
-                          </li>
-                        ))}
-                      </ul>
+                      <div className={styles.groupBody}>
+                        <ul className={styles.sublist} data-kind={kind}>
+                          {primary.map((child) => (
+                            <li key={child.route}>
+                              <SubLink
+                                link={child}
+                                media={kind === 'hardware' ? 'product' : 'icon'}
+                                to={path(child.route)}
+                                active={child.route === current}
+                                onNavigate={onNavigate}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                        {accessories.length > 0 ? (
+                          <>
+                            <p className={styles.subcaption}>{navbarCopy.accessoryLabel}</p>
+                            <ul className={styles.sublist}>
+                              {accessories.map((child) => (
+                                <li key={child.route}>
+                                  <SubLink link={child} media="plain" to={path(child.route)} active={child.route === current} onNavigate={onNavigate} />
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        ) : null}
+                        <GroupLinks links={footLinks} onNavigate={onNavigate} />
+                      </div>
                     </div>
                   </div>
                 </motion.li>
@@ -156,43 +185,3 @@ export default function MobileMenu({ id, items, current, reduce, sheetRef, onNav
   )
 }
 
-type SubLinkProps = {
-  link: NavMenuLink
-  kind: MenuKind
-  to: string
-  active: boolean
-  onNavigate: () => void
-}
-
-function SubLink({ link, kind, to, active, onNavigate }: SubLinkProps) {
-  const size = link.image ? cardImageSize(link.image) : null
-
-  return (
-    <Link to={to} className={styles.sublink} data-active={active} aria-current={active ? 'page' : undefined} onClick={onNavigate}>
-      {kind === 'hardware' ? (
-        <span className={styles.thumb}>
-          {link.image && size ? (
-            <img
-              className={styles.thumbImage}
-              src={link.image}
-              alt=""
-              width={size.width}
-              height={size.height}
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-            />
-          ) : (
-            <LedPanelArt className={styles.thumbArt} />
-          )}
-        </span>
-      ) : (
-        <span className={styles.iconTile}>{link.icon ? <NavIcon name={link.icon} className={styles.icon} /> : null}</span>
-      )}
-      <span className={styles.subtext}>
-        <span className={styles.sublabel}>{link.label}</span>
-        <span className={styles.subdesc}>{link.description}</span>
-      </span>
-    </Link>
-  )
-}

@@ -1,0 +1,135 @@
+.scene {
+  --rs-line: var(--color-navy-600);
+  --rs-stroke: 1.75;
+  position: relative;
+  width: 100%;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.road {
+  fill: var(--color-corp-surface);
+  stroke: none;
+}
+
+.edge,
+.bay,
+.stem,
+.ring,
+.ringEnd,
+.icon,
+.corner,
+.measure path {
+  stroke: var(--rs-line);
+  stroke-width: var(--rs-stroke);
+}
+
+.dash {
+  stroke: var(--color-navy-300);
+  stroke-width: var(--rs-stroke);
+  stroke-dasharray: 18 16;
+}
+
+.bay {
+  stroke-dasharray: none;
+}
+
+.stem {
+  stroke: var(--color-navy-300);
+}
+
+.ring,
+.ringEnd {
+  fill: #fff;
+}
+
+.ringEnd {
+  stroke-width: calc(var(--rs-stroke) * 1.2);
+}
+
+.dot {
+  fill: var(--rs-line);
+  stroke: none;
+}
+
+.halo {
+  fill: var(--color-navy-50);
+  stroke: none;
+}
+
+.corner {
+  stroke-width: calc(var(--rs-stroke) * 1.4);
+}
+
+.measure path {
+  stroke: var(--color-corp-muted);
+}
+
+.car {
+  fill: #fff;
+  stroke: var(--color-corp-ink);
+  stroke-width: calc(var(--rs-stroke) * 1.1);
+}
+
+.glass {
+  stroke: var(--rs-line);
+  stroke-width: var(--rs-stroke);
+}
+
+.roof {
+  stroke: var(--color-navy-100);
+  stroke-width: calc(var(--rs-stroke) * 1.6);
+}
+
+.labels {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: clamp(0.6rem, 1.5vw, 1rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.label {
+  display: grid;
+  justify-items: center;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.index {
+  color: var(--color-navy-600);
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+}
+
+.text {
+  color: var(--color-corp-ink);
+  font-size: clamp(0.76rem, 0.35vw + 0.68rem, 0.95rem);
+  font-weight: 600;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+/* Küçük ekranda sahne küçüldüğü için çizgiler kalınlaştırılır */
+@media (max-width: 639px) {
+  .scene {
+    --rs-stroke: 3.6;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .scene {
+    --rs-stroke: 2.4;
+  }
+}

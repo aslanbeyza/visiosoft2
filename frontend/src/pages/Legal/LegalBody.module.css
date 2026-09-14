@@ -1,0 +1,112 @@
+.body {
+  width: min(64rem, 100%);
+  margin-inline: auto;
+}
+
+.chunk {
+  position: relative;
+}
+
+/* Ayraç çizgisi iki bölümün tam ortasında durur: başlığın kendi üst boşluğu sıfırlanır, aralık bölümden gelir. */
+.chunk + .chunk {
+  margin-top: clamp(3rem, 4vw, 3.75rem);
+}
+
+.chunk > h2:first-child {
+  margin-top: 0;
+}
+
+.hairline {
+  position: absolute;
+  inset: calc(clamp(3rem, 4vw, 3.75rem) / -2) 0 auto;
+  height: 1px;
+  background: var(--color-corp-line);
+  transform-origin: left center;
+}
+
+.facts {
+  display: grid;
+  margin: 1.25rem 0 0;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: var(--color-corp-surface);
+}
+
+.fact {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.95rem 1.25rem;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.fact:first-child {
+  border-top: 0;
+}
+
+.facts dt {
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.facts dd {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+  padding: 1.5rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+}
+
+.contactCopy {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.contactTitle {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.contactBody {
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  .fact {
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+
+  .contact {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact {
+    max-width: calc(100% - 15rem - clamp(2.5rem, 5vw, 5rem));
+  }
+}

@@ -144,12 +144,8 @@
   overflow: hidden;
 }
 
-.sublist {
-  display: grid;
-  gap: 0.25rem;
-  margin: 0;
-  padding: 0 0 1rem;
-  list-style: none;
+.groupBody {
+  padding-bottom: 1rem;
   opacity: 0;
   transform: translateY(-6px);
   transition:
@@ -157,9 +153,72 @@
     transform 0.4s var(--ease-apple);
 }
 
-.group[data-open='true'] .sublist {
+.group[data-open='true'] .groupBody {
   opacity: 1;
   transform: none;
+}
+
+.sublist {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.subcaption {
+  margin: 0.75rem 0 0.125rem;
+  color: var(--color-corp-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* "Tümünü görüntüle" ve yönlendirme: kart yerine sade bağlantılar. */
+.groupLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0.5rem 0 0;
+  border-top: 1px solid var(--color-corp-line);
+  list-style: none;
+}
+
+.groupLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 2.75rem;
+  border-radius: 0.25rem;
+  color: var(--color-navy-600);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  outline: none;
+}
+
+.groupLink:hover {
+  color: var(--color-navy-700);
+}
+
+.groupLink:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 2px;
+}
+
+.groupArrow {
+  width: 1rem;
+  height: 1rem;
+}
+
+.thumb > picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .sublink {
@@ -186,8 +245,8 @@
 }
 
 .thumb {
-  display: grid;
-  place-items: center;
+  position: relative;
+  display: block;
   flex: none;
   width: 4.5rem;
   aspect-ratio: 4 / 3;
@@ -206,17 +265,17 @@
   border-color: var(--color-navy-600);
 }
 
+/* Masaüstü kartlarla aynı sistem: contain, tabana oturur, eşit iç boşluk, --fit ile optik ölçek. */
 .thumbImage {
-  width: 100%;
-  height: 100%;
-  padding: 8%;
-  object-fit: contain;
-}
+  --pad: 0.3125rem;
 
-.thumbArt {
-  width: 60%;
-  height: auto;
-  color: var(--color-navy-600);
+  position: absolute;
+  bottom: var(--pad);
+  left: calc(var(--pad) + (100% - 2 * var(--pad)) * (1 - var(--fit, 1)) / 2);
+  width: calc((100% - 2 * var(--pad)) * var(--fit, 1));
+  height: calc((100% - 2 * var(--pad)) * var(--fit, 1));
+  object-fit: contain;
+  object-position: 50% 100%;
 }
 
 .iconTile {
@@ -376,14 +435,14 @@
   .chevron,
   .group,
   .group[data-open='true'],
-  .sublist,
+  .groupBody,
   .sublink,
   .thumb,
   .contactLink {
     transition: none;
   }
 
-  .sublist {
+  .groupBody {
     transform: none;
   }
 }

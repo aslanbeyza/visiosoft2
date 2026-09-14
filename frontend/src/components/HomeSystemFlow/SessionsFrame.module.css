@@ -1,0 +1,93 @@
+.frame {
+  display: grid;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 18px 40px -18px rgb(15 20 48 / 0.28);
+}
+
+/* İnce tarayıcı çubuğu; ortadaki etiket alt yazıdır. */
+.bar {
+  display: grid;
+  grid-template-columns: 1.95rem minmax(0, 1fr) 1.95rem;
+  align-items: center;
+  gap: 0.75rem;
+  height: 2.1rem;
+  padding: 0 0.75rem;
+  border-bottom: 1px solid var(--color-corp-line);
+  background: var(--color-corp-surface);
+}
+
+.dots {
+  display: inline-flex;
+  gap: 0.3rem;
+}
+
+.dots span {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #cdd2de;
+}
+
+.caption {
+  justify-self: center;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0.14rem 0.8rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-corp-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.picture {
+  display: block;
+  overflow: hidden;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/*
+ * Telefonda tablo tam genişlikte okunmaz: görsel plaka, giriş, çıkış, süre, ücret ve ödeme durumu
+ * sütunlarına (kaynakta x 180–800, y 140–376 → 620 × 236: başlık satırı ve üç kayıt) kırpılır, yaklaşık 1,6× büyür.
+ */
+@media (max-width: 639px) {
+  .picture {
+    aspect-ratio: 620 / 236;
+  }
+
+  .image {
+    width: calc(100% * 996 / 620);
+    max-width: none;
+    margin: calc(-100% * 140 / 620) 0 0 calc(-100% * 180 / 620);
+  }
+}
+
+@media (max-width: 479px) {
+  .bar {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 0 0.6rem;
+  }
+
+  .caption {
+    justify-self: start;
+    padding-inline: 0.55rem;
+    font-size: 0.68rem;
+  }
+}

@@ -1,0 +1,365 @@
+/* Dar ekranda dikey akış; ≥1024 px'te soldan sağa, sonda iki kola ayrılan çatal */
+.fork {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'source' 'wireA' 'check' 'split' 'high' 'low';
+}
+
+.card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: clamp(1.25rem, 2.4vw, 1.75rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+}
+
+.source {
+  grid-area: source;
+}
+
+.check {
+  grid-area: check;
+}
+
+.high {
+  grid-area: high;
+}
+
+.low {
+  grid-area: low;
+  margin-top: 1rem;
+  border-color: var(--color-navy-600);
+  background: var(--color-navy-50);
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-navy-600);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-corp-ink);
+}
+
+.text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-corp-body);
+}
+
+.tag {
+  justify-self: start;
+  margin: 0 0 0.25rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 999px;
+  background: var(--color-corp-surface);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-corp-body);
+}
+
+.tag[data-tone='navy'] {
+  border-color: var(--color-navy-600);
+  background: var(--color-navy-600);
+  color: #fff;
+}
+
+/* Plaka ve okuma köşeliği */
+.plateStage {
+  position: relative;
+  justify-self: start;
+  margin-bottom: 0.75rem;
+  padding: 0.7rem 0.9rem;
+}
+
+.plate {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0.6rem;
+  padding-right: 0.75rem;
+  overflow: hidden;
+  border: 2px solid var(--color-corp-ink);
+  border-radius: 0.35rem;
+  background: #fff;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  font-weight: 700;
+  line-height: 2.1;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-corp-ink);
+  white-space: nowrap;
+}
+
+.plateBand {
+  display: grid;
+  place-items: end center;
+  padding: 0 0.3rem 0.2rem;
+  background: var(--color-navy-600);
+  color: #fff;
+  font-size: 0.55rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.bracket {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* Güven göstergesi */
+.gauge {
+  width: 7.5rem;
+  height: auto;
+  margin-bottom: 0.5rem;
+  overflow: visible;
+}
+
+.gaugeTrack,
+.gaugeValue {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.gaugeTrack {
+  stroke: var(--color-corp-line);
+}
+
+.gaugeValue {
+  stroke: var(--color-navy-600);
+}
+
+.gaugeNeedle {
+  stroke: var(--color-corp-ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.gaugeHub {
+  fill: var(--color-corp-ink);
+}
+
+.verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-navy-600);
+}
+
+.verified svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.verifiedRing {
+  stroke: var(--color-navy-300);
+}
+
+/* Bağlantı çizgileri */
+.wire,
+.split {
+  position: relative;
+  height: 2.5rem;
+}
+
+.wire {
+  grid-area: wireA;
+}
+
+.split {
+  grid-area: split;
+}
+
+.wireH,
+.wireV,
+.splitIn,
+.splitSpine,
+.splitOut,
+.splitMobile {
+  position: absolute;
+  background: var(--color-navy-600);
+}
+
+.wireV,
+.splitMobile {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  transform-origin: 50% 0;
+}
+
+.wireH,
+.splitIn,
+.splitSpine,
+.splitOut {
+  display: none;
+}
+
+/* Tablet: iki sonuç yan yana; kontrolden inen çizgi ortada ikiye ayrılır, kartların üstüne birer bağlantı iner */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .fork {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: 'source source' 'wireA wireA' 'check check' 'split split' 'high low';
+    column-gap: 1.25rem;
+  }
+
+  .low {
+    margin-top: 0;
+  }
+
+  .split {
+    height: 3rem;
+  }
+
+  .splitMobile {
+    bottom: 50%;
+  }
+
+  /* Yatay çubuk iki kartın merkezleri arasında: sütun boşluğu (1.25rem) payı düşülür */
+  .splitIn {
+    display: block;
+    top: 50%;
+    left: calc(25% - 0.3125rem);
+    width: calc(50% + 0.625rem);
+    height: 2px;
+    margin-top: -1px;
+    transform-origin: 50% 50%;
+  }
+
+  .high::before,
+  .low::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: calc(-1.5rem - 1px);
+    width: 2px;
+    height: 1.5rem;
+    margin-left: -1px;
+    background: var(--color-navy-600);
+  }
+
+  .high::before {
+    background: var(--color-navy-300);
+  }
+}
+
+@media (min-width: 1024px) {
+  .fork {
+    grid-template-columns:
+      minmax(0, 1fr) clamp(1.5rem, 3vw, 3rem) minmax(0, 1fr)
+      clamp(2.5rem, 5vw, 4.5rem) minmax(0, 1.1fr);
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      'source wireA check split high'
+      'source wireA check split low';
+    align-items: center;
+  }
+
+  .high,
+  .low {
+    margin-block: 0.6rem;
+  }
+
+  .wire,
+  .split {
+    height: auto;
+    align-self: stretch;
+  }
+
+  .wireV,
+  .splitMobile {
+    display: none;
+  }
+
+  .wireH,
+  .splitIn,
+  .splitOut {
+    display: block;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    transform-origin: 0 50%;
+  }
+
+  .wireH {
+    left: 0;
+    right: 0;
+  }
+
+  .splitIn {
+    left: 0;
+    width: 50%;
+  }
+
+  .splitSpine {
+    display: block;
+    top: 25%;
+    bottom: 25%;
+    left: 50%;
+    width: 2px;
+    margin-left: -1px;
+    transform-origin: 50% 50%;
+  }
+
+  .splitOut {
+    left: 50%;
+    right: 0;
+  }
+
+  .splitTop {
+    top: 25%;
+    background: var(--color-navy-300);
+  }
+
+  .splitBottom {
+    top: 75%;
+  }
+
+  .splitOut::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-radius: 50%;
+    background: inherit;
+  }
+}

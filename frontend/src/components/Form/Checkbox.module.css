@@ -1,0 +1,130 @@
+.root {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.row:has(.input:disabled) {
+  cursor: not-allowed;
+}
+
+/* Gerçek kutu görünmez ama odak ve klavye davranışı ondadır. */
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.box {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  border: 1px solid #aab1c6;
+  border-radius: 0.3rem;
+  background: #fff;
+  color: #fff;
+  transition:
+    border-color 0.25s var(--ease-apple),
+    background-color 0.25s var(--ease-apple);
+}
+
+.row:hover .box {
+  border-color: var(--color-navy-600);
+}
+
+.checkSvg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.check {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.35s var(--ease-apple);
+}
+
+.input:checked + .box {
+  border-color: var(--color-navy-600);
+  background: var(--color-navy-600);
+}
+
+.input:checked + .box .check {
+  stroke-dashoffset: 0;
+}
+
+.input:focus-visible + .box {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 2px;
+}
+
+.input[aria-invalid='true'] + .box {
+  border-color: #b42318;
+}
+
+.input:disabled + .box {
+  border-color: var(--color-corp-line);
+  background: var(--color-corp-surface);
+}
+
+.input:disabled:checked + .box {
+  background: #aab1c6;
+  border-color: #aab1c6;
+}
+
+.text {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+  color: var(--color-corp-ink);
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.description {
+  color: var(--color-corp-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.error {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+  margin: 0;
+  color: #b42318;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.errorIcon {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .box,
+  .check {
+    transition: none;
+  }
+}

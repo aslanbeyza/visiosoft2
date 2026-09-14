@@ -1,1 +1,1 @@
-export { default } from './Legal.tsx'
+export { default } from './LegalPage.tsx'

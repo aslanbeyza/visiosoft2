@@ -1,0 +1,65 @@
+.groupHead {
+  display: grid;
+  gap: 1.5rem;
+  align-items: end;
+  margin-bottom: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.count {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.countValue {
+  color: var(--color-navy-600);
+  font-size: clamp(2.75rem, 3vw + 1.5rem, 4.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.countLabel {
+  color: var(--color-corp-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.finance {
+  max-width: 64rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+}
+
+.formats {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.formatsLabel {
+  margin: 0;
+  color: rgb(255 255 255 / 0.6);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.faq {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+@media (min-width: 1024px) {
+  .groupHead {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 3rem;
+  }
+
+  .count {
+    min-width: 9rem;
+    justify-content: flex-end;
+  }
+}

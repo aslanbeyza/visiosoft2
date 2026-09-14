@@ -1,0 +1,282 @@
+.item {
+  min-width: 0;
+}
+
+.card {
+  --line: var(--color-corp-line);
+  --ink: var(--color-corp-ink);
+  --body: var(--color-corp-body);
+  --muted: var(--color-corp-muted);
+  --accent: var(--color-navy-600);
+  --card-bg: #fff;
+  --stage-bg: var(--color-corp-surface);
+  --spot: rgb(23 27 153 / 0.08);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--card-bg);
+  color: var(--ink);
+  transition:
+    transform 0.35s var(--ease-apple),
+    border-color 0.35s var(--ease-apple);
+}
+
+.card[data-tone='dark'] {
+  --line: rgb(255 255 255 / 0.14);
+  --ink: #fff;
+  --body: rgb(255 255 255 / 0.72);
+  --muted: rgb(255 255 255 / 0.55);
+  --accent: var(--color-navy-300);
+  --card-bg: rgb(255 255 255 / 0.04);
+  --stage-bg: rgb(255 255 255 / 0.06);
+  --spot: rgb(154 161 227 / 0.14);
+}
+
+/* Gölge ayrı katmanda; yalnızca opaklığı değişir. */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-apple);
+}
+
+/* M10 — işaretçiyi izleyen ışık. */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(16rem circle at var(--mx, 50%) var(--my, 40%), var(--spot), transparent 65%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-apple);
+}
+
+.card:hover,
+.card:focus-within {
+  border-color: var(--accent);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card:hover::before,
+.card:focus-within::before {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Görsel sahnesi */
+
+.stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.5rem;
+  background: var(--stage-bg);
+}
+
+.stage[data-fit='contain'] {
+  background:
+    radial-gradient(58% 14% at 50% 90%, rgb(15 20 48 / 0.1), transparent 72%),
+    var(--stage-bg);
+}
+
+.stageInner {
+  position: absolute;
+  inset: 0;
+}
+
+.picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  transition: transform 0.6s var(--ease-apple);
+}
+
+.stage[data-fit='contain'] .picture {
+  padding: 10%;
+  box-sizing: border-box;
+}
+
+.stage[data-fit='contain'] .image {
+  object-fit: contain;
+}
+
+.card:hover .image {
+  transform: scale(1.04);
+}
+
+/* Metin */
+
+.body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 1.15rem 0.85rem 0.8rem;
+}
+
+.top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.index {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0.5rem 0 0;
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.top:empty + .title,
+.title:first-child {
+  margin-top: 0;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Tüm kart tıklanabilir; bağlantı metni yalnızca başlıktır. */
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 0.75rem;
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+.link:focus-visible::after {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.text {
+  margin: 0.5rem 0 0;
+  color: var(--body);
+  font-size: 0.93rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-top: auto;
+  padding-top: 1.1rem;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.arrow {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.card:hover .arrow,
+.card:focus-within .arrow {
+  transform: translateX(3px);
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card::before,
+  .card::after,
+  .image,
+  .arrow {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card:hover .image {
+    transform: none;
+  }
+
+  .card:hover .arrow,
+  .card:focus-within .arrow {
+    transform: none;
+  }
+}

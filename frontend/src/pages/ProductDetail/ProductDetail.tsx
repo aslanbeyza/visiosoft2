@@ -1,33 +1,36 @@
 import { useRef, useState } from 'react'
 import { useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
 import CtaBand from '../../components/CtaBand/index.ts'
-import KioskZoom from '../../components/KioskZoom/index.ts'
 import Seo from '../../components/Seo/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
-import FeatureList from './FeatureList.tsx'
-import HowItWorks from './HowItWorks.tsx'
+import DetailDrawing from './DetailDrawing.tsx'
+import DetailFeatures from './DetailFeatures.tsx'
+import DetailHero from './DetailHero.tsx'
+import DetailPlacement from './DetailPlacement.tsx'
+import DetailProcess from './DetailProcess.tsx'
+import DetailSpecs from './DetailSpecs.tsx'
+import DetailZoom from './DetailZoom.tsx'
 import KeyFigures from './KeyFigures.tsx'
-import ProductHero from './ProductHero.tsx'
 import ProductSwitcher from './ProductSwitcher.tsx'
 import RelatedProducts from './RelatedProducts.tsx'
-import SpecLists from './SpecLists.tsx'
-import TechnicalDrawing from './TechnicalDrawing.tsx'
-import { productDetails } from './productDetailCopy.ts'
-import type { ProductDetailSlug } from './productDetailCopy.ts'
-import styles from './ProductDetail.module.css'
+import { detailCopy } from './detailShared.ts'
+import { productDetails } from './details/index.ts'
+import type { ProductDetailSlug } from './details/index.ts'
+import styles from './DetailPage.module.css'
 
 export type ProductDetailProps = {
   slug: ProductDetailSlug
 }
 
-/** Kurumsal ürün detay sayfası. Bölümler ürün verisine göre çizilir; faz 2'de diğer donanımlar da buraya taşınır. */
+/** Donanım ürün detay sayfası; sekiz ürünün tamamı aynı şablonla, ürün verisine göre çizilir. */
 export default function ProductDetail({ slug }: ProductDetailProps) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
   const data = productDetails[slug]
   const { copy } = data
+  const pinned = data.zoom?.kind === 'kiosk' || data.zoom?.kind === 'drawing'
 
-  // Sabitlenmiş yakınlaşma bölümü ekranın üst kısmını kaplarken ürün çubuğu gizlenir (üst üste binmesin).
+  // Sabitlenmiş yakınlaşma ekranı kaplarken ürün çubuğu yukarı kayar (üst üste binmesin).
   const zoomRef = useRef<HTMLDivElement>(null)
   const zoomActiveRef = useRef(false)
   const [zoomActive, setZoomActive] = useState(false)
@@ -45,41 +48,33 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
       <Seo title={data.seo.title} description={data.seo.description} />
 
       <div className={styles.page}>
-        <ProductHero data={data} />
-        <ProductSwitcher current={data.slug} hidden={!reduce && Boolean(data.zoom) && zoomActive} />
+        <DetailHero data={data} />
+        <ProductSwitcher current={slug} hidden={!reduce && pinned && zoomActive} />
 
         <KeyFigures
           label={data.figures.label}
           items={data.figures.items}
-          drawingLink={data.drawing ? data.figures.drawingLink : undefined}
-          drawingId={data.drawing?.id}
+          drawingLink={data.drawing ? detailCopy.figures.drawingLink : undefined}
+          drawingId={data.drawing ? detailCopy.drawing.id : undefined}
         />
 
-        <div ref={zoomRef} className={styles.zoom}>
-          {data.zoom === 'kiosk' ? <KioskZoom tone="light" /> : null}
+        <div ref={zoomRef} id="yakindan" className={styles.zoom}>
+          {data.zoom ? <DetailZoom zoom={data.zoom} /> : null}
         </div>
 
-        <FeatureList eyebrow={data.features.eyebrow} title={data.features.title} features={copy.features} />
-
-        {data.process ? <HowItWorks process={data.process} /> : null}
-
-        {data.drawing ? <TechnicalDrawing drawing={data.drawing} /> : null}
-
-        <SpecLists
-          summaryTitle={data.specs.summaryTitle}
-          summary={copy.summary}
-          useCasesTitle={data.specs.useCasesTitle}
-          useCases={copy.use_cases}
-        />
-
-        <RelatedProducts current={data.slug} copy={data.related} />
+        <DetailFeatures copy={copy} />
+        {data.process ? <DetailProcess process={data.process} /> : null}
+        {data.placement ? <DetailPlacement placement={data.placement} /> : null}
+        {data.drawing ? <DetailDrawing drawing={data.drawing} name={copy.name} /> : null}
+        <DetailSpecs copy={copy} />
+        <RelatedProducts current={slug} />
       </div>
 
       <CtaBand
-        title={data.cta.title}
-        description={data.cta.description}
-        primary={{ label: data.cta.primary, to: path('quote.index') }}
-        secondary={{ label: data.cta.secondary, to: path('discovery.show') }}
+        title={copy.cta_title}
+        description={copy.cta_desc}
+        primary={{ label: copy.get_quote, to: path('quote.index') }}
+        secondary={{ label: copy.request_discovery, to: path('discovery.show') }}
       />
     </>
   )

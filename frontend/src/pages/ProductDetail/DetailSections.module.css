@@ -1,0 +1,67 @@
+.body {
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+/* Öne çıkanlarda başlık uzun bir cümle: ekran başlığı ölçeği yerine bir kademe küçük ve dar ölçü. */
+.compactHeading h2 {
+  max-width: 26ch;
+  font-size: clamp(1.75rem, 1.6vw + 1.2rem, 2.75rem);
+  line-height: 1.12;
+}
+
+/* Sahada nasıl çalışır: adımlar solda, saha fotoğrafı sağda. */
+.processSplit {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.processCopy {
+  min-width: 0;
+}
+
+.processMedia {
+  min-width: 0;
+}
+
+/* Teknik özet ve kullanım alanları */
+.specs {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.specPanel {
+  min-width: 0;
+}
+
+.specTitle {
+  margin: 0 0 1.5rem;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.6rem, 1.4vw + 1.1rem, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.specRule {
+  display: none;
+  width: 1px;
+  background: var(--color-corp-line);
+  transform-origin: top center;
+}
+
+@media (min-width: 1024px) {
+  .processSplit {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .specs {
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    gap: clamp(3rem, 5vw, 5rem);
+  }
+
+  .specRule {
+    display: block;
+    align-self: stretch;
+  }
+}

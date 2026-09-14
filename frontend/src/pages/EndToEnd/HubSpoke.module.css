@@ -1,0 +1,530 @@
+.root {
+  --hub-line: #c9cddd;
+  --hub-accent: var(--color-navy-600);
+
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.box {
+  position: relative;
+  container-type: inline-size;
+}
+
+/* Merkez (VISIO) */
+.hub {
+  display: grid;
+  place-content: center;
+  gap: 0.2rem;
+  width: 8.75rem;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--color-navy-900);
+  color: #fff;
+  text-align: center;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.08),
+    0 22px 44px -22px rgb(11 14 68 / 0.6);
+}
+
+.kicker {
+  color: var(--color-navy-300);
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.name {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.sub {
+  max-width: 6.5rem;
+  margin-inline: auto;
+  color: rgb(255 255 255 / 0.76);
+  font-size: 0.62rem;
+  line-height: 1.35;
+}
+
+/* SVG katmanı */
+.art {
+  display: none;
+}
+
+.ring circle {
+  fill: none;
+  stroke: var(--color-navy-100);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 9;
+}
+
+.ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hub-spin 60s linear infinite;
+  animation-play-state: paused;
+}
+
+.wire {
+  fill: none;
+  stroke: var(--hub-line);
+  stroke-width: 1.5;
+  transition: stroke 0.35s var(--ease-apple);
+}
+
+.flow {
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 0.001 1.599;
+  animation: hub-flow 3.2s linear infinite;
+  animation-play-state: paused;
+  transition: stroke 0.35s var(--ease-apple);
+}
+
+.node {
+  fill: #fff;
+  stroke: var(--hub-line);
+  stroke-width: 1.5;
+  transition: stroke 0.35s var(--ease-apple);
+}
+
+.spoke[data-active='true'] .wire {
+  stroke: var(--hub-accent);
+  stroke-width: 2;
+}
+
+.spoke[data-active='true'] .flow {
+  stroke: var(--hub-accent);
+}
+
+.spoke[data-active='true'] .node {
+  stroke: var(--hub-accent);
+}
+
+.echo {
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.root[data-running='true'] .ring,
+.root[data-running='true'] .flow {
+  animation-play-state: running;
+}
+
+@keyframes hub-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hub-flow {
+  from {
+    stroke-dashoffset: 1.6;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Modül sekmeleri */
+.spokes {
+  position: relative;
+  padding-top: 1.75rem;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 0.75rem 1.5rem;
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  min-height: 4rem;
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgb(15 20 48 / 0.05);
+  transition:
+    border-color 0.35s var(--ease-apple),
+    box-shadow 0.35s var(--ease-apple);
+}
+
+.tab:hover {
+  border-color: var(--color-navy-300);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.tab[aria-selected='true'] {
+  border-color: var(--color-navy-600);
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -24px rgb(15 20 48 / 0.35);
+}
+
+.mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  background: var(--color-navy-50);
+  color: var(--color-navy-600);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition:
+    background-color 0.35s var(--ease-apple),
+    color 0.35s var(--ease-apple);
+}
+
+.tab[aria-selected='true'] .mark {
+  background: var(--color-navy-600);
+  color: #fff;
+}
+
+.tabText {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.tabTitle {
+  font-size: 0.85rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.tabDesc {
+  display: none;
+  color: var(--color-corp-muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+/* Dar ekran: merkezden aşağı inen gövde hattı ve kartlara kısa bağlantılar */
+.trunk {
+  position: absolute;
+  top: 0;
+  bottom: 2rem;
+  left: 50%;
+  width: 0.75rem;
+  overflow: clip;
+  translate: -50% 0;
+}
+
+.trunkLine {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--hub-line);
+  transform-origin: top center;
+}
+
+.pulse {
+  position: absolute;
+  inset: 0;
+  animation: hub-rise 2.8s linear infinite;
+  animation-play-state: paused;
+}
+
+.pulse::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: -0.25rem;
+  border-radius: 50%;
+  background: var(--hub-accent);
+  content: '';
+}
+
+.root[data-running='true'] .pulse {
+  animation-play-state: running;
+}
+
+.tab::after {
+  position: absolute;
+  top: 50%;
+  width: 0.75rem;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--hub-line);
+  content: '';
+}
+
+.tab:nth-child(odd)::after {
+  right: calc(-0.75rem - 1px);
+}
+
+.tab:nth-child(even)::after {
+  left: calc(-0.75rem - 1px);
+}
+
+@keyframes hub-rise {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* Açıklama paneli ve denetimler */
+.footer {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.panel {
+  position: relative;
+  min-height: 9.75rem;
+  padding: 1.1rem 1.25rem 1.2rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.panel:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.panelRule {
+  position: absolute;
+  top: -1px;
+  right: 1.25rem;
+  left: 1.25rem;
+  height: 2px;
+  background: var(--color-navy-600);
+  transform-origin: left center;
+}
+
+.panelBody {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.panelMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.panelIndex {
+  color: var(--color-navy-600);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.panelTitle {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.panelText {
+  max-width: 40rem;
+  margin: 0;
+  color: var(--color-corp-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hint {
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+}
+
+.pause {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.4rem;
+  /* Dokunmatik hedef en az 44 px */
+  min-height: 2.75rem;
+  padding: 0 0.95rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.35s var(--ease-apple);
+}
+
+.pause svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+.pause:hover {
+  border-color: var(--color-navy-300);
+}
+
+.pause:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+/* ≥ 768px: gerçek hub & spoke yerleşimi (kutu viewBox ile aynı oranda) */
+@media (min-width: 768px) {
+  .box {
+    aspect-ratio: 1000 / 600;
+  }
+
+  .art {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22%;
+    margin: 0;
+    translate: -50% -50%;
+  }
+
+  .kicker {
+    font-size: clamp(0.52rem, 1.3cqi, 0.64rem);
+  }
+
+  .name {
+    font-size: clamp(1.25rem, 3.6cqi, 2.1rem);
+  }
+
+  .sub {
+    max-width: 72%;
+    font-size: clamp(0.56rem, 1.35cqi, 0.72rem);
+  }
+
+  .spokes {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  .trunk,
+  .tab::after {
+    display: none;
+  }
+
+  .tabs {
+    display: block;
+    height: 100%;
+  }
+
+  .tab {
+    position: absolute;
+    top: var(--top);
+    width: max-content;
+    max-width: 25.5%;
+    min-height: 3.5rem;
+    translate: 0 -50%;
+    pointer-events: auto;
+  }
+
+  .tab[data-side='left'] {
+    right: 73%;
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  .tab[data-side='right'] {
+    left: 73%;
+  }
+
+  .panel {
+    min-height: 7.75rem;
+  }
+}
+
+@container (min-width: 46rem) {
+  .tabDesc {
+    display: block;
+  }
+
+  .tabTitle {
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring,
+  .flow,
+  .pulse {
+    animation: none;
+  }
+
+  .flow,
+  .pulse {
+    display: none;
+  }
+
+  .tab,
+  .mark,
+  .wire,
+  .node,
+  .pause {
+    transition: none;
+  }
+}

@@ -1,0 +1,49 @@
+.masthead {
+  width: min(40rem, 100%);
+  margin: 0.5rem auto 0;
+}
+
+.ruleStrong,
+.ruleThin {
+  display: block;
+  transform-origin: center;
+}
+
+.ruleStrong {
+  height: 2px;
+  background: var(--color-corp-ink);
+}
+
+.ruleThin {
+  height: 1px;
+  background: var(--color-corp-line);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.85rem;
+  min-height: 3rem;
+  margin: 0;
+  padding: 0.7rem 0;
+  color: var(--color-corp-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.brand {
+  color: var(--color-corp-ink);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.dot {
+  display: block;
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 50%;
+  background: var(--color-navy-600);
+}

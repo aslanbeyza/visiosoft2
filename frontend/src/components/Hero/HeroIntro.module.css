@@ -1,0 +1,114 @@
+.intro {
+  max-width: 41rem;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin: 0;
+  color: rgb(255 255 255 / 0.82);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.eyebrow > span {
+  display: inline-block;
+}
+
+.rule {
+  width: 2.25rem;
+  height: 1px;
+  background: rgb(255 255 255 / 0.7);
+  transform-origin: left center;
+}
+
+.title {
+  margin: 1.25rem 0 0;
+  color: #fff;
+  font-size: clamp(2.35rem, 1rem + 4.1vw, 4.35rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 33rem;
+  margin: 1.25rem 0 0;
+  color: rgb(255 255 255 / 0.8);
+  font-size: clamp(1.02rem, 0.94rem + 0.3vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.cta {
+  flex: none;
+}
+
+.secondary {
+  background: rgb(6 8 34 / 0.28);
+}
+
+.proofWrap {
+  margin-top: 2rem;
+  overflow: hidden;
+}
+
+/* Negatif kenar = nokta (0,25rem) + iç boşluk (0,875rem): satır başındaki nokta kırpılır. */
+.proof {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.875rem;
+  margin: 0 0 0 -1.125rem;
+  padding: 0;
+  list-style: none;
+  color: rgb(255 255 255 / 0.88);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.proofItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.dot {
+  flex: none;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.5);
+}
+
+@media (max-width: 479.98px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta,
+  .button {
+    width: 100%;
+  }
+
+  .proofWrap {
+    margin-top: 1.5rem;
+  }
+
+  .proof {
+    font-size: 0.875rem;
+  }
+}

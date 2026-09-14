@@ -1,1 +1,1 @@
-export { default } from './ParkingSoftware.tsx'
+export { default } from './ParkingSoftwarePage.tsx'

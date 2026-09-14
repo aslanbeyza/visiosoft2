@@ -1,0 +1,30 @@
+.heading {
+  margin-bottom: clamp(2rem, 4vw, 3.25rem);
+}
+
+.split {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.copy {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .split {
+    align-items: center;
+    column-gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .split[data-layout='monitor'] {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  .split[data-layout='accounting'] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}

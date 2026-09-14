@@ -1,26 +1,29 @@
 /*
- * Ekran camı kesitte 157x308 px görünür. Kioskun ön yüzü izleyiciye ~%83 kısalmış (yaklaşık 31-34°) göründüğü için
- * arayüz gerçek oranında (~0,615, 16:10 dikey tablet) tasarlanır ve hafif perspektifle Y ekseninde döndürülür.
+ * Ekran camı kesitte 157x308 px görünür. Kioskun ön yüzü izleyiciye ~%80 kısalmış göründüğü için arayüz gerçek
+ * oranında (~0,615, 16:10 dikey tablet) tasarlanır, sonra 2B matrisle yatayda sıkıştırılır ve camın eğimine uyacak
+ * kadar Y ekseninde kaydırılır. 3B dönüşüm (perspective/rotateY) kullanılmaz: Chrome 3B katmanı ölçeksiz boyutunda
+ * rasterleştirip üst öğenin yakınlaşma ölçeğiyle büyütür, yazılar bloklaşır. 2B matriste metin her ölçekte yeniden çizilir.
  * Tüm ölçüler kabın yüksekliğine göre (cqh); yakınlaşmada orantılı büyür ve net kalır.
  */
 .screen {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  border-radius: 6% / 3%;
+  /* Camın fotoğraftaki dörtgeni (kutuya göre yüzde): sağ kenar uzakta olduğu için üst kenar sağa doğru iner. */
+  clip-path: polygon(0% 0.3%, 98.6% 5.6%, 98.6% 99.2%, 0.4% 96.6%);
   background: #0b0c10;
   container-type: size;
 }
 
 .ui {
   position: absolute;
-  top: 1.6cqh;
-  left: 0.6cqh;
+  top: 2cqh;
+  left: 0.9cqh;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 60cqh;
-  height: 96.8cqh;
+  height: 93cqh;
   padding: 3.2cqh 0 2.6cqh;
   overflow: hidden;
   border-radius: 2cqh;
@@ -29,8 +32,9 @@
   font-family: var(--font-sans);
   line-height: 1.15;
   filter: saturate(0.92) brightness(0.97);
-  transform: perspective(800cqh) rotateY(-31deg);
-  transform-origin: 0 50%;
+  /* scaleX 0,81 + skewY ≈3,9°: camın sağ kenarı sola göre ≈4 cqh aşağıda. */
+  transform: matrix(0.81, 0.068, 0, 1, 0, 0);
+  transform-origin: 0 0;
 }
 
 .status {
@@ -134,6 +138,12 @@
   border-radius: 50%;
   background: rgb(255 255 255 / 0.85);
   animation: dot 1.4s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+/* Döngü yalnızca ekran görünürken çalışır. */
+.screen[data-running='true'] .dots span {
+  animation-play-state: running;
 }
 
 .dots span:nth-child(2) {

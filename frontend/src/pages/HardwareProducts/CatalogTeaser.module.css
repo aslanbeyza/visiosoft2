@@ -1,0 +1,135 @@
+.layout {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 4rem;
+  }
+}
+
+.copy {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.pages {
+  color: var(--color-corp-muted);
+  font-size: 0.85rem;
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Üç A4 sayfası üst üste; kenar sayfalar kaydırmayla yana açılır. */
+.stack {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(18rem, 56vw, 27rem);
+  padding-block: 1rem;
+}
+
+.sheet {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: clamp(9.5rem, 30vw, 15rem);
+  aspect-ratio: 210 / 297;
+  /* overflow: hidden, uzun görsellerin (kiosk) A4 oranını bozup komşu bölümlere taşmasını engeller. */
+  overflow: hidden;
+  padding: clamp(0.7rem, 1.6vw, 1.1rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.35rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 18px 40px -18px rgb(15 20 48 / 0.28);
+  transform-origin: 50% 90%;
+}
+
+.sheet[data-position='1'] {
+  z-index: 2;
+}
+
+.sheetHead {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--color-corp-line);
+  color: var(--color-corp-muted);
+  font-size: clamp(0.42rem, 0.9vw, 0.55rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Görsel mutlak konumlu: sahne yüksekliğini görselin doğal boyu değil, sayfada kalan alan belirler. */
+.sheetStage {
+  position: relative;
+  display: block;
+  flex: 1 1 0;
+  min-height: 0;
+  margin-block: 0.5rem;
+  border-radius: 0.25rem;
+  background:
+    radial-gradient(60% 10% at 50% 90%, rgb(15 20 48 / 0.08), transparent 70%),
+    var(--color-corp-surface);
+}
+
+.sheetImage {
+  position: absolute;
+  inset: 10%;
+  display: block;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.sheetEyebrow {
+  color: var(--color-navy-600);
+  font-size: clamp(0.42rem, 0.9vw, 0.55rem);
+  font-weight: 600;
+}
+
+.sheetName {
+  margin-top: 0.15rem;
+  color: var(--color-corp-ink);
+  font-size: clamp(0.58rem, 1.2vw, 0.78rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.sheetDims {
+  margin-top: 0.15rem;
+  color: var(--color-corp-muted);
+  font-size: clamp(0.4rem, 0.85vw, 0.52rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.sheetRows {
+  display: grid;
+  margin-top: 0.45rem;
+}
+
+.sheetRow {
+  overflow: hidden;
+  padding-block: 0.18rem;
+  border-top: 1px solid var(--color-corp-line);
+  color: var(--color-corp-body);
+  font-size: clamp(0.38rem, 0.8vw, 0.5rem);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

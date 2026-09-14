@@ -1,0 +1,144 @@
+.card {
+  position: relative;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+.label {
+  color: var(--color-navy-600);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.price {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(2.25rem, 2.4vw + 1.4rem, 3.1rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.rule {
+  display: block;
+  height: 1px;
+  margin: 1rem 0 0.9rem;
+  background: linear-gradient(90deg, var(--color-navy-600) 0 2.5rem, var(--color-corp-line) 2.5rem);
+  transform-origin: left center;
+}
+
+.note {
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.list {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.check {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.5rem;
+  background: var(--color-navy-50);
+}
+
+.check svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.text {
+  align-self: center;
+  min-width: 0;
+  color: var(--color-corp-ink);
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+/* Masaüstünde kart yatay: solda etiket + fiyat, sağda başlıklar; çizgi ve not tam genişlikte altta. */
+@media (min-width: 1024px) {
+  .card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    grid-template-areas:
+      'head list'
+      'rule rule'
+      'note note';
+    column-gap: 1.25rem;
+    padding: 1.25rem 1.5rem 1.35rem;
+  }
+
+  .head {
+    grid-area: head;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .list {
+    grid-area: list;
+    align-self: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--color-corp-line);
+  }
+
+  .rule {
+    grid-area: rule;
+    margin: 1rem 0 0.8rem;
+  }
+
+  .note {
+    grid-area: note;
+  }
+
+  .check {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .text {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,159 @@
+.hero {
+  position: relative;
+  overflow: clip;
+  /* Sabit navbar'ı geçer: mobilde ≥ 6rem, masaüstünde ≥ 7rem. */
+  padding-block: clamp(6rem, 5vw + 4.5rem, 8.5rem) clamp(3.5rem, 6vw, 5.5rem);
+  background: radial-gradient(70% 50% at 50% 38%, var(--color-corp-surface) 0%, #fff 72%);
+  color: var(--color-corp-ink);
+  text-align: center;
+}
+
+.inner {
+  display: grid;
+  justify-items: center;
+  width: min(52rem, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--color-navy-600);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.rule {
+  display: block;
+  width: 1.75rem;
+  height: 2px;
+  background: currentColor;
+}
+
+.emblem {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(22rem, 78vw);
+  aspect-ratio: 1;
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.dial {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.disc {
+  fill: #fff;
+  stroke: none;
+}
+
+.ring {
+  fill: none;
+  stroke: var(--color-corp-line);
+  stroke-width: 1.5;
+}
+
+.minor {
+  fill: none;
+  stroke: #b9bfd0;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.major {
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.arc {
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.hand {
+  fill: var(--color-navy-600);
+}
+
+.logoClip {
+  position: relative;
+  width: 58%;
+}
+
+.picture {
+  display: block;
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(2.6rem, 3.6vw + 1.1rem, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 36rem;
+  margin: 1.35rem 0 0;
+  color: var(--color-corp-body);
+  font-size: clamp(1.075rem, 0.4vw + 1rem, 1.2rem);
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    width: min(52rem, calc(100% - 3rem));
+  }
+}
+
+/* Kısa masaüstü ekranlarda (1280×720) kadran küçülür, başlık ilk görünümde kalır. */
+@media (min-width: 1024px) and (max-height: 800px) {
+  .hero {
+    padding-top: 6.25rem;
+  }
+
+  .eyebrow {
+    margin-bottom: 1.25rem;
+  }
+
+  .emblem {
+    width: min(15rem, 33svh);
+    margin-bottom: 1.5rem;
+  }
+
+  .lead {
+    margin-top: 1rem;
+  }
+
+  .actions {
+    margin-top: 1.5rem;
+  }
+}

@@ -1,0 +1,168 @@
+.root {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Dar ekran: ekran üstte, altı modül tek bir 2×3 ızgarada (sütun ve liste kapları düzleştirilir). */
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+}
+
+.screen {
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin-bottom: 0.625rem;
+}
+
+.column {
+  display: contents;
+}
+
+.lines {
+  display: none;
+}
+
+.nodes {
+  display: contents;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.node {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 3.5rem;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+.icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  background: var(--color-navy-50);
+  color: var(--color-navy-600);
+}
+
+.icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.title {
+  color: var(--color-corp-ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.path {
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dot {
+  fill: #fff;
+  stroke: var(--color-navy-600);
+  stroke-width: 2;
+}
+
+.caption {
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .stage {
+    gap: 1.25rem;
+  }
+
+  .screen {
+    margin-bottom: 0;
+  }
+
+  .column {
+    display: block;
+  }
+
+  .nodes {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.625rem;
+  }
+}
+
+/* Masaüstü: 1200×380 ızgaralı sahne; ekran ortada, modüller iki yanda (boş üst/alt bant yok). */
+@media (min-width: 1024px) {
+  .stage {
+    display: block;
+    aspect-ratio: 1200 / 380;
+  }
+
+  .screen {
+    position: absolute;
+    top: 4.47%;
+    left: 25%;
+    width: 50%;
+  }
+
+  .column {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .lines {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .nodes {
+    display: block;
+  }
+
+  .node {
+    position: absolute;
+    top: calc(var(--row) / 380 * 100%);
+    width: 19%;
+    min-height: 0;
+    padding: 0.75rem 0.875rem;
+    translate: 0 -50%;
+    box-shadow: 0 1px 2px rgb(15 20 48 / 0.04), 0 12px 28px -22px rgb(15 20 48 / 0.3);
+  }
+
+  .column[data-side='left'] .node {
+    left: 0;
+  }
+
+  .column[data-side='right'] .node {
+    right: 0;
+  }
+
+  .title {
+    font-size: 0.9375rem;
+  }
+}

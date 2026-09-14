@@ -27,7 +27,11 @@ export default {
     port: envInt("PORT", 3000),
   },
   cors: {
-    origin: env("CORS_ORIGIN", "http://localhost:5173"),
+    // Virgülle ayrılmış birden fazla köken desteklenir (ör. Vite 5173 ve 5174).
+    origin: env("CORS_ORIGIN", "http://localhost:5173,http://localhost:5174")
+      .split(",")
+      .map((origin) => origin.trim())
+      .filter(Boolean),
   },
   db: {
     host: env("DB_HOST", "127.0.0.1"),

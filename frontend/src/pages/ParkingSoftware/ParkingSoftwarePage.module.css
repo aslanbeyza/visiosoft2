@@ -1,0 +1,81 @@
+.stageSection {
+  padding-bottom: clamp(4rem, 7vw, 6.5rem);
+}
+
+.heading {
+  margin-bottom: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.explainer {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.explainerCopy {
+  display: grid;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.statement {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.15rem, 0.6vw + 1rem, 1.375rem);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.body {
+  margin: 0;
+  max-width: 40rem;
+  color: var(--color-corp-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.explainerList {
+  align-self: center;
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.listLabel {
+  margin: 0 0 1rem;
+  color: var(--color-corp-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.architecture {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: end;
+}
+
+.diagram {
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.faq {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+@media (min-width: 1024px) {
+  .explainer {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  }
+
+  .architecture {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}

@@ -1,1 +1,1 @@
-export { default } from './Sitemap.tsx'
+export { default } from './SitemapPage.tsx'

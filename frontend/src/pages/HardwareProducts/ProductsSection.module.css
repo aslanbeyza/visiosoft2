@@ -1,0 +1,17 @@
+.head {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+@media (min-width: 1024px) {
+  .head {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: end;
+    gap: 3rem;
+  }
+}
+
+.grid {
+  scroll-margin-top: 9rem;
+}

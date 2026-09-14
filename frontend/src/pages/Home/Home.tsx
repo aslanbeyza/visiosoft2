@@ -1,45 +1,42 @@
-import CtaBand from '../../components/CtaBand/index.ts'
 import Hero from '../../components/Hero/index.ts'
-import HomeHgs from '../../components/HomeHgs/index.ts'
-import HomeIntro from '../../components/HomeIntro/index.ts'
-import HomeProcess from '../../components/HomeProcess/index.ts'
-import HomeProducts from '../../components/HomeProducts/index.ts'
-import HomeReferences from '../../components/HomeReferences/index.ts'
-import HomeSoftware from '../../components/HomeSoftware/index.ts'
-import HomeSolutions from '../../components/HomeSolutions/index.ts'
+import HomeAssurance from '../../components/HomeAssurance/index.ts'
+import HomeCta from '../../components/HomeCta/index.ts'
+import HomeFlagships from '../../components/HomeFlagships/index.ts'
+import HomeSectors from '../../components/HomeSectors/index.ts'
+import HomeSystemFlow from '../../components/HomeSystemFlow/index.ts'
+import HomeTrust from '../../components/HomeTrust/index.ts'
+import HomeZone from '../../components/HomeZone/index.ts'
 import KioskZoom from '../../components/KioskZoom/index.ts'
 import Seo from '../../components/Seo/index.ts'
-import SystemShowcase from '../../components/SystemShowcase/index.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
-import { usePath } from '../../hooks/usePath/index.ts'
-import { homeCopy as text } from './homeCopy.ts'
 
+/**
+ * Arama ve paylaşım açıklaması yalnızca sayfadaki onaylı metinlerden kurulur
+ * (Hero başlığı + açıklaması, Kurumsal rakamları). tr.json tek dil olduğu için literal tutulur.
+ */
+const HOME_DESCRIPTION =
+  "Otoparkınızı tek merkezden yönetin: plaka tanıma, temassız ödeme, HGS, bariyer kontrolü ve raporlama tek sistemde. 2018'den beri, 7/24 uzaktan destek."
+
+/** Yakın plan kiosk: kare başına kaydırma uzunluğu (svh). 45, sayacı 01→05 okunur adımlarla korur. */
+const KIOSK_FRAME_LENGTH = 45
+
+/** Yazılım önde ana sayfa: sistem akışı ve Zone paneli donanımdan önce gelir. */
 export default function Home() {
   const { t } = useLocale()
-  const path = usePath()
 
   return (
     <>
-      <Seo title={t('Visiosoft - İnsansız Otopark Yönetim Sistemleri')} description={t('meta_desc_index')} />
+      <Seo title={t('Visiosoft - İnsansız Otopark Yönetim Sistemleri')} description={HOME_DESCRIPTION} />
 
       <Hero />
-
-      <HomeIntro />
-      <HomeProducts />
-      <KioskZoom />
-      <SystemShowcase />
-      <HomeSoftware />
-      <HomeSolutions />
-      <HomeHgs />
-      <HomeProcess />
-      <HomeReferences />
-
-      <CtaBand
-        title={text.cta.title}
-        description={text.cta.description}
-        primary={{ label: text.cta.primary.label, to: path(text.cta.primary.route) }}
-        secondary={{ label: text.cta.secondary.label, to: path(text.cta.secondary.route) }}
-      />
+      <HomeTrust />
+      <HomeSystemFlow />
+      <HomeZone />
+      <HomeSectors />
+      <HomeFlagships />
+      <KioskZoom frameLength={KIOSK_FRAME_LENGTH} />
+      <HomeAssurance />
+      <HomeCta />
     </>
   )
 }

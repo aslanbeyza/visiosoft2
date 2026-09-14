@@ -1,0 +1,216 @@
+.root {
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.card {
+  overflow: clip;
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgb(154 161 227 / 0.14), transparent 60%),
+    var(--color-navy-900);
+  color: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 32px -12px rgb(11 14 68 / 0.45);
+}
+
+.head {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 1.1rem 1.25rem 1.2rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--color-navy-300);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.liveDot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.headTitle {
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.progress {
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  background: var(--color-navy-300);
+  transform-origin: left center;
+}
+
+.base {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 1.1rem 1.25rem 0.35rem;
+  list-style: none;
+}
+
+.baseItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  color: rgb(255 255 255 / 0.85);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.baseIcon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-navy-300);
+}
+
+/* Satırlar tek ızgarayı paylaşır: seçim, bağlantı ve ürün sütunları her satırda aynı hizada başlar. */
+.rules {
+  display: grid;
+  grid-template-columns: max-content minmax(1.5rem, 1fr) minmax(0, 1.55fr);
+  gap: 0.6rem 0.5rem;
+  margin: 0;
+  padding: 0.85rem 1.25rem 1.35rem;
+  list-style: none;
+}
+
+.rule {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgb(255 255 255 / 0.9);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.box {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.boxRect {
+  fill: var(--color-navy-600);
+  stroke: var(--color-navy-300);
+  stroke-width: 1.2;
+}
+
+.boxCheck {
+  stroke: #fff;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.link {
+  position: relative;
+  display: block;
+  height: 0.75rem;
+}
+
+.linkSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.linkPath {
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.linkDot {
+  position: absolute;
+  top: 50%;
+  right: -0.2rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-top: -0.2rem;
+  border-radius: 50%;
+  background: var(--color-navy-300);
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  padding: 0.5rem 0.65rem 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  font-size: 0.85rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.productIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  background: var(--color-navy-600);
+  color: #fff;
+}
+
+.productSvg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+@media (max-width: 420px) {
+  .rules,
+  .base,
+  .head {
+    padding-inline: 0.9rem;
+  }
+
+  .rules {
+    grid-template-columns: max-content minmax(0.9rem, 0.45fr) minmax(0, 2fr);
+    column-gap: 0.4rem;
+  }
+
+  .product {
+    font-size: 0.8rem;
+  }
+}

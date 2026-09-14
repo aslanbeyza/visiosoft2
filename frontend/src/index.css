@@ -23,14 +23,18 @@
   --color-navy-950: #060822;
   --color-corp-ink: #0f1430;
   --color-corp-body: #4b5168;
-  --color-corp-muted: #737a8f;
+  /* Açık gri yüzeylerde küçük metin için WCAG AA (4,5:1) sağlar. */
+  --color-corp-muted: #646b80;
   --color-corp-line: #e2e5ee;
   --color-corp-surface: #f5f6f9;
   --color-success: #12805c;
 }
 
+/*
+ * Yatay taşmayı MainLayout'taki .app (overflow-x: clip) keser. html'de overflow tanımlanırsa body'nin
+ * overflow değeri görünüm alanına aktarılmaz ve menü/diyalog kaydırma kilitleri çalışmaz.
+ */
 html {
-  overflow-x: clip;
   scroll-padding-top: 6rem;
 }
 
@@ -57,6 +61,25 @@ body {
 @layer base {
   a {
     color: inherit;
+  }
+}
+
+/*
+ * Paylaşılan yardımcı: ekran okuyucuya açık, görsel olarak gizli metin (`className="sr-only"`).
+ * Tailwind'in aynı adlı yardımcısıyla birebir aynıdır; kaynak taramasına bağlı kalmadan her zaman üretilir.
+ * CSS modüllerindeki yerel .srOnly kopyaları bilerek korunmuştur.
+ */
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border-width: 0;
   }
 }
 

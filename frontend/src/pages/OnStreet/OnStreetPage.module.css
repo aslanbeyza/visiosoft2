@@ -1,0 +1,16 @@
+.stack {
+  display: grid;
+  gap: clamp(2.5rem, 4vw, 3.75rem);
+  min-width: 0;
+}
+
+.asideText {
+  max-width: 34rem;
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-navy-100);
+  color: var(--color-corp-body);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}

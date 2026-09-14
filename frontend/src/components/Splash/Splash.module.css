@@ -4,22 +4,32 @@
   z-index: 120;
   display: grid;
   place-items: center;
-  background: #f5f5f7;
+  background:
+    radial-gradient(60% 50% at 50% 60%, rgb(23 27 153 / 0.35), transparent 70%),
+    var(--color-navy-900);
+  will-change: clip-path;
 }
 
+.center {
+  display: grid;
+  justify-items: center;
+}
+
+/* Lacivert logo koyu zeminde beyaza çevrilir. */
 .mark {
   display: block;
-  width: min(14rem, 62vw);
+  width: min(13rem, 58vw);
   height: auto;
+  filter: brightness(0) invert(1);
 }
 
 .line {
-  width: 3.2rem;
+  display: block;
+  width: 3.5rem;
   height: 2px;
-  margin: 1.1rem auto 0;
-  border-radius: 999px;
-  background: #171b99;
-  transform-origin: center;
+  margin-top: 1.25rem;
+  background: var(--color-navy-300);
+  transform-origin: left center;
 }
 
 @media (prefers-reduced-motion: reduce) {

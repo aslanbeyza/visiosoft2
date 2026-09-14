@@ -1,0 +1,78 @@
+.section {
+  scroll-margin-top: 0;
+}
+
+.grid {
+  display: grid;
+  gap: clamp(3rem, 6vw, 4rem);
+  align-items: start;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.35rem, 3.2vw, 2.75rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(15 20 48 / 0.04), 0 24px 48px -32px rgb(15 20 48 / 0.18);
+}
+
+.cardRule {
+  position: absolute;
+  top: -1px;
+  right: 1.5rem;
+  left: 1.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-navy-600);
+  transform-origin: left center;
+}
+
+.head {
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  padding-bottom: clamp(1.25rem, 2.5vw, 1.6rem);
+  border-bottom: 1px solid var(--color-corp-line);
+}
+
+.eyebrow {
+  margin: 0 0 0.6rem;
+  color: var(--color-navy-600);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.65rem, 1.6vw + 1.05rem, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 34rem;
+  margin: 0.7rem 0 0;
+  color: var(--color-corp-body);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.aside {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    column-gap: clamp(2.5rem, 4.5vw, 5rem);
+  }
+
+  .aside {
+    padding-top: clamp(1rem, 2vw, 2rem);
+  }
+}

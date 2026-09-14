@@ -1,0 +1,168 @@
+.logos {
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: var(--color-corp-line);
+  list-style: none;
+}
+
+.cell {
+  display: flex;
+  min-width: 0;
+  aspect-ratio: 5 / 3;
+  background: #fff;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 0.35s var(--ease-apple);
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: -4px;
+  border-radius: 0.5rem;
+}
+
+a.tile:hover,
+a.tile:focus-visible {
+  background: var(--color-corp-surface);
+}
+
+.crop {
+  position: relative;
+  display: block;
+  flex: none;
+  width: var(--box-w);
+  overflow: hidden;
+}
+
+/* İki katman üst üste: filtreler sabittir, hover'da yalnızca opaklık geçişi olur. */
+.img {
+  position: absolute;
+  max-width: none;
+  mix-blend-mode: multiply;
+  transition: opacity 0.45s var(--ease-apple);
+}
+
+.grey {
+  opacity: 0.7;
+  filter: grayscale(1);
+}
+
+.colour {
+  opacity: 0;
+}
+
+.tile[data-lift='true'] .grey {
+  filter: grayscale(1) brightness(1.14);
+}
+
+.tile[data-lift='true'] .colour {
+  filter: brightness(1.14);
+}
+
+/* Dolu zeminli işaretler (kalkan, koyu kare) gri hâlde çizgi logolarla aynı optik ağırlıkta kalsın. */
+.tile[data-solid='true'] .grey {
+  opacity: 0.5;
+}
+
+a.tile:hover .grey,
+a.tile:focus-visible .grey {
+  opacity: 0;
+}
+
+a.tile:hover .colour,
+a.tile:focus-visible .colour {
+  opacity: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.allLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding-inline: 0.25rem;
+  color: var(--color-navy-600);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.allLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.allLink:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.allLink:hover .arrow {
+  transform: translateX(3px);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Dar hücrelerde logolar biraz büyütülür; oranlar korunur. */
+@media (max-width: 767px) {
+  .crop {
+    width: min(80%, calc(var(--box-w) * 1.18));
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .img,
+  .arrow {
+    transition: none;
+  }
+}

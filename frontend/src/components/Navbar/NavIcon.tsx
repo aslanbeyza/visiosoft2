@@ -74,25 +74,3 @@ export default function NavIcon({ name, className }: NavIconProps) {
     </svg>
   )
 }
-
-/** Ürün fotoğrafı olmayan LED panel için sahne çizimi (dikey panel ve ayak). */
-export function LedPanelArt({ className }: { className?: string }) {
-  const stroke = { vectorEffect: 'non-scaling-stroke' } as const
-  return (
-    <svg
-      viewBox="0 0 64 48"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.6}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-      focusable="false"
-    >
-      <rect x="25" y="4" width="14" height="36" rx="1.5" style={stroke} />
-      <path d="M28.5 10h7M28.5 15h4.5M28.5 20h7M28.5 25h3.5M28.5 30h7" style={stroke} />
-      <path d="M29 40v4M35 40v4M23 44h18" style={stroke} />
-    </svg>
-  )
-}

@@ -1,0 +1,250 @@
+/* Mobil: yatay kaydırmalı çip listesi. Masaüstü (≥1024): dikey sekme listesi, açıklamalar görünür. */
+.list {
+  display: flex;
+  gap: 0.5rem;
+  margin-inline: -1rem;
+  padding: 0.25rem 1rem 0.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1rem;
+  scrollbar-width: none;
+}
+
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Taşma ipucu: kaydırılabilen kenar(lar) 3rem boyunca solar. */
+.list[data-fade-end='true'] {
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 3rem), transparent);
+  mask-image: linear-gradient(90deg, #000 calc(100% - 3rem), transparent);
+}
+
+.list[data-fade-start='true'] {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3rem);
+  mask-image: linear-gradient(90deg, transparent, #000 3rem);
+}
+
+.list[data-fade-start='true'][data-fade-end='true'] {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 1rem 0.45rem 0.55rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.03);
+  color: rgb(255 255 255 / 0.8);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.tab:hover {
+  border-color: rgb(255 255 255 / 0.3);
+  color: #fff;
+}
+
+.tab:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.tab[aria-selected='true'] {
+  border-color: rgb(154 161 227 / 0.55);
+  background: rgb(154 161 227 / 0.14);
+  color: #fff;
+}
+
+.icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.06);
+  color: var(--color-navy-300);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.icon svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.tab[aria-selected='true'] .icon {
+  background: var(--color-navy-300);
+  color: var(--color-navy-950);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.desc,
+.index,
+.track {
+  display: none;
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--color-navy-300);
+  transform-origin: left center;
+}
+
+@media (min-width: 1024px) {
+  .list {
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .tab {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.05rem 0.9rem 1.1rem 0.9rem;
+    border: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .tab:hover {
+    background: rgb(255 255 255 / 0.025);
+  }
+
+  .tab:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .tab[aria-selected='true'] {
+    background: linear-gradient(90deg, rgb(154 161 227 / 0.12), rgb(154 161 227 / 0.02) 70%, transparent);
+  }
+
+  /* Etkin sekmenin sol kenarında lacivert-300 çizgi. */
+  .tab::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background: var(--color-navy-300);
+    content: '';
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition: transform 0.45s var(--ease-apple);
+  }
+
+  .tab[aria-selected='true']::before {
+    transform: scaleY(1);
+  }
+
+  .icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.55rem;
+  }
+
+  .icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .title {
+    padding-top: 0.05rem;
+    font-size: 1.02rem;
+    white-space: normal;
+  }
+
+  .desc {
+    display: block;
+    margin-top: 0.3rem;
+    color: rgb(255 255 255 / 0.66);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .tab[aria-selected='true'] .desc {
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .index {
+    display: block;
+    padding-top: 0.2rem;
+    color: rgb(255 255 255 / 0.5);
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .tab[aria-selected='true'] .index {
+    color: var(--color-navy-300);
+  }
+
+  .track {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    display: block;
+    height: 2px;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .tab {
+    gap: 0.8rem;
+    padding-block: 0.85rem 0.9rem;
+  }
+
+  .desc {
+    font-size: 0.84rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .icon,
+  .tab::before {
+    transition: none;
+  }
+}

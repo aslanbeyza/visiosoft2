@@ -1,0 +1,124 @@
+.grid {
+  display: grid;
+  gap: clamp(2.5rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 3rem);
+}
+
+.group {
+  position: relative;
+  min-width: 0;
+  padding-top: 1.25rem;
+}
+
+.topRule {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: var(--color-corp-ink);
+  transform-origin: left center;
+}
+
+.title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin: 0 0 0.75rem;
+  color: var(--color-corp-ink);
+  font-size: clamp(1.2rem, 0.6vw + 1rem, 1.45rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.index {
+  color: var(--color-navy-600);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  position: relative;
+  border-bottom: 1px solid var(--color-corp-line);
+}
+
+.sweep {
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 1px;
+  background: var(--color-navy-600);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.9rem;
+  padding: 0.5rem 0;
+  color: var(--color-corp-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: color 0.35s var(--ease-apple);
+}
+
+.link:hover {
+  color: var(--color-navy-600);
+}
+
+.link:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 2px;
+}
+
+.arrow {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-navy-600);
+  opacity: 0.35;
+  transition:
+    opacity 0.35s var(--ease-apple),
+    transform 0.35s var(--ease-apple);
+}
+
+.link:hover .arrow,
+.link:focus-visible .arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .arrow {
+    transition: none;
+  }
+
+  .link:hover .arrow,
+  .link:focus-visible .arrow {
+    transform: none;
+  }
+}

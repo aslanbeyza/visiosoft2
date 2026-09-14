@@ -1,0 +1,207 @@
+.wrap {
+  position: relative;
+}
+
+.line {
+  display: none;
+}
+
+.list {
+  position: relative;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.node {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+  padding-bottom: 2rem;
+}
+
+.node:last-child {
+  padding-bottom: 0;
+}
+
+/* Dar ekranda düğümleri dikey bir hat bağlar. */
+.node:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 3rem;
+  bottom: 0;
+  left: calc(1.5rem - 0.5px);
+  width: 1px;
+  background: rgb(255 255 255 / 0.2);
+}
+
+.tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  background: var(--color-navy-600);
+  color: #fff;
+}
+
+.icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.ring {
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--color-navy-300);
+  border-radius: 0.55rem;
+  opacity: 0;
+  animation: pulse 4.8s ease-out var(--pulse-delay, 0s) infinite;
+  animation-play-state: paused;
+}
+
+.text {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 0;
+  padding-top: 0.3rem;
+}
+
+.title {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.desc {
+  color: rgb(255 255 255 / 0.72);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.base {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: rgb(255 255 255 / 0.22);
+  transform-origin: left center;
+}
+
+.signalTrack {
+  display: none;
+}
+
+.signal {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateX(-100%);
+  animation: signal 4.8s linear infinite;
+  animation-play-state: paused;
+}
+
+.signal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2.5rem;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgb(154 161 227 / 0), var(--color-navy-300));
+}
+
+.wrap[data-live='true'] .ring,
+.wrap[data-live='true'] .signal {
+  animation-play-state: running;
+}
+
+@keyframes signal {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  6%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  24%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@media (min-width: 768px) {
+  /* Dört eşit sütunun ilk ve son merkezleri: %12,5 ile %87,5. */
+  .line {
+    position: absolute;
+    top: calc(1.5rem - 0.75px);
+    right: 12.5%;
+    left: 12.5%;
+    display: block;
+    height: 1.5px;
+    pointer-events: none;
+  }
+
+  .signalTrack {
+    position: absolute;
+    top: calc(1.5rem - 1.5px);
+    right: 12.5%;
+    left: 12.5%;
+    display: block;
+    height: 3px;
+    pointer-events: none;
+  }
+
+  .list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .node {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    row-gap: 1.1rem;
+    padding: 0 0.75rem;
+    text-align: center;
+  }
+
+  .node:not(:last-child)::before {
+    display: none;
+  }
+
+  .text {
+    justify-items: center;
+    padding-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring,
+  .signal {
+    animation: none;
+  }
+
+  .signal {
+    display: none;
+  }
+}

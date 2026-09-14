@@ -1,1 +1,1 @@
-export { default } from './FieldManual.tsx'
+export { default } from './FieldManualPage.tsx'

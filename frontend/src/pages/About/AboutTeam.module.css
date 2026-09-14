@@ -1,0 +1,23 @@
+.grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  }
+}
+
+.copy {
+  min-width: 0;
+}
+
+.chips {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.media {
+  min-width: 0;
+}

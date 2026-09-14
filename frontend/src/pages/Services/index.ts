@@ -1,1 +1,1 @@
-export { default } from './Services.tsx'
+export { default } from './ServicesPage.tsx'

@@ -1,0 +1,130 @@
+.stats {
+  position: relative;
+  margin-top: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-corp-line);
+  transform-origin: left center;
+}
+
+.ruleTop {
+  top: 0;
+}
+
+.ruleBottom {
+  bottom: 0;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stat {
+  position: relative;
+  min-width: 0;
+  padding: 1.5rem 0 1.5rem 1.25rem;
+}
+
+.stat:nth-child(odd) {
+  padding-left: 0;
+}
+
+/* Mobilde iki satır arasında sabit ayraç. */
+.stat:nth-child(n + 3) {
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.divider {
+  position: absolute;
+  top: 1.25rem;
+  bottom: 1.25rem;
+  left: 0;
+  width: 1px;
+  background: var(--color-corp-line);
+  transform-origin: center top;
+}
+
+.stat:nth-child(odd) .divider {
+  display: none;
+}
+
+.value {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: clamp(2.25rem, 3.2vw + 1.2rem, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.number {
+  font-variant-numeric: tabular-nums;
+}
+
+.affix {
+  color: var(--color-navy-600);
+  font-size: 0.5em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: pre;
+}
+
+.affix:first-child {
+  margin-right: 0.12em;
+}
+
+.label {
+  margin: 0.7rem 0 0;
+  color: var(--color-corp-muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .stat,
+  .stat:nth-child(odd) {
+    padding: 2.25rem 1.5rem 2.25rem clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+
+  .stat:first-child {
+    padding-left: 0;
+  }
+
+  .stat:nth-child(n + 3) {
+    border-top: 0;
+  }
+
+  .stat:nth-child(odd) .divider {
+    display: block;
+  }
+
+  .stat:first-child .divider {
+    display: none;
+  }
+}

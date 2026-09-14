@@ -1,0 +1,141 @@
+/*
+ * Üç kanal solda, bağlantı eğrileri ortada, geçiş (bariyer) düğümü sağda. Satır yüksekliği ve aralık değişken:
+ * eğriler ilk ve son kanalın ortasından çıkar, yükseklikleri bu iki değerden hesaplanır.
+ */
+.stage {
+  --method-h: 3.4rem;
+  --method-gap: 1.1rem;
+
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.methods {
+  flex: none;
+  width: min(8.5rem, 45%);
+  display: grid;
+  gap: var(--method-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.method {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  height: var(--method-h);
+  padding: 0 0.9rem;
+  border: 1px solid rgb(154 161 227 / 0.28);
+  border-radius: 0.7rem;
+  background: rgb(6 8 34 / 0.6);
+}
+
+.glyph {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 0.45rem;
+  background: rgb(154 161 227 / 0.14);
+  color: var(--color-navy-300);
+}
+
+.glyph svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.name {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+
+/* İlk kanalın ortasından son kanalın ortasına kadar: 2 satır + 2 aralık. */
+.links {
+  flex: 1 1 0;
+  min-width: 2.5rem;
+  max-width: 12rem;
+  height: calc(2 * var(--method-h) + 2 * var(--method-gap));
+  overflow: visible;
+}
+
+.links path {
+  fill: none;
+  stroke: rgb(154 161 227 / 0.55);
+  stroke-width: 1.5;
+}
+
+.gate {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border: 1px solid rgb(154 161 227 / 0.5);
+  border-radius: 50%;
+  background: var(--color-navy-600);
+  color: #fff;
+  box-shadow: 0 0 0 8px rgb(23 27 153 / 0.25);
+}
+
+.gate svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+/*
+ * Masaüstünde sahne kiosk ve telefonla aynı boyda (26-33rem); çizim bu yüksekliğin yarısından fazlasını kaplasın
+ * diye kanallar, aralıklar ve düğüm büyür. 768 altı ve tablet (20rem sahne) yukarıdaki ölçülerde kalır.
+ */
+@media (min-width: 1024px) {
+  .stage {
+    --method-h: 4.5rem;
+    --method-gap: 2rem;
+
+    padding: 0 clamp(1.25rem, 2.2vw, 2.25rem);
+  }
+
+  .methods {
+    width: min(10.5rem, 50%);
+  }
+
+  .method {
+    gap: 0.8rem;
+    padding: 0 0.8rem;
+    border-radius: 0.8rem;
+  }
+
+  .glyph {
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 0.55rem;
+  }
+
+  .glyph svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .name {
+    font-size: 1.05rem;
+  }
+
+  .gate {
+    width: 4.4rem;
+    height: 4.4rem;
+    box-shadow: 0 0 0 10px rgb(23 27 153 / 0.25);
+  }
+
+  .gate svg {
+    width: 1.95rem;
+    height: 1.95rem;
+  }
+}

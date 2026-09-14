@@ -1,1 +1,1 @@
-export { default } from './BankAccounts.tsx'
+export { default } from './BankAccountsPage.tsx'

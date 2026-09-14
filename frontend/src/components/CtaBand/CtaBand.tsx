@@ -3,7 +3,14 @@ import Button from '../Button/index.ts'
 import { RevealGroup, RevealItem, revealEase } from '../Reveal/index.ts'
 import styles from './CtaBand.module.css'
 
-type CtaAction = { label: string; to: string }
+/**
+ * Eylem: iç rota (`to`) ya da bağlantı (`href`; `external` ile yeni sekmede, ekran okuyucu notuyla).
+ * `secondary={{ label: 'WhatsApp', href: 'https://wa.me/…', external: true }}`
+ */
+export type CtaAction = { label: string } & (
+  | { to: string; href?: undefined; external?: undefined }
+  | { href: string; external?: boolean; to?: undefined }
+)
 
 type CtaBandProps = {
   eyebrow?: string
@@ -13,12 +20,15 @@ type CtaBandProps = {
   secondary?: CtaAction
 }
 
-/** Sayfa sonlarındaki koyu lacivert dönüşüm bandı. */
+/**
+ * Sayfa sonlarındaki koyu lacivert dönüşüm bandı.
+ * `data-page-cta`: sayfada bu bant varken Footer aynı iki düğmeyi tekrar göstermez (Footer.module.css).
+ */
 export default function CtaBand({ eyebrow, title, description, primary, secondary }: CtaBandProps) {
   const reduce = useReducedMotion()
 
   return (
-    <section className={styles.band} aria-label={title}>
+    <section className={styles.band} aria-label={title} data-page-cta="">
       <motion.span
         className={styles.line}
         aria-hidden="true"
@@ -44,11 +54,11 @@ export default function CtaBand({ eyebrow, title, description, primary, secondar
           ) : null}
         </div>
         <RevealItem className={styles.actions}>
-          <Button to={primary.to} variant="light" size="lg" arrow>
+          <Button to={primary.to} href={primary.href} external={primary.external} variant="light" size="lg" arrow>
             {primary.label}
           </Button>
           {secondary ? (
-            <Button to={secondary.to} variant="outlineLight" size="lg">
+            <Button to={secondary.to} href={secondary.href} external={secondary.external} variant="outlineLight" size="lg">
               {secondary.label}
             </Button>
           ) : null}

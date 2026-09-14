@@ -1,55 +1,58 @@
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { revealEase } from '../Reveal/index.ts'
+import { finishSplash, useSplashActive } from './splashState.ts'
 import styles from './Splash.module.css'
 
-const KEY = 'visiosoft-splash'
+/**
+ * Kullanım: `<Splash />` (MainLayout içinde, Navbar'dan önce)
+ * İlk ziyarette lacivert açılış perdesi: logo belirir, altındaki çizgi çizilir, perde yukarı doğru sıyrılır.
+ * Oturum başına bir kez gösterilir (splashState.ts); hareket azaltma tercihinde hiç görünmez.
+ */
 const HOLD_MS = 1100
 
 export default function Splash() {
-  const reduce = useReducedMotion()
-  const [open, setOpen] = useState(false)
+  const open = useSplashActive()
 
   useEffect(() => {
-    if (reduce || sessionStorage.getItem(KEY)) return
-    setOpen(true)
+    if (!open) return
+    const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    const timer = window.setTimeout(() => {
-      setOpen(false)
-      sessionStorage.setItem(KEY, '1')
-      document.body.style.overflow = ''
-    }, HOLD_MS)
+    const timer = window.setTimeout(finishSplash, HOLD_MS)
     return () => {
       window.clearTimeout(timer)
-      document.body.style.overflow = ''
+      document.body.style.overflow = previousOverflow
     }
-  }, [reduce])
+  }, [open])
 
   return (
     <AnimatePresence>
       {open ? (
         <motion.div
           className={styles.overlay}
-          initial={{ y: 0 }}
-          exit={{ y: '-100%' }}
-          transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+          initial={{ clipPath: 'inset(0% 0% 0% 0%)' }}
+          exit={{ clipPath: 'inset(0% 0% 100% 0%)' }}
+          transition={{ duration: 0.55, ease: revealEase }}
           aria-hidden="true"
         >
-          <div>
+          <div className={styles.center}>
             <motion.img
               className={styles.mark}
               src="/img/visiosoft_logo.svg"
               alt=""
               width="220"
               height="52"
-              initial={{ opacity: 0, scale: 0.94 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8, transition: { duration: 0.25 } }}
+              transition={{ duration: 0.45, ease: revealEase }}
             />
-            <motion.div
+            <motion.span
               className={styles.line}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ delay: 0.22, duration: 0.28, ease: [0.25, 1, 0.5, 1] }}
+              exit={{ opacity: 0, transition: { duration: 0.2 } }}
+              transition={{ delay: 0.25, duration: 0.6, ease: revealEase }}
             />
           </div>
         </motion.div>

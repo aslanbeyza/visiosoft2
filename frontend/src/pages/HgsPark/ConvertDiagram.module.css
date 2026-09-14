@@ -1,0 +1,177 @@
+.root {
+  min-width: 0;
+}
+
+.nodes {
+  display: grid;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.node {
+  position: relative;
+  display: grid;
+  gap: 0.3rem;
+  padding: 1.1rem 1.25rem 1.2rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.8s var(--ease-apple) calc(var(--i, 0) * 0.28s),
+    transform 0.8s var(--ease-apple) calc(var(--i, 0) * 0.28s);
+}
+
+.root[data-in='true'] .node {
+  opacity: 1;
+  transform: none;
+}
+
+.node[data-core='true'] {
+  border-color: var(--color-navy-600);
+  background: var(--color-navy-600);
+  color: #fff;
+}
+
+.kicker {
+  color: var(--color-corp-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.node[data-core='true'] .kicker {
+  color: var(--color-navy-100);
+}
+
+.title {
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+/* Bağlantı: dar ekranda düğümün altında dikey, ≥640px yan yana düğümler arasında yatay. */
+.link {
+  position: absolute;
+  top: 100%;
+  left: 1.75rem;
+  display: grid;
+  justify-items: center;
+  width: 12px;
+  height: 2.5rem;
+}
+
+.line {
+  width: 1.5px;
+  height: calc(100% - 10px);
+  background: var(--color-navy-600);
+  transform: scaleY(0);
+  transform-origin: center top;
+  transition: transform 0.7s var(--ease-apple) calc(0.35s + var(--i, 0) * 0.28s);
+}
+
+.head {
+  width: 12px;
+  height: 12px;
+  margin-top: -3px;
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transform: rotate(90deg);
+  transition: opacity 0.4s var(--ease-apple) calc(0.85s + var(--i, 0) * 0.28s);
+}
+
+.root[data-in='true'] .line {
+  transform: none;
+}
+
+.root[data-in='true'] .head {
+  opacity: 1;
+}
+
+/* ≥1024: başlık sütununun yanında dikey akış; düğümler genişler, bağlantılar aşağı iner. */
+@media (min-width: 1024px) {
+  .nodes {
+    gap: 3rem;
+    width: min(100%, 26rem);
+    margin-inline: auto;
+  }
+
+  .node {
+    gap: 0.4rem;
+    padding: 1.35rem 1.6rem 1.45rem;
+  }
+
+  .node[data-core='true'] {
+    box-shadow: 0 24px 48px -28px rgb(23 27 153 / 0.65);
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .link {
+    left: 50%;
+    height: 3rem;
+    margin-left: -6px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .nodes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.25rem;
+  }
+
+  .link {
+    top: 50%;
+    left: 100%;
+    display: flex;
+    align-items: center;
+    width: 2.25rem;
+    height: 12px;
+    margin-top: -6px;
+  }
+
+  .line {
+    width: calc(100% - 10px);
+    height: 1.5px;
+    margin-left: 4px;
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  .head {
+    margin: 0 0 0 -5px;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node,
+  .line,
+  .head {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .head {
+    transform: rotate(90deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 640px) and (max-width: 1023px) {
+  .head {
+    transform: none;
+  }
+}

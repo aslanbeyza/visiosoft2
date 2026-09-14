@@ -1,4 +1,5 @@
-export type SlotId = 'world' | 'alpr' | 'kiosk' | 'visiobox' | 'camera' | 'bentoExtra' | 'hgs'
+// world ve kiosk yuvaları kaldırıldı: videoları yoktu, başlangıç görselleri üçüncü taraf logosu taşıyordu ve hiçbir yerde kullanılmıyordu.
+export type SlotId = 'alpr' | 'visiobox' | 'camera' | 'bentoExtra' | 'hgs'
 
 export type VideoSource = { src: string; type: string }
 
@@ -14,16 +15,6 @@ export type VideoSlotDef = {
 }
 
 export const videoSlots: Record<SlotId, VideoSlotDef> = {
-  world: {
-    file: 'public/video/scenes/world.mp4',
-    sources: [{ src: '/video/scenes/world.mp4', type: 'video/mp4' }],
-    poster: '/video/scenes/world.jpg',
-    startImage: '/img/kioks2.webp',
-    aspect: '16:9',
-    duration: '6–8 sn',
-    prompt:
-      'Gerçekçi otopark demo filmi, Metropolis tarzı endüstri videosu gibi: yavaş kuşbakışı süzülme, modern açık otopark, gün ışığı, yumuşak renkler. Arabalar durmadan şeritten akar, bariyer açık, kırmızı-beyaz kiosk ve plaka kamerası sahada durur. Kamera yukarıdan yavaşça ileri kayar, loop. Fotogerçekçi belgesel, 35mm anamorphic, high-key, açık beton ve asfalt. Yazı, HUD, logo, neon, gece, CGI yok. Ürünleri deforme etme.',
-  },
   alpr: {
     file: 'public/video/bento/alpr.mp4',
     sources: [{ src: '/video/bento/alpr.mp4', type: 'video/mp4' }],
@@ -34,17 +25,6 @@ export const videoSlots: Record<SlotId, VideoSlotDef> = {
     duration: '5–7 sn',
     prompt:
       'Bu karedeki kırmızı-beyaz plaka tanıma kamerasını birebir koru. Parlak kırmızı güneşlik, mat beyaz gövde, ön cam, vidalar ve yan yazı aynı kalsın. Yavaş 3D yörünge, 25 derece, merceğe hafif yaklaş. Açık high-key stüdyo, #f5f5f7 beyaz zemin, yumuşak gölge. Fotogerçekçi ürün filmi, 35mm. Yeni yazı, HUD yok. Gece ve neon yok.',
-  },
-  kiosk: {
-    file: 'public/video/bento/kiosk.mp4',
-    sources: [{ src: '/video/bento/kiosk.mp4', type: 'video/mp4' }],
-    poster: '/video/bento/kiosk.jpg',
-    fallbackImage: '/img/kioks2.webp',
-    startImage: '/img/kioks2.webp',
-    aspect: '9:16',
-    duration: '5–7 sn',
-    prompt:
-      'Bu karedeki kırmızı-beyaz ödeme kiosku birebir kalsın. Parlak kırmızı üst kasa, mat beyaz kolon, ekran, kart okuyucu ve taban plakası aynı. Yavaş 3D yörünge, 25 derece, aşağıdan yukarı kahraman çekim. Ekran hafif parlasın, okunabilir yeni yazı olmasın. Açık high-key stüdyo, #f5f5f7 beyaz zemin, yumuşak gölge. Fotogerçekçi ürün filmi, 35mm. HUD yok. Gece ve neon yok.',
   },
   visiobox: {
     file: 'public/video/bento/visiobox.mp4',

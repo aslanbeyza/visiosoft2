@@ -1,0 +1,145 @@
+.root {
+  display: grid;
+  justify-items: stretch;
+  gap: 0;
+}
+
+.node {
+  display: grid;
+  gap: 0.625rem;
+  padding: 1.125rem 1.25rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 0.04);
+}
+
+.node[data-kind='edge'] {
+  border-color: var(--color-navy-300);
+  background: rgb(154 161 227 / 0.1);
+}
+
+.nodeTitle {
+  color: #fff;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgb(255 255 255 / 0.72);
+  font-size: 0.875rem;
+}
+
+.pulse {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-navy-300);
+}
+
+.devices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.devices li {
+  padding: 0.25rem 0.625rem;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 999px;
+  color: rgb(255 255 255 / 0.85);
+  font-size: 0.8125rem;
+}
+
+.link {
+  display: grid;
+  grid-template-columns: 2px auto;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.75rem;
+  min-height: 3.5rem;
+  padding-left: 1.5rem;
+  justify-self: start;
+}
+
+.linkLabel {
+  grid-column: 2;
+  grid-row: 1;
+  color: rgb(255 255 255 / 0.6);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.track {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: stretch;
+  width: 2px;
+  overflow: hidden;
+}
+
+.draw {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: var(--color-navy-300);
+  transform-origin: top center;
+}
+
+.link[data-sync='true'] .draw {
+  background: transparent;
+}
+
+.dashes {
+  position: absolute;
+  inset: -100% 0 0;
+  display: block;
+  background: repeating-linear-gradient(180deg, var(--color-navy-300) 0 6px, transparent 6px 12px);
+}
+
+@media (min-width: 768px) {
+  .root {
+    grid-template-columns: minmax(0, 1.1fr) minmax(5.5rem, 0.6fr) minmax(0, 1fr) minmax(7rem, 0.75fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .link {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 2px;
+    row-gap: 0.5rem;
+    justify-self: stretch;
+    min-height: 0;
+    padding: 0 0.5rem;
+  }
+
+  .linkLabel {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: center;
+  }
+
+  .track {
+    grid-column: 1;
+    grid-row: 2;
+    width: auto;
+    height: 2px;
+  }
+
+  .draw {
+    transform-origin: left center;
+  }
+
+  .dashes {
+    inset: 0 0 0 -100%;
+    background: repeating-linear-gradient(90deg, var(--color-navy-300) 0 6px, transparent 6px 12px);
+  }
+}

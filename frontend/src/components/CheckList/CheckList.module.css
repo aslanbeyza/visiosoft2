@@ -1,0 +1,71 @@
+.root {
+  --cl-check-bg: var(--color-navy-50);
+  --cl-check: var(--color-navy-600);
+  --cl-text: var(--color-corp-body);
+  --cl-line: var(--color-corp-line);
+
+  min-width: 0;
+}
+
+.root[data-tone='dark'] {
+  --cl-check-bg: rgb(255 255 255 / 0.1);
+  --cl-check: var(--color-navy-300);
+  --cl-text: rgb(255 255 255 / 0.85);
+  --cl-line: rgb(255 255 255 / 0.12);
+}
+
+.list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--cl-line);
+}
+
+.item:first-child {
+  border-top: 0;
+}
+
+.check {
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-top: 0.05rem;
+  border-radius: 0.4rem;
+  background: var(--cl-check-bg);
+  color: var(--cl-check);
+}
+
+.check svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.text {
+  color: var(--cl-text);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .root[data-columns='2'] .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2.5rem;
+  }
+
+  /* İki sütunda ilk satırdaki her iki öğe de çizgisizdir. */
+  .root[data-columns='2'] .item:nth-child(2) {
+    border-top: 0;
+  }
+}

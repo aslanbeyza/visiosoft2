@@ -1,0 +1,246 @@
+.board {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 0.04);
+  color: #fff;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.title {
+  margin: 0 auto 0 0;
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.toggle {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.35s var(--ease-apple);
+}
+
+.toggle svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+.toggle:hover {
+  border-color: var(--color-navy-300);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--color-navy-300);
+  outline-offset: 3px;
+}
+
+.camera {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 0.5rem;
+  background: radial-gradient(80% 90% at 50% 100%, #151a55 0%, #0a0d2e 70%);
+  overflow: clip;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.edge,
+.arm {
+  stroke: rgb(255 255 255 / 0.7);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.arm {
+  stroke-width: 3;
+}
+
+.centre {
+  stroke: rgb(255 255 255 / 0.35);
+  stroke-width: 1.4;
+  stroke-dasharray: 8 8;
+}
+
+.post {
+  fill: rgb(255 255 255 / 0.85);
+}
+
+.kiosk {
+  fill: #c8102e;
+}
+
+.cone {
+  fill: rgb(154 161 227 / 0.14);
+  stroke: rgb(154 161 227 / 0.4);
+  stroke-width: 1;
+}
+
+.car {
+  fill: rgb(255 255 255 / 0.1);
+  stroke: rgb(255 255 255 / 0.75);
+  stroke-width: 1.4;
+}
+
+.plate {
+  fill: rgb(255 255 255 / 0.85);
+}
+
+/* Kamera karesinde yukarıdan aşağı inen ince tarama çizgisi. */
+.scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: scan 3.6s linear infinite paused;
+}
+
+.scan::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(154 161 227 / 0.7), transparent);
+}
+
+.cameraLabel {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.7rem;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  background: rgb(6 8 34 / 0.75);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.rows {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3rem;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  font-size: 0.9rem;
+}
+
+/* M12: satır belirirken üst kenarda süpüren çizgi. */
+.sweep {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--color-navy-300);
+  transform-origin: left center;
+}
+
+.device {
+  min-width: 0;
+  color: rgb(255 255 255 / 0.88);
+}
+
+.status {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.dot {
+  position: relative;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--color-navy-300);
+}
+
+.dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-navy-300);
+  opacity: 0;
+  animation: ping 3s var(--ease-apple) calc(var(--i, 0) * 0.6s) infinite paused;
+}
+
+.board[data-running='true'] .scan,
+.board[data-running='true'] .dot::after {
+  animation-play-state: running;
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  40%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan {
+    display: none;
+  }
+
+  .dot::after {
+    animation: none;
+  }
+
+  .toggle {
+    transition: none;
+  }
+}

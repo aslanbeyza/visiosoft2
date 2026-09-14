@@ -36,6 +36,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  min-height: 2.75rem;
   border-radius: 0.25rem;
   color: var(--color-navy-600);
   font-size: 0.9rem;
@@ -69,13 +70,23 @@
   margin: 0;
 }
 
+/* Değer ve etiket iki alt satırı paylaşır: bir değer iki satıra kırılsa da etiketler aynı hizada kalır. */
 .figure {
   position: relative;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  gap: 0.6rem;
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  row-gap: 0.6rem;
   padding-top: 1.35rem;
+}
+
+.figure .name {
+  grid-row: 2;
+}
+
+.figure .value {
+  grid-row: 1;
+  align-self: end;
 }
 
 .hairline {

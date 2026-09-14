@@ -1,0 +1,655 @@
+.root {
+  --pf-line: var(--color-navy-600);
+  --pf-line-soft: #a9afd0;
+  --pf-fill: #fff;
+  --pf-lane: #e9ecf2;
+  --pf-kerb: #dfe2ea;
+  --pf-dash: #b8bdd6;
+  --pf-cone: rgb(23 27 153 / 0.12);
+  --pf-cone-line: rgb(23 27 153 / 0.45);
+  --pf-accent: var(--color-navy-600);
+  --pf-ink: var(--color-corp-ink);
+  --pf-body: var(--color-corp-body);
+  --pf-muted: var(--color-corp-muted);
+  --pf-car: #fff;
+  --pf-glass: var(--color-navy-100);
+  --pf-wheel: var(--color-navy-900);
+  --pf-shadow: rgb(15 20 48 / 0.16);
+  --pf-kiosk: var(--color-navy-950);
+  --pf-red: #b3202e;
+  --pf-on-front: rgb(255 255 255 / 0.85);
+  --pf-screen-dark: var(--color-navy-950);
+  --pf-led-text: var(--color-navy-300);
+  --pf-lamp: var(--color-navy-300);
+  --pf-track: var(--color-corp-line);
+  --pf-label-bg: #fff;
+  /* Etkin olmayan adım başlığı ve açıklaması: beyazda ≥5:1 (AA); opaklıkla soluklaştırılmaz. */
+  --pf-step-idle-title: var(--color-corp-muted);
+  --pf-step-idle-text: var(--color-corp-muted);
+  --pf-length: 1.6;
+
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  color: var(--pf-ink);
+}
+
+.root[data-tone='dark'] {
+  --pf-line: var(--color-navy-300);
+  --pf-line-soft: rgb(255 255 255 / 0.22);
+  --pf-fill: var(--color-navy-900);
+  --pf-lane: #0d1033;
+  --pf-kerb: #10143f;
+  --pf-dash: rgb(255 255 255 / 0.35);
+  --pf-cone: rgb(154 161 227 / 0.16);
+  --pf-cone-line: rgb(154 161 227 / 0.55);
+  --pf-accent: var(--color-navy-300);
+  --pf-ink: #fff;
+  --pf-body: rgb(255 255 255 / 0.82);
+  --pf-muted: rgb(255 255 255 / 0.66);
+  /* navy-950 (#060822) üzerinde başlık ~11:1, açıklama ~9:1. */
+  --pf-step-idle-title: rgb(255 255 255 / 0.76);
+  --pf-step-idle-text: rgb(255 255 255 / 0.7);
+  --pf-car: var(--color-navy-900);
+  --pf-glass: rgb(255 255 255 / 0.18);
+  --pf-wheel: #05061c;
+  --pf-shadow: rgb(0 0 0 / 0.4);
+  --pf-kiosk: #05061c;
+  --pf-on-front: rgb(255 255 255 / 0.85);
+  --pf-screen-dark: #05061c;
+  --pf-track: rgb(255 255 255 / 0.14);
+  --pf-label-bg: var(--color-navy-950);
+}
+
+/* Kaydırma modu: sahne bir kaydırma boyu sabit kalır. */
+.root[data-pinned='true'] {
+  height: calc(var(--pf-length) * 100svh);
+}
+
+/*
+ * --pf-stage-top: sabit sahnenin üst boşluğu (navbar payı). Tanımlanmazsa ≥1024px'te 6rem, kısa masaüstünde
+ * (max-height 760px) 5rem kullanılır. Sahnenin yanında kendi içeriğini sabitleyen sayfa değişkeni ORTAK ATADA
+ * tanımlayıp kendi kuralında da `padding-top: var(--pf-stage-top)` kullanırsa ikisi hep hizalı kalır.
+ */
+.root[data-pinned='true'] .stage {
+  position: sticky;
+  top: 0;
+  display: grid;
+  align-content: center;
+  height: 100svh;
+  padding: var(--pf-stage-top, 5.5rem) 0 1.5rem;
+}
+
+.root[data-pinned='true'] .scene {
+  width: min(100%, calc((100svh - 19rem) * 1200 / 520));
+  margin-inline: auto;
+}
+
+/* Kapsayıcı: vurgu etiketinin boyu görünüm alanına değil sahnenin genişliğine bağlıdır (dar sahnede küçük kalır). */
+.scene {
+  position: relative;
+  width: 100%;
+  container-type: inline-size;
+}
+
+/* Sahne görünüm kutusuna kırpılır: şeride soldan giren/sağdan çıkan araç komşu içeriğin üstüne taşmaz. */
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Zemin */
+.lane {
+  fill: var(--pf-lane);
+}
+
+.kerb {
+  fill: var(--pf-kerb);
+}
+
+.kerbLine {
+  stroke: var(--pf-line-soft);
+  stroke-width: 2;
+}
+
+.dash {
+  stroke: var(--pf-dash);
+  stroke-width: 3;
+  stroke-dasharray: 34 26;
+  stroke-linecap: round;
+}
+
+/* Cihaz gövdeleri: yüzey dolgu + lacivert 2px çizgi */
+.body {
+  fill: var(--pf-fill);
+  stroke: var(--pf-line);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.fillLine {
+  fill: var(--pf-line);
+}
+
+.detail {
+  stroke: var(--pf-line);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+
+.detailFill {
+  fill: var(--pf-line);
+  opacity: 0.5;
+}
+
+.bracketLine {
+  stroke: var(--pf-line);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.lensRing {
+  fill: none;
+  stroke: var(--pf-line);
+  stroke-width: 2;
+}
+
+.cable {
+  stroke: var(--pf-line);
+  stroke-width: 1.5;
+  opacity: 0.35;
+}
+
+.pulse {
+  stroke: var(--pf-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.cone {
+  fill: var(--pf-cone);
+  stroke: var(--pf-cone-line);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.ledScreen {
+  fill: var(--pf-screen-dark);
+}
+
+.ledText {
+  fill: var(--pf-led-text);
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.ledArrow {
+  fill: none;
+  stroke: var(--pf-led-text);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.kioskBody {
+  fill: var(--pf-kiosk);
+  stroke: var(--pf-line);
+  stroke-width: 2;
+}
+
+/* Kiosk ön paneli: ürün rengi (yalnızca ürün siluetinde kırmızı). */
+.kioskFront {
+  fill: var(--pf-red);
+}
+
+.onFront {
+  fill: none;
+  stroke: var(--pf-on-front);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.onFrontFill {
+  fill: var(--pf-on-front);
+}
+
+.vent {
+  stroke: rgb(255 255 255 / 0.32);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.stripe {
+  fill: var(--pf-accent);
+}
+
+/* Bariyer kolu: pivot (964, 288) etrafında döner; açı CSS değişkeniyle motion value'dan gelir. */
+.arm {
+  transform: rotate(calc(var(--arm, 0) * 1deg));
+  transform-origin: 964px 288px;
+  transform-box: view-box;
+}
+
+/* Araç */
+.shadow {
+  fill: var(--pf-shadow);
+}
+
+.car {
+  fill: var(--pf-car);
+  stroke: var(--pf-line);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.glass {
+  fill: var(--pf-glass);
+}
+
+.lamp {
+  fill: var(--pf-lamp);
+}
+
+.wheel {
+  fill: var(--pf-wheel);
+  stroke: var(--pf-line);
+  stroke-width: 2;
+}
+
+.hub {
+  fill: var(--pf-fill);
+}
+
+/* Plaka etiketi */
+.plateLeader {
+  stroke: var(--pf-accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+  stroke-linecap: round;
+}
+
+.plate {
+  fill: var(--pf-fill);
+  stroke: var(--pf-accent);
+  stroke-width: 2;
+}
+
+.plateText {
+  fill: var(--pf-ink);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: 1.5px;
+  text-anchor: middle;
+  font-variant-numeric: tabular-nums;
+}
+
+.corner {
+  fill: none;
+  stroke: var(--pf-accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Vurgu: seçili cihaz dışındaki her şey söner. */
+.svg [data-dim] {
+  transition: opacity 0.6s var(--ease-apple);
+}
+
+.svg[data-highlight] [data-dim] {
+  opacity: 0.28;
+}
+
+.svg[data-highlight='camera'] [data-device='camera'],
+.svg[data-highlight='kiosk'] [data-device='kiosk'],
+.svg[data-highlight='barrier'] [data-device='barrier'],
+.svg[data-highlight='controlBox'] [data-device='controlBox'],
+.svg[data-highlight='ledPanel'] [data-device='ledPanel'],
+.svg[data-highlight='pole'] [data-device='pole'] {
+  opacity: 1;
+}
+
+.leader {
+  fill: none;
+  stroke: var(--pf-accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.leaderDot {
+  fill: var(--pf-accent);
+}
+
+/*
+ * Dar sahne işareti: cihazın çevresindeki çerçeve (etiket şeridin altında). Sahne ~⅓ ölçekte çizildiği için çizgiler
+ * vector-effect ile ekran pikselinde kalın kalır; zemin renkli hale çerçeveyi ondan geçen çizgilerden ayırır.
+ * Dolgu yoktur: cihazın yüzü ve simgesi çerçevenin içinden görünür.
+ */
+.markerHalo {
+  fill: none;
+  stroke: var(--pf-label-bg);
+  stroke-width: 7;
+  vector-effect: non-scaling-stroke;
+}
+
+.markerRing {
+  fill: none;
+  stroke: var(--pf-accent);
+  stroke-width: 3.5;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Dış çizgi: halenin dışında ince vurgu halkası; açık ve koyu zeminde halkayı cihaz çizgilerinden ayırır. */
+.markerOuter {
+  fill: none;
+  stroke: var(--pf-accent);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+/*
+ * Vurgu etiketi. Dış span yalnızca konum ve çapa ötelemesini taşır (statik); iç kapsül (.labelPill) framer-motion ile
+ * opacity/y alır. İkisi ayrı olduğu için hareketin satır içi transform'u çapanın translate'ini ezmez.
+ */
+.deviceLabel {
+  position: absolute;
+  display: flex;
+  white-space: nowrap;
+  transform: translate(0.35rem, -50%);
+  pointer-events: none;
+}
+
+.deviceLabel[data-anchor='end'] {
+  transform: translate(calc(-100% - 0.35rem), -50%);
+}
+
+/* Ölçüler em cinsindendir: yazı boyu sahne genişliğiyle (cqi) ölçeklenince kapsül de orantılı kalır. */
+.labelPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.35em;
+  padding: 0 0.9em 0 1.05em;
+  border: 1px solid var(--pf-accent);
+  border-radius: 0.5rem;
+  background: var(--pf-label-bg);
+  color: var(--pf-ink);
+  font-size: clamp(0.7rem, 0.97cqi, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.deviceLabel[data-anchor='end'] .labelPill {
+  padding: 0 1.05em 0 0.9em;
+}
+
+/* Dar sahne: etiket şeridin altında, akışta; uzun adlar sarılır, taşmaz. */
+.labelBelow {
+  display: flex;
+  min-width: 0;
+  margin-top: 0.6rem;
+}
+
+.labelBelow .labelPill {
+  max-width: 100%;
+  min-height: 2rem;
+  padding: 0.3rem 0.8rem 0.3rem 0.65rem;
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.labelDot {
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--pf-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pf-accent) 30%, transparent);
+}
+
+/* Alt satır: açıklama ve duraklat düğmesi */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.caption {
+  margin: 0;
+  color: var(--pf-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.toggle {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.4rem;
+  padding: 0 0.8rem;
+  border: 1px solid var(--pf-track);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--pf-ink);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.35s var(--ease-apple),
+    color 0.35s var(--ease-apple);
+}
+
+.toggle:hover {
+  border-color: var(--pf-accent);
+  color: var(--pf-accent);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--pf-accent);
+  outline-offset: 3px;
+}
+
+.toggleIcon {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+/* Adım etiketleri (DOM) */
+.stepsWrap {
+  position: relative;
+  margin-top: 1.25rem;
+}
+
+.steps {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.track {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  overflow: hidden;
+  background: var(--pf-track);
+}
+
+.trackFill {
+  position: absolute;
+  inset: 0;
+  background: var(--pf-accent);
+  transform-origin: left center;
+}
+
+.step {
+  min-width: 0;
+}
+
+.stepButton,
+.stepStatic {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.75rem;
+  row-gap: 0.15rem;
+  width: 100%;
+  padding: 0.7rem 0.5rem 0.7rem 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.stepButton {
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.stepButton:focus-visible {
+  outline: 2px solid var(--pf-accent);
+  outline-offset: 2px;
+}
+
+.stepIndex {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid var(--pf-track);
+  border-radius: 50%;
+  color: var(--pf-muted);
+  font-size: 0.72rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background-color 0.45s var(--ease-apple),
+    border-color 0.45s var(--ease-apple),
+    color 0.45s var(--ease-apple);
+}
+
+.stepTitle {
+  align-self: center;
+  color: var(--pf-step-idle-title);
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  transition: color 0.45s var(--ease-apple);
+}
+
+.stepText {
+  color: var(--pf-step-idle-text);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+  transition: color 0.45s var(--ease-apple);
+}
+
+.step[data-state='done'] .stepIndex {
+  border-color: var(--pf-accent);
+  color: var(--pf-accent);
+}
+
+.step[data-state='active'] .stepIndex {
+  border-color: var(--pf-accent);
+  background: var(--pf-accent);
+  color: #fff;
+}
+
+.root[data-tone='dark'] .step[data-state='active'] .stepIndex {
+  color: var(--color-navy-950);
+}
+
+.step[data-state='active'] .stepTitle,
+.step[data-state='done'] .stepTitle {
+  color: var(--pf-ink);
+}
+
+.step[data-state='active'] .stepText {
+  color: var(--pf-body);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .steps {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+
+  .stepButton,
+  .stepStatic {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0.5rem 0.5rem 0.25rem 0;
+  }
+
+  .stepIndex {
+    grid-row: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .stepText {
+    font-size: 0.82rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .root[data-pinned='true'] .stage {
+    padding-top: var(--pf-stage-top, 6rem);
+  }
+}
+
+/* Kısa masaüstü: sahne küçülür, etiket metinleri gizlenir (ekran okuyucuda kalır). */
+@media (min-width: 1024px) and (max-height: 760px) {
+  .root[data-pinned='true'] .stage {
+    padding-top: var(--pf-stage-top, 5rem);
+  }
+
+  .root[data-pinned='true'] .scene {
+    width: min(100%, calc((100svh - 16rem) * 1200 / 520));
+  }
+
+  .root[data-pinned='true'] .stepText {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svg [data-dim],
+  .stepIndex,
+  .stepTitle,
+  .stepText,
+  .toggle {
+    transition: none;
+  }
+}

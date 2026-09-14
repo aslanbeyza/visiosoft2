@@ -66,8 +66,11 @@
   min-width: 0;
 }
 
+/* 28px logo, 44px dokunma hedefi içinde dikey ortalanır; aşağıdaki cümle aralığı bu farkı dengeler. */
 .brandLink {
   display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0.25rem;
 }
 
@@ -80,7 +83,7 @@
 
 .statement {
   max-width: 24ch;
-  margin: 1.75rem 0 0;
+  margin: 1.25rem 0 0;
   color: #fff;
   font-size: clamp(1.45rem, 1.2vw + 1.05rem, 2.125rem);
   font-weight: 600;
@@ -94,6 +97,23 @@
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 2rem;
+}
+
+/*
+ * Sayfa kendi çağrı bandıyla bitiyorsa (CtaBand / HomeCta → data-page-cta) aynı iki düğme footer'da tekrarlanmaz.
+ * Footer MainLayout'ta main'in kardeşidir; yalnızca sayfa içeriğindeki bant sayılır. :has desteklenmezse düğmeler görünür kalır.
+ */
+:global(#main-content):has([data-page-cta]) ~ .footer .actions {
+  display: none;
+}
+
+/* Düğmeler kalkınca marka bloğu yalnızca logo + cümledir; aralıklar sıkılaşır, üst satır boş görünmez. */
+:global(#main-content):has([data-page-cta]) ~ .footer .statement {
+  margin-top: 1rem;
+}
+
+:global(#main-content):has([data-page-cta]) ~ .footer .top {
+  row-gap: 2.5rem;
 }
 
 .channels {
@@ -180,7 +200,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  margin-top: 1.75rem;
+  min-height: 2.75rem;
+  margin-top: 1.25rem;
   border-radius: 0.25rem;
   color: #fff;
   font-size: 0.9375rem;
@@ -220,15 +241,18 @@
 
 .links {
   display: grid;
-  gap: 0.125rem;
+  justify-items: start;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* 44px dokunma hedefi; metin dikeyde ortalanır, alt çizgi metnin hemen altında kalır. */
 .link {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   padding-block: 0.3rem;
   color: var(--footer-text);
   font-size: 0.9375rem;
@@ -242,7 +266,7 @@
   content: '';
   position: absolute;
   right: 0;
-  bottom: 0.2rem;
+  bottom: calc(50% - 0.825em);
   left: 0;
   height: 1px;
   background: currentColor;
@@ -352,8 +376,13 @@
   list-style: none;
 }
 
+/*
+ * Satırdaki en uzun adres li'leri eşit yüksekliğe uzatır; align-content: start olmazsa kısa adresli
+ * sütunda fazla boşluk etiket satırına dağılır ve ortalanan pin + etiket aşağı kayar (#71, Teknopark).
+ */
 .location {
   display: grid;
+  align-content: start;
   gap: 0.35rem;
   min-width: 0;
 }
@@ -413,7 +442,7 @@
 }
 
 .legalLink {
-  padding-block: 0.4rem;
+  padding-block: 0;
   color: var(--footer-muted);
   font-size: 0.8125rem;
 }
@@ -423,7 +452,7 @@
   align-items: center;
   justify-self: start;
   gap: 0.5rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0 0.9rem;
   border: 1px solid var(--footer-line);
   border-radius: 0.5rem;
@@ -572,6 +601,13 @@
 
   .toTop {
     grid-column: 3;
+  }
+}
+
+/* 1024–1279px arası iletişim sütunu dar kalır; kanallar tek sütuna iner ki e-posta ve numara bölünmesin. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .channels {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

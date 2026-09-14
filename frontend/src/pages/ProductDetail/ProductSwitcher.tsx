@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { revealEase } from '../../components/Reveal/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import type { HardwareSlug } from '../HardwareProduct/products.ts'
-import { switcherCopy, switcherItems } from './productDetailCopy.ts'
+import { detailCopy, switcherItemsFor } from './detailShared.ts'
 import styles from './ProductSwitcher.module.css'
 
 type ProductSwitcherProps = {
@@ -31,6 +31,19 @@ export default function ProductSwitcher({ current, hidden = false }: ProductSwit
     wrap.dataset.fadeEnd = String(max - list.scrollLeft > 4)
   }
 
+  // Klavyeyle odaklanan bağlantı yatay listede görünür alana kaydırılır; kenar geçişleri halkayı örtmez.
+  // scrollIntoView kullanılmaz: sayfanın scroll-padding-top değeri yapışkan çubukta dikey kaymaya yol açar.
+  const revealLink = (link: HTMLElement) => {
+    const list = listRef.current
+    if (!list || list.scrollWidth <= list.clientWidth) return
+    const pad = parseFloat(getComputedStyle(document.documentElement).fontSize) * 2.5
+    const box = list.getBoundingClientRect()
+    const rect = link.getBoundingClientRect()
+    const delta =
+      rect.left < box.left + pad ? rect.left - box.left - pad : rect.right > box.right - pad ? rect.right - box.right + pad : 0
+    if (delta !== 0) list.scrollBy({ left: delta, behavior: reduce ? 'auto' : 'smooth' })
+  }
+
   useEffect(() => {
     const list = listRef.current
     if (!list) return
@@ -46,7 +59,7 @@ export default function ProductSwitcher({ current, hidden = false }: ProductSwit
   return (
     <div className={styles.sticky}>
       <motion.nav
-        aria-label={switcherCopy.label}
+        aria-label={detailCopy.switcher.label}
         className={styles.bar}
         initial={false}
         animate={hidden ? { y: '-100%', opacity: 0 } : { y: '0%', opacity: 1 }}
@@ -55,12 +68,12 @@ export default function ProductSwitcher({ current, hidden = false }: ProductSwit
       >
         <div className={styles.inner}>
           <span className={styles.heading} aria-hidden="true">
-            {switcherCopy.heading}
+            {detailCopy.switcher.heading}
           </span>
 
           <div ref={wrapRef} className={styles.scrollWrap} data-fade-start="false" data-fade-end="false">
             <ul ref={listRef} className={styles.list} onScroll={updateEdges} onPointerLeave={() => setHovered(null)}>
-              {switcherItems.map((item) => {
+              {switcherItemsFor(current).map((item) => {
                 const isActive = item.slug === current
                 return (
                   <li key={item.slug} className={styles.item}>
@@ -69,7 +82,10 @@ export default function ProductSwitcher({ current, hidden = false }: ProductSwit
                       className={styles.link}
                       aria-current={isActive ? 'page' : undefined}
                       onPointerEnter={() => setHovered(item.slug)}
-                      onFocus={() => setHovered(item.slug)}
+                      onFocus={(event) => {
+                        setHovered(item.slug)
+                        revealLink(event.currentTarget)
+                      }}
                       onBlur={() => setHovered(null)}
                     >
                       {item.label}
@@ -98,7 +114,7 @@ export default function ProductSwitcher({ current, hidden = false }: ProductSwit
           </div>
 
           <Link to={path('hardware-products')} className={styles.all}>
-            {switcherCopy.all}
+            {detailCopy.switcher.all}
             <svg viewBox="0 0 24 24" className={styles.arrow} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>

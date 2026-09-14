@@ -1,0 +1,67 @@
+/* Vitrin sayfalarında ortak bölüm düzenleri */
+.stack {
+  display: grid;
+  gap: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+/* Ortalanmış başlıklı yığın: SectionHeading'in max-width kutusu da ortaya gelir */
+.stackCenter {
+  justify-items: center;
+}
+
+.stackCenter > * {
+  max-width: 100%;
+}
+
+.split {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.splitCopy {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 38rem;
+  min-width: 0;
+}
+
+.splitMedia {
+  min-width: 0;
+}
+
+.anchor {
+  scroll-margin-top: 4.5rem;
+}
+
+.panel {
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 16px 40px -20px rgb(15 20 48 / 0.28);
+}
+
+.note {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-corp-muted);
+}
+
+@media (min-width: 1024px) {
+  .split {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  }
+
+  .split[data-flip='true'] {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  }
+
+  .split[data-flip='true'] > .splitCopy {
+    order: 2;
+  }
+}

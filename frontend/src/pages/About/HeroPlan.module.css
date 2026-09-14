@@ -1,0 +1,88 @@
+.stage {
+  position: relative;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(60% 55% at 60% 30%, rgb(23 27 153 / 0.06), rgb(23 27 153 / 0) 70%),
+    var(--color-corp-surface);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 592 / 440;
+  overflow: visible;
+}
+
+.ground {
+  fill: #fff;
+  stroke: var(--color-corp-line);
+  stroke-width: 1.5;
+}
+
+.ink {
+  stroke: var(--color-corp-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.lane {
+  fill: none;
+  stroke: #c9cedc;
+  stroke-width: 1.6;
+  stroke-dasharray: 14 12;
+}
+
+.parked {
+  fill: #fff;
+  stroke: #b7bdcd;
+  stroke-width: 1.5;
+}
+
+.bayFill {
+  fill: var(--color-navy-50);
+}
+
+.bayLine {
+  fill: none;
+  stroke: var(--color-navy-600);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.carBody {
+  fill: var(--color-navy-600);
+}
+
+.carGlass {
+  fill: var(--color-navy-100);
+}
+
+.carRear {
+  fill: var(--color-navy-300);
+}
+
+.carRoof {
+  fill: var(--color-navy-700);
+}
+
+.poleLine {
+  fill: none;
+  stroke: var(--color-corp-ink);
+  stroke-width: 1.6;
+}
+
+.sign {
+  fill: var(--color-navy-600);
+}
+
+.signP {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

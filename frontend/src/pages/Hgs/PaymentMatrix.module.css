@@ -1,0 +1,37 @@
+/* Hero ile aynı gece tonunda devam eder; üstte ince bir ayırıcı çizgi. */
+.section {
+  padding-block: 0 clamp(4rem, 7vw, 6.5rem);
+}
+
+.head {
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.grid {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+/* Sahne ve altındaki rota tek sütun: seçim sonucu ile adımları birlikte okunur. */
+.stage {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  min-width: 0;
+}
+
+/* Rota şeridi sahneden ince bir çizgiyle ayrılır. */
+.route {
+  padding-top: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 23rem) minmax(0, 1fr);
+    align-items: stretch;
+    column-gap: clamp(2.5rem, 4vw, 4rem);
+  }
+}

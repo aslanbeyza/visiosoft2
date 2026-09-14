@@ -2,7 +2,6 @@
   position: relative;
   background: #fff;
   color: var(--color-corp-ink);
-  scroll-margin-top: 5.5rem;
 }
 
 .section[data-tone='surface'] {

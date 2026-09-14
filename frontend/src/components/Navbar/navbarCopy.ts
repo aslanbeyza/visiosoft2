@@ -8,12 +8,14 @@ export const navbarCopy = {
   submenu: (label: string) => `${label} alt menüsü`,
   contactTitle: 'Bize ulaşın',
   whatsappHint: 'WhatsApp, yeni sekmede açılır',
+  accessoryLabel: 'Aksesuar',
 }
 
 export type MenuIntro = {
   eyebrow: string
   title: string
   text: string
+  /** Sol sütundaki "tümünü gör" bağlantısı (sonuna ok ikonu eklenir). */
   linkLabel: string
 }
 
@@ -21,20 +23,40 @@ export const menuIntros: Record<'hardware' | 'software', MenuIntro> = {
   hardware: {
     eyebrow: 'Donanım',
     title: 'Sahaya uygun otopark donanımları',
-    text: 'Kiosk, kontrol kutusu, kabin ve kamera ekipmanları aynı sistem dilinde çalışır.',
-    linkLabel: 'Tüm donanımlar',
+    text: 'Kiosk, kontrol ünitesi, kabin ve kamera ekipmanları aynı sistemle çalışır.',
+    linkLabel: 'Tüm donanımları görüntüle',
   },
   software: {
-    eyebrow: 'Yazılım',
+    eyebrow: 'Park Yazılım',
     title: 'Tek panelden otopark yönetimi',
-    text: 'Oturumlar, tahsilat, abonelik ve cihazlar merkezi panelden yönetilir; sahadaki durum anlık izlenir.',
+    text: 'Oturum, tahsilat, abonelik ve cihazlar merkezi panelden yönetilir.',
     linkLabel: 'Tüm yazılım ürünleri',
   },
 }
 
-/** Donanım menüsünün son hücresindeki keşif yönlendirmesi. */
-export const discoveryPromo = {
-  eyebrow: 'Keşif',
-  title: 'Ücretsiz keşif',
-  text: 'Giriş-çıkış, tarife ve donanım ihtiyacı yerinde netleşir.',
+export type MenuCta = {
+  title: string
+  text: string
+  linkLabel: string
+  route: string
+  /** Yönlendirmenin adımları (sağ sütunu kart ızgarasıyla dengeler; 1280px altında gizlenir). */
+  steps?: { caption: string; items: string[] }
+}
+
+/** Mega menünün sağ sütunundaki küçük yönlendirme; navbar CTA'larını tekrar etmez. */
+export const menuCtas: Record<'hardware' | 'software', MenuCta> = {
+  hardware: {
+    title: 'Hangi donanım size uygun?',
+    text: 'Giriş-çıkış yapınıza göre sistemi birlikte planlayalım.',
+    linkLabel: 'Sistemini Oluştur',
+    route: 'parking-quote-engine.index',
+    // Teklif motorunun adımları (ParkingQuote/quoteCopy.ts: hero ve setup bölümleri).
+    steps: { caption: '3 soruda kurgu', items: ['Ödeme altyapısı', 'Geçiş kontrolü', 'Kurulum'] },
+  },
+  software: {
+    title: 'Hangi çözüm size uygun?',
+    text: 'Klasik otopark yönetimiyle farkları tek tabloda görün.',
+    linkLabel: 'Karşılaştırmayı İncele',
+    route: 'comparison',
+  },
 }

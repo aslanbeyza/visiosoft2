@@ -1,0 +1,43 @@
+/* Gece hero zeminine ince mühendislik ızgarası; PageHero'nun night kuralını geçmek için öğe+sınıf+nitelik seçicisi. */
+section.hero[data-tone='night'] {
+  background:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px) 0 0 / 100% 4rem,
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px) 0 0 / 4rem 100%,
+    var(--color-navy-950);
+}
+
+/* Sayfanın tüm bölümleri koyu; SubNav navbar'la birlikte yukarı kaydığında geride kalan yuvası beyaz şerit göstermesin. */
+.page {
+  background: var(--color-navy-950);
+}
+
+.heading {
+  margin-bottom: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.layer {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.layerCopy {
+  display: grid;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.layerFlow {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .layer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .layer[data-flip='true'] .layerCopy {
+    order: 2;
+  }
+}

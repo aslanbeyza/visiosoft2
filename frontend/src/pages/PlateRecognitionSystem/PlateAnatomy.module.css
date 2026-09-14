@@ -1,0 +1,188 @@
+.root {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.canvas {
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+
+.ink,
+.body,
+.glass,
+.lamp,
+.lock,
+.leader {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ink {
+  stroke: var(--color-navy-600);
+  stroke-width: 2.5;
+}
+
+.grid {
+  stroke: var(--color-corp-line);
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+}
+
+.body {
+  stroke: var(--color-corp-ink);
+  stroke-width: 2;
+}
+
+.glass {
+  stroke: var(--color-navy-300);
+  stroke-width: 2;
+}
+
+.lamp {
+  stroke: var(--color-corp-muted);
+  stroke-width: 4;
+}
+
+.plateSmall {
+  fill: #fff;
+  stroke: var(--color-corp-ink);
+  stroke-width: 1.5;
+}
+
+.lock {
+  stroke: var(--color-navy-600);
+  stroke-width: 3;
+}
+
+.leader {
+  stroke: var(--color-navy-300);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 5;
+}
+
+.plate {
+  fill: #fff;
+  stroke: var(--color-corp-ink);
+  stroke-width: 2.5;
+}
+
+.band {
+  fill: var(--color-navy-600);
+}
+
+.tr {
+  fill: #fff;
+  font-size: 13px;
+  font-weight: 650;
+  text-anchor: middle;
+}
+
+.plateText {
+  fill: var(--color-corp-ink);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-anchor: middle;
+  font-variant-numeric: tabular-nums;
+}
+
+.cell {
+  fill: rgb(23 27 153 / 0.06);
+  stroke: var(--color-navy-600);
+  stroke-width: 1.5;
+}
+
+.stages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stage {
+  position: relative;
+  display: grid;
+  gap: 0.2rem;
+  padding-top: 0.85rem;
+  color: var(--color-corp-muted);
+}
+
+.stage::before,
+.stage::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-corp-line);
+}
+
+.stage::after {
+  background: var(--color-navy-600);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-apple);
+}
+
+.stage[data-on='true']::after {
+  transform: scaleX(1);
+}
+
+.index {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+}
+
+.stageTitle {
+  color: var(--color-corp-ink);
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.stage[data-on='true'] .index {
+  color: var(--color-navy-600);
+}
+
+.stageText {
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.note {
+  color: var(--color-corp-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 479px) {
+  .stages {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage::after {
+    transition: none;
+  }
+}

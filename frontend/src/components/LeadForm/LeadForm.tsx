@@ -1,137 +1,128 @@
-import { useState } from 'react'
-import type { FormEvent } from 'react'
+import type { ReactNode } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import type { Variants } from 'framer-motion'
 import { submitLead } from '../../services/index.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
-import Button from '../Button/index.ts'
+import { useTurnstile } from '../../hooks/useTurnstile/index.ts'
+import { Field, Form, FormRow, TextInput, Textarea } from '../Form/index.ts'
+import { revealEase } from '../Reveal/index.ts'
+import { buildLeadBody } from './buildLeadBody.ts'
+import type { LeadExtraFields, LeadKind } from './buildLeadBody.ts'
+import ParkingFields from './ParkingFields.tsx'
+import { leadFormCopy as copy } from './leadFormCopy.ts'
 import styles from './LeadForm.module.css'
 
-type LeadKind = 'quote' | 'parking-quote-engine' | 'discovery'
-
-type LeadFormProps = {
+export type LeadFormProps = {
   kind: LeadKind
-  extraFields?: 'address' | 'parking'
+  extraFields?: LeadExtraFields
+  submitLabel?: string
+  successTitle?: string
+  successBody?: string
+  /** Ek mesaj alanında gösterilen örnek metin. */
+  messageExample?: string
+  /** Formun erişilebilir adı (ör. kart başlığı metni). */
+  label?: string
+  id?: string
+  className?: string
 }
 
-export default function LeadForm({ kind, extraFields }: LeadFormProps) {
-  const { t, config } = useLocale()
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState('')
+const stack: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } } }
+const row: Variants = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: revealEase } },
+}
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const form = new FormData(event.currentTarget)
-    const body: Record<string, unknown> = {
-      name: String(form.get('name') || ''),
-      email: String(form.get('email') || ''),
-      phone: String(form.get('phone') || ''),
-      company: String(form.get('company') || ''),
-      message: String(form.get('message') || ''),
-      website_url: String(form.get('website_url') || ''),
-      'cf-turnstile-response': String(form.get('cf-turnstile-response') || 'local-dev'),
-    }
+function Row({ children }: { children: ReactNode }) {
+  return (
+    <motion.div className={styles.row} variants={row}>
+      {children}
+    </motion.div>
+  )
+}
 
-    if (extraFields === 'address') {
-      body.address = String(form.get('address') || '')
-    }
+/** Teklif / keşif talep formu: Form kiti + Turnstile; alanlar görünüme girince sırayla yükselir. */
+export default function LeadForm({ kind, extraFields, submitLabel, successTitle, successBody, messageExample, label, id, className }: LeadFormProps) {
+  const reduce = Boolean(useReducedMotion())
+  const { config } = useLocale()
+  const siteKey = config?.turnstile_site_key || undefined
+  const { ref: turnstileRef, token, ready, error: turnstileFailed, reset: resetTurnstile } = useTurnstile(siteKey)
 
-    if (extraFields === 'parking') {
-      body.project_type = String(form.get('project_type') || 'paid')
-      body.needs_barrier = form.get('needs_barrier') === 'on'
-      body.needs_turnkey_installation = form.get('needs_turnkey_installation') === 'on'
-      body.payment_methods = form.getAll('payment_methods')
-      body.products = [
-        { id: 'anpr', name: t('Plaka Tanıma Sistemi (PTS)'), qty: 1, isFree: false },
-      ]
-    }
+  const onSubmit = (data: FormData) => submitLead(kind, buildLeadBody(data, extraFields, token))
 
-    setLoading(true)
-    setError('')
-    setMessage('')
-
-    try {
-      const result = await submitLead(kind, body)
-      setMessage(result.message)
-      event.currentTarget.reset()
-    } catch (err) {
-      setError(err instanceof Error ? err.message : t('Bir hata oluştu. Lütfen tekrar deneyin.'))
-    } finally {
-      setLoading(false)
-    }
-  }
+  const note = siteKey && turnstileFailed ? copy.turnstileError : siteKey && !ready ? copy.turnstileWaiting : copy.required
 
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.grid}>
-        <label>
-          {t('Ad Soyad')}
-          <input name="name" required />
-        </label>
-        <label>
-          {t('Telefon')}
-          <input name="phone" required />
-        </label>
-        <label>
-          {t('E-posta')}
-          <input name="email" type="email" required />
-        </label>
-        <label>
-          {t('Şirket Adı (Opsiyonel)')}
-          <input name="company" />
-        </label>
-      </div>
-
-      {extraFields === 'address' ? (
-        <label>
-          {t('Adres')}
-          <textarea name="address" rows={3} required placeholder={t('discovery_note_placeholder')} />
-        </label>
-      ) : null}
-
-      {extraFields === 'parking' ? (
-        <div className={styles.extra}>
-          <label>
-            {t('Proje tipi')}
-            <select name="project_type" defaultValue="paid">
-              <option value="paid">{t('Ücretli otopark')}</option>
-              <option value="subscription">{t('Sadece abonelik')}</option>
-            </select>
-          </label>
-          <label className={styles.check}>
-            <input type="checkbox" name="needs_barrier" /> {t('Bariyer')}
-          </label>
-          <label className={styles.check}>
-            <input type="checkbox" name="needs_turnkey_installation" /> {t('Anahtar teslim kurulum')}
-          </label>
-          <label className={styles.check}>
-            <input type="checkbox" name="payment_methods" value="card" defaultChecked /> {t('Kart')}
-          </label>
-          <label className={styles.check}>
-            <input type="checkbox" name="payment_methods" value="hgs" /> {t('HGS')}
-          </label>
-        </div>
-      ) : null}
-
-      <label>
-        {t('Ek Mesaj (Opsiyonel)')}
-        <textarea name="message" rows={3} />
-      </label>
-
-      <div className={styles.honeypot}>
-        <label htmlFor="website_url">Website</label>
-        <input id="website_url" name="website_url" autoComplete="off" />
-      </div>
-
-      {config?.turnstile_site_key ? (
-        <div className="cf-turnstile" data-sitekey={config.turnstile_site_key} />
-      ) : null}
-
-      {error ? <p className={styles.error}>{error}</p> : null}
-      {message ? <p className={styles.ok}>{message}</p> : null}
-
-      <Button type="submit" disabled={loading}>
-        {loading ? '...' : t('Teklif İste')}
-      </Button>
-    </form>
+    <Form
+      id={id}
+      className={className}
+      label={label}
+      onSubmit={onSubmit}
+      submitLabel={submitLabel ?? copy.submit}
+      sendingLabel={copy.sending}
+      successTitle={successTitle ?? copy.successTitle}
+      successBody={successBody ?? copy.successBody}
+      errorFallback={copy.errorFallback}
+      resetLabel={copy.reset}
+      hiddenValues={{ 'cf-turnstile-response': token }}
+      busy={!ready}
+      onSuccess={resetTurnstile}
+      onReset={resetTurnstile}
+      footer={
+        <p className={styles.note} aria-live="polite">
+          {note}
+        </p>
+      }
+    >
+      <motion.div
+        className={styles.stack}
+        variants={stack}
+        initial={reduce ? false : 'hidden'}
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+      >
+        <Row>
+          <FormRow columns={2} className={styles.pair}>
+            <Field label={copy.fields.name} name="name" required className={styles.pairField}>
+              <TextInput name="name" autoComplete="name" size="lg" />
+            </Field>
+            <Field label={copy.fields.phone} name="phone" hint={copy.hints.phone} required className={styles.pairField}>
+              <TextInput name="phone" type="tel" inputMode="tel" autoComplete="tel" size="lg" />
+            </Field>
+          </FormRow>
+        </Row>
+        <Row>
+          <FormRow columns={2} className={styles.pair}>
+            <Field label={copy.fields.email} name="email" required className={styles.pairField}>
+              <TextInput name="email" type="email" inputMode="email" autoComplete="email" size="lg" />
+            </Field>
+            <Field label={copy.fields.company} name="company" hint={copy.fields.optional} className={styles.pairField}>
+              <TextInput name="company" autoComplete="organization" size="lg" />
+            </Field>
+          </FormRow>
+        </Row>
+        {extraFields === 'address' ? (
+          <Row>
+            <Field label={copy.fields.address} name="address" required>
+              <Textarea name="address" rows={2} autoComplete="street-address" placeholder={copy.examples.address} />
+            </Field>
+          </Row>
+        ) : null}
+        {extraFields === 'parking' ? (
+          <Row>
+            <ParkingFields />
+          </Row>
+        ) : null}
+        <Row>
+          <Field label={copy.fields.message} name="message" hint={copy.fields.optional}>
+            <Textarea name="message" rows={4} placeholder={messageExample} />
+          </Field>
+        </Row>
+        {siteKey ? (
+          <Row>
+            <div ref={turnstileRef} className={styles.turnstile} />
+          </Row>
+        ) : null}
+      </motion.div>
+    </Form>
   )
 }

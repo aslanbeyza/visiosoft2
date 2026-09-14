@@ -1,0 +1,243 @@
+.block {
+  --bg: var(--color-navy-950);
+  --bar: rgb(255 255 255 / 0.04);
+  --line: rgb(255 255 255 / 0.12);
+  --fg: rgb(255 255 255 / 0.88);
+  --muted: rgb(255 255 255 / 0.5);
+  --accent: var(--color-navy-300);
+
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 0.86rem;
+  box-shadow: 0 24px 60px -36px rgb(0 0 0 / 0.7);
+}
+
+/* Üst çubuk */
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.6rem;
+  padding: 0.35rem 0.5rem 0.35rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--bar);
+}
+
+.dots {
+  display: none;
+  gap: 0.35rem;
+}
+
+.dots span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.2);
+}
+
+.title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lang {
+  flex: none;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.copy {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  padding: 0 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.3s var(--ease-apple),
+    background-color 0.3s var(--ease-apple);
+}
+
+.copy:hover {
+  border-color: rgb(255 255 255 / 0.35);
+  background: rgb(255 255 255 / 0.06);
+}
+
+.copy:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.copy[data-state='copied'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.copyIcon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+/* Kod alanı */
+
+.scroller {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.scroller:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+
+.pre {
+  margin: 0;
+  padding: 1rem 1.1rem 1.1rem 0.75rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: inherit;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.code {
+  display: block;
+  font: inherit;
+}
+
+.line {
+  position: relative;
+  display: flex;
+  min-height: 1.6em;
+  white-space: pre;
+}
+
+.num {
+  flex: none;
+  width: calc(var(--digits, 2) * 1ch + 1.5rem);
+  padding-right: 1rem;
+  color: rgb(255 255 255 / 0.3);
+  text-align: right;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.text {
+  flex: none;
+  min-width: 0;
+}
+
+/* Parçalar kendi kutusuna sahip olsun diye inline-block: clip-path yüzdeleri parçanın genişliğine göre çalışır. */
+.text > span {
+  display: inline-block;
+  white-space: pre;
+  vertical-align: top;
+}
+
+/* Yazım imleci: yalnızca yazılan satırda, yanıp söner. */
+.line[data-caret='true'] .text::after {
+  content: '';
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.1em;
+  margin-left: 0.1ch;
+  vertical-align: -0.2em;
+  background: var(--accent);
+  animation: blink 1s steps(2, start) infinite;
+}
+
+/* Renkler: sakin, tek aile. */
+
+.string {
+  color: var(--color-navy-300);
+}
+
+.key {
+  color: #fff;
+  font-weight: 600;
+}
+
+.number {
+  color: #c9d0ff;
+}
+
+.keyword {
+  color: #fff;
+  font-weight: 600;
+}
+
+.method {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.url {
+  color: #d8dcf7;
+  text-decoration: underline;
+  text-decoration-color: rgb(255 255 255 / 0.25);
+  text-underline-offset: 0.2em;
+}
+
+.comment {
+  color: rgb(255 255 255 / 0.45);
+  font-style: italic;
+}
+
+.punct {
+  color: rgb(255 255 255 / 0.55);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (min-width: 640px) {
+  .dots {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy {
+    transition: none;
+  }
+
+  .line[data-caret='true'] .text::after {
+    animation: none;
+  }
+}

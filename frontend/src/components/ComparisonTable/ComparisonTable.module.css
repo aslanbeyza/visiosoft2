@@ -1,0 +1,262 @@
+.root {
+  --line: var(--color-corp-line);
+  --ink: var(--color-corp-ink);
+  --body: var(--color-corp-body);
+  --muted: var(--color-corp-muted);
+  --accent: var(--color-navy-600);
+  --head-bg: var(--color-corp-surface);
+  --b-bg: var(--color-navy-50);
+  --b-line: var(--color-navy-100);
+  --b-head-bg: var(--color-navy-600);
+  --b-head-fg: #fff;
+  --card-bg: #fff;
+  --yes-bg: var(--color-navy-50);
+  --yes-fg: var(--color-navy-600);
+  --no-bg: var(--color-corp-surface);
+  --no-fg: var(--color-corp-muted);
+
+  color: var(--ink);
+}
+
+.root[data-tone='dark'] {
+  --line: rgb(255 255 255 / 0.14);
+  --ink: #fff;
+  --body: rgb(255 255 255 / 0.75);
+  --muted: rgb(255 255 255 / 0.55);
+  --accent: var(--color-navy-300);
+  --head-bg: rgb(255 255 255 / 0.05);
+  --b-bg: rgb(255 255 255 / 0.07);
+  --b-line: rgb(255 255 255 / 0.18);
+  --b-head-bg: #fff;
+  --b-head-fg: var(--color-navy-900);
+  --card-bg: rgb(255 255 255 / 0.04);
+  --yes-bg: rgb(255 255 255 / 0.12);
+  --yes-fg: #fff;
+  --no-bg: rgb(255 255 255 / 0.06);
+  --no-fg: rgb(255 255 255 / 0.5);
+}
+
+/* Tablo */
+
+.scroller {
+  display: none;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+}
+
+.table {
+  width: 100%;
+  min-width: 38rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.caption {
+  padding: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: left;
+  caption-side: top;
+}
+
+.table th,
+.table td {
+  position: relative;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.headFeature,
+.headA,
+.headB {
+  background: var(--head-bg);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.headB {
+  background: var(--b-head-bg);
+  color: var(--b-head-fg);
+}
+
+.feature {
+  width: 40%;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.featureName {
+  display: block;
+}
+
+.note {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.cellA {
+  color: var(--body);
+}
+
+.cellB {
+  border-left: 1px solid var(--b-line);
+  background: var(--b-bg);
+  color: var(--ink);
+}
+
+.strong {
+  font-weight: 600;
+}
+
+/* M12 — süpüren çizgi: hücrenin üst kenarında, soldan sağa. */
+.sweep {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.yes,
+.no {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.yes {
+  background: var(--yes-bg);
+  color: var(--yes-fg);
+}
+
+.no {
+  background: var(--no-bg);
+  color: var(--no-fg);
+}
+
+.yes svg,
+.no svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+/* Kartlar (dar ekran) */
+
+.cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  position: relative;
+  padding: 1.35rem 1.25rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--card-bg);
+}
+
+.cardLine {
+  position: absolute;
+  top: -1px;
+  left: 1.25rem;
+  width: 3rem;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: left center;
+}
+
+.cardTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.cardNote {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+}
+
+.cardCellA,
+.cardCellB {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+}
+
+.cardCellB {
+  border-color: var(--b-line);
+  background: var(--b-bg);
+}
+
+.cardGrid dt {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cardGrid dd {
+  margin: 0.45rem 0 0;
+  color: var(--body);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.cardCellB dd {
+  color: var(--ink);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .scroller {
+    display: block;
+  }
+
+  .cards {
+    display: none;
+  }
+}

@@ -1,5 +1,5 @@
 ---
-title: 'İnsansız Ödeme Noktaları ile Otopark İşletmek:Maliyetleri Nasıl Düşürürsünüz?'
+title: 'İnsansız Ödeme Noktaları ile Otopark İşletmek: Maliyetleri Nasıl Düşürürsünüz?'
 id: 6f47g8h9-b72g-a259-4240-ag7h6g8hc62d
 blueprint: blog
 date: '2026-02-10'

@@ -5,12 +5,29 @@
 
 export type NavIcon = 'cloud' | 'code' | 'network' | 'street' | 'building' | 'ticket' | 'hgs' | 'eye' | 'led' | 'report'
 
+/** Sıkı kırpılmış, arka planı şeffaf menü görseli (2x). width/height gerçek piksel ölçüsüdür. */
+export type NavImage = {
+  webp: string
+  avif: string
+  width: number
+  height: number
+  /**
+   * Optik ölçek (0–1]. 4/3 kutuda contain yüksekliğe dayandığından dikey ürünler (kiosk) ince kalır,
+   * yatay ürünler (Visiobox, kamera) kutuyu doldurur; yatay ürünler bu oranla küçültülerek ölçek dengelenir.
+   */
+  fit: number
+}
+
 export type NavMenuLink = {
   route: string
   label: string
   description: string
-  /** Donanım menüsünde ürün görseli (arka planı ayrılmış WebP). */
-  image?: string
+  /**
+   * Donanım mega menüsündeki yeri: 'card' ürün kartı, 'accessory' sol sütunda küçük metin bağlantısı.
+   * Footer ve site haritası yerleşimden bağımsız olarak tüm öğeleri listeler.
+   */
+  placement?: 'card' | 'accessory'
+  image?: NavImage
   icon?: NavIcon
 }
 
@@ -21,26 +38,73 @@ export type NavItem = {
   menu?: NavMenuLink[]
 }
 
-const card = (slug: string) => `/img/products/cards/${slug}.webp`
+const navImage = (slug: string, width: number, height: number, fit = 1): NavImage => ({
+  webp: `/img/nav/${slug}.webp`,
+  avif: `/img/nav/${slug}.avif`,
+  width,
+  height,
+  fit,
+})
 
 export const hardwareMenu: NavMenuLink[] = [
-  { route: 'hardware-products.kiosk', label: 'Kiosk', description: 'İnsansız çıkış ödeme kiosku', image: card('kiosk') },
-  { route: 'hardware-products.tir-kiosk', label: 'TIR Kiosk', description: 'Ağır vasıta için iki katlı ödeme kiosku', image: card('tir-kiosk') },
-  { route: 'hardware-products.visiobox', label: 'Visiobox', description: 'Bariyer ve sensörler için kontrol kutusu', image: card('visiobox') },
-  { route: 'hardware-products.rack-kabin', label: 'Rack Kabin', description: 'Saha ekipmanları için kilitli kabin', image: card('rack-kabin') },
-  { route: 'hardware-products.kamera-muhafaza', label: 'Kamera Muhafaza', description: 'Dış ortam kameraları için muhafaza', image: card('kamera-muhafaza') },
-  { route: 'hardware-products.kamera-montaj-kulesi', label: 'Kamera Montaj Kulesi', description: 'Kameraları yüksekten konumlandırma', image: card('kamera-montaj-kulesi') },
-  { route: 'hardware-products.ledli-reklam-paneli', label: 'Ledli Reklam Paneli', description: 'Giriş ve yönlendirme için LED panel', icon: 'led' },
+  {
+    route: 'hardware-products.kiosk',
+    label: 'Ödeme Kiosku',
+    description: 'İnsansız ödeme',
+    placement: 'card',
+    image: navImage('kiosk', 86, 300),
+  },
+  {
+    route: 'hardware-products.tir-kiosk',
+    label: 'TIR Ödeme Kiosku',
+    description: 'Ağır vasıta çözümü',
+    placement: 'card',
+    image: navImage('tir-kiosk', 62, 300),
+  },
+  {
+    route: 'hardware-products.kamera-muhafaza',
+    label: 'Visio Kamera',
+    description: 'Plaka tanıma kamera muhafazası',
+    placement: 'card',
+    image: navImage('kamera-muhafaza', 400, 176, 0.78),
+  },
+  {
+    route: 'hardware-products.visiobox',
+    label: 'Visiobox',
+    description: 'Bariyer kontrol ünitesi',
+    placement: 'card',
+    image: navImage('visiobox', 400, 296, 0.72),
+  },
+  {
+    route: 'hardware-products.ledli-reklam-paneli',
+    label: 'LED Bilgilendirme Paneli',
+    description: 'Ücret ve yönlendirme ekranı',
+    placement: 'card',
+    image: navImage('led-panel', 130, 300),
+  },
+  {
+    route: 'hardware-products.rack-kabin',
+    label: 'Rack Kabin',
+    description: 'Saha ekipman kabini',
+    placement: 'card',
+    image: navImage('rack-kabin', 230, 300, 0.88),
+  },
+  {
+    route: 'hardware-products.kamera-montaj-kulesi',
+    label: 'Kamera Montaj Kulesi',
+    description: 'Kamera direği ve montajı',
+    placement: 'accessory',
+  },
 ]
 
 export const softwareMenu: NavMenuLink[] = [
-  { route: 'software-products', label: 'Park Yazılım', description: 'Tüm yazılım ürünleri', icon: 'cloud' },
   { route: 'end-to-end', label: 'Uçtan Uca Sistem', description: 'Hub & Spoke modeliyle merkezi yönetim', icon: 'network' },
   { route: 'website-pricing', label: 'Site Otopark Yönetimi', description: 'Bulut tabanlı site otopark yönetimi', icon: 'building' },
   { route: 'on-street', label: 'Yol Üstü Parklandırma', description: 'Kamera ve HGS ile cadde parkı', icon: 'street' },
   { route: 'hgs', label: 'HGS Ödeme Sistemi', description: 'HGS, POS ve QR ile insansız tahsilat', icon: 'hgs' },
   { route: 'parking-violations', label: 'İşgaliye ve Park Ceza', description: 'Hatalı park ve süre aşımı tespiti', icon: 'ticket' },
   { route: 'kus-bakisi', label: 'Kuş Bakışı Yönetim', description: 'Tüm sahayı tek ekrandan izleyin', icon: 'eye' },
+  { route: 'parking-reports', label: 'Raporlar', description: 'Operasyon, finans ve abonelik raporları', icon: 'report' },
   { route: 'developers', label: 'Geliştiriciler', description: 'GATE SDK ve ZONE API', icon: 'code' },
 ]
 
@@ -54,7 +118,7 @@ export const primaryNav: NavItem[] = [
 ]
 
 export const navCta = {
-  primary: { label: 'Teklif Al', route: 'quote.index' },
+  primary: { label: 'Demo ve Teklif Al', route: 'quote.index' },
   secondary: { label: 'Ücretsiz Keşif', route: 'discovery.show' },
 }
 
