@@ -20,7 +20,9 @@
   --pf-on-front: rgb(255 255 255 / 0.85);
   --pf-screen-dark: var(--color-navy-950);
   --pf-led-text: var(--color-navy-300);
-  --pf-lamp: var(--color-navy-300);
+  --pf-lamp: #f3d56a;
+  --pf-tail: var(--pf-red);
+  --pf-beam: rgb(243 213 106 / 0.7);
   --pf-track: var(--color-corp-line);
   --pf-label-bg: #fff;
   /* Etkin olmayan adım başlığı ve açıklaması: beyazda ≥5:1 (AA); opaklıkla soluklaştırılmaz. */
@@ -57,6 +59,9 @@
   --pf-kiosk: #05061c;
   --pf-on-front: rgb(255 255 255 / 0.85);
   --pf-screen-dark: #05061c;
+  --pf-lamp: #f6e08a;
+  --pf-tail: #e06b6b;
+  --pf-beam: rgb(246 224 138 / 0.55);
   --pf-track: rgb(255 255 255 / 0.14);
   --pf-label-bg: var(--color-navy-950);
 }
@@ -252,6 +257,16 @@
 
 .lamp {
   fill: var(--pf-lamp);
+}
+
+.tail {
+  fill: var(--pf-tail);
+}
+
+.beam {
+  stroke: var(--pf-beam);
+  stroke-width: 2.5;
+  stroke-linecap: round;
 }
 
 .wheel {
