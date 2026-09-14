@@ -44,7 +44,6 @@ export default function TrustStats() {
       label: plate.label,
       value: (
         <>
-          <span className={styles.affix}>{plate.prefix}</span>
           <CountUp value={plate.value} duration={1.2} delay={0.35} className={styles.number} />
           <span className={styles.affix}>{plate.suffix}</span>
         </>

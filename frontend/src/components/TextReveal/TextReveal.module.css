@@ -13,26 +13,36 @@
 }
 
 /*
- * Kırpma kutusu: overflow yerine clip-path kullanılır; overflow: hidden inline-block'un taban çizgisini
- * alt kenara taşırdı. Negatif kenar boşluğu iç dolguyu dengeler; satır yüksekliği düz metinle aynı kalır,
- * sıkı satır aralığında (1.02) çıkıntı ve kuyruklu harfler (ç, ş, g) kırpılmaz.
+ * Kırpma kutusu: overflow yerine clip-path. Alt dolgu y, g, ç, ş kuyruklarını kesmesin
+ * (sıkı satır aralığında "otomasyonu" yoksa "otomasvonu" gibi okunur). Animasyon bitince clip kalkar.
  */
 .frag {
   display: inline-block;
-  margin: -0.14em -0.05em;
+  margin: -0.18em -0.05em -0.32em;
   clip-path: inset(0);
   vertical-align: baseline;
 }
 
 .inner {
   display: inline-block;
-  padding: 0.14em 0.05em;
+  padding: 0.18em 0.05em 0.32em;
   transform: translate3d(0, 110%, 0);
 }
 
 .root[data-in='true'] .inner {
   animation: rise var(--tr-duration) var(--ease-apple) both;
   animation-delay: calc(var(--tr-delay) + var(--i, 0) * var(--tr-stagger));
+}
+
+.root[data-in='true'] .frag {
+  animation: unclip 0.01s linear forwards;
+  animation-delay: calc(var(--tr-delay) + var(--i, 0) * var(--tr-stagger) + var(--tr-duration));
+}
+
+@keyframes unclip {
+  to {
+    clip-path: none;
+  }
 }
 
 @keyframes rise {

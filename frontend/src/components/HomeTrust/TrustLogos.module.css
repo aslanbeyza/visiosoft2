@@ -1,17 +1,13 @@
 .logos {
-  margin-top: clamp(3rem, 5vw, 4.5rem);
+  margin-top: clamp(2.5rem, 4vw, 3.75rem);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
+  gap: 0.35rem 0.75rem;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  border: 1px solid var(--color-corp-line);
-  border-radius: 0.75rem;
-  background: var(--color-corp-line);
   list-style: none;
 }
 
@@ -19,7 +15,6 @@
   display: flex;
   min-width: 0;
   aspect-ratio: 5 / 3;
-  background: #fff;
 }
 
 .tile {
@@ -30,18 +25,12 @@
   justify-content: center;
   color: inherit;
   text-decoration: none;
-  transition: background-color 0.35s var(--ease-apple);
+  border-radius: 0.5rem;
 }
 
 .tile:focus-visible {
   outline: 2px solid var(--color-navy-600);
-  outline-offset: -4px;
-  border-radius: 0.5rem;
-}
-
-a.tile:hover,
-a.tile:focus-visible {
-  background: var(--color-corp-surface);
+  outline-offset: 2px;
 }
 
 .crop {
@@ -61,7 +50,7 @@ a.tile:focus-visible {
 }
 
 .grey {
-  opacity: 0.7;
+  opacity: 0.82;
   filter: grayscale(1);
 }
 
@@ -77,9 +66,8 @@ a.tile:focus-visible {
   filter: brightness(1.14);
 }
 
-/* Dolu zeminli işaretler (kalkan, koyu kare) gri hâlde çizgi logolarla aynı optik ağırlıkta kalsın. */
 .tile[data-solid='true'] .grey {
-  opacity: 0.5;
+  opacity: 0.58;
 }
 
 a.tile:hover .grey,
@@ -95,7 +83,7 @@ a.tile:focus-visible .colour {
 .footer {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
+  margin-top: 0.35rem;
 }
 
 .allLink {
@@ -131,16 +119,6 @@ a.tile:focus-visible .colour {
   transform: translateX(3px);
 }
 
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* Dar hücrelerde logolar biraz büyütülür; oranlar korunur. */
 @media (max-width: 767px) {
   .crop {
     width: min(80%, calc(var(--box-w) * 1.18));
@@ -150,10 +128,11 @@ a.tile:focus-visible .colour {
 @media (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem 1rem;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
   .grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }

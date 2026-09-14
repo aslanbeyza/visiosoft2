@@ -19,7 +19,7 @@ const cascade: Variants = {
  * Logo, gri (sabit filtreli) ve renkli iki katman olarak üst üste çizilir; aynı dosya olduğu için tek indirme yapılır.
  * Üzerine gelince yalnızca opaklık değişir, filtre hiç canlandırılmaz. Renkli katman ekran okuyuculardan gizlenir.
  */
-function LogoMark({ logo, interactive }: { logo: TrustLogo; interactive: boolean }) {
+function LogoMark({ logo, interactive, alt }: { logo: TrustLogo; interactive: boolean; alt: string }) {
   const shared = {
     src: logo.src,
     width: logo.width,
@@ -31,13 +31,13 @@ function LogoMark({ logo, interactive }: { logo: TrustLogo; interactive: boolean
   }
   return (
     <span className={styles.crop} style={{ '--box-w': `${logo.boxWidth}%`, aspectRatio: logo.ratio } as CSSProperties}>
-      <img {...shared} alt={logo.name} className={`${styles.img} ${styles.grey}`} />
+      <img {...shared} alt={alt} className={`${styles.img} ${styles.grey}`} />
       {interactive ? <img {...shared} alt="" aria-hidden="true" className={`${styles.img} ${styles.colour}`} /> : null}
     </span>
   )
 }
 
-/** Seçili 12 referans: sabit ızgara, gri ve %70 opak; üzerine gelince ya da odakta renklenir. Hücreler bir kez sırayla belirir. */
+/** Seçili 12 referans: kutusuz sıra, gri; üzerine gelince ya da odakta renklenir. */
 export default function TrustLogos() {
   const reduce = Boolean(useReducedMotion())
   const path = usePath()
@@ -62,13 +62,18 @@ export default function TrustLogos() {
           return (
             <li key={logo.key} className={styles.cell}>
               {logo.website ? (
-                <motion.a href={logo.website} target="_blank" rel="noopener" {...tileProps}>
-                  <LogoMark logo={logo} interactive />
-                  <span className={styles.srOnly}> ({copy.external})</span>
+                <motion.a
+                  href={logo.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${logo.name} (${copy.external})`}
+                  {...tileProps}
+                >
+                  <LogoMark logo={logo} interactive alt="" />
                 </motion.a>
               ) : (
                 <motion.div {...tileProps}>
-                  <LogoMark logo={logo} interactive={false} />
+                  <LogoMark logo={logo} interactive={false} alt={logo.name} />
                 </motion.div>
               )}
             </li>
