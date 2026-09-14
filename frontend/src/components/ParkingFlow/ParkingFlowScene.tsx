@@ -134,7 +134,7 @@ export default function ParkingFlowScene({ values, highlight, revealed, reduce, 
         <circle cx="964" cy="288" r="6" className={styles.body} />
       </g>
 
-      {/* Araç (yandan) */}
+      {/* Araç (yandan, burun sağa: gidiş yönü). Far önde, stop arkada. */}
       <motion.g style={{ x: values.car, y: 373 }} data-dim="true">
         <ellipse cx="76" cy="58" rx="72" ry="4.5" className={styles.shadow} />
         <path
@@ -144,7 +144,9 @@ export default function ParkingFlowScene({ values, highlight, revealed, reduce, 
         <path d="M46 18 60 7h18v11Z" className={styles.glass} />
         <path d="M84 7h16l14 11H84Z" className={styles.glass} />
         <line x1="80" y1="21" x2="80" y2="44" className={styles.detail} />
-        <rect x="141" y="28" width="6" height="6" rx="1" className={styles.lamp} />
+        <rect x="10" y="28" width="5" height="6" rx="1" className={styles.tail} />
+        <rect x="141" y="28" width="7" height="6" rx="1" className={styles.lamp} />
+        <line x1="148" y1="31" x2="161" y2="31" className={styles.beam} />
         <circle cx="38" cy="48" r="11" className={styles.wheel} />
         <circle cx="38" cy="48" r="4.5" className={styles.hub} />
         <circle cx="118" cy="48" r="11" className={styles.wheel} />

@@ -1,13 +1,5 @@
 /** Ana sayfa 4.4 Zone bölümü metinleri (HOME3 §4.4). */
 export const homeZoneCopy = {
-  eyebrow: 'Zone yazılımı',
-  title: 'Tüm otopark tek ekranda.',
-  lead: 'Bulutta ya da kurumunuzun sunucusunda çalışan Zone paneliyle girişten gelire, cihazdan aboneliğe tüm sahayı tek yerden yönetin.',
-  tablistLabel: 'Zone panel modülleri',
-  framePrefix: 'Zone',
-  caption: 'Görüntüler Zone arayüzünden alınmıştır; tablolardaki kayıtlar ve plakalar demo verisidir, kamera görüntülerindeki plakalar bulanıklaştırılmış, saha adı değiştirilmiştir.',
-  pause: 'Otomatik geçişi duraklat',
-  play: 'Otomatik geçişi başlat',
   driver: {
     title: 'Sürücünün gördüğü ekranlar',
     kiosk: {
