@@ -27,7 +27,7 @@ export const homeTrustCopy = {
   stats: {
     since: { value: '2018', label: 'yılından beri hizmette', sr: '2018 yılından beri hizmette' },
     references: { value: 33, label: 'kurumsal referans', sr: '33 kurumsal referans' },
-    plate: { value: 100, prefix: '<', suffix: ' ms', label: 'altında plaka tanıma', sr: '100 milisaniyenin altında plaka tanıma' },
+    plate: { value: 100, suffix: ' ms', label: 'plaka tanıma', sr: '100 milisaniyenin altında plaka tanıma' },
     support: { value: '7/24', label: 'uzaktan destek', sr: '7/24 uzaktan destek' },
   },
   logosLabel: 'Seçili referanslar',
