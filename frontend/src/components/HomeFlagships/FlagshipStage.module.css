@@ -1,71 +1,53 @@
-.stage {
+.shell {
   position: relative;
-  overflow: hidden;
-  border: 1px solid var(--color-corp-line);
-  border-radius: 1rem;
-  background:
-    radial-gradient(ellipse 70% 60% at 50% 38%, #fff 0%, rgb(255 255 255 / 0) 70%),
-    linear-gradient(180deg, #fbfbfd 0%, #f1f3f8 100%);
-}
-
-/* Sahne yüksekliği cqh birimini tanımlar; ürün ölçüleri buna göre hesaplanır. */
-.canvas {
-  position: relative;
-  container-type: size;
-  aspect-ratio: 1 / 1;
-  max-height: 28.4rem;
-  width: 100%;
   touch-action: pan-y;
   user-select: none;
 }
 
-@media (min-width: 640px) {
+.stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: radial-gradient(ellipse 64% 58% at 50% 38%, #fff 0%, rgb(245 246 249 / 0) 72%);
+}
+
+.canvas {
+  position: relative;
+  container-type: size;
+  aspect-ratio: 5 / 6;
+  max-height: 26rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
   .canvas {
-    aspect-ratio: 4 / 3;
+    max-height: 32rem;
   }
 }
 
-/*
- * Zemin grubu (çizgi, alt ton, temas gölgesi): etkin ürünün altına birlikte kayar; yalnızca transform.
- * Küçük çiftte `--lift-active` > 0, uzun ürünlerde 0.
- */
+@media (min-width: 1024px) {
+  .canvas {
+    aspect-ratio: 4 / 5;
+    max-height: 38rem;
+  }
+}
+
 .ground {
   position: absolute;
   inset: 0;
-  transform: translateY(calc(var(--lift-active, 0cqh) * -1));
-  transition: transform 0.5s var(--ease-apple);
   pointer-events: none;
-}
-
-/* Zeminin altı hafifçe koyulaşır; ton grubun altına taşar, kaydıkça alt kenarda boşluk kalmaz (sahne kırpar). */
-.ground::after {
-  content: '';
-  position: absolute;
-  top: calc(100% - var(--floor));
-  right: 0;
-  left: 0;
-  height: 100%;
-  background: linear-gradient(180deg, rgb(15 20 48 / 0.035), rgb(15 20 48 / 0) var(--floor));
-}
-
-.floor {
-  position: absolute;
-  left: 6%;
-  right: 6%;
-  bottom: var(--floor);
-  height: 1px;
-  background: linear-gradient(90deg, rgb(15 20 48 / 0), rgb(15 20 48 / 0.12) 20%, rgb(15 20 48 / 0.12) 80%, rgb(15 20 48 / 0));
 }
 
 .shadow {
   position: absolute;
   left: 50%;
-  bottom: calc(var(--floor) - 2.6cqh);
+  bottom: calc(var(--floor) - 1.8cqh);
   width: var(--shadow-max);
-  height: 5.2cqh;
+  height: 4.4cqh;
   margin-left: calc(var(--shadow-max) / -2);
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(20 28 48 / 0.3), rgb(20 28 48 / 0.12) 55%, rgb(20 28 48 / 0));
+  background: radial-gradient(closest-side, rgb(20 28 48 / 0.18), rgb(20 28 48 / 0.07) 52%, rgb(20 28 48 / 0));
+  filter: blur(0.4px);
   transform-origin: center;
 }
 
@@ -73,7 +55,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(var(--floor) + var(--lift, 0cqh));
+  bottom: var(--floor);
   width: var(--box-w);
   height: var(--box-h);
   margin-inline: auto;
@@ -90,69 +72,68 @@
   height: auto;
 }
 
-.controls {
+.prev,
+.next {
   position: absolute;
-  inset: auto 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0 0.75rem 0.75rem 1.1rem;
-}
-
-.counter {
-  margin: 0;
-  color: var(--color-corp-muted);
-  font-size: 0.8rem;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.06em;
-}
-
-.current {
-  color: var(--color-corp-ink);
-  font-weight: 600;
-}
-
-.buttons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.step {
+  top: 50%;
+  z-index: 2;
   display: grid;
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
   border: 1px solid var(--color-corp-line);
   border-radius: 999px;
-  background: #fff;
+  background: rgb(255 255 255 / 0.92);
   color: var(--color-corp-ink);
+  box-shadow: 0 8px 24px -18px rgb(15 20 48 / 0.35);
   cursor: pointer;
+  transform: translateY(-50%);
   transition:
     border-color 0.2s ease,
     background-color 0.2s ease,
     color 0.2s ease;
 }
 
-.step svg {
+.prev {
+  left: 0.65rem;
+}
+
+.next {
+  right: 0.65rem;
+}
+
+.prev svg,
+.next svg {
   width: 1.1rem;
   height: 1.1rem;
 }
 
-.step:hover {
+.prev:hover,
+.next:hover {
   border-color: var(--color-navy-600);
   background: var(--color-navy-600);
   color: #fff;
 }
 
-.step:focus-visible {
+.prev:focus-visible,
+.next:focus-visible {
   outline: 2px solid var(--color-navy-600);
   outline-offset: 3px;
 }
 
+@media (min-width: 768px) {
+  .prev {
+    left: 0.85rem;
+  }
+
+  .next {
+    right: 0.85rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ground,
-  .step {
+  .prev,
+  .next {
     transition: none;
   }
 }

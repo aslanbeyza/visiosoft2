@@ -1,43 +1,30 @@
-/** Ana sayfa 4.7: destek, güvenlik ve entegrasyon metinleri (HOME3.md §4.7, birebir). */
+/** Ana sayfa güvence metinleri. Güvenlik etiketleri otopark yazılımı metinleriyle aynı kaynaktan. */
 
 export type AssuranceColumnId = 'support' | 'security' | 'integration'
 export type WorkStepId = 'discovery' | 'install' | 'monitor'
 
 export const homeAssuranceCopy = {
   eyebrow: 'Güvence',
-  title: 'Kesintisiz destek, güvenli veri, açık entegrasyon.',
+  title: 'Sahada kesintisiz, veride güvenli, entegrasyonda özgür.',
+  lead: 'Uzman destek, kurumsal güvenlik ve açık altyapı.',
+  cta: 'Teknik altyapıyı incele',
   support: {
     id: 'support' as const,
-    title: 'Destek',
-    items: [
-      '7/24 uzaktan destek ve çağrı merkezi',
-      'Uzaktan sorunlara anında, saha gerektirenlere saatler içinde müdahale',
-      'Kurulum öncesi ücretsiz keşif',
-      'Donanımda 2 yıl üretici garantisi',
-    ],
+    title: 'Kesintisiz Destek',
+    lead: 'Sisteminiz yalnız kalmaz.',
+    proofs: ['7/24 Destek', 'Saha Ekibi', 'Ücretsiz keşif'],
   },
   security: {
     id: 'security' as const,
-    title: 'Güvenlik',
-    items: [
-      'SSL/TLS ile veri aktarımı, AES-256 ile şifreli depolama',
-      'Rol bazlı yetki, değiştirilemez ve zaman damgalı loglar',
-      'KVKK uyumlu süreçler',
-      'Günlük artımlı, haftalık tam yedekleme',
-      'Bulutta ya da kurum içinde kurulum; bağlantı kesilse de sahada çalışma',
-    ],
+    title: 'Kurumsal Güvenlik',
+    lead: 'Veriniz her aşamada korunur.',
+    proofs: ['SSL/TLS', 'AES-256', 'KVKK'],
   },
   integration: {
     id: 'integration' as const,
-    title: 'Entegrasyon',
-    groups: [
-      ['HGS', 'POS', 'QR'],
-      ['e-fatura', 'e-arşiv (GİB)'],
-      ['REST API', 'Webhook', 'WebSocket SDK'],
-      ['ONVIF', 'RTSP', 'RS485', 'TCP/IP'],
-      ['Muhasebe ve ERP aktarımı'],
-    ],
-    link: 'Geliştiriciler için',
+    title: 'Açık Entegrasyon',
+    lead: 'Mevcut altyapınıza bağlanır.',
+    proofs: ['HGS', 'POS', 'QR', 'e-Fatura', 'e-Arşiv', 'REST API', 'Webhook', 'ONVIF', 'ERP'],
   },
   steps: {
     title: 'Çalışma şeklimiz',

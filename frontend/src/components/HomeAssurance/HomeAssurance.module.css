@@ -1,7 +1,7 @@
 .top {
   width: min(80rem, calc(100% - 2rem));
   margin-inline: auto;
-  padding-block: clamp(4rem, 7vw, 6.5rem) clamp(3.5rem, 6vw, 5.5rem);
+  padding-block: clamp(3.25rem, 6vw, 5rem) clamp(2.75rem, 5vw, 4.25rem);
 }
 
 @media (min-width: 768px) {
@@ -10,6 +10,78 @@
   }
 }
 
+.layout {
+  display: grid;
+  gap: 1.75rem;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(17.5rem, 0.86fr) minmax(0, 1.14fr);
+    column-gap: 3.25rem;
+    align-items: start;
+  }
+}
+
+.intro {
+  max-width: 26rem;
+}
+
 .heading {
-  max-width: 44rem;
+  max-width: none;
+}
+
+.heading :global(h2) {
+  font-size: clamp(1.7rem, 2vw + 0.85rem, 2.65rem);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.heading :global(p:last-child) {
+  margin-top: 0.95rem;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  margin-top: 1.15rem;
+  color: var(--color-navy-600);
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cta:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.cta:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+}
+
+.ctaArrow {
+  width: 1.05rem;
+  height: 1.05rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.cta:hover .ctaArrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaArrow {
+    transition: none;
+  }
+
+  .cta:hover .ctaArrow {
+    transform: none;
+  }
 }

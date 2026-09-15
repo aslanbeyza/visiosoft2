@@ -42,6 +42,7 @@ export default function FlowPinned() {
             onSelect={select}
             variant="pinned"
             label={text.stepsLabel}
+            heading={text.legend}
           />
           <FlowStage active={active} fill={fill} dock />
         </div>

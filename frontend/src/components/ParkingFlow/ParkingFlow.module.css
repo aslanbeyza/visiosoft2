@@ -36,6 +36,15 @@
   color: var(--pf-ink);
 }
 
+.root[data-variant='cad'] {
+  --pf-lane: rgb(23 27 153 / 0.045);
+  --pf-kerb: #e6e8f0;
+  --pf-dash: #8b93b3;
+  --pf-shadow: rgb(15 20 48 / 0.08);
+  --pf-cone: rgb(23 27 153 / 0.1);
+  --pf-cone-line: rgb(23 27 153 / 0.38);
+}
+
 .root[data-tone='dark'] {
   --pf-line: var(--color-navy-300);
   --pf-line-soft: rgb(255 255 255 / 0.22);
@@ -124,6 +133,23 @@
   stroke-width: 3;
   stroke-dasharray: 34 26;
   stroke-linecap: round;
+}
+
+.svg[data-cad='true'] .dash {
+  stroke-width: 1.35;
+  stroke-dasharray: 16 7 3 7;
+  stroke-linecap: butt;
+}
+
+.svg[data-cad='true'] .kerbLine {
+  stroke-width: 1.25;
+}
+
+.svg[data-cad='true'] .body,
+.svg[data-cad='true'] .car,
+.svg[data-cad='true'] .kioskBody,
+.svg[data-cad='true'] .wheel {
+  stroke-width: 1.6;
 }
 
 /* Cihaz gövdeleri: yüzey dolgu + lacivert 2px çizgi */
@@ -232,13 +258,6 @@
   fill: var(--pf-accent);
 }
 
-/* Bariyer kolu: pivot (964, 288) etrafında döner; açı CSS değişkeniyle motion value'dan gelir. */
-.arm {
-  transform: rotate(calc(var(--arm, 0) * 1deg));
-  transform-origin: 964px 288px;
-  transform-box: view-box;
-}
-
 /* Araç */
 .shadow {
   fill: var(--pf-shadow);
@@ -327,6 +346,39 @@
 .svg[data-highlight='ledPanel'] [data-device='ledPanel'],
 .svg[data-highlight='pole'] [data-device='pole'] {
   opacity: 1;
+}
+
+.cadMarks {
+  pointer-events: none;
+}
+
+.cadText {
+  fill: var(--pf-accent);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  paint-order: stroke fill;
+  stroke: var(--pf-fill);
+  stroke-linejoin: round;
+  stroke-width: 6;
+}
+
+.cadLeader,
+.cadTick {
+  fill: none;
+  stroke: var(--pf-accent);
+  stroke-width: 1.15;
+  stroke-linecap: square;
+  vector-effect: non-scaling-stroke;
+}
+
+.cadLeader {
+  stroke-dasharray: 3 3;
+}
+
+.cadArrow {
+  fill: var(--pf-accent);
 }
 
 .leader {

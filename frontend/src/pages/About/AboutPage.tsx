@@ -10,14 +10,13 @@ import Seo from '../../components/Seo/index.ts'
 import SubNav from '../../components/SubNav/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
-import AboutLocations from './AboutLocations.tsx'
 import AboutTeam from './AboutTeam.tsx'
 import HeroPlan from './HeroPlan.tsx'
 import { aboutPageCopy as copy } from './aboutPageCopy.ts'
 import styles from './AboutPage.module.css'
 
 const storyIcons = [<KioskIcon key="kiosk" />, <SupportIcon key="support" />, <InvoiceIcon key="invoice" />]
-const [storyId, teamId, locationsId] = copy.subNav.map((item) => item.id)
+const [storyId, teamId] = copy.subNav.map((item) => item.id)
 
 export default function AboutPage() {
   const path = usePath()
@@ -67,7 +66,6 @@ export default function AboutPage() {
       </Section>
 
       <AboutTeam id={teamId} />
-      <AboutLocations id={locationsId} />
 
       <CtaBand
         title={copy.cta.title}

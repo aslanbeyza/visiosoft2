@@ -31,7 +31,7 @@ export default function HomeSectors() {
   const columns = wide ? 3 : medium ? 2 : 1
 
   return (
-    <Section id="kullanim-alanlari" tone="surface" spacing="md" labelledBy="home-sectors-title">
+    <Section id="kullanim-alanlari" tone="surface" spacing="md" labelledBy="home-sectors-title" className={styles.section}>
       <SectionHeading eyebrow={text.eyebrow} title={text.title} id="home-sectors-title" />
 
       <ul className={styles.grid} role="list">
@@ -50,34 +50,46 @@ export default function HomeSectors() {
               custom={columns === 1 ? 0 : (index % columns) * 0.09}
             >
               <span className={styles.accent} aria-hidden="true" />
-              <SectorIcon id={item.icon} className={styles.icon} />
-
-              <div className={styles.body}>
-                <h3 className={styles.title}>
-                  <Link to={path(item.route)} className={styles.link}>
-                    {item.title}
-                    <span className="sr-only">
-                      {' — '}
-                      {item.destination} {text.destinationSuffix}
-                    </span>
-                  </Link>
-                </h3>
-                <p className={styles.text}>{item.description}</p>
-
-                {'refs' in item && item.refs ? (
-                  <p className={styles.refs}>
-                    <span className={styles.refsLabel}>{text.refsLabel}</span>
-                    {item.refs}
-                  </p>
-                ) : null}
-              </div>
-
-              <span className={styles.more} aria-hidden="true">
-                <span className={styles.moreText}>{text.more}</span>
-                <svg viewBox="0 0 24 24" className={styles.arrow} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
+              <span className={styles.media} aria-hidden="true">
+                <img
+                  src={item.image.src}
+                  alt=""
+                  width={item.image.width}
+                  height={item.image.height}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
               </span>
+              <div className={styles.inner}>
+                <SectorIcon id={item.icon} className={styles.icon} />
+
+                <div className={styles.body}>
+                  <h3 className={styles.title}>
+                    <Link to={path(item.route)} className={styles.link}>
+                      {item.title}
+                      <span className="sr-only">
+                        {' — '}
+                        {item.destination} {text.destinationSuffix}
+                      </span>
+                    </Link>
+                  </h3>
+                  <p className={styles.text}>{item.description}</p>
+
+                  {'refs' in item && item.refs ? (
+                    <p className={styles.refs}>
+                      <span className={styles.refsLabel}>{text.refsLabel}</span>
+                      {item.refs}
+                    </p>
+                  ) : null}
+                </div>
+
+                <span className={styles.more} aria-hidden="true">
+                  <span className={styles.moreText}>{text.more}</span>
+                  <svg viewBox="0 0 24 24" className={styles.arrow} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </div>
             </motion.article>
           </motion.li>
         ))}

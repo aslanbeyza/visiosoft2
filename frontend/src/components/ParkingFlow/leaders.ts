@@ -33,9 +33,9 @@ export const leaders: Record<ParkingFlowDevice, Leader> = {
   // LED panel çizgisi direğin solunda kalır, etiket üst bantta direk başlığının ve kameranın belirgin biçimde üstündedir.
   ledPanel: { d: 'M169 182V52h59', x: 228, y: 52, anchor: 'start', frame: [102, 166, 134, 104] },
   // Kiosk tepesinden üst banda: etiket kioskun solunda, kamera gövdesinin (y ≥ 118) ve plakayı okuyan koninin üstünde
-  // biter; kalkık kol kioskun sağında kalır. Dar sahne çerçevesi kioskun tamamını sarar, yeşile dönen ekran görünür kalır.
+  // biter; kalkık kol kioskun sağında, gövde menteşesinden yukarı kalkar. Dar sahne çerçevesi kioskun tamamını sarar, yeşile dönen ekran görünür kalır.
   kiosk: { d: 'M715 137V78h-35', x: 680, y: 78, anchor: 'end', frame: [668, 121, 94, 237] },
   // Çizgi hareketli koldan değil direğin gövdesinden çıkar, kiosk ile bariyer arasındaki boşluktan üst banda yükselir;
   // etiket kalkık kolun ucunun ve kioskun üstünde durur.
-  barrier: { d: 'M928 300H884V62h-14', x: 870, y: 62, anchor: 'end', frame: [904, 246, 82, 112] },
+  barrier: { d: 'M928 300H884V62h-14', x: 870, y: 62, anchor: 'end', frame: [904, 246, 82, 210] },
 }

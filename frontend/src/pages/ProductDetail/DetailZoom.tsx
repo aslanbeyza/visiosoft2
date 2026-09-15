@@ -26,7 +26,7 @@ const staticLeadOf = (description: string) => {
 export default function DetailZoom({ zoom }: DetailZoomProps) {
   switch (zoom.kind) {
     case 'kiosk':
-      return <KioskZoom tone="light" />
+      return <KioskZoom tone="light" frameLength={45} />
     case 'drawing':
       return (
         <ProductZoom

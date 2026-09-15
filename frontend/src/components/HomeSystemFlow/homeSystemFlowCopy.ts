@@ -8,22 +8,30 @@ export type SystemFlowStep = {
   chips?: string[]
 }
 
-/** Ana sayfa 4.3 "Sistem nasıl çalışır?" metinleri (HOME3.md §4.3, birebir). */
+/** Ana sayfa 4.3 "Sistem nasıl çalışır?" metinleri. */
 export const homeSystemFlowCopy = {
   titleId: 'sistem-title',
   eyebrow: 'Sistem nasıl çalışır?',
   title: 'Araç girişinden gelir raporuna tek akış.',
   lead: 'Kamera, ödeme noktası, bariyer ve Zone paneli aynı altyapıda çalışır; her adım kayda geçer.',
   stepsLabel: 'Sistem akışının adımları',
+  legend: 'Lejant',
   sceneLabel: 'Geçiş akışı sahnesi',
   sceneDescription:
     'Şematik sahne: araç şeride girer, direkteki kamera plakayı okur, kontrol kutusu geçişi doğrular, kioskta ödeme tamamlanır ve bariyer açılır.',
+  sheet: {
+    company: 'Visiosoft',
+    drawing: 'Geçiş şeridi',
+    view: 'Yandan bakış',
+    scale: 'Şematik',
+    code: 'A-01',
+  },
   steps: [
     { scene: 'approach', title: 'Araç yaklaşır', description: 'Şeritteki kamera aracı algılar.' },
     {
       scene: 'detect',
       title: 'Plaka okunur',
-      description: 'Plaka 100 ms altında tanınır; düşük güvenli okumalar operatör onayına düşer.',
+      description: 'Kamera plakayı okur; düşük güvenli okumalar operatör onayına düşer.',
     },
     {
       scene: 'verify',
@@ -40,7 +48,7 @@ export const homeSystemFlowCopy = {
     {
       scene: 'open',
       title: 'Bariyer açılır',
-      description: 'Onaylanan araç için bariyer komutu milisaniyeler içinde iletilir.',
+      description: 'Onaylanan araç için bariyer komutu sahaya iletilir.',
     },
     {
       scene: 'open',

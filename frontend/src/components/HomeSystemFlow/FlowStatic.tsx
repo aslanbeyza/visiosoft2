@@ -9,7 +9,7 @@ import styles from './HomeSystemFlow.module.css'
 export default function FlowStatic() {
   return (
     <div className={styles.static}>
-      <FlowSteps steps={text.steps} active={-1} variant="static" label={text.stepsLabel} />
+      <FlowSteps steps={text.steps} active={-1} variant="static" label={text.stepsLabel} heading={text.legend} />
       <div className={styles.staticMedia}>
         <div className={styles.staticScene}>
           <div inert>
@@ -18,6 +18,7 @@ export default function FlowStatic() {
               mode="manual"
               active={RECORD_INDEX - 1}
               showLabels={false}
+              variant="cad"
               label={text.sceneLabel}
             />
           </div>

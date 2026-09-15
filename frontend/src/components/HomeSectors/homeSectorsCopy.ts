@@ -1,6 +1,12 @@
 /** Ana sayfa 4.5 — Kullanım alanları metinleri (HOME3.md §4.5, değiştirmeden). */
 export type SectorIconId = 'street' | 'mall' | 'hospital' | 'campus' | 'residence' | 'truck'
 
+export type SectorImage = {
+  src: string
+  width: number
+  height: number
+}
+
 export type SectorItem = {
   icon: SectorIconId
   title: string
@@ -9,6 +15,7 @@ export type SectorItem = {
   route: string
   /** Hedef sayfanın menüdeki adı; bağlantının erişilebilir adına eklenir (başlık ile hedef farklı olabilir). */
   destination: string
+  image: SectorImage
 }
 
 export const homeSectorsCopy = {
@@ -26,6 +33,7 @@ export const homeSectorsCopy = {
       refs: 'Bakırköy, Başakşehir, Sarıyer ve 6 belediye daha',
       route: 'on-street',
       destination: 'Yol Üstü Parklandırma',
+      image: { src: '/img/home/sectors/street.webp', width: 1400, height: 934 },
     },
     {
       icon: 'mall',
@@ -34,6 +42,7 @@ export const homeSectorsCopy = {
       refs: 'Metropark AVM, Crowne Plaza, İstanbul Akvaryum',
       route: 'end-to-end',
       destination: 'Uçtan Uca Sistem',
+      image: { src: '/img/home/sectors/mall.webp', width: 1400, height: 934 },
     },
     {
       icon: 'hospital',
@@ -41,6 +50,7 @@ export const homeSectorsCopy = {
       description: 'Ziyaretçi, personel ve abone araçlar ayrı kurallarla yönetilir.',
       route: 'hgs',
       destination: 'HGS Ödeme Sistemi',
+      image: { src: '/img/home/sectors/hospital.webp', width: 1400, height: 934 },
     },
     {
       icon: 'campus',
@@ -49,6 +59,7 @@ export const homeSectorsCopy = {
       refs: 'YTÜ, Yıldız Teknopark, Marmara Teknokent',
       route: 'alpr.index',
       destination: 'Plaka Tanıma',
+      image: { src: '/img/home/sectors/campus.webp', width: 1400, height: 1050 },
     },
     {
       icon: 'residence',
@@ -56,6 +67,7 @@ export const homeSectorsCopy = {
       description: 'Sakin, misafir ve personel araçları plakadan ayrılır; yönetim her yerden izler.',
       route: 'website-pricing',
       destination: 'Site Otopark Yönetimi',
+      image: { src: '/img/home/sectors/residence.webp', width: 1400, height: 934 },
     },
     {
       icon: 'truck',
@@ -63,6 +75,7 @@ export const homeSectorsCopy = {
       description: 'Liman, gümrük ve depo alanlarında çekici ile dorseyi ayıran yüksek kiosk.',
       route: 'hardware-products.tir-kiosk',
       destination: 'TIR Ödeme Kiosku',
+      image: { src: '/img/home/sectors/truck.webp', width: 1400, height: 1400 },
     },
   ] satisfies SectorItem[],
 } as const

@@ -6,7 +6,7 @@ export type HeroCopy = {
   description: string
   primary: string
   secondary: string
-  /** Aynı sayfadaki sistem akışı bölümü ve başlığı. */
+  /** Aynı sayfadaki saha anlatısı bölümü ve başlığı. */
   systemTarget: { section: string; heading: string }
   proof: string[]
   hud: {
@@ -31,14 +31,14 @@ export const heroCopy: HeroCopy = {
   title: 'Otoparkınızı tek merkezden yönetin.',
   description: 'Plaka tanıma, temassız ödeme, HGS, bariyer kontrolü ve raporlama tek sistemde.',
   primary: 'Demo ve Teklif Al',
-  secondary: 'Sistem Nasıl Çalışır?',
-  systemTarget: { section: 'sistem', heading: 'sistem-title' },
-  proof: ["2018'den beri", '%99 üzeri plaka tanıma doğruluğu', '7/24 uzaktan destek'],
+  secondary: 'Sahada nasıl çalışır?',
+  systemTarget: { section: 'saha', heading: 'saha-title' },
+  proof: ["2018'den beri", 'Sahada çalışan geçiş sistemleri', '7/24 uzaktan destek'],
   hud: {
     label: 'Canlı geçiş örneği',
     summary: 'Canlı geçiş örneği: araç algılanır, plaka doğrulanır, bariyer açılır.',
     live: 'Canlı',
-    camera: 'TOGER · Çıkış',
+    camera: ' · Çıkış',
     reading: 'Plaka okunuyor…',
     plate: '34 PBB 261',
     plateLabel: 'TR',

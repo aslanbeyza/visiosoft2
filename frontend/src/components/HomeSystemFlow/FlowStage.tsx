@@ -35,10 +35,7 @@ export default function FlowStage({ active, fill, cycle = 0, dock = false, foote
   return (
     <div ref={rootRef} className={`${styles.stage} ${className}`.trim()} data-record={record}>
       <div className={styles.header} aria-hidden="true">
-        <span className={styles.counter}>
-          {pad(Math.max(0, active) + 1)}
-          <span className={styles.counterTotal}>/ {pad(total)}</span>
-        </span>
+        <span className={styles.sheetCode}>{text.sheet.code}</span>
         <span className={styles.headTitle}>
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
@@ -52,6 +49,10 @@ export default function FlowStage({ active, fill, cycle = 0, dock = false, foote
               {current.title}
             </motion.span>
           </AnimatePresence>
+        </span>
+        <span className={styles.counter}>
+          {pad(Math.max(0, active) + 1)}
+          <span className={styles.counterTotal}>/ {pad(total)}</span>
         </span>
         <span className={styles.track}>
           <motion.span className={styles.trackFill} style={{ scaleX: progress }} />
@@ -79,6 +80,7 @@ export default function FlowStage({ active, fill, cycle = 0, dock = false, foote
                 mode="manual"
                 active={Math.min(Math.max(0, active), RECORD_INDEX - 1)}
                 showLabels={false}
+                variant="cad"
                 label={text.sceneLabel}
               />
             </motion.div>
@@ -97,7 +99,19 @@ export default function FlowStage({ active, fill, cycle = 0, dock = false, foote
       </div>
 
       <p className="sr-only">{text.sceneDescription}</p>
-      {footer ? <div className={styles.footer}>{footer}</div> : null}
+
+      <div className={styles.titleBlock}>
+        <span className={styles.tbBrand}>{text.sheet.company}</span>
+        <span className={styles.tbMeta}>
+          {text.sheet.drawing}
+          <span className={styles.tbSep} aria-hidden="true">
+            ·
+          </span>
+          {text.sheet.view}
+        </span>
+        <span className={styles.tbScale}>{text.sheet.scale}</span>
+        {footer ? <div className={styles.tbAction}>{footer}</div> : null}
+      </div>
     </div>
   )
 }

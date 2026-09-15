@@ -2,6 +2,11 @@
  * Kullanım alanları: kart değil, saç çizgisi ızgara. Hücreler beyaz; aradaki 1px boşluk çizgi rengini gösterir.
  * Dış köşe ve kırpma yalnızca listededir, böylece Güvence kartlarından ayrı bir yüzey okunur.
  */
+.section.section {
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  padding-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
 .grid {
   display: grid;
   gap: 1px;
@@ -38,6 +43,32 @@
 
 .tile {
   position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--color-corp-surface);
+}
+
+.media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-apple);
+}
+
+.item:hover .media img,
+.item:focus-within .media img {
+  transform: scale(1.03);
+}
+
+.inner {
   display: grid;
   flex: 1;
   grid-template-columns: 1.5rem minmax(0, 1fr) 1.25rem;
@@ -167,7 +198,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .tile {
+  .inner {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -228,12 +259,15 @@
 @media (prefers-reduced-motion: reduce) {
   .item::before,
   .accent,
-  .arrow {
+  .arrow,
+  .media img {
     transition: none;
   }
 
   .item:hover .arrow,
-  .item:focus-within .arrow {
+  .item:focus-within .arrow,
+  .item:hover .media img,
+  .item:focus-within .media img {
     transform: none;
   }
 }

@@ -1,9 +1,10 @@
-import { motion } from 'framer-motion'
-import type { MotionStyle, MotionValue } from 'framer-motion'
+import { motion, useMotionValueEvent } from 'framer-motion'
+import type { MotionValue } from 'framer-motion'
+import { useLayoutEffect, useRef } from 'react'
 import { revealEase } from '../Reveal/index.ts'
 import { leaders } from './leaders.ts'
 import type { ParkingFlowDevice } from './parkingFlowCopy.ts'
-import { COMPACT_VIEW, SCENE_HEIGHT, SCENE_WIDTH } from './scene.ts'
+import { ARM_LENGTH, ARM_PIVOT, COMPACT_VIEW, SCENE_HEIGHT, SCENE_WIDTH } from './scene.ts'
 import styles from './ParkingFlow.module.css'
 
 /*
@@ -33,18 +34,32 @@ type ParkingFlowSceneProps = {
   replay?: boolean
   /** Dar sahne: görünüm kırpılır; etiket şeridin altında olduğundan dirsekli çizgi yerine cihaz üzerinde işaret çizilir. */
   compact?: boolean
+  /** Ana sayfa çizim kâğıdı: GİRİŞ/ÇIKIŞ ve cihaz etiketleri. */
+  cad?: boolean
 }
 
-export default function ParkingFlowScene({ values, highlight, revealed, reduce, replay = false, compact = false }: ParkingFlowSceneProps) {
+export default function ParkingFlowScene({
+  values,
+  highlight,
+  revealed,
+  reduce,
+  replay = false,
+  compact = false,
+  cad = false,
+}: ParkingFlowSceneProps) {
   const leader = highlight ? leaders[highlight] : null
-  const armStyle = { '--arm': values.arm } as MotionStyle
   const view = compact ? COMPACT_VIEW : { x: 0, y: 0, width: SCENE_WIDTH, height: SCENE_HEIGHT }
+  const armRef = useRef<SVGGElement>(null)
+  const setArm = (deg: number) => armRef.current?.setAttribute('transform', `rotate(${deg})`)
+  useLayoutEffect(() => setArm(values.arm.get()), [values.arm])
+  useMotionValueEvent(values.arm, 'change', setArm)
 
   return (
     <svg
       viewBox={`${view.x} ${view.y} ${view.width} ${view.height}`}
       className={styles.svg}
       data-highlight={highlight}
+      data-cad={cad || undefined}
       aria-hidden="true"
       focusable="false"
     >
@@ -119,19 +134,11 @@ export default function ParkingFlowScene({ values, highlight, revealed, reduce, 
         <line x1="698" y1="328" x2="732" y2="328" className={styles.vent} />
       </g>
 
-      {/* Bariyer */}
+      {/* Bariyer gövdesi uzak kaldırımda; kol arabanın üstünde çizilir (şeridi önden kapatır). */}
       <g data-device="barrier" data-dim="true">
         <rect x="920" y="336" width="52" height="6" rx="1" className={styles.fillLine} />
         <rect x="928" y="262" width="36" height="78" rx="4" className={styles.body} />
         <motion.circle cx="946" cy="276" r="4" style={{ fill: values.gateColor }} />
-        <motion.g className={styles.arm} style={armStyle}>
-          <rect x="964" y="283" width="186" height="10" rx="5" className={styles.body} />
-          <rect x="996" y="285.5" width="18" height="5" rx="2.5" className={styles.stripe} />
-          <rect x="1032" y="285.5" width="18" height="5" rx="2.5" className={styles.stripe} />
-          <rect x="1068" y="285.5" width="18" height="5" rx="2.5" className={styles.stripe} />
-          <rect x="1104" y="285.5" width="18" height="5" rx="2.5" className={styles.stripe} />
-        </motion.g>
-        <circle cx="964" cy="288" r="6" className={styles.body} />
       </g>
 
       {/* Araç (yandan, burun sağa: gidiş yönü). Far önde, stop arkada. */}
@@ -153,6 +160,19 @@ export default function ParkingFlowScene({ values, highlight, revealed, reduce, 
         <circle cx="118" cy="48" r="4.5" className={styles.hub} />
       </motion.g>
 
+      <g data-device="barrier" data-dim="true">
+        <g transform={`translate(${ARM_PIVOT.x} ${ARM_PIVOT.y})`}>
+          <g ref={armRef}>
+            <path d={`M-6 0h12L7 ${ARM_LENGTH}h-14Z`} className={styles.body} />
+            <rect x="-4" y="18" width="8" height="10" rx="2" className={styles.stripe} />
+            <rect x="-4.5" y="42" width="9" height="10" rx="2" className={styles.stripe} />
+            <rect x="-5" y="66" width="10" height="10" rx="2" className={styles.stripe} />
+            <rect x="-5.5" y="90" width="11" height="10" rx="2" className={styles.stripe} />
+          </g>
+        </g>
+        <circle cx={ARM_PIVOT.x} cy={ARM_PIVOT.y} r="6" className={styles.body} />
+      </g>
+
       {/* Plaka etiketi ve okuma ayracı */}
       <motion.g style={{ opacity: values.plate }} data-dim="true">
         <line x1="475" y1="318" x2="475" y2="368" className={styles.plateLeader} />
@@ -167,6 +187,36 @@ export default function ParkingFlowScene({ values, highlight, revealed, reduce, 
         <motion.path d="M542 314v16h-16" className={styles.corner} style={{ pathLength: values.bracket }} />
         <motion.path d="M424 330h-16v-16" className={styles.corner} style={{ pathLength: values.bracket }} />
       </g>
+
+      {cad ? (
+        <g className={styles.cadMarks}>
+          <path d="M96 396h28" className={styles.cadTick} />
+          <polygon points="96,396 108,391.5 108,400.5" className={styles.cadArrow} />
+          <text x="118" y="446" className={styles.cadText}>
+            GİRİŞ
+          </text>
+          <text x="1088" y="446" className={styles.cadText} textAnchor="end">
+            ÇIKIŞ
+          </text>
+          <polygon points="1128,396 1116,391.5 1116,400.5" className={styles.cadArrow} />
+          <path d="M1100 396h28" className={styles.cadTick} />
+
+          <path d="M392 128l22-28" className={styles.cadLeader} />
+          <text x="418" y="98" className={styles.cadText}>
+            KAMERA
+          </text>
+
+          <path d="M742 146l22-24" className={styles.cadLeader} />
+          <text x="768" y="120" className={styles.cadText}>
+            KIOSK
+          </text>
+
+          <path d="M964 276h40" className={styles.cadLeader} />
+          <text x="1010" y="272" className={styles.cadText}>
+            BARIYER
+          </text>
+        </g>
+      ) : null}
 
       {/* Vurgu: seçili cihaza giden dirsekli çizgi */}
       {leader ? (

@@ -55,6 +55,7 @@ export default function FlowCompact() {
         onSelect={onSelect}
         variant="compact"
         label={text.stepsLabel}
+        heading={text.legend}
       />
     </div>
   )

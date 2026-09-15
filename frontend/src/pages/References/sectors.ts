@@ -7,8 +7,8 @@ export const sectorOrder: SectorKey[] = ['belediye', 'kurum-teknopark', 'avm-ote
 
 export const sectorLabels: Record<SectorKey, string> = {
   belediye: 'Belediye',
-  'kurum-teknopark': 'Kurum & teknopark',
-  'avm-otel': 'AVM & otel',
+  'kurum-teknopark': 'Kurum & Teknopark',
+  'avm-otel': 'AVM & Otel',
   universite: 'Üniversite',
   diger: 'Diğer',
 }

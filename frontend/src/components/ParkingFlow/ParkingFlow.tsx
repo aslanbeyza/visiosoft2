@@ -38,7 +38,7 @@ import styles from './ParkingFlow.module.css'
  * `<ParkingFlow steps={steps} mode="manual" active="pay" highlight="kiosk" />` — ebeveynin yönettiği adım + cihaz vurgusu
  * `<ParkingFlow steps={steps} mode="manual" active="detect" barrier="closed" />` — 404: bariyer kapalı, araç bekler
  * Sahne (M8): şeritte ilerleyen araç, direkteki kamera konisi plakayı okur, ayraç çizilir, kontrol kutusuna darbe iner,
- * kiosk ekranı lacivertten (işlem) yeşile (ödeme tamam) döner, bariyer kolu −80° kalkar ve araç geçer.
+ * kiosk ekranı lacivertten (işlem) yeşile (ödeme tamam) döner, bariyer kolu yoldan yukarı kalkar ve araç geçer.
  * Adım etiketleri gerçek DOM'dur (<ol>), aria-current ile eşitlenir. Hareket azaltma: son kare, tüm cihazlar görünür.
  */
 export type ParkingFlowStep = { id: ParkingFlowStepId; title: string; description: string }
@@ -48,6 +48,8 @@ export type ParkingFlowProps = {
   mode?: 'scroll' | 'auto' | 'manual'
   highlight?: ParkingFlowDevice
   tone?: 'light' | 'dark'
+  /** cad: çizim kâğıdı (ızgara, GİRİŞ/ÇIKIŞ, cihaz etiketleri). Varsayılan sahneler değişmez. */
+  variant?: 'default' | 'cad'
   showLabels?: boolean
   className?: string
   /** manual: etkin adım (sıra ya da kimlik). Verilmezse bileşen kendi durumunu tutar. */
@@ -86,6 +88,7 @@ export default function ParkingFlow({
   mode = 'scroll',
   highlight,
   tone = 'light',
+  variant = 'default',
   showLabels = true,
   className = '',
   active,
@@ -296,6 +299,7 @@ export default function ParkingFlow({
       ref={rootRef}
       className={`${styles.root} ${className}`.trim()}
       data-tone={tone}
+      data-variant={variant}
       data-pinned={pinned}
       data-mode={mode}
       style={{ '--pf-length': scrollLength } as CSSProperties}
@@ -315,6 +319,7 @@ export default function ParkingFlow({
             reduce={reduce}
             replay={replay}
             compact={compact}
+            cad={variant === 'cad'}
           />
           {leader && deviceName && !compact ? (
             // Konum ve çapa ötelemesi statik dış span'dedir; framer-motion yalnız iç kapsülün opacity/y değerini yazar,
@@ -354,22 +359,24 @@ export default function ParkingFlow({
         ) : null}
         <p className={styles.srOnly}>{text.sceneDescription}</p>
 
-        <div className={styles.footer}>
-          {caption ? <figcaption className={styles.caption}>{caption}</figcaption> : <span />}
-          {mode === 'auto' && !reduce ? (
-            <button
-              type="button"
-              className={styles.toggle}
-              aria-label={paused ? text.play : text.pause}
-              onClick={() => setPaused((value) => !value)}
-            >
-              <svg viewBox="0 0 16 16" className={styles.toggleIcon} fill="currentColor" aria-hidden="true">
-                {paused ? <path d="M5 3.2v9.6L12.6 8z" /> : <path d="M4.5 3h2.2v10H4.5zM9.3 3h2.2v10H9.3z" />}
-              </svg>
-              <span aria-hidden="true">{paused ? text.playShort : text.pauseShort}</span>
-            </button>
-          ) : null}
-        </div>
+        {caption || (mode === 'auto' && !reduce) ? (
+          <div className={styles.footer}>
+            {caption ? <figcaption className={styles.caption}>{caption}</figcaption> : <span />}
+            {mode === 'auto' && !reduce ? (
+              <button
+                type="button"
+                className={styles.toggle}
+                aria-label={paused ? text.play : text.pause}
+                onClick={() => setPaused((value) => !value)}
+              >
+                <svg viewBox="0 0 16 16" className={styles.toggleIcon} fill="currentColor" aria-hidden="true">
+                  {paused ? <path d="M5 3.2v9.6L12.6 8z" /> : <path d="M4.5 3h2.2v10H4.5zM9.3 3h2.2v10H9.3z" />}
+                </svg>
+                <span aria-hidden="true">{paused ? text.playShort : text.pauseShort}</span>
+              </button>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className={showLabels ? styles.stepsWrap : styles.srOnly}>
           {showLabels && !reduce && mode !== 'manual' ? (

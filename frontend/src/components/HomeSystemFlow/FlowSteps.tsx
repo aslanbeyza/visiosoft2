@@ -32,6 +32,7 @@ type FlowStepsProps = {
   onSelect?: (index: number) => void
   variant: 'pinned' | 'compact' | 'static'
   label: string
+  heading?: string
 }
 
 type StepItemProps = {
@@ -88,30 +89,37 @@ function StepItem({ step, index, state, fill, onSelect, shown, reduce }: StepIte
 }
 
 /** Sol sütundaki adım listesi: etkin adım aria-current ile işaretlenir, üst çizgisi ilerlemeyle dolar. */
-export default function FlowSteps({ steps, active, fill, onSelect, variant, label }: FlowStepsProps) {
+export default function FlowSteps({ steps, active, fill, onSelect, variant, label, heading }: FlowStepsProps) {
   const reduce = Boolean(useReducedMotion())
   const listRef = useRef<HTMLOListElement>(null)
   const shown = useInView(listRef, { once: true, amount: 0.15 })
   const idle = useMotionValue(0)
 
   return (
-    <ol ref={listRef} className={styles.list} data-variant={variant} aria-label={label}>
-      {steps.map((step, index) => {
-        const state: StepState =
-          variant === 'static' || active < 0 ? 'static' : index < active ? 'done' : index === active ? 'active' : 'idle'
-        return (
-          <StepItem
-            key={step.title}
-            step={step}
-            index={index}
-            state={state}
-            fill={fill ?? idle}
-            onSelect={onSelect}
-            shown={shown}
-            reduce={reduce}
-          />
-        )
-      })}
-    </ol>
+    <div className={styles.wrap} data-variant={variant}>
+      {heading ? (
+        <p className={styles.legendHead} aria-hidden="true">
+          {heading}
+        </p>
+      ) : null}
+      <ol ref={listRef} className={styles.list} data-variant={variant} aria-label={label}>
+        {steps.map((step, index) => {
+          const state: StepState =
+            variant === 'static' || active < 0 ? 'static' : index < active ? 'done' : index === active ? 'active' : 'idle'
+          return (
+            <StepItem
+              key={step.title}
+              step={step}
+              index={index}
+              state={state}
+              fill={fill ?? idle}
+              onSelect={onSelect}
+              shown={shown}
+              reduce={reduce}
+            />
+          )
+        })}
+      </ol>
+    </div>
   )
 }

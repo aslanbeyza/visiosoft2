@@ -3,7 +3,8 @@
  * <LogoWall variant="grid" label="Referanslar" showNames logos={references.map((r) => ({ src: r.url, alt: r.name, href: r.website }))} />
  * <LogoWall variant="marquee" logos={…} />
  * grid: sabit boyutlu karolar ortalanır, satırlar dengelenir (6 logo dar alanda 3 + 3); hücreler sırayla belirir,
- * kenarlık köşeden açılır; logolar optik alanına göre sığdırılır, gri (%85) logo üzerine gelince ya da odakta renklenir.
+ * kenarlık köşeden açılır; logolar optik alanına göre sığdırılır. Varsayılan: gri (%85), üzerine gelince ya da odakta renklenir.
+ * color: gri katman yok, logolar her zaman renkli.
  * marquee: iki ters yönlü satır; yalnızca görünürken kayar, üzerine gelince ve düğmeyle durur; hareket azaltmada ızgaraya döner.
  */
 import { useRef, useState, useSyncExternalStore } from 'react'
@@ -31,6 +32,8 @@ export type LogoWallProps = {
   tone?: 'light' | 'dark'
   /** Logonun altında adını da yazar. */
   showNames?: boolean
+  /** Gri katmanı atlar; logolar her zaman renkli durur. */
+  color?: boolean
   className?: string
 }
 
@@ -75,7 +78,7 @@ const fitOnReady = (img: HTMLImageElement | null) => {
  * Gri ve renkli iki katman aynı dosyadır (tek indirme); üzerine gelince yalnızca renkli katmanın opaklığı değişir.
  * Renkli katman ekran okuyucudan gizlidir.
  */
-function LogoImage({ logo, decorative = false }: { logo: Logo; decorative?: boolean }) {
+function LogoImage({ logo, decorative = false, color = false }: { logo: Logo; decorative?: boolean; color?: boolean }) {
   const shared = {
     src: logo.src,
     width: logo.width ?? DEFAULT_SIZE.width,
@@ -86,8 +89,14 @@ function LogoImage({ logo, decorative = false }: { logo: Logo; decorative?: bool
   }
   return (
     <span className={styles.art}>
-      <img {...shared} alt={decorative ? '' : logo.alt} className={`${styles.logo} ${styles.grey}`} ref={fitOnReady} onLoad={(event) => fitLogo(event.currentTarget)} />
-      <img {...shared} alt="" aria-hidden="true" className={`${styles.logo} ${styles.colour}`} />
+      {color ? (
+        <img {...shared} alt={decorative ? '' : logo.alt} className={styles.logo} ref={fitOnReady} onLoad={(event) => fitLogo(event.currentTarget)} />
+      ) : (
+        <>
+          <img {...shared} alt={decorative ? '' : logo.alt} className={`${styles.logo} ${styles.grey}`} ref={fitOnReady} onLoad={(event) => fitLogo(event.currentTarget)} />
+          <img {...shared} alt="" aria-hidden="true" className={`${styles.logo} ${styles.colour}`} />
+        </>
+      )}
     </span>
   )
 }
@@ -97,14 +106,15 @@ type TileProps = {
   showNames: boolean
   decorative?: boolean
   drawn?: boolean
+  color?: boolean
 }
 
 /** Logo kutusu: bağlantı varsa <a>, yoksa <div>. Ad, görselin alt metnini yinelediği için ekran okuyucudan gizlidir. */
-function Tile({ logo, showNames, decorative = false, drawn = false }: TileProps) {
+function Tile({ logo, showNames, decorative = false, drawn = false, color = false }: TileProps) {
   const inner = (
     <span className={styles.logoBox}>
       {drawn ? <motion.span className={styles.border} variants={borderVariants} aria-hidden="true" /> : null}
-      <LogoImage logo={logo} decorative={decorative} />
+      <LogoImage logo={logo} decorative={decorative} color={color} />
     </span>
   )
 
@@ -132,7 +142,7 @@ function Tile({ logo, showNames, decorative = false, drawn = false }: TileProps)
   )
 }
 
-function Grid({ logos, label, showNames, reduce }: { logos: Logo[]; label?: string; showNames: boolean; reduce: boolean }) {
+function Grid({ logos, label, showNames, reduce, color }: { logos: Logo[]; label?: string; showNames: boolean; reduce: boolean; color: boolean }) {
   return (
     // --n: satırları dengelemek için logo sayısı (ör. 6 logo, 4'lük alanda 3 + 3 ortalanır).
     <ul className={styles.grid} role="list" aria-label={label} style={{ '--n': logos.length } as CSSProperties}>
@@ -146,14 +156,14 @@ function Grid({ logos, label, showNames, reduce }: { logos: Logo[]; label?: stri
           whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
         >
-          <Tile logo={logo} showNames={showNames} drawn />
+          <Tile logo={logo} showNames={showNames} drawn color={color} />
         </motion.li>
       ))}
     </ul>
   )
 }
 
-function Marquee({ logos, label, showNames }: { logos: Logo[]; label?: string; showNames: boolean }) {
+function Marquee({ logos, label, showNames, color }: { logos: Logo[]; label?: string; showNames: boolean; color: boolean }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const inView = useInView(rootRef, { amount: 0.1 })
   const pageVisible = usePageVisible()
@@ -176,7 +186,7 @@ function Marquee({ logos, label, showNames }: { logos: Logo[]; label?: string; s
               <ul className={styles.list} role="list" aria-label={rowIndex === 0 ? label : undefined}>
                 {row.map((logo) => (
                   <li key={`${logo.src}-${logo.alt}`} className={styles.marqueeCell}>
-                    <Tile logo={logo} showNames={showNames} />
+                    <Tile logo={logo} showNames={showNames} color={color} />
                   </li>
                 ))}
               </ul>
@@ -184,7 +194,7 @@ function Marquee({ logos, label, showNames }: { logos: Logo[]; label?: string; s
               <ul className={styles.list} aria-hidden="true">
                 {row.map((logo) => (
                   <li key={`${logo.src}-${logo.alt}`} className={styles.marqueeCell}>
-                    <Tile logo={logo} showNames={showNames} decorative />
+                    <Tile logo={logo} showNames={showNames} decorative color={color} />
                   </li>
                 ))}
               </ul>
@@ -205,13 +215,17 @@ function Marquee({ logos, label, showNames }: { logos: Logo[]; label?: string; s
   )
 }
 
-export default function LogoWall({ logos, variant = 'grid', label, tone = 'light', showNames = false, className = '' }: LogoWallProps) {
+export default function LogoWall({ logos, variant = 'grid', label, tone = 'light', showNames = false, color = false, className = '' }: LogoWallProps) {
   const reduce = Boolean(useReducedMotion())
   const marquee = variant === 'marquee' && !reduce
 
   return (
-    <div className={`${styles.root} ${className}`.trim()} data-tone={tone} data-variant={marquee ? 'marquee' : 'grid'}>
-      {marquee ? <Marquee logos={logos} label={label} showNames={showNames} /> : <Grid logos={logos} label={label} showNames={showNames} reduce={reduce} />}
+    <div className={`${styles.root} ${className}`.trim()} data-tone={tone} data-variant={marquee ? 'marquee' : 'grid'} data-color={color ? 'true' : undefined}>
+      {marquee ? (
+        <Marquee logos={logos} label={label} showNames={showNames} color={color} />
+      ) : (
+        <Grid logos={logos} label={label} showNames={showNames} reduce={reduce} color={color} />
+      )}
     </div>
   )
 }

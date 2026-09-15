@@ -1,3 +1,26 @@
+.wrap {
+  min-width: 0;
+}
+
+.legendHead {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 0.55rem;
+  color: var(--color-navy-600);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.legendHead::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-corp-line);
+}
+
 .list {
   display: grid;
   margin: 0;
@@ -11,21 +34,17 @@
   display: grid;
   grid-template-columns: 2.5rem minmax(0, 1fr);
   column-gap: 0.5rem;
-  /* Kart satırın kutusunda kalır (sütun ve kenar boşluğunu aşmaz); nefes payı içeride. */
-  padding: 1.05rem 1rem 1.1rem 0.75rem;
-  /* Zemin katmanı satırın içinde kalır; çocuklar konumlandırılmaz, böylece odak halkası tüm satırı sarar. */
+  padding: 0.9rem 0.7rem 0.95rem 0.55rem;
   isolation: isolate;
 }
 
-/* Etkin adımın zemini: yalnızca opaklık geçişi. */
 .step::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  border-radius: 0.75rem;
-  background: #fff;
-  box-shadow: 0 10px 30px -18px rgb(15 20 48 / 0.35);
+  border-left: 2px solid var(--color-navy-600);
+  background: rgb(23 27 153 / 0.035);
   opacity: 0;
   transition: opacity 0.5s var(--ease-apple);
 }
@@ -34,7 +53,6 @@
   opacity: 1;
 }
 
-/* Ayırıcı çizgi kartla aynı kutuda; etkin adımda kartın üst kenarı olur (köşe yuvarlaklığıyla kırpılır). */
 .rule {
   position: absolute;
   top: 0;
@@ -45,9 +63,8 @@
 }
 
 .step[data-state='active'] .rule {
-  height: 0.75rem;
+  height: 2px;
   overflow: hidden;
-  border-radius: 0.75rem 0.75rem 0 0;
   background: transparent;
 }
 
@@ -61,7 +78,6 @@
   transform-origin: left center;
 }
 
-/* Tamamlanan adımlar sakin: ince, açık lacivert. Koyu 2 px yalnızca etkin adımda. */
 .step[data-state='done'] .ruleFill {
   height: 1px;
   background: var(--color-navy-300);
@@ -70,7 +86,8 @@
 .index {
   padding-top: 0.12rem;
   color: var(--color-corp-muted);
-  font-size: 0.8rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.78rem;
   font-weight: 650;
   letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;
@@ -89,7 +106,7 @@
 .title {
   margin: 0;
   color: var(--color-corp-ink);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 650;
   letter-spacing: -0.015em;
   line-height: 1.3;
@@ -106,12 +123,10 @@
   cursor: pointer;
 }
 
-/* Tüm satır tıklanabilir; odak halkası satırı çevreler. */
 .button::after {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 0.75rem;
 }
 
 .nowrap {
@@ -134,7 +149,7 @@
 .text {
   margin: 0.3rem 0 0;
   color: var(--color-corp-body);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   line-height: 1.55;
   text-wrap: pretty;
 }
@@ -142,8 +157,8 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin: 0.6rem 0 0;
+  gap: 0.35rem;
+  margin: 0.55rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -151,19 +166,19 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  min-height: 1.6rem;
-  padding: 0 0.6rem;
+  min-height: 1.5rem;
+  padding: 0 0.5rem;
   border: 1px solid #cdd2de;
-  border-radius: 999px;
   background: #fff;
   color: var(--color-corp-ink);
-  font-size: 0.72rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.68rem;
   font-weight: 650;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
 }
 
 .step[data-state='active'] .chip {
-  border-color: var(--color-navy-100);
+  border-color: var(--color-navy-300);
   background: var(--color-navy-50);
   color: var(--color-navy-700);
 }
@@ -179,24 +194,23 @@
   }
 }
 
-/* Sabitlenmiş sahnede altı adım tek ekrana sığar. */
 @media (min-width: 1024px) and (max-height: 820px) {
   .list[data-variant='pinned'] .step {
-    padding-block: 0.72rem 0.78rem;
+    padding-block: 0.62rem 0.68rem;
   }
 
   .list[data-variant='pinned'] .title {
-    font-size: 1rem;
+    font-size: 0.98rem;
   }
 
   .list[data-variant='pinned'] .text {
     margin-top: 0.2rem;
-    font-size: 0.86rem;
+    font-size: 0.84rem;
     line-height: 1.5;
   }
 
   .list[data-variant='pinned'] .chips {
-    margin-top: 0.4rem;
+    margin-top: 0.35rem;
   }
 }
 

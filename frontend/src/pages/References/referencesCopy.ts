@@ -14,7 +14,7 @@ export const referencesCopy = {
     label: 'Referans sayıları',
     total: 'Referans',
     belediye: 'Belediye',
-    kurum: 'Kurum & teknopark',
+    kurum: 'Kurum & Teknopark',
   },
   drift: {
     toggle: 'Logo hareketini duraklat',

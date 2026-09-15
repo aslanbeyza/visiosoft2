@@ -41,29 +41,6 @@ export const kioskDetail: ProductDetailData = {
     ],
   },
   zoom: { kind: 'kiosk' },
-  process: {
-    eyebrow: 'Sahada nasıl çalışır?',
-    title: 'Plaka girişi olmadan çıkışta ödeme',
-    lead: 'Sürücü çıkışa yaklaştığı andan bariyer açılana kadar tahsilat dört adımda tamamlanır.',
-    steps: [
-      { id: 'plate', icon: 'camera', title: 'Plaka okunur', description: 'Çıkışa yaklaşan aracın plakası kamera ile tanınır.' },
-      { id: 'amount', icon: 'kiosk', title: 'Tutar ekranda görünür', description: 'Kiosk, araca ait ücreti sürücüye gösterir.' },
-      { id: 'payment', icon: 'card', title: 'Ödeme alınır', description: 'HGS, banka kartı veya QR ile tahsilat tamamlanır.' },
-      { id: 'barrier', icon: 'barrier', title: 'Bariyer açılır', description: 'Ödemesi tamamlanan araç için geçiş açılır.' },
-    ],
-    media: {
-      image: {
-        src: '/img/showcase/field-exit-1280.webp',
-        avif: '/img/showcase/field-exit-1280.avif',
-        avifSet: '/img/showcase/field-exit-720.avif 720w, /img/showcase/field-exit-1280.avif 1280w',
-        webpSet: '/img/showcase/field-exit-720.webp 720w, /img/showcase/field-exit-1280.webp 1280w',
-        width: 1280,
-        height: 1016,
-        alt: 'Otopark çıkış şeridi: direkteki plaka tanıma kamerası, LED bilgi ekranı ve bariyer kolu',
-      },
-      caption: 'Çıkış şeridi: plaka tanıma kamerası, LED bilgi ekranı ve bariyer kolu.',
-    },
-  },
   drawing: {
     image: drawingImage(
       'kiosk',

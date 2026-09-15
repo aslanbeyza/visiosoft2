@@ -5,7 +5,7 @@
 
 .head {
   display: grid;
-  gap: 1.75rem;
+  gap: 1.5rem;
 }
 
 .filters {
@@ -15,52 +15,64 @@
 .group {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.3rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 1rem;
+  background: #fff;
 }
 
 .filter {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0 0.9rem;
-  border: 1px solid var(--color-corp-line);
-  border-radius: 0.5rem;
-  background: #fff;
+  gap: 0.4rem;
+  min-height: 2.5rem;
+  padding: 0 0.85rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: transparent;
   color: var(--color-corp-ink);
   font: inherit;
   font-size: 0.875rem;
   font-weight: 600;
+  line-height: 1.2;
   cursor: pointer;
   transition:
-    border-color 0.35s var(--ease-apple),
     background-color 0.35s var(--ease-apple),
     color 0.35s var(--ease-apple);
 }
 
 .filter:hover {
-  border-color: var(--color-navy-600);
+  background: var(--color-navy-50);
 }
 
 .filter:focus-visible {
   outline: 2px solid var(--color-navy-600);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 .filter[aria-pressed='true'] {
-  border-color: var(--color-navy-600);
   background: var(--color-navy-600);
   color: #fff;
 }
 
+.filter[aria-pressed='true']:hover {
+  background: var(--color-navy-600);
+}
+
 .count {
-  min-width: 1.5rem;
-  padding: 0.1rem 0.4rem;
+  min-width: 1.35rem;
+  padding: 0.08rem 0.38rem;
   border-radius: 999px;
   background: var(--color-navy-50);
   color: var(--color-navy-600);
-  font-size: 0.72rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
   text-align: center;
 }
 
@@ -86,19 +98,6 @@
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
-}
-
-@media (min-width: 1024px) {
-  .head {
-    grid-template-columns: minmax(0, 1fr) minmax(0, auto);
-    align-items: end;
-    gap: 3rem;
-  }
-
-  .group {
-    justify-content: flex-end;
-    max-width: 36rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

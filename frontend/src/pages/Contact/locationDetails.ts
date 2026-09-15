@@ -1,6 +1,6 @@
 /**
  * Lokasyonların sayfa ayrıntıları (kısa yer adı, ilçe, not, yol tarifi bağlantısı).
- * Adres ve etiketler tek kaynaktan, `company.locations` üzerinden gelir; Hakkımızda sayfası da bunu kullanır.
+ * Adres ve etiketler tek kaynaktan, `company.locations` üzerinden gelir.
  */
 import { company } from '../../data/company.ts'
 

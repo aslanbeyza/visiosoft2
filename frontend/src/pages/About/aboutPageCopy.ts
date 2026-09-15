@@ -14,15 +14,7 @@ export const aboutPageCopy = {
   subNav: [
     { id: 'yaklasim', label: 'Yaklaşım' },
     { id: 'ekip', label: 'Ekip' },
-    { id: 'lokasyonlar', label: 'Lokasyonlar' },
   ],
-
-  locations: {
-    eyebrow: 'Neredeyiz',
-    title: 'Showroom’dan Teknopark’a, ekibimiz İstanbul’da.',
-    lead: 'Showroom ve depo Şişli’deki Perpa Ticaret Merkezi’nde; Living LAB Başakşehir İnovasyon Merkezi’nde, Teknopark ofisimiz YTÜ İkitelli Teknopark’ta.',
-    link: 'Adresler ve yol tarifi',
-  },
 
   story: {
     eyebrow: 'Yaklaşım',

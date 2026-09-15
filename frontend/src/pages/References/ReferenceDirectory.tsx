@@ -60,6 +60,7 @@ export default function ReferenceDirectory() {
             showNames
             label={copy.wallLabel}
             logos={visible.map((item) => ({ src: item.url, alt: item.name, href: item.website ?? undefined }))}
+            color
           />
         </div>
 

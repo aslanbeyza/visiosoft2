@@ -8,7 +8,7 @@ type KioskZoomProps = {
   frameLength?: number
 }
 
-/** Ana sayfa bölüm bağlantısı; diğer bölümlerdeki gibi sabit bir kimlik (/#yakindan-inceleyin). */
+/** Kiosk ürün sayfasındaki yakın plan bölüm kimliği. */
 export const KIOSK_ZOOM_ID = 'yakindan-inceleyin'
 
 /**
