@@ -37,17 +37,13 @@ export const heroCopy = {
   lead: 'Güvenli, hızlı ve anlık takip hep elinizde. Oturumlar, tahsilat, abonelik ve cihazlar Zone panelinde; ödeme ve abonelik müşterilerinizin cebinde.',
   primary: { label: 'Teklif Al', route: 'quote.index' },
   secondary: { label: 'Geliştiriciler', route: 'developers' },
-  lineupLabel: 'Zone canlı harita, oturumlar tablosu ve mobil uygulama ekranlarından oluşan görsel',
-  chips: { map: 'Canlı harita', sessions: 'Oturumlar', app: 'Mobil uygulama' },
-  bracket: 'Kamera konumu',
-  note: 'Zone ve mobil uygulama ekran görüntüleri (demo verisi)',
+  lineupLabel: 'ParkBiz mobil uygulaması: alt sekmelerle gezilebilir demo',
+  tablistLabel: 'ParkBiz alt sekmeleri',
 }
 
 export const subNavItems = [
   { id: 'zone', label: 'Zone paneli' },
-  { id: 'mobile-app', label: 'Mobil uygulama' },
   { id: 'canli-izleme', label: 'Canlı izleme' },
-  { id: 'cozumler', label: 'Çözümler' },
 ]
 
 export const zoneCopy = {
@@ -101,69 +97,32 @@ const appScreen = (id: string, alt: string): HubImage => ({
   alt,
 })
 
-/** ParkBiz marka künyesi; mağaza adresleri screens.json `brand` alanından alınmıştır. */
-export const parkbizBrand = {
-  name: 'ParkBiz',
-  mark: { src: '/img/app/parkbiz-mark.png', webp: '/img/app/parkbiz-mark.webp', width: 451, height: 512 },
-  appStoreUrl: 'https://apps.apple.com/tr/app/parkbiz-otopark-abonelik-%C3%B6de/id6764524587?l=tr',
-  playStoreUrl: 'https://play.google.com/store/apps/details?id=com.parkbiz.app',
-}
-
-export type MobileFeatureIcon = 'debt' | 'subscription' | 'card' | 'status'
-
-// Özellikler ParkBiz README'sindeki işlev listesine dayanır (borç listeleme + PayTR, abonelik, müsaitlik/online durumu).
-export const mobileCopy = {
-  eyebrow: 'Mobil uygulama',
-  title: 'Sürücülerinize temassız bir otopark deneyimi sunun.',
-  lead: 'Plaka ekleme, geçiş borcu ödeme ve abonelik işlemleri tek mobil uygulamada tamamlanır; tüm kayıtlar Zone paneline işlenir.',
-  brandLine: 'Visiosoft altyapısıyla çalışan ParkBiz mobil uygulaması',
-  tablistLabel: 'ParkBiz uygulama ekranları',
-  steps: [
-    {
-      id: 'otoparklar',
-      label: 'Otopark bul',
-      title: 'Yakındaki otoparklar',
-      description: 'Sürücüler yakındaki otoparkları mesafe, adres ve müsaitlik durumuyla tek listede görür.',
-      image: appScreen('otoparklar', 'ParkBiz uygulaması, Otoparklar ekranı: yakındaki otoparkların mesafe, adres ve müsaitlik bilgisiyle listesi'),
-    },
-    {
-      id: 'plaka-ekle',
-      label: 'Araç ekle',
-      title: 'Plakayla araç ekleme',
-      description: 'Sürücü aracını plakasıyla saniyeler içinde hesabına ekler.',
-      image: appScreen('plaka-ekle', 'ParkBiz uygulaması, araç ekleme ekranı: plaka önizlemesi ve plaka giriş alanı'),
-    },
-    {
-      id: 'borc-odeme',
-      label: 'Borç öde',
-      title: 'Geçiş borcu ödeme',
-      description: 'Geçiş borçları listelenir, kayıtlı kartla güvenle ödenir.',
-      image: appScreen('borc-odeme', 'ParkBiz uygulaması, borç ödeme özeti: geçiş detayı, ödenecek tutar, kayıtlı kart ve Güvenli Ödeme Yap düğmesi'),
-    },
-    {
-      id: 'paketler',
-      label: 'Abonelik al',
-      title: 'Abonelik satın alma',
-      description: 'Araç ve paket seçilir, ödeme tamamlanır; abonelik sürücünün hesabına tanımlanır.',
-      image: appScreen('paketler', 'ParkBiz uygulaması, abonelik paketleri ekranı: seçili otopark, araç seçimi ve uygun paketler'),
-    },
-  ],
-  featuresLabel: 'ParkBiz uygulamasının öne çıkan özellikleri',
-  features: [
-    { icon: 'debt' as MobileFeatureIcon, title: 'Ödeme geçmişi', text: 'Abonelik ödemeleri geriye dönük listelenir.' },
-    { icon: 'subscription' as MobileFeatureIcon, title: 'Otomatik yenileme', text: 'Süre dolunca abonelik kayıtlı kartla yenilenebilir.' },
-    { icon: 'card' as MobileFeatureIcon, title: 'Güvenli kartla ödeme', text: 'Kart ödemeleri PayTR güvenli ödeme sayfasında alınır.' },
-    { icon: 'status' as MobileFeatureIcon, title: 'Otopark durumu ve doluluk', text: 'Müsaitlik ve çevrim içi durum sürücüye anlık gösterilir.' },
-  ],
-  note: 'Uygulama ekranları demo verisiyle gösterilmektedir.',
-  cta: {
-    primary: { label: 'Mobil çözüm için demo isteyin', route: 'quote.index' },
-    storesLabel: 'ParkBiz uygulamasını indirin',
-    appStore: 'App Store',
-    googlePlay: 'Google Play',
-    storeContext: 'ParkBiz,',
+/**
+ * Hero telefon demosu: parkbiz-port alt sekmeleri (Otoparklar, Abonelik, Borçlar, Profil).
+ * Ekranlar screens.json'daki tabBar: 4 kareleriyle eşleşir.
+ */
+export const heroTabs = [
+  {
+    id: 'otoparklar',
+    label: 'Otoparklar',
+    image: appScreen('otoparklar', 'ParkBiz, Otoparklar sekmesi: yakındaki otopark listesi'),
   },
-}
+  {
+    id: 'abonelik',
+    label: 'Abonelik',
+    image: appScreen('abonelik', 'ParkBiz, Abonelik sekmesi: otopark seçimi'),
+  },
+  {
+    id: 'borclar',
+    label: 'Borçlar',
+    image: appScreen('borclar', 'ParkBiz, Borçlar sekmesi: borç sorgulama'),
+  },
+  {
+    id: 'profil',
+    label: 'Profil',
+    image: appScreen('profil', 'ParkBiz, Profil sekmesi: hesap menüsü'),
+  },
+] as const
 
 export const monitorCopy = {
   eyebrow: 'Canlı izleme',
@@ -184,79 +143,6 @@ export const monitorCopy = {
   ],
   checksLabel: 'Canlı izleme ile',
   caption: 'Zone paneli: temel otopark, finansal, abonelik ve teknik modüller (demo verisi)',
-}
-
-const page = (name: string, width: number, height: number, avif = false) => ({
-  src: `/img/pages/${name}.webp`,
-  avif: avif ? `/img/pages/${name}.avif` : undefined,
-  width,
-  height,
-  alt: '',
-})
-
-export const solutionsCopy = {
-  eyebrow: 'Çözümler',
-  title: 'Sahanıza uygun çözümü seçin.',
-  lead: 'Park Yazılım farklı saha tiplerine göre kurgulanan çözümlerle çalışır; her çözümün ayrıntıları kendi sayfasında.',
-  statsLabel: 'Park Yazılım kısaca',
-  stats: [
-    { value: 5, label: 'çözüm', note: 'Uçtan uca, yol üstü, işgaliye, HGS ve kuş bakışı' },
-    { value: 3, label: 'tahsilat yöntemi', note: 'HGS, POS ve QR' },
-    { value: 4, label: 'panel modülü', note: 'Temel otopark, finansal, abonelik ve teknik' },
-    { value: '7/24', label: 'uzaktan takip', note: 'Saha cihazları ve oturumlar' },
-  ],
-  gridLabel: 'Park Yazılım çözümleri',
-  action: 'İncele',
-  cards: [
-    {
-      route: 'end-to-end',
-      eyebrow: 'Hub & Spoke Modeli',
-      title: 'Uçtan Uca Sistem',
-      description: 'Hub & Spoke modeli ile tüm otopark yönetimini tek merkezden yönetin.',
-      image: { ...page('otopark-960', 960, 640, true), fit: 'cover' as const },
-    },
-    {
-      route: 'on-street',
-      eyebrow: 'Kamera & HGS',
-      title: 'Yol Üstü Parklandırma',
-      description: 'Kamera ve HGS entegrasyonu ile cadde ve sokak parklanmalarını yönetin.',
-      image: { ...page('yol_ustu', 1024, 765), fit: 'cover' as const },
-      meta: 'Temsilî çizim',
-    },
-    {
-      route: 'parking-violations',
-      eyebrow: 'İhlal tespiti',
-      title: 'İşgaliye ve Park Ceza',
-      description: 'Hatalı park, süre aşımı ve yetkisiz kullanımları yapay zeka ile tespit edin.',
-      image: { ...page('ihlal', 816, 229), fit: 'contain' as const },
-    },
-    {
-      route: 'hgs',
-      eyebrow: 'HGS, POS ve QR',
-      title: 'HGS Ödeme Sistemi',
-      description: 'Hızlı, temassız ve otomatik ödeme çözümleri ile otopark giriş çıkışlarını hızlandırın.',
-      image: { ...page('otopark-cikis-960', 960, 720, true), fit: 'cover' as const },
-    },
-    {
-      route: 'kus-bakisi',
-      eyebrow: 'Canlı harita',
-      title: 'Kuş Bakışı Yönetim',
-      description: 'Tüm otopark operasyonlarınızı tek bir ekrandan, anlık verilerle yönetin.',
-      // Sayfada yukarıda gösterilen canlı harita tekrar etmesin: kuş bakışı sahayı anlatan temsilî görsel.
-      // Görselin sol üstündeki başlık kırpılmasın diye 'contain'.
-      image: { ...page('kus_bakisi_otopark_yonetimi', 1052, 592), fit: 'contain' as const },
-      meta: 'Temsilî görsel',
-    },
-    {
-      route: 'parking-software',
-      eyebrow: 'Platform',
-      title: 'Otopark Yazılımı',
-      description: 'Modüller, hibrit mimari ve teknik sık sorulan sorular tek sayfada.',
-      // Panel menüleri Zone ve Canlı izleme bölümlerinde var; burada panonun tamamı kırpılmadan görünür.
-      image: { ...sw('finansal-rapor', 1024, 551, ''), fit: 'contain' as const },
-      meta: 'Demo verisi',
-    },
-  ],
 }
 
 export const ctaCopy = {

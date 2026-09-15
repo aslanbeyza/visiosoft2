@@ -134,7 +134,7 @@ export default function ParkingFlowScene({
         <line x1="698" y1="328" x2="732" y2="328" className={styles.vent} />
       </g>
 
-      {/* Bariyer gövdesi uzak kaldırımda; kol arabanın üstünde çizilir (şeridi önden kapatır). */}
+      {/* Bariyer gövdesi uzak kaldırımda; kapalı kol şeride iner, açılınca yukarı kalkar. */}
       <g data-device="barrier" data-dim="true">
         <rect x="920" y="336" width="52" height="6" rx="1" className={styles.fillLine} />
         <rect x="928" y="262" width="36" height="78" rx="4" className={styles.body} />

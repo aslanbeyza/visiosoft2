@@ -25,7 +25,9 @@
   color: #fff;
   text-align: center;
   box-shadow:
+    0 0 0 1px rgb(154 161 227 / 0.28),
     0 1px 2px rgb(15 20 48 / 0.08),
+    0 0 42px -10px rgb(23 27 153 / 0.55),
     0 22px 44px -22px rgb(11 14 68 / 0.6);
 }
 
@@ -70,6 +72,18 @@
   animation-play-state: paused;
 }
 
+.field circle {
+  fill: var(--color-navy-100);
+  opacity: 0.7;
+}
+
+.chip {
+  fill: none;
+  stroke: var(--color-navy-100);
+  stroke-width: 1.6;
+  stroke-linecap: square;
+}
+
 .wire {
   fill: none;
   stroke: var(--hub-line);
@@ -77,13 +91,27 @@
   transition: stroke 0.35s var(--ease-apple);
 }
 
+.beam {
+  fill: none;
+  stroke: var(--color-navy-300);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 0.1 1.5;
+  opacity: 0.28;
+  animation: hub-flow 2.8s linear infinite;
+  animation-play-state: paused;
+  transition:
+    stroke 0.35s var(--ease-apple),
+    opacity 0.35s var(--ease-apple);
+}
+
 .flow {
   fill: none;
   stroke: var(--color-navy-300);
-  stroke-width: 7;
+  stroke-width: 2.5;
   stroke-linecap: round;
-  stroke-dasharray: 0.001 1.599;
-  animation: hub-flow 3.2s linear infinite;
+  stroke-dasharray: 0.07 1.53;
+  animation: hub-flow 2.8s linear infinite;
   animation-play-state: paused;
   transition: stroke 0.35s var(--ease-apple);
 }
@@ -92,7 +120,9 @@
   fill: #fff;
   stroke: var(--hub-line);
   stroke-width: 1.5;
-  transition: stroke 0.35s var(--ease-apple);
+  transition:
+    stroke 0.35s var(--ease-apple),
+    r 0.35s var(--ease-apple);
 }
 
 .spoke[data-active='true'] .wire {
@@ -100,11 +130,17 @@
   stroke-width: 2;
 }
 
+.spoke[data-active='true'] .beam {
+  stroke: var(--hub-accent);
+  opacity: 0.42;
+}
+
 .spoke[data-active='true'] .flow {
   stroke: var(--hub-accent);
 }
 
 .spoke[data-active='true'] .node {
+  fill: var(--color-navy-50);
   stroke: var(--hub-accent);
 }
 
@@ -117,6 +153,7 @@
 }
 
 .root[data-running='true'] .ring,
+.root[data-running='true'] .beam,
 .root[data-running='true'] .flow {
   animation-play-state: running;
 }
@@ -225,9 +262,12 @@
 
 .tabDesc {
   display: none;
+  overflow: hidden;
   color: var(--color-corp-muted);
   font-size: 0.72rem;
   line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Dar ekran: merkezden aşağı inen gövde hattı ve kartlara kısa bağlantılar */
@@ -477,8 +517,9 @@
     position: absolute;
     top: var(--top);
     width: max-content;
-    max-width: 25.5%;
-    min-height: 3.5rem;
+    max-width: 28%;
+    min-height: 3.25rem;
+    padding: 0.5rem 0.65rem;
     translate: 0 -50%;
     pointer-events: auto;
   }
@@ -510,12 +551,14 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ring,
+  .beam,
   .flow,
   .pulse {
     animation: none;
   }
 
   .flow,
+  .beam,
   .pulse {
     display: none;
   }

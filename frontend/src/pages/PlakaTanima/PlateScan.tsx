@@ -17,8 +17,8 @@ const pad = (value: number) => String(value).padStart(2, '0')
 
 /**
  * Başarı bölümü: kamera görüntüsündeki TR plakası seçilen koşulda (gece, yağmur, kar, sis, çamur)
- * bulunur, karakterleri okunur ve ayraç kilitlenir. Görünürken koşullar kendiliğinden döner (duraklatılabilir);
- * kullanıcı bir koşul seçince döngü durur. Hareket azaltmada kilitli son kare gösterilir.
+ * bulunur, karakterleri okunur ve ayraç kilitlenir. Görünürken koşullar kendiliğinden döner;
+ * bir koşul seçilince o kareden devam eder. Hareket azaltmada kilitli son kare gösterilir.
  */
 export default function PlateScan() {
   const reduce = Boolean(useReducedMotion())
@@ -30,12 +30,10 @@ export default function PlateScan() {
 
   const [index, setIndex] = useState(0)
   const [phase, setPhase] = useState<ScanPhase>(0)
-  const [paused, setPaused] = useState(false)
 
   const condition = copy.conditions[index]
   const shown: ScanPhase = reduce ? 2 : phase
   const running = !reduce && inView && pageVisible
-  const cycling = running && !paused
 
   useEffect(() => {
     if (!running) return
@@ -43,18 +41,16 @@ export default function PlateScan() {
       const timer = window.setTimeout(() => setPhase(phase === 0 ? 1 : 2), PHASE_MS[phase])
       return () => window.clearTimeout(timer)
     }
-    if (!cycling) return
     const timer = window.setTimeout(() => {
       setIndex((value) => (value + 1) % copy.conditions.length)
       setPhase(0)
     }, HOLD_MS)
     return () => window.clearTimeout(timer)
-  }, [running, cycling, phase])
+  }, [running, phase, index])
 
   const select = (next: number) => {
     setIndex(next)
     setPhase(0)
-    setPaused(true)
   }
 
   return (
@@ -79,19 +75,6 @@ export default function PlateScan() {
             ))}
           </div>
         </fieldset>
-        {!reduce ? (
-          <button
-            type="button"
-            className={styles.toggle}
-            aria-label={paused ? copy.play : copy.pause}
-            onClick={() => setPaused((value) => !value)}
-          >
-            <svg viewBox="0 0 16 16" className={styles.toggleIcon} fill="currentColor" aria-hidden="true">
-              {paused ? <path d="M5 3.2v9.6L12.6 8z" /> : <path d="M4.5 3h2.2v10H4.5zM9.3 3h2.2v10H9.3z" />}
-            </svg>
-            <span aria-hidden="true">{paused ? copy.playShort : copy.pauseShort}</span>
-          </button>
-        ) : null}
       </div>
 
       <figure ref={figureRef} className={styles.figure}>
@@ -101,7 +84,7 @@ export default function PlateScan() {
           animate={revealed ? { clipPath: 'inset(0% 0% 0% 0% round 0.75rem)' } : undefined}
           transition={{ duration: 1.1, ease: revealEase }}
         >
-          <PlateSvg condition={condition.id} phase={shown} reduce={reduce} live={cycling} uid={uid} plateText={copy.plateText} />
+          <PlateSvg condition={condition.id} phase={shown} reduce={reduce} live={running} uid={uid} plateText={copy.plateText} />
           <span className={styles.conditionTag} aria-hidden="true">
             {condition.label}
           </span>

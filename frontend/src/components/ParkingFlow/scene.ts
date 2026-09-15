@@ -20,7 +20,7 @@ export type SceneState = {
   led: number
   /** Kiosk ekranı: 0 beklemede, 1 lacivert (işlem), 2 yeşil (ödeme tamam). */
   screen: number
-  /** Bariyer kolu açısı (derece, 0 kapalı ve yola bakar … 170 açık ve yukarı kalkar). */
+  /** Bariyer kolu açısı (derece, 0 kapalı ve şeride dikey … −170 açık ve yukarı). */
   arm: number
   /** Bariyer direği göstergesi (0–1). */
   gate: number
@@ -44,13 +44,13 @@ export const CAR_START = -200
 export const CAR_READ = 400
 export const CAR_KIOSK = 600
 export const CAR_EXIT = 1320
-/** Bariyer kapalıyken aracın durduğu son konum (ön tampon, yola bakan kola değmez). */
+/** Bariyer kapalıyken aracın durduğu son konum (ön tampon, şeride inen kola değmez). */
 export const CAR_STOP = 778
-/** Kol gövdenin yol kenarındaki menteşesinde döner; kapalıyken şeridin içine bakar. */
+/** Kol gövdenin yol kenarındaki menteşesinde döner; kapalıyken şeridin içine iner. */
 export const ARM_PIVOT = { x: 946, y: 338 } as const
 export const ARM_LENGTH = 108
-/** Kapalı kol +y (yol); açık kol neredeyse yukarı. SVG y aşağı arttığı için saat yönünde kalkar. */
-export const ARM_OPEN = 170
+/** Kapalı kol +y (şeridi keser). Açılınca ters saat yönünde (−170°) yukarı kalkar; saat yönü kioskun içinden geçer. */
+export const ARM_OPEN = -170
 
 export const STEP_ORDER: ParkingFlowStepId[] = ['approach', 'detect', 'verify', 'pay', 'open']
 

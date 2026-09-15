@@ -31,7 +31,7 @@ function applyMargin(section: HTMLElement, barsHidden: boolean, ids: string[]) {
 }
 
 /**
- * Alt menü hedefleri (#zone, #mobile-app …): bağlantıya tıklanınca varış anındaki navbar durumu önceden hesaplanır
+ * Alt menü hedefleri (#zone, #canli-izleme …): bağlantıya tıklanınca varış anındaki navbar durumu önceden hesaplanır
  * (aşağı, 480 px'in ötesine ve hareket azaltılmamışsa gizli), scroll-margin-top buna göre yazılır. Tarayıcı hedefi
  * tıklama olayından sonra hesapladığı için değer zamanında uygulanır. Doğrudan #bağlantıyla açılışta ve güvenlik ağı
  * olarak kaydırma bitince başlık ölçülür; tahmin tutmadıysa navbar'ı yeniden açıp kapatmayan yönde düzeltilir.

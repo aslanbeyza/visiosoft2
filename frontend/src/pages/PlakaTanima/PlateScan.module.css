@@ -217,41 +217,6 @@
   position: relative;
 }
 
-.toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 2.75rem;
-  margin-top: 1rem;
-  padding: 0 0.95rem 0 0.8rem;
-  border: 1px solid var(--color-corp-line);
-  border-radius: 0.5rem;
-  background: transparent;
-  color: var(--color-corp-body);
-  font: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    border-color 0.35s var(--ease-apple),
-    color 0.35s var(--ease-apple);
-}
-
-.toggle:hover {
-  border-color: var(--color-navy-300);
-  color: var(--color-navy-600);
-}
-
-.toggle:focus-visible {
-  outline: 2px solid var(--color-navy-600);
-  outline-offset: 3px;
-}
-
-.toggleIcon {
-  width: 0.8rem;
-  height: 0.8rem;
-}
-
 .figure {
   margin: 0;
 }
@@ -403,7 +368,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .option,
-  .toggle,
   .phaseLabel {
     transition: none;
   }

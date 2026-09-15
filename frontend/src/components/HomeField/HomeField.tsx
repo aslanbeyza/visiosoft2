@@ -17,7 +17,7 @@ const ITEMS = [
 const COUNT = ITEMS.length
 const LOOPS = 2
 const SPAN = COUNT * LOOPS
-const STORY = 180
+const STORY = 96
 const SPRING = { stiffness: 92, damping: 26, mass: 0.4 }
 
 function wrapOff(index: number, fly: number, count: number) {

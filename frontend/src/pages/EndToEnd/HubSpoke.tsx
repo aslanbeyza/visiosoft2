@@ -11,7 +11,7 @@ import styles from './HubSpoke.module.css'
 const pad = (value: number) => String(value).padStart(2, '0')
 
 /**
- * Hero anı: VISIO merkezine bağlanan altı modül. Bağlantılar çizilir, veri noktaları merkeze akar;
+ * Hero anı: VISIO merkezine bağlanan altı modül. Işınlar çizilir, veri noktaları merkeze akar;
  * her modül bir sekmedir (ok tuşları, Home/End) ve açıklamasını alttaki panelde açar.
  * Akış yalnızca görünürken ve sekme açıkken döner, duraklatılabilir; hareket azaltmada tamamen statik.
  */

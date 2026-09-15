@@ -1,22 +1,22 @@
 .section {
-  padding-top: clamp(2.75rem, 5.5vw, 4.75rem);
-  padding-bottom: clamp(3rem, 6vw, 5.5rem);
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(2.25rem, 4.5vw, 4rem);
 }
 
 .story {
   position: relative;
-  height: calc(100svh + var(--story, 180) * 1svh);
+  height: calc(100svh + var(--story, 96) * 1svh);
 }
 
 .sticky {
   position: sticky;
   top: 0;
-  padding: 5rem 0 1.35rem;
+  padding: 3.25rem 0 1rem;
 }
 
 .stage {
   position: relative;
-  height: min(36rem, calc(100svh - 7.25rem));
+  height: min(32rem, calc(100svh - 6.5rem));
   overflow: hidden;
   border-radius: 1.35rem;
   background: transparent;
@@ -112,8 +112,8 @@
   inset: 0;
   display: grid;
   place-items: center;
-  padding: 5.25rem 3% 10% 28%;
-  transform: translate3d(0, calc(var(--off) * 62vh), 0) scale(calc(1 - var(--off) * 0.14));
+  padding: 4.5rem 3% 8% 28%;
+  transform: translate3d(0, calc(var(--off) * 52vh), 0) scale(calc(1 - var(--off) * 0.14));
   opacity: max(0, calc(1 - abs(var(--off)) * 1.08));
   pointer-events: none;
   will-change: transform, opacity;
@@ -138,18 +138,18 @@
 }
 
 .slot[data-fit='tall'] img {
-  height: min(26rem, 54vh);
+  height: min(23rem, 48vh);
   max-width: none;
 }
 
 .slot[data-fit='wide'] img {
-  width: min(26rem, 68vw);
-  max-height: 16rem;
+  width: min(24rem, 64vw);
+  max-height: 14.5rem;
 }
 
 .steps {
   position: absolute;
-  top: 46%;
+  top: 42%;
   right: auto;
   bottom: auto;
   left: 2.15rem;
@@ -422,16 +422,16 @@
 
 @media (min-width: 768px) {
   .slot {
-    padding: 4.5rem 4% 8% 34%;
+    padding: 4rem 4% 7% 34%;
   }
 
   .slot[data-fit='tall'] img {
-    height: min(29rem, 58vh);
+    height: min(26rem, 52vh);
   }
 
   .slot[data-fit='wide'] img {
-    width: min(30rem, 46vw);
-    max-height: 17.5rem;
+    width: min(28rem, 44vw);
+    max-height: 16rem;
   }
 
   .kicker,
@@ -456,7 +456,7 @@
 
 @media (min-width: 1024px) {
   .slot {
-    padding: 4.25rem 5% 7% 38%;
+    padding: 3.75rem 5% 6% 38%;
   }
 
   .grid {
@@ -466,15 +466,15 @@
 
 @media (max-height: 760px) {
   .sticky {
-    padding: 4.5rem 0 0.75rem;
+    padding: 3rem 0 0.65rem;
   }
 
   .slot[data-fit='tall'] img {
-    height: min(20rem, 46vh);
+    height: min(18rem, 42vh);
   }
 
   .slot {
-    padding-bottom: 32%;
+    padding-bottom: 28%;
   }
 }
 

@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import { useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
 import Button from '../../components/Button/index.ts'
-import CardGrid, { LinkCard } from '../../components/CardGrid/index.ts'
 import CtaBand from '../../components/CtaBand/index.ts'
 import Magnetic from '../../components/Magnetic/index.ts'
 import MediaFrame from '../../components/MediaFrame/index.ts'
@@ -12,14 +11,12 @@ import ScrollStack from '../../components/ScrollStack/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
 import Seo from '../../components/Seo/index.ts'
-import StatRow from '../../components/StatRow/index.ts'
 import SubNav from '../../components/SubNav/index.ts'
 import { useMediaQuery } from '../../hooks/useMediaQuery/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import HeroLineup from './HeroLineup.tsx'
-import MobileApp from './MobileApp.tsx'
 import MonitorSection from './MonitorSection.tsx'
-import { ctaCopy, heroCopy, hubSeo, solutionsCopy, subNavItems, zoneCopy } from './softwareHubCopy.ts'
+import { ctaCopy, heroCopy, hubSeo, subNavItems, zoneCopy } from './softwareHubCopy.ts'
 import { useSubNavArrival } from './useSubNavArrival.ts'
 import styles from './SoftwareHub.module.css'
 
@@ -44,7 +41,7 @@ const SUBNAV_REM = 3.25
 /**
  * Zone kartları yalnızca gerçekten yapışmışken alt menüyü gizletir. Kartlar liste üstü navbar altındaki yapışma
  * çizgisine (--ss-nav) ulaşınca yapışır; son kart çubukların (navbar + alt menü) altından çıkınca menü geri gelir.
- * Liste sarmalayıcısını ekranın üst şeridinde görmek yetmez: #mobile-app bağlantısıyla gelindiğinde yığının alt
+ * Liste sarmalayıcısını ekranın üst şeridinde görmek yetmez: #canli-izleme bağlantısıyla gelindiğinde yığının alt
  * boşluğu o şeritte kalır ama kart yoktur, menü görünür ve tıklanabilir kalmalıdır.
  */
 function useStackPinned(ref: RefObject<HTMLDivElement | null>, enabled: boolean) {
@@ -62,14 +59,14 @@ function useStackPinned(ref: RefObject<HTMLDivElement | null>, enabled: boolean)
   }
 
   useMotionValueEvent(scrollY, 'change', update)
-  // İlk yüklemede (ör. #mobile-app ile açılış) ve genişlik/hareket tercihi değişince kaydırma beklenmeden hesaplanır.
+  // İlk yüklemede (ör. #canli-izleme ile açılış) ve genişlik/hareket tercihi değişince kaydırma beklenmeden hesaplanır.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(update, [enabled])
 
   return enabled && pinned
 }
 
-/** /yazilim-urunleri — Park Yazılım merkezi: Zone ekranları, mobil uygulama, canlı izleme ve çözümler. */
+/** /yazilim-urunleri — Park Yazılım merkezi: Zone ekranları ve canlı izleme. */
 export default function SoftwareHub() {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
@@ -91,7 +88,6 @@ export default function SoftwareHub() {
         title={heroCopy.title}
         lead={heroCopy.lead}
         mediaOrder="last"
-        mediaNote={heroCopy.note}
         media={<HeroLineup />}
         actions={
           <>
@@ -116,29 +112,7 @@ export default function SoftwareHub() {
         </div>
       </Section>
 
-      <MobileApp />
-
       <MonitorSection />
-
-      <Section id="cozumler" tone="surface" spacing="lg" labelledBy="hub-solutions-title">
-        <SectionHeading eyebrow={solutionsCopy.eyebrow} title={solutionsCopy.title} lead={solutionsCopy.lead} id="hub-solutions-title" className={styles.heading} />
-        <StatRow items={solutionsCopy.stats} columns={4} label={solutionsCopy.statsLabel} className={styles.stats} />
-        <CardGrid columns={3} label={solutionsCopy.gridLabel}>
-          {solutionsCopy.cards.map((card, index) => (
-            <LinkCard
-              key={card.route}
-              to={path(card.route)}
-              eyebrow={card.eyebrow}
-              title={card.title}
-              description={card.description}
-              image={card.image}
-              index={index + 1}
-              meta={'meta' in card ? card.meta : undefined}
-              action={solutionsCopy.action}
-            />
-          ))}
-        </CardGrid>
-      </Section>
 
       <CtaBand
         eyebrow={ctaCopy.eyebrow}

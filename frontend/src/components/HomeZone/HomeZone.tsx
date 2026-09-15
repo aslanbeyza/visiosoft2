@@ -2,10 +2,9 @@ import Section from '../Section/index.ts'
 import SectionHeading from '../SectionHeading/index.ts'
 import ZoneStage from '../HomeSoftware/index.ts'
 import { homeSoftwareCopy as software } from '../HomeSoftware/homeSoftwareCopy.ts'
-import DriverStrip from './DriverStrip.tsx'
 import styles from './HomeZone.module.css'
 
-/** Ana sayfa Zone: tıklanabilir panel demosu (telefon + laptop) ve sürücünün gördüğü ekranlar. */
+/** Ana sayfa Zone: tıklanabilir panel demosu (telefon + laptop). */
 export default function HomeZone() {
   return (
     <Section id="zone" tone="night" spacing="lg" className={styles.section} innerClassName={styles.inner} labelledBy="zone-title">
@@ -20,7 +19,6 @@ export default function HomeZone() {
         />
       </div>
       <ZoneStage />
-      <DriverStrip />
     </Section>
   )
 }

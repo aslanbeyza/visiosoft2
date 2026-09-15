@@ -1,0 +1,37 @@
+/*
+ * PhoneFrame.module.css .screen ile aynı inset (çerçeve 726×1444, ekran 623×1351).
+ * Alt ~12%: parkbiz-port sekme çubuğu.
+ */
+.hits {
+  position: absolute;
+  top: 3.255%;
+  left: 7.163%;
+  width: 85.813%;
+  height: 93.56%;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.hitRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  height: 12%;
+  pointer-events: auto;
+}
+
+.hit {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 0.35rem;
+}
+
+.hit:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: -2px;
+}

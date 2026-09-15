@@ -4,6 +4,7 @@ import HomeCta from '../../components/HomeCta/index.ts'
 import HomeField from '../../components/HomeField/index.ts'
 import HomeProof from '../../components/HomeProof/index.ts'
 import HomeSectors from '../../components/HomeSectors/index.ts'
+import HomeZone from '../../components/HomeZone/index.ts'
 import Seo from '../../components/Seo/index.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
 
@@ -14,9 +15,7 @@ import { useLocale } from '../../hooks/useLocale/index.ts'
 const HOME_DESCRIPTION =
   "Otoparkınızı tek merkezden yönetin: plaka tanıma, temassız ödeme, HGS, bariyer kontrolü ve raporlama tek sistemde. 2018'den beri, 7/24 uzaktan destek."
 
-/**
- * Saha kanıtı önde: geçiş videosu, referanslar, donanım vitrini.
- */
+/** Geçiş videosu, referanslar, donanım vitrini, Zone paneli. */
 export default function Home() {
   const { t } = useLocale()
 
@@ -27,6 +26,7 @@ export default function Home() {
       <Hero />
       <HomeProof />
       <HomeField />
+      <HomeZone />
       <HomeSectors />
       <HomeCta />
       <HomeAssurance />
