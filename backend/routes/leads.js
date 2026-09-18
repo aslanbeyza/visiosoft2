@@ -8,6 +8,7 @@ const router = express.Router();
 router.post("/api/leads/quote", leadController.storeQuote);
 router.post("/api/leads/parking-quote-engine", leadController.storeParkingQuote);
 router.post("/api/leads/discovery", leadController.storeDiscovery);
+router.post("/api/leads/contact", leadController.storeContact);
 
 for (const pathName of leadFormPaths("quote.index")) {
   router.post(pathName, leadController.storeQuote);

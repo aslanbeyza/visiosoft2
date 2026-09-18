@@ -1,64 +1,31 @@
 export const contactCopy = {
   seoTitle: 'İletişim | Visiosoft',
   seoDescription:
-    'Visiosoft ile iletişime geçin: WhatsApp, telefon ve e-posta bilgileri, showroom, depo, Living LAB ve Teknopark lokasyonları, şirket bilgileri ve online görüşme planlama.',
+    'Visiosoft ile iletişime geçin: iletişim formu, WhatsApp ve e-posta, şirket bilgileri ve online görüşme planlama.',
+  newTab: '(yeni sekmede açılır)',
 
-  hero: {
+  form: {
+    id: 'iletisim-formu',
     eyebrow: 'İletişim',
-    /** Ekran okuyucunun okuduğu sabit başlık; görsel başlık selamlamalar arasında döner. */
-    srTitle: 'İletişim',
-    /** Kısa tutulur: ≥36rem genişlikte her selamlama tek satıra sığar, daha dar ekranda "Merhaba," satırı ayrılır. */
-    greetings: ['Merhaba, nasılsınız?', 'Merhaba, sizi dinliyoruz.', 'Merhaba, buradayız.'],
-    lead: 'Satış, destek ve operasyon ekibimize tek yerden ulaşın.',
-    pause: 'Selamlamayı duraklat',
-    play: 'Selamlamayı sürdür',
+    title: 'Bize yazın.',
+    lead: 'Satış, destek veya operasyon için formu doldurun. WhatsApp ve e-posta da açık.',
+    submit: 'Mesaj gönder',
+    successTitle: 'Mesajınız alındı',
+    successBody: 'Satış ve destek ekibimiz en kısa sürede sizinle iletişime geçecektir.',
+    messageExample: 'Konunuz, saha ihtiyacı veya sorularınız…',
   },
 
-  channels: {
-    label: 'Doğrudan ulaşın',
-    newTab: '(yeni sekmede açılır)',
-    whatsapp: {
-      eyebrow: 'Satış & WhatsApp Hattı',
-      description: 'Hızlı teklif, demo ve satış soruları',
-      action: 'WhatsApp ile yazın',
-    },
-    dealer: {
-      eyebrow: 'Bayi Kanal Yöneticisi',
-      name: 'Cihan Topaç',
-      phoneDisplay: '+90 530 392 34 68',
-      phoneHref: 'tel:+905303923468',
-      description: 'Partnerlik, bayi ve saha iş birlikleri',
-      action: 'Arayın',
-    },
-    email: {
-      eyebrow: 'Satış ve Destek',
-      description: 'Genel iletişim ve destek talepleri',
-      action: 'E-posta gönderin',
-    },
-  },
+  steps: [
+    { title: 'Mesajınız', description: 'Formu gönderirsiniz; talep kayıt altına alınır.' },
+    { title: 'İlk dönüş', description: 'Ekibimiz aynı gün içinde size ulaşır.' },
+    { title: 'Yönlendirme', description: 'Teklif, keşif veya destek için doğru kişiyle devam ederiz.' },
+  ],
 
   subNav: [
-    { id: 'iletisim-kanallari', label: 'Kanallar' },
-    { id: 'lokasyonlar', label: 'Lokasyonlar' },
+    { id: 'iletisim-formu', label: 'Form' },
     { id: 'sirket-bilgileri', label: 'Şirket bilgileri' },
     { id: 'gorusme', label: 'Online görüşme' },
   ],
-
-  locations: {
-    eyebrow: 'Lokasyonlar',
-    title: 'Showroom, depo, Living LAB ve Teknopark.',
-    lead: 'Showroom ve depo Şişli’deki Perpa Ticaret Merkezi’nde; Living LAB ve Teknopark Başakşehir’de.',
-    listLabel: 'Lokasyon listesi',
-    directions: 'Yol tarifi al',
-    map: {
-      title: 'Lokasyonlarımız haritada',
-      description: 'Harita OpenStreetMap üzerinden yüklenir; düğmeye bastığınızda bu hizmete bağlanılır.',
-      load: 'Haritayı yükle',
-      open: 'OpenStreetMap’te aç',
-      src: 'https://www.openstreetmap.org/export/embed.html?bbox=28.78%2C41.05%2C28.99%2C41.11&layer=mapnik',
-      href: 'https://www.openstreetmap.org/#map=13/41.0800/28.8850',
-    },
-  },
 
   corporate: {
     eyebrow: 'Kurumsal',
@@ -80,11 +47,24 @@ export const contactCopy = {
 
   meeting: {
     eyebrow: 'Online görüşme',
-    title: 'Online görüşme planlayın',
-    lead: 'Uzmanımızla birebir görüşmek için uygun bir zaman seçin.',
-    note: 'Form doldurmak istemiyor musunuz? Uzmanımızla doğrudan görüşmek için aşağıdan randevu oluşturabilirsiniz.',
-    embedTitle: 'Görüşme takvimi',
-    embedDescription: 'Takvim Calendly üzerinden yüklenir.',
+    title: 'Uzmanla 20 dakikada netleşin.',
+    lead: 'Otopark ihtiyacınızı canlıda konuşun; uygun günü seçip randevunuzu hemen oluşturun.',
+    note: 'Yazılı form yerine hızlı bir görüşme istiyorsanız takvimden slot seçmeniz yeterli.',
+    pointsLabel: 'Görüşmede neler konuşulur',
+    points: [
+      { title: 'Saha ihtiyacı', text: 'Giriş-çıkış, tarife ve plaka tanıma senaryonuzu kısaca dinleriz.' },
+      { title: 'Uygun çözüm', text: 'Donanım ve yazılım seçeneklerini operasyonunuza göre çerçeveleriz.' },
+      { title: 'Sonraki adım', text: 'Keşif, teklif veya demo için net bir yol haritası çıkarırız.' },
+    ],
+    panel: {
+      eyebrow: 'Randevu',
+      title: 'Görüşme takvimi',
+      metaLabel: 'Görüşme bilgileri',
+      meta: ['20 dk', 'Çevrimiçi', 'Ücretsiz'],
+    },
+    embedTitle: 'Görüşme takvimini açın',
+    embedDescription: 'Uygun günü seçmek için takvimi yükleyin. Calendly bağlantısı güvenli şekilde açılır.',
+    load: 'Takvimi aç',
     open: 'Takvimi yeni sekmede açın',
     fallbackUrl: 'https://calendly.com/fatihalp/30min?hide_gdpr_banner=1',
   },

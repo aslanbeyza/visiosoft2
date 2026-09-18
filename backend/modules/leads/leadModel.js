@@ -4,6 +4,7 @@ const FORM_TYPES = {
   QUOTE: "quote",
   PARKING_QUOTE_ENGINE: "parking_quote_engine",
   DISCOVERY: "discovery",
+  CONTACT: "contact",
 };
 
 function formName(formType) {
@@ -14,6 +15,8 @@ function formName(formType) {
       return "Otopark Teklif Motoru";
     case FORM_TYPES.DISCOVERY:
       return "Ücretsiz Keşif";
+    case FORM_TYPES.CONTACT:
+      return "İletişim";
     default:
       return "Web Formu";
   }

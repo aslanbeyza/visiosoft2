@@ -50,9 +50,17 @@ async function sendDiscoveryMail(data, trackingData) {
   });
 }
 
+async function sendContactMail(data, trackingData) {
+  await sendLeadMail({
+    subject: `Yeni İletişim Mesajı - ${data.name}`,
+    html: templates.contact(data, trackingData),
+  });
+}
+
 export default {
   recipient,
   sendQuoteMail,
   sendParkingQuoteMail,
   sendDiscoveryMail,
+  sendContactMail,
 };

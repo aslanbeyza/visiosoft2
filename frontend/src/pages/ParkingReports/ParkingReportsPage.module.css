@@ -29,7 +29,7 @@
 }
 
 .finance {
-  max-width: 64rem;
+  max-width: 72rem;
   margin: 0 auto clamp(2.5rem, 5vw, 4rem);
 }
 

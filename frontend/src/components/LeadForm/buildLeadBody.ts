@@ -1,7 +1,7 @@
 import { LOCAL_TURNSTILE_TOKEN } from '../../hooks/useTurnstile/index.ts'
 import { leadFormCopy } from './leadFormCopy.ts'
 
-export type LeadKind = 'quote' | 'parking-quote-engine' | 'discovery'
+export type LeadKind = 'quote' | 'parking-quote-engine' | 'discovery' | 'contact'
 export type LeadExtraFields = 'address' | 'parking'
 
 const text = (data: FormData, key: string) => String(data.get(key) || '')

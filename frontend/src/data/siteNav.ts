@@ -165,6 +165,7 @@ export const footerGroups: FooterGroup[] = [
       { route: 'quote.index', label: 'Teklif Al' },
       { route: 'discovery.show', label: 'Ücretsiz Keşif' },
       { route: 'field-manual', label: 'Saha Kullanım Kılavuzu' },
+      { route: 'glossary', label: 'Otopark Terimleri' },
       { route: 'bank-accounts', label: 'Banka Hesapları' },
       { route: 'sitemap', label: 'Site Haritası' },
     ],

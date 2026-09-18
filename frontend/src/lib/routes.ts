@@ -69,6 +69,7 @@ const routeSlugs: Record<string, Record<LegacyLocale, string>> = {
     ru: 'otchety-parkovochnoe-po',
   },
   'field-manual': { tr: 'saha-kullanim-kilavuzu', en: 'field-user-manual', ru: 'polevoe-rukovodstvo' },
+  glossary: { tr: 'otopark-terimleri', en: 'parking-glossary', ru: 'slovar-parkovki' },
   'alpr.index': { tr: 'plaka-tanima', en: 'alpr', ru: 'alpr' },
   'alpr.landing': { tr: 'plaka-tanima-cozumu', en: 'alpr-turnkey-solution', ru: 'alpr-turnkey-solution' },
   'legal.privacy': { tr: 'gizlilik-politikasi', en: 'privacy-policy', ru: 'politika-konfidentsialnosti' },

@@ -19,6 +19,7 @@ const ParkingQuote = lazy(pages.parkingQuote)
 const BlogIndex = lazy(pages.blogIndex)
 const BlogShow = lazy(pages.blogShow)
 const FieldManual = lazy(pages.fieldManual)
+const Glossary = lazy(pages.glossary)
 const Sitemap = lazy(pages.sitemap)
 const Payment = lazy(pages.payment)
 const NotFound = lazy(pages.notFound)
@@ -43,6 +44,7 @@ export default function AppRouter() {
             <Route path={pathFor('blog.index')} element={<BlogIndex />} />
             <Route path={`${pathFor('blog.index')}/:slug`} element={<BlogShow />} />
             <Route path={pathFor('field-manual')} element={<FieldManual />} />
+            <Route path={pathFor('glossary')} element={<Glossary />} />
             <Route path={pathFor('sitemap')} element={<Sitemap />} />
             <Route path={pathFor('payment')} element={<Payment />} />
             <Route path={pathFor('hgs-park')} element={<Marketing routeName="hgs-park" />} />

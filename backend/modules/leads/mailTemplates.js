@@ -130,4 +130,23 @@ function discovery(data, trackingData) {
   `;
 }
 
-export default { quote, parkingQuote, discovery };
+function contact(data, trackingData) {
+  const userInfo = trackingData?.user_info || {};
+  return `
+    <h2>Yeni İletişim Formu</h2>
+    <p>Web sitesi iletişim sayfasından yeni bir mesaj alındı.</p>
+    <h3>Müşteri Bilgileri</h3>
+    <ul>
+      <li><strong>Ad Soyad:</strong> ${escapeHtml(data.name)}</li>
+      <li><strong>E-posta:</strong> ${escapeHtml(data.email)}</li>
+      <li><strong>Telefon:</strong> ${escapeHtml(data.phone)}</li>
+      <li><strong>Şirket:</strong> ${escapeHtml(data.company || "-")}</li>
+      <li><strong>IP Adresi:</strong> ${escapeHtml(userInfo.ip || "-")}</li>
+      <li><strong>Tarayıcı:</strong> ${escapeHtml(userInfo.user_agent || "-")}</li>
+    </ul>
+    ${data.message ? `<h3>Mesaj</h3><p>${escapeHtml(data.message)}</p>` : ""}
+    ${trackingBlock(trackingData)}
+  `;
+}
+
+export default { quote, parkingQuote, discovery, contact };

@@ -2,21 +2,22 @@ import FeatureGrid, { CardIcon, PhoneIcon, PlateIcon } from '../../components/Fe
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
 import StepList from '../../components/StepList/index.ts'
-import PhoneFan from './PhoneFan.tsx'
+import ParkBizPhoneDemo from './ParkBizPhoneDemo.tsx'
 import ShowcaseLayout from './ShowcaseLayout.tsx'
-import { howToCopy, mobilFeaturesCopy, phoneFanCopy, phoneScreens } from './mobilAbonelikCopy.ts'
+import { howToCopy, mobilFeaturesCopy } from './mobilAbonelikCopy.ts'
+import { parkBizDemoCopy } from './parkBizDemoCopy.ts'
 import styles from './ShowcaseLayout.module.css'
 
 const icons = { abonelik: <CardIcon />, arac: <PlateIcon />, yardim: <PhoneIcon /> }
 
-/** /mobil-uygulama-ile-park-aboneligi — hero anı: gerçek uygulama ekranları telefon çerçevelerinde yelpaze gibi açılır. */
+/** /mobil-uygulama-ile-park-aboneligi — ParkBiz (parkbiz-port) abonelik akışının canlı telefon demosu. */
 export default function MobilAbonelik() {
   return (
     <ShowcaseLayout route="mobil-abonelik" relatedTone="paper">
-      <Section tone="surface" spacing="lg" labelledBy={phoneFanCopy.id}>
+      <Section tone="surface" spacing="lg" labelledBy={parkBizDemoCopy.id}>
         <div className={`${styles.stack} ${styles.stackCenter}`}>
-          <SectionHeading id={phoneFanCopy.id} align="center" eyebrow={phoneFanCopy.eyebrow} title={phoneFanCopy.title} />
-          <PhoneFan screens={phoneScreens} label={phoneFanCopy.label} caption={phoneFanCopy.caption} />
+          <SectionHeading id={parkBizDemoCopy.id} align="center" eyebrow={parkBizDemoCopy.eyebrow} title={parkBizDemoCopy.title} />
+          <ParkBizPhoneDemo />
         </div>
       </Section>
 

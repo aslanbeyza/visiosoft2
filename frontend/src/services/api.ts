@@ -57,7 +57,7 @@ export function getFieldManual() {
   )
 }
 
-export function submitLead(kind: 'quote' | 'parking-quote-engine' | 'discovery', body: Json) {
+export function submitLead(kind: 'quote' | 'parking-quote-engine' | 'discovery' | 'contact', body: Json) {
   return request<{ message: string }>(`/api/leads/${kind}`, {
     method: 'POST',
     body: JSON.stringify(body),

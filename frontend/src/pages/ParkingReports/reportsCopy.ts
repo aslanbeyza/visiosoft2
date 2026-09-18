@@ -17,10 +17,6 @@ export const reportsCopy = {
   },
   subNavLabel: 'Rapor kategorileri',
   newReportsNav: 'Yeni Rapor',
-  finance: {
-    imageAlt: 'Zone finansal rapor ekranı: toplam geçiş, ciro, tahsilat ve borç özet kartları',
-    caption: 'Zone finansal rapor ekranı (demo verisi)',
-  },
   newReports: {
     anchor: 'yeni-raporlar',
     eyebrow: 'Yeni Rapor Ekleme',

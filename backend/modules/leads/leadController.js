@@ -150,8 +150,26 @@ const storeDiscovery = asyncHandler(async (req, res) => {
   res.json({ message: result.message });
 });
 
+const storeContact = asyncHandler(async (req, res) => {
+  validators.validateContact(req.body);
+  await turnstile.verifyTurnstile(req.body["cf-turnstile-response"], req.clientIp);
+
+  const result = await persistAndNotify({
+    req,
+    formType: leadModel.FORM_TYPES.CONTACT,
+    validated: req.body,
+    message: req.body.message || null,
+    sendMail: () => mailService.sendContactMail(req.body, trackingData(req, true)),
+    successMessage: "Mesajınız alındı. En kısa sürede iletişime geçeceğiz.",
+    errorMessage: "Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.",
+  });
+
+  res.json({ message: result.message });
+});
+
 export default {
   storeQuote,
   storeParkingQuote,
   storeDiscovery,
+  storeContact,
 };

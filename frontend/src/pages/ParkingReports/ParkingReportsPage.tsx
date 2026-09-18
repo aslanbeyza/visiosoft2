@@ -5,9 +5,7 @@ import CtaBand from '../../components/CtaBand/index.ts'
 import Faq from '../../components/Faq/index.ts'
 import FeatureGrid from '../../components/FeatureGrid/index.ts'
 import Magnetic from '../../components/Magnetic/index.ts'
-import MediaFrame from '../../components/MediaFrame/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
-import Picture from '../../components/Picture/index.ts'
 import Reveal from '../../components/Reveal/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
@@ -16,6 +14,7 @@ import SubNav from '../../components/SubNav/index.ts'
 import { company, whatsappUrl } from '../../data/company.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
+import FinanceSummaryDemo from './FinanceSummaryDemo.tsx'
 import ReportDeck from './ReportDeck.tsx'
 import type { DeckCard } from './ReportDeck.tsx'
 import { reportGroups } from './reportGroups.ts'
@@ -93,19 +92,7 @@ export default function ParkingReportsPage() {
 
           {group.anchor === 'finansal' ? (
             <div className={styles.finance}>
-              {/* Ekran görüntüsünün sol menüsü kenarda; screenshot kipi ölçeklemez ve kırpmaz.
-                  Görsel, üçüncü taraf ödeme markalarını listeleyen tablonun üstünden kırpılmıştır (1024×376). */}
-              <MediaFrame ratio="1024 / 376" caption={copy.finance.caption} mode="screenshot">
-                <Picture
-                  src="/img/software/finansal-rapor-ozet.png"
-                  webp="/img/software/finansal-rapor-ozet.webp"
-                  avif="/img/software/finansal-rapor-ozet.avif"
-                  alt={copy.finance.imageAlt}
-                  width={1024}
-                  height={376}
-                  sizes="(min-width: 1024px) 64rem, 100vw"
-                />
-              </MediaFrame>
+              <FinanceSummaryDemo />
             </div>
           ) : null}
 

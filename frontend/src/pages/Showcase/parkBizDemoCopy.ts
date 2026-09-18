@@ -1,0 +1,55 @@
+export const parkBizDemoCopy = {
+  id: 'uygulama-ekranlari',
+  eyebrow: 'ParkBiz uygulaması',
+  title: 'Aboneliğiniz birkaç dokunuşla hazır.',
+  label: 'ParkBiz abonelik akışı ekranları',
+  caption: 'ParkBiz · React Native (Expo) mobil uygulaması · demo verisi',
+  brand: 'ParkBiz',
+  parking: 'Visiosoft Teknopark',
+  screens: [
+    { id: 'vehicles', step: '01', label: 'Araçlarım' },
+    { id: 'add-plate', step: '02', label: 'Plaka ekle' },
+    { id: 'subscribe', step: '03', label: 'Abonelik seç' },
+  ] as const,
+  vehicles: {
+    title: 'Araçlarım',
+    subtitle: 'Kayıtlı plakalarınız',
+    rightsTitle: 'Park hakkı',
+    free: 'Ücretsiz geçiş',
+    freeValue: '2',
+    sub: 'Aktif abonelik',
+    subValue: '1',
+    add: 'Araç Ekle',
+    items: [
+      { plate: '34 PBZ 001', model: 'BMW 320i', tone: 'white' as const },
+      { plate: '06 VS 2018', model: 'MG4 Electric', tone: 'accent' as const },
+    ],
+  },
+  addPlate: {
+    title: 'Yeni Araç Ekle',
+    label: 'Plaka Numarası',
+    placeholder: '34 PBZ 001',
+    hint: 'Park alanında kullanılacak plakayı girin.',
+    save: 'Aracı Kaydet',
+    saved: 'Araç kaydedildi',
+  },
+  subscribe: {
+    title: 'Abonelik Seç',
+    parkingLabel: 'Seçili otopark',
+    vehicleLabel: 'Araç',
+    packageTitle: 'Aylık Abonelik',
+    packageMeta: '30 gün · Otomatik yenileme kapalı',
+    price: '450',
+    currency: '₺',
+    start: 'Başlangıç',
+    startValue: 'Bugün',
+    cta: 'Ödemeye Geç',
+    done: 'Aboneliğiniz hazır',
+  },
+  tabs: {
+    vehicles: 'Araçlarım',
+    subscriptions: 'Aboneliklerim',
+  },
+}
+
+export type ParkBizScreenId = (typeof parkBizDemoCopy.screens)[number]['id']

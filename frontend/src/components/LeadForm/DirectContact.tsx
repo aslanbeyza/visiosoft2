@@ -17,8 +17,15 @@ const ICONS = {
   mail: ['M3.5 6.5h17v11h-17Z', 'm3.8 7 8.2 6.3L20.2 7'],
 } as const
 
-/** Formu doldurmak istemeyenler için WhatsApp ve e-posta kutucukları + İletişim sayfası bağlantısı. */
-export default function DirectContact() {
+type DirectContactProps = {
+  /** İletişim sayfasında kendini gösteren bağlantıyı kapatır. */
+  showContactLink?: boolean
+  /** WhatsApp kutucuğunda numara yerine gösterilecek metin (ör. "WhatsApp"). */
+  whatsappValue?: string
+}
+
+/** Formu doldurmak istemeyenler için WhatsApp ve e-posta kutucukları (+ isteğe bağlı İletişim bağlantısı). */
+export default function DirectContact({ showContactLink = true, whatsappValue }: DirectContactProps) {
   const reduce = Boolean(useReducedMotion())
   const { config } = useLocale()
   const path = usePath()
@@ -31,7 +38,7 @@ export default function DirectContact() {
     {
       key: 'whatsapp' as const,
       ...copy.whatsapp,
-      value: config?.whatsapp_display || company.whatsapp.display,
+      value: whatsappValue ?? (config?.whatsapp_display || company.whatsapp.display),
       href: whatsappUrl(config?.whatsapp_wa_id || company.whatsapp.waId),
       external: true,
     },
@@ -89,11 +96,13 @@ export default function DirectContact() {
         ))}
       </ul>
 
-      <div className={styles.more}>
-        <Button to={path('contact')} variant="secondary" arrow>
-          {copy.contactLink}
-        </Button>
-      </div>
+      {showContactLink ? (
+        <div className={styles.more}>
+          <Button to={path('contact')} variant="secondary" arrow>
+            {copy.contactLink}
+          </Button>
+        </div>
+      ) : null}
     </section>
   )
 }

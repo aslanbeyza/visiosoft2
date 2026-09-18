@@ -1,0 +1,188 @@
+.shell {
+  display: grid;
+  gap: clamp(2.25rem, 4.5vw, 3.75rem);
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
+    align-items: start;
+  }
+
+  .copy {
+    position: sticky;
+    top: 9rem;
+  }
+}
+
+.copy {
+  min-width: 0;
+}
+
+.points {
+  display: grid;
+  gap: 0;
+  margin: clamp(1.75rem, 3vw, 2.35rem) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-corp-line);
+}
+
+.point {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid var(--color-corp-line);
+}
+
+.pointIndex {
+  color: var(--color-navy-600);
+  font-size: 0.78rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+}
+
+.pointBody {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.pointTitle {
+  color: var(--color-corp-ink);
+  font-size: 0.98rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.pointText {
+  color: var(--color-corp-body);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.note {
+  max-width: 30rem;
+  margin: clamp(1.35rem, 2.5vw, 1.85rem) 0 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-navy-600);
+  color: var(--color-corp-body);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.panelWrap {
+  min-width: 0;
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.85rem;
+  background:
+    linear-gradient(165deg, color-mix(in srgb, var(--color-navy-50) 70%, #fff) 0%, #fff 42%),
+    #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.04),
+    0 28px 56px -36px rgb(15 20 48 / 0.22);
+}
+
+.panel::before {
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  left: 1.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-navy-600);
+  content: '';
+}
+
+.panelHead {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.15rem, 2.5vw, 1.45rem) clamp(1.15rem, 2.5vw, 1.5rem) 1.1rem;
+  border-bottom: 1px solid var(--color-corp-line);
+}
+
+@media (min-width: 640px) {
+  .panelHead {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+
+.panelIdentity {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: center;
+  min-width: 0;
+}
+
+.panelIcon {
+  display: grid;
+  place-items: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  border-radius: 0.65rem;
+  background: var(--color-navy-50);
+  color: var(--color-navy-600);
+}
+
+.panelIcon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.panelTitles {
+  min-width: 0;
+}
+
+.panelEyebrow {
+  margin: 0 0 0.15rem;
+  color: var(--color-navy-600);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.panelTitle {
+  margin: 0;
+  color: var(--color-corp-ink);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.metaItem {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--color-navy-600) 22%, var(--color-corp-line));
+  border-radius: 999px;
+  background: color-mix(in srgb, #fff 72%, var(--color-navy-50));
+  color: var(--color-navy-600);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.embed {
+  min-width: 0;
+  padding: 0.85rem clamp(0.75rem, 1.5vw, 1rem) 1rem;
+}

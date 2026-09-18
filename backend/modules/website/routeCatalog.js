@@ -64,6 +64,7 @@ const routeSlugs = {
     ru: "otchety-parkovochnoe-po",
   },
   "field-manual": { tr: "saha-kullanim-kilavuzu", en: "field-user-manual", ru: "polevoe-rukovodstvo" },
+  glossary: { tr: "otopark-terimleri", en: "parking-glossary", ru: "slovar-parkovki" },
   "field-manual.pdf": {
     tr: "saha-kullanim-kilavuzu/pdf",
     en: "field-user-manual/pdf",
@@ -117,6 +118,7 @@ const sitemapRouteNames = [
   "plate-recognition-system",
   "parking-software",
   "field-manual",
+  "glossary",
   "alpr.landing",
   "alpr.index",
   "legal.privacy",

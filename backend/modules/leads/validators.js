@@ -31,6 +31,10 @@ function validateQuote(body) {
   });
 }
 
+function validateContact(body) {
+  collectErrors(contactFields(body));
+}
+
 function validateDiscovery(body) {
   collectErrors({
     ...contactFields(body),
@@ -85,6 +89,7 @@ function validateParkingQuote(body) {
 
 export default {
   validateQuote,
+  validateContact,
   validateDiscovery,
   validateParkingQuote,
 };

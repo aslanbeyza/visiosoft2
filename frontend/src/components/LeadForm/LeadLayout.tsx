@@ -12,18 +12,37 @@ export type LeadLayoutProps = {
   eyebrow: string
   title: string
   lead?: string
+  /** Sayfanın ilk bölümüyse h1 (ör. iletişim). */
+  headingAs?: 'h1' | 'h2'
+  /** İlk ekranda form için üst boşluğu kısaltır. */
+  spacing?: 'md' | 'lg'
   /** LeadForm; başlık kimliği formun erişilebilir adı için verilir. */
   children: ReactNode
   aside: ReactNode
 }
 
 /** Form bölümü: solda kart içinde form, sağda "sonraki adımlar" ve doğrudan iletişim paneli. */
-export default function LeadLayout({ id, eyebrow, title, lead, children, aside }: LeadLayoutProps) {
+export default function LeadLayout({
+  id,
+  eyebrow,
+  title,
+  lead,
+  headingAs = 'h2',
+  spacing = 'md',
+  children,
+  aside,
+}: LeadLayoutProps) {
   const reduce = Boolean(useReducedMotion())
   const titleId = useId()
 
   return (
-    <Section id={id} tone="surface" labelledBy={titleId} className={styles.section}>
+    <Section
+      id={id}
+      tone="surface"
+      spacing={spacing}
+      labelledBy={titleId}
+      className={`${styles.section} ${headingAs === 'h1' ? styles.first : ''}`.trim()}
+    >
       <div className={styles.grid}>
         <motion.div
           className={styles.card}
@@ -42,7 +61,7 @@ export default function LeadLayout({ id, eyebrow, title, lead, children, aside }
           />
           <header className={styles.head}>
             <p className={styles.eyebrow}>{eyebrow}</p>
-            <TextReveal as="h2" id={titleId} className={styles.title} text={title} delay={0.1} />
+            <TextReveal as={headingAs} id={titleId} className={styles.title} text={title} delay={0.1} />
             {lead ? <p className={styles.lead}>{lead}</p> : null}
           </header>
           {children}

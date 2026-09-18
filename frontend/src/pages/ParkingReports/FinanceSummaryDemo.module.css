@@ -1,0 +1,328 @@
+.root {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.85rem;
+  background: #0b0d12;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.06),
+    0 28px 56px -36px rgb(15 20 48 / 0.35);
+}
+
+.chrome {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  background: #12151c;
+  color: rgb(255 255 255 / 0.62);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.dots {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.dots span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.18);
+}
+
+.dots span:nth-child(1) {
+  background: #ff5f57;
+}
+
+.dots span:nth-child(2) {
+  background: #febc2e;
+}
+
+.dots span:nth-child(3) {
+  background: #28c840;
+}
+
+.caption {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app {
+  display: grid;
+  min-height: 22rem;
+}
+
+@media (min-width: 900px) {
+  .app {
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+  }
+}
+
+.side {
+  display: none;
+  padding: 1rem 0.85rem;
+  border-right: 1px solid rgb(255 255 255 / 0.06);
+  background: #0e1016;
+}
+
+@media (min-width: 900px) {
+  .side {
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+  }
+}
+
+.brand {
+  margin: 0;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.park {
+  margin: 0;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 0.4rem;
+  color: rgb(255 255 255 / 0.55);
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sideActive {
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.6rem;
+  border-left: 2px solid #f0c14a;
+  background: rgb(255 255 255 / 0.04);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.main {
+  min-width: 0;
+  padding: clamp(0.85rem, 2vw, 1.15rem);
+  background:
+    radial-gradient(60% 50% at 100% 0%, rgb(37 99 235 / 0.18), transparent 55%),
+    #0b0d12;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.filter {
+  padding: 0.42rem 0.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(255 255 255 / 0.62);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.25s var(--ease-apple),
+    color 0.25s var(--ease-apple);
+}
+
+.filter[data-active='true'] {
+  background: #2563eb;
+  color: #fff;
+}
+
+.filter:hover:not([data-active='true']) {
+  color: #fff;
+  background: rgb(255 255 255 / 0.06);
+}
+
+.filter:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+.kpis {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 720px) {
+  .kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .revenue {
+    grid-column: span 2;
+  }
+
+  .trend {
+    grid-column: span 2;
+  }
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  padding: 0.85rem 0.9rem 0.95rem;
+  border: 1px solid rgb(255 255 255 / 0.06);
+  border-radius: 0.75rem;
+  background: #161a22;
+}
+
+.cardTitle {
+  margin: 0 0 0.45rem;
+  color: rgb(255 255 255 / 0.55);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cardValue {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.45rem, 2vw + 0.8rem, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.cardHint {
+  margin: 0.4rem 0 0;
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.cardHint[data-tone='blue'] {
+  color: #60a5fa;
+}
+
+.cardHint[data-tone='green'] {
+  color: #34d399;
+}
+
+.cardHint[data-tone='amber'] {
+  color: #fbbf24;
+}
+
+.cardMeta {
+  margin: 0.4rem 0 0;
+  color: rgb(255 255 255 / 0.5);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.45rem;
+  color: rgb(255 255 255 / 0.45);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.split strong {
+  display: block;
+  margin-top: 0.15rem;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.revenue {
+  background: linear-gradient(145deg, #1d4ed8 0%, #2563eb 55%, #3b82f6 100%);
+  border-color: transparent;
+}
+
+.revenue .cardTitle {
+  color: rgb(255 255 255 / 0.78);
+}
+
+.revenueValue {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.85rem, 2.4vw + 1rem, 2.45rem);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.revenueMeta {
+  display: inline-flex;
+  margin: 0.7rem 0 0;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.18);
+  color: rgb(255 255 255 / 0.92);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.trend {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.chart {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 7.5rem;
+  margin-top: 0.25rem;
+}
+
+.chartSvg {
+  width: 100%;
+  height: 7rem;
+}
+
+.gridLine {
+  stroke: rgb(255 255 255 / 0.08);
+  stroke-width: 1;
+}
+
+.chartArea {
+  fill: rgb(96 165 250 / 0.16);
+}
+
+.chartLine {
+  stroke: #60a5fa;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chartLabels {
+  display: flex;
+  justify-content: space-between;
+  color: rgb(255 255 255 / 0.4);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter {
+    transition: none;
+  }
+}
