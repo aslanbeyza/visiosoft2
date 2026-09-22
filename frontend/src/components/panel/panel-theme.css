@@ -1,0 +1,753 @@
+/* ============================================================================
+   DEMO PANEL — KAPALI TEMA PALETLERİ
+   ============================================================================
+
+   Bu dosya panelin KENDİ kimliğini taşır. Sitenin kurumsal AÇIK teması
+   (globals.css · --color-void #f6f8fb, --color-carbon #ffffff, --color-ink
+   #0f1b2d, --color-electric #1667d6) panelin İÇİNE sızmaz.
+
+   ÜÇ AYRI TASARIM DİLİ — üçü de kendi kökünde kapalıdır:
+
+     .zone-panel   Partner/Admin paneli  · Filament v4 koyu · zinc + orange
+     .pos-panel    POS paneli            · açık iOS estetiği · gri + mavi
+     .app-phone    Mobil uygulama ikizi  · ParkBiz marka · beyaz + lacivert
+
+   NASIL ÇALIŞIR (önemli)
+   ----------------------
+   Tailwind v4 `@theme static` ile utility'leri `var(--color-*)` üzerinden
+   üretir: `.bg-carbon { background-color: var(--color-carbon) }`. Bu yüzden
+   site tokenlarının DEĞERLERİNİ panel kökünde yeniden tanımlamak, o kökün
+   altındaki HER utility'yi (ve `/40` gibi alfa varyantlarını) tek noktadan
+   Zone paletine çevirir. Panel klasöründeki ~2.400 token kullanımı böylece
+   dosya dosya elle değiştirilmeden, tutarlı ve geri alınamaz biçimde
+   Zone'un kimliğine geçer.
+
+   İki katman birden tanımlanır:
+     1) `--zone-*` / `--pos-*` / `--app-*`  → KANONİK isimler. Yeni yazılan
+        her ekran DOĞRUDAN bunları kullanmalıdır.
+     2) `--color-*` yeniden bağlama        → var olan utility'lerin köprüsü.
+
+   globals.css'e DOKUNULMAZ: site açık, panel koyu kalır.
+
+   KATMAN NOTU (modül yazarları için)
+   ----------------------------------
+   Tailwind v4 utility'lerini `@layer utilities` içinde yayınlar; bu dosya
+   KATMANSIZDIR. CSS kuralına göre katmansız normal bildirimler katmanlı
+   olanları yener. Yani `.zone-btn` / `.zone-icon-btn` / `.glass-deep` /
+   `.eyebrow` için burada TANIMLANAN özellikleri (yarıçap, dolgu, punto,
+   zemin, kenarlık) bir utility sınıfıyla ezemezsiniz. Ezmeniz gerekiyorsa:
+     · Tailwind'in önemli değiştiricisi:  `!rounded-full`, `!text-[11px]`
+     · ya da satır içi `style={{ … }}`
+   Burada TANIMLANMAYAN her şey (marj, genişlik, hizalama, metin rengi…)
+   her zamanki gibi utility ile verilir.
+   ============================================================================ */
+
+/* ==========================================================================
+   1 · ZONE (Partner) PALETİ — canlı panelden getComputedStyle ile okundu
+   ========================================================================== */
+
+.zone-panel {
+  /* --- Yüzeyler (Tailwind zinc) --- */
+  --zone-bg: #09090b;          /* sayfa zemini · zinc-950 */
+  --zone-sidebar: #18181b;     /* kenar çubuğu VE üst bar · zinc-900 */
+  --zone-surface: #18181b;     /* kart yüzeyi · kenar çubuğuyla aynı ton */
+  --zone-raised: #27272a;      /* yükseltilmiş yüzey · zinc-800 */
+  --zone-raised-2: #3f3f46;    /* güçlü dolgu · zinc-700 */
+  --zone-overlay: rgba(9, 9, 11, 0.72); /* modal perdesi */
+
+  /* --- Metin merdiveni --- */
+  --zone-text: #ffffff;        /* ana metin */
+  --zone-text-2: #d4d4d8;      /* ikincil · zinc-300 */
+  --zone-text-3: #a1a1aa;      /* sönük · zinc-400 */
+  --zone-text-4: #71717a;      /* en sönük / ikon · zinc-500 */
+  --zone-muted: #a1a1aa;       /* takma ad → --zone-text-3 */
+
+  /* --- Kenarlıklar (hairline) --- */
+  --zone-line: rgba(255, 255, 255, 0.1);
+  --zone-line-soft: rgba(255, 255, 255, 0.05);
+  --zone-border: rgba(255, 255, 255, 0.1);      /* takma ad → --zone-line */
+  --zone-border-soft: rgba(255, 255, 255, 0.05); /* takma ad → --zone-line-soft */
+
+  /* --- Birincil (orange) --- */
+  --zone-primary: #ea580c;        /* orange-600 · buton zemini */
+  --zone-primary-hover: #f97316;  /* orange-500 · hover/vurgu */
+  --zone-on-primary: #431407;     /* orange-950 · turuncu üstüne KOYU metin */
+  --zone-primary-text: #fdba74;   /* orange-300 · koyu zemin üstü turuncu metin */
+
+  /* --- Durum renkleri + koyu zemin üstü açık metin tonları --- */
+  --zone-success: #22c55e;        /* green-500 */
+  --zone-success-text: #86efac;   /* green-300 */
+  --zone-warning: #f59e0b;        /* amber-500 */
+  --zone-warning-text: #fcd34d;   /* amber-300 — canlıdaki rozet metni */
+  --zone-danger: #ef4444;         /* red-500 */
+  --zone-danger-text: #fca5a5;    /* red-300 */
+  --zone-info: #3b82f6;           /* blue-500 */
+  --zone-info-text: #93c5fd;      /* blue-300 */
+
+  /* --- Tipografi --- */
+  --zone-font: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --zone-font-mono: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Bileşen ölçüleri (canlıdan ölçüldü) --- */
+  --zone-radius-btn: 8px;
+  --zone-radius-badge: 6px;
+  --zone-radius-card: 12px;
+  --zone-btn-pad: 6px 10px;
+  --zone-btn-size: 14px;
+  --zone-btn-weight: 500;
+  --zone-badge-size: 12px;
+  --zone-ring-topbar: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  /* ------------------------------------------------------------------
+     SİTE TOKENLARININ YENİDEN BAĞLANMASI
+     Panelin içindeki bg-carbon / text-ink / border-steel / electric …
+     utility'leri artık Zone değerlerini çözer. Ad değişmediği için
+     hiçbir çağrı yeri kırılmaz; DEĞER Zone'un kendisidir.
+     ------------------------------------------------------------------ */
+
+  /* Yüzeyler */
+  --color-void: var(--zone-bg);
+  --color-carbon: var(--zone-surface);
+  --color-anthracite: var(--zone-raised);
+  --color-graphite: var(--zone-raised-2);
+  /* steel = dekoratif kenarlık. %40 opaklıkta zinc-950 üstünde tam olarak
+     white/10 hairline'ına denk düşsün diye seçildi (#232326). */
+  --color-steel: #4b4b52;
+  --color-fog: #71717a;        /* işlevsel kenarlık + ikon · zinc-500 */
+  --color-line: #27272a;       /* hairline · zinc-800 */
+  --color-line-strong: #3f3f46;
+
+  /* Metin */
+  --color-ink: var(--zone-text);
+  --color-ash: var(--zone-text-2);
+  --color-slatey: var(--zone-text-3);
+
+  /* Birincil — MAVİ DEĞİL, TURUNCU */
+  --color-electric: var(--zone-primary);
+  --color-electric-deep: var(--zone-primary-hover); /* hover koyulaşmaz, AÇILIR */
+  --color-electric-soft: var(--zone-primary-text);
+
+  /* Durumlar */
+  --color-neon: var(--zone-success);
+  --color-neon-deep: var(--zone-success-text);
+  --color-neon-soft: #4ade80;
+  --color-alert: var(--zone-danger);
+  --color-amber: var(--zone-warning);
+  --color-plasma: #a78bfa;
+
+  /* Ton yüzeyleri — Zone rozet kuralı: durum rengi /0.10 */
+  --color-tint-blue: rgba(234, 88, 12, 0.1);
+  --color-tint-green: rgba(34, 197, 94, 0.1);
+  --color-tint-amber: rgba(245, 158, 11, 0.1);
+  --color-tint-alert: rgba(239, 68, 68, 0.1);
+
+  /* Yazı tipi ailesi — site tipografisi panele girmez */
+  --font-sans: var(--zone-font);
+  --font-display: var(--zone-font);
+  --font-mono: var(--zone-font-mono);
+
+  /* Panelin kendi zemini ve gövde metni */
+  color-scheme: dark;
+  background-color: var(--zone-bg);
+  color: var(--zone-text-2);
+  font-family: var(--zone-font);
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   2 · POS PALETİ — AÇIK iOS (Partner'dan tamamen ayrı tasarım dili)
+   ========================================================================== */
+
+.pos-panel {
+  --pos-bg: #f5f5f7;                            /* sayfa zemini */
+  --pos-card: #ffffff;                          /* kart / yüzey */
+  --pos-elevated: #ffffff;
+  --pos-text: #1c1c1e;                          /* ana metin */
+  --pos-text-2: #3a3a3c;                        /* ikincil metin */
+  --pos-muted: #98989d;                         /* sönük metin */
+  --pos-separator: rgba(118, 118, 128, 0.12);   /* ayırıcı / dolgu */
+  --pos-fill: rgba(118, 118, 128, 0.12);        /* takma ad → --pos-separator */
+  --pos-blue: #0071e3;                          /* birincil */
+  --pos-blue-hover: #0062c4;
+  --pos-on-blue: #ffffff;
+  --pos-red: #ff3b30;                           /* hata / iptal */
+  --pos-green: #34c759;                         /* iOS yeşili — ödendi / giriş */
+  --pos-orange: #ff9500;                        /* iOS turuncusu — ödenmemiş */
+  --pos-font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  --pos-radius: 12px;
+  --pos-radius-lg: 16px;
+  --pos-radius-pill: 999px;
+  --pos-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -16px rgba(0, 0, 0, 0.18);
+
+  /* Site tokenlarının POS karşılıkları */
+  --color-void: var(--pos-bg);
+  --color-carbon: var(--pos-card);
+  --color-anthracite: #ededf0;
+  --color-graphite: #e3e3e8;
+  --color-steel: #d8d8dd;
+  --color-fog: #98989d;
+  --color-line: rgba(118, 118, 128, 0.16);
+  --color-line-strong: #d8d8dd;
+  --color-ink: var(--pos-text);
+  --color-ash: #3a3a3c;
+  --color-slatey: var(--pos-muted);
+  --color-electric: var(--pos-blue);
+  --color-electric-deep: var(--pos-blue-hover);
+  --color-electric-soft: #0062c4;
+  --color-neon: #248a3d;
+  --color-neon-deep: #1c6e31;
+  --color-neon-soft: #248a3d;
+  --color-alert: var(--pos-red);
+  --color-amber: #b25000;
+  --color-plasma: #5856d6;
+  --color-tint-blue: #e8f1fd;
+  --color-tint-green: #e6f6ea;
+  --color-tint-amber: #fff2e0;
+  --color-tint-alert: #ffeceb;
+  --font-sans: var(--pos-font);
+  --font-display: var(--pos-font);
+  --font-mono: var(--pos-font);
+
+  color-scheme: light;
+  background-color: var(--pos-bg);
+  color: var(--pos-text);
+  font-family: var(--pos-font);
+  font-size: 15px;
+}
+
+/* ==========================================================================
+   3 · MOBİL UYGULAMA PALETİ — gerçek ParkBiz markası
+   (parkbiz-port/brands/parkbiz/brand.json · SALT OKUNUR kaynaktan alındı)
+   ========================================================================== */
+
+.app-phone {
+  --app-bg: #f1f5f9;          /* ekran zemini (accentSoft) */
+  --app-surface: #ffffff;     /* kart / liste yüzeyi */
+  --app-elevated: #f8fafc;
+  --app-text: #0f1724;        /* ana metin */
+  --app-muted: #66778f;
+  --app-slate: #64748b;
+  --app-border: #e2e8f0;
+  --app-primary: #133b68;     /* ParkBiz laciverti */
+  --app-primary-deep: #0d2a4c;
+  --app-primary-soft: #2f5c94;
+  --app-on-primary: #ffffff;
+  --app-success: #2e7d32;
+  --app-success-soft: #e5f8ef;
+  --app-danger: #c62828;
+  --app-danger-soft: #fdebed;
+  --app-warning: #b7791f;
+  --app-warning-soft: #fff7e3;
+  --app-chassis: #0f1724;     /* telefon gövdesi */
+  --app-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, ui-sans-serif, sans-serif;
+
+  --color-void: var(--app-bg);
+  --color-carbon: var(--app-surface);
+  --color-anthracite: var(--app-elevated);
+  --color-graphite: var(--app-border);
+  --color-steel: var(--app-border);
+  --color-fog: #94a3b8;
+  --color-line: var(--app-border);
+  --color-line-strong: #cbd5e1;
+  --color-ink: var(--app-text);
+  --color-ash: #334155;
+  --color-slatey: var(--app-muted);
+  --color-electric: var(--app-primary);
+  --color-electric-deep: var(--app-primary-deep);
+  --color-electric-soft: var(--app-primary-soft);
+  --color-neon: var(--app-success);
+  --color-neon-deep: #1b5e20;
+  --color-neon-soft: var(--app-success);
+  --color-alert: var(--app-danger);
+  --color-amber: var(--app-warning);
+  --color-plasma: #5b4bb5;
+  --color-tint-blue: #e8eef6;
+  --color-tint-green: var(--app-success-soft);
+  --color-tint-amber: var(--app-warning-soft);
+  --color-tint-alert: var(--app-danger-soft);
+  --font-sans: var(--app-font);
+  --font-display: var(--app-font);
+  --font-mono: var(--app-font);
+
+  color-scheme: light;
+  color: var(--app-text);
+  font-family: var(--app-font);
+}
+
+/* ==========================================================================
+   4 · SİTE SINIFLARININ PANEL İÇİ KARŞILIKLARI
+   globals.css'te SABİT renk taşıyan sınıflar (.glass-deep #ffffff gibi)
+   değişken üzerinden gelmediği için burada ayrıca ezilir.
+   ========================================================================== */
+
+/* Kart yüzeyi: Zone'da cam yok — düz zinc-900 + white/10 halka. */
+.zone-panel .glass-deep,
+.zone-panel .glass {
+  background: var(--zone-surface);
+  border: 1px solid var(--zone-line);
+  /* Zone kartı düzdür; yükseklik yalnızca üste binen katmanlarda okunsun
+     diye gölge koyu zeminde neredeyse görünmez, geniş ve yumuşaktır. */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -24px rgba(0, 0, 0, 0.75);
+}
+
+.pos-panel .glass-deep,
+.pos-panel .glass {
+  background: var(--pos-card);
+  border: 1px solid transparent;
+  box-shadow: var(--pos-shadow);
+}
+
+.app-phone .glass-deep,
+.app-phone .glass {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  box-shadow: 0 1px 2px rgba(15, 23, 36, 0.05);
+}
+
+/* Zone düz bir yüzeydir: sitenin ızgara dokusu panelde çizilmez. */
+.zone-panel .tech-grid,
+.pos-panel .tech-grid,
+.zone-panel .scanlines::before {
+  background-image: none;
+}
+
+/* Bölüm başlığı — site mono/mavi eyebrow'u yerine Zone'un sönük etiketi. */
+.zone-panel .eyebrow {
+  font-family: var(--zone-font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--zone-text-4);
+}
+.pos-panel .eyebrow {
+  font-family: var(--pos-font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--pos-muted);
+  text-transform: uppercase;
+}
+
+/* Tabular rakamlar korunur, yazı tipi panelin kendi ailesidir. */
+.zone-panel .mono,
+.pos-panel .mono,
+.app-phone .mono {
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+/* .font-display panelde ayrı bir aile değildir; yalnızca ağırlıktır. */
+.zone-panel .font-display,
+.pos-panel .font-display {
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Site CTA'ları (Button size="pill") Zone butonuna dönüşür. */
+.zone-panel .btn-primary {
+  padding: 6px 10px;
+  border-radius: var(--zone-radius-btn);
+  font-family: var(--zone-font);
+  font-size: var(--zone-btn-size);
+  font-weight: var(--zone-btn-weight);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--zone-on-primary);
+  background: var(--zone-primary);
+  box-shadow: none;
+}
+.zone-panel .btn-primary:hover {
+  background: var(--zone-primary-hover);
+  transform: none;
+  filter: none;
+  box-shadow: none;
+}
+.zone-panel .btn-ghost {
+  padding: 6px 10px;
+  border-radius: var(--zone-radius-btn);
+  font-family: var(--zone-font);
+  font-size: var(--zone-btn-size);
+  font-weight: var(--zone-btn-weight);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--zone-text-2);
+  border: 0;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px var(--zone-line);
+}
+.zone-panel .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: 0;
+  color: var(--zone-text);
+  transform: none;
+}
+
+/* ==========================================================================
+   5 · ZONE BİLEŞEN ÖLÇÜLERİ — canlıdan birebir
+   ui.tsx bu sınıfları kullanır; ölçüler tek yerde durur.
+   ========================================================================== */
+
+.zone-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+  border: 0;
+  border-radius: var(--zone-radius-btn);
+  padding: var(--zone-btn-pad);
+  font-size: var(--zone-btn-size);
+  font-weight: var(--zone-btn-weight);
+  line-height: 1.25rem;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+.zone-btn--xs {
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  line-height: 1.1rem;
+}
+.zone-btn--md {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+.zone-btn--primary {
+  background: var(--zone-primary);
+  color: var(--zone-on-primary);
+}
+.zone-btn--primary:hover:not(:disabled) {
+  background: var(--zone-primary-hover);
+}
+.zone-btn--gray {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--zone-text-2);
+  box-shadow: inset 0 0 0 1px var(--zone-line);
+}
+.zone-btn--gray:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--zone-text);
+}
+.zone-btn--ghost {
+  background: transparent;
+  color: var(--zone-text-3);
+}
+.zone-btn--ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--zone-text);
+}
+.zone-btn--danger {
+  background: var(--zone-danger);
+  color: #450a0a;
+}
+.zone-btn--danger:hover:not(:disabled) {
+  background: #f87171;
+}
+.zone-btn--link {
+  background: transparent;
+  padding: 0;
+  color: var(--zone-primary-text);
+}
+.zone-btn--link:hover:not(:disabled) {
+  color: var(--zone-primary-hover);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.zone-btn--on {
+  background: color-mix(in srgb, var(--zone-primary) 18%, transparent);
+  color: var(--zone-primary-text);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--zone-primary) 45%, transparent);
+}
+.zone-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* İkon düğmesi — Zone kare hapı. RENK vermez: ton sınıfı (text-neon,
+   text-alert…) üstte kalabilsin diye yalnızca zemin ve halka tanımlıdır. */
+.zone-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border: 0;
+  border-radius: var(--zone-radius-btn);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px var(--zone-line);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+.zone-icon-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+.zone-icon-btn[data-on='true'] {
+  background: color-mix(in srgb, var(--zone-primary) 18%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--zone-primary) 45%, transparent);
+  color: var(--zone-primary-text);
+}
+.zone-icon-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* Rozet — zemin durum rengi /0.10, içe halka /0.30, metin açık ton. */
+.zone-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  border: 0;
+  border-radius: var(--zone-radius-badge);
+  padding: 2px 6px;
+  font-size: var(--zone-badge-size);
+  font-weight: 500;
+  line-height: 1.1rem;
+  background: color-mix(in srgb, var(--zone-badge-color) 10%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--zone-badge-color) 30%, transparent);
+  color: var(--zone-badge-text);
+}
+.zone-badge--sm {
+  padding: 1px 5px;
+  font-size: 11px;
+}
+.zone-badge--neutral { --zone-badge-color: #71717a; --zone-badge-text: var(--zone-text-2); }
+.zone-badge--info    { --zone-badge-color: var(--zone-primary); --zone-badge-text: var(--zone-primary-text); }
+.zone-badge--success { --zone-badge-color: var(--zone-success); --zone-badge-text: var(--zone-success-text); }
+.zone-badge--warning { --zone-badge-color: var(--zone-warning); --zone-badge-text: var(--zone-warning-text); }
+.zone-badge--danger  { --zone-badge-color: var(--zone-danger);  --zone-badge-text: var(--zone-danger-text); }
+.zone-badge--accent  { --zone-badge-color: #a78bfa; --zone-badge-text: #ddd6fe; }
+
+/* Üst bar ve kenar çubuğu AYNI tonda (zinc-900); üst barın içe halkası. */
+.zone-surface-bar {
+  background: var(--zone-sidebar);
+  box-shadow: var(--zone-ring-topbar);
+}
+.zone-surface-side {
+  background: var(--zone-sidebar);
+}
+
+/* ==========================================================================
+   5b · POS BİLEŞEN ÖLÇÜLERİ — açık iOS dili
+   POS ekranlarını yazan ajan bu sınıfları kullanır; Zone'un koyu
+   primitifleriyle (zone-btn / zone-badge) KARIŞTIRILMAZ.
+   ========================================================================== */
+
+.pos-card {
+  background: var(--pos-card);
+  border-radius: var(--pos-radius-lg);
+  box-shadow: var(--pos-shadow);
+}
+
+.pos-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-family: var(--pos-font);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+}
+/* iOS dokunma geri bildirimi */
+.pos-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.pos-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+.pos-btn--blue { background: var(--pos-blue); color: var(--pos-on-blue); }
+.pos-btn--blue:hover:not(:disabled) { background: var(--pos-blue-hover); }
+.pos-btn--green { background: var(--pos-green); color: #ffffff; }
+.pos-btn--red { background: var(--pos-red); color: #ffffff; }
+.pos-btn--gray {
+  background: var(--pos-fill);
+  color: var(--pos-text);
+}
+.pos-btn--tinted {
+  background: color-mix(in srgb, var(--pos-blue) 12%, transparent);
+  color: var(--pos-blue);
+}
+.pos-btn--outline {
+  background: transparent;
+  color: var(--pos-green);
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+/* iOS segmented control */
+.pos-seg {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9px;
+  background: var(--pos-fill);
+}
+.pos-seg-item {
+  border: 0;
+  border-radius: 7px;
+  padding: 5px 12px;
+  background: transparent;
+  color: var(--pos-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+.pos-seg-item[aria-pressed='true'] {
+  background: var(--pos-card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.pos-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--pos-badge-color, var(--pos-muted)) 14%, transparent);
+  color: var(--pos-badge-color, var(--pos-muted));
+}
+.pos-badge--blue   { --pos-badge-color: var(--pos-blue); }
+.pos-badge--green  { --pos-badge-color: #248a3d; }
+.pos-badge--orange { --pos-badge-color: #b25000; }
+.pos-badge--red    { --pos-badge-color: var(--pos-red); }
+
+/* Ayırıcılı liste satırı (iOS inset grouped) */
+.pos-row + .pos-row {
+  border-top: 1px solid var(--pos-separator);
+}
+
+/* ==========================================================================
+   6 · FORM KONTROLLERİ, ODAK, SEÇİM, KAYDIRMA ÇUBUĞU
+   ========================================================================== */
+
+.zone-panel input::placeholder,
+.zone-panel textarea::placeholder {
+  color: var(--zone-text-4);
+}
+
+.zone-panel input[type='checkbox'],
+.zone-panel input[type='radio'] {
+  accent-color: var(--zone-primary);
+}
+.pos-panel input[type='checkbox'],
+.pos-panel input[type='radio'] {
+  accent-color: var(--pos-blue);
+}
+.app-phone input[type='checkbox'],
+.app-phone input[type='radio'] {
+  accent-color: var(--app-primary);
+}
+
+/* Tarih/saat alanlarının yerleşik ikonu koyu zeminde görünmez kalıyordu. */
+.zone-panel input[type='date']::-webkit-calendar-picker-indicator,
+.zone-panel input[type='datetime-local']::-webkit-calendar-picker-indicator,
+.zone-panel input[type='time']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.55;
+}
+
+.zone-panel :focus-visible {
+  outline: 2px solid var(--zone-primary);
+  outline-offset: 2px;
+}
+.pos-panel :focus-visible {
+  outline: 2px solid var(--pos-blue);
+  outline-offset: 2px;
+}
+.app-phone :focus-visible {
+  outline: 2px solid var(--app-primary);
+  outline-offset: 2px;
+}
+
+.zone-panel ::selection {
+  background: color-mix(in srgb, var(--zone-primary) 35%, transparent);
+  color: var(--zone-text);
+}
+
+.zone-panel ::-webkit-scrollbar-track {
+  background: var(--zone-bg);
+}
+.zone-panel ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border: 2px solid var(--zone-bg);
+  border-radius: 99px;
+}
+.zone-panel ::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+.pos-panel ::-webkit-scrollbar-track {
+  background: var(--pos-bg);
+}
+.pos-panel ::-webkit-scrollbar-thumb {
+  background: #c7c7cc;
+  border: 2px solid var(--pos-bg);
+  border-radius: 99px;
+}
+
+/* --------------------------------------------------------------------------
+   ParkBiz telefon ikizi — dokunma ipucu (kullanıcı hareketi)
+   -------------------------------------------------------------------------- */
+.app-phone .phone-tap-hint {
+  width: 44px;
+  height: 44px;
+}
+
+.app-phone .phone-tap-ring {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 2px solid var(--app-primary);
+  background: color-mix(in srgb, var(--app-primary) 18%, transparent);
+  animation: phone-tap-pulse 1.4s ease-out infinite;
+}
+
+.app-phone .phone-tap-hand {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: var(--app-primary);
+  filter: drop-shadow(0 1px 2px rgb(15 23 36 / 0.25));
+  animation: phone-tap-bob 1.4s ease-in-out infinite;
+}
+
+@keyframes phone-tap-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.85;
+  }
+  70% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes phone-tap-bob {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  45% {
+    transform: translate(-3px, -7px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-phone .phone-tap-ring,
+  .app-phone .phone-tap-hand {
+    animation: none;
+  }
+}

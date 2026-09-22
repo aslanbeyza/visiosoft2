@@ -20,7 +20,6 @@ export const hubImages = {
   sessions: sw('zone-sessions', 1024, 576, 'Zone oturumlar tablosu: plaka, giriş ve çıkış saati, süre, ücret ve ödeme durumu'),
   sessionsTable: sw('sessions-table', 996, 436, 'Zone oturumlar tablosu: plaka, giriş ve çıkış saati, süre, ücret ve ödeme durumu'),
   panelMenus: sw('panel-menus', 960, 440, 'Zone yönetim paneli: HGS onayı, oturumlar, plaka fotoğrafları, beyaz ve kara liste menüleri'),
-  panelWide: sw('zone-panel', 1600, 540, 'Zone yönetim paneli: temel otopark, finansal, abonelik ve teknik modüller'),
   mapDetail: sw('map-detail', 900, 560, 'Zone canlı haritadan yakın görünüm: park yerleri ve kamera ikonları'),
   phoneFrame: { src: '/assets/images/phone-img.png', webp: '/img/software/phone-frame.webp', avif: '/img/software/phone-frame.avif', width: 726, height: 1444 },
 }
@@ -40,16 +39,7 @@ export const heroCopy = {
   secondary: { label: 'Saha kaydını izle', anchor: 'yol-ustu' as const },
   lineupLabel: 'ParkBiz mobil uygulaması: alt sekmelerle gezilebilir demo',
   tablistLabel: 'ParkBiz alt sekmeleri',
-  phoneNote: 'ParkBiz · alt sekmelerle demo ekranları',
 }
-
-/** Sayfa içi anchor — tekrarlayan bölüm yok. */
-export const subNavItems = [
-  { id: 'yol-ustu', label: 'Saha kaydı' },
-  { id: 'zone', label: 'Zone paneli' },
-  { id: 'canli-izleme', label: 'Canlı izleme' },
-  { id: 'cozumler', label: 'Tüm çözümler' },
-]
 
 /** visiosoft.com.tr hub-software ile aynı kapsam; rotalar visiosoft2 routes.ts ile eşleşir. */
 export const solutionHubCopy = {
@@ -218,7 +208,6 @@ export const monitorCopy = {
     'PMSP loglarını ve kamera kayıtlarını inceleyin.',
   ],
   checksLabel: 'Canlı izleme ile',
-  caption: 'Zone paneli: temel otopark, finansal, abonelik ve teknik modüller (demo verisi)',
 }
 
 export const ctaCopy = {

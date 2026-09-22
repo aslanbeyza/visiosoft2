@@ -4,15 +4,6 @@ export const quoteCopy = {
     title: 'Teklif Al - Visiosoft',
     description: 'Otoparkınız için teklif isteyin: bilgilerinizi bırakın, otopark keşif uzmanımız sizinle iletişime geçsin.',
   },
-  hero: {
-    eyebrow: 'Teklif Al',
-    title: 'Teklifinizi Oluşturun.',
-    lead: 'Bilgilerinizi bırakın, otopark keşif uzmanımız sizinle iletişime geçsin.',
-  },
-  route: {
-    label: 'Teklif talebinizin izleyeceği yol',
-    steps: ['Talebiniz', 'Uzman görüşmesi', 'Keşif', 'Teklif'],
-  },
   form: {
     id: 'teklif-formu',
     eyebrow: 'Talep formu',

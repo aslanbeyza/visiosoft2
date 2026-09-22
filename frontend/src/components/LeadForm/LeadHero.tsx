@@ -10,12 +10,12 @@ export type LeadHeroProps = {
   title: string | string[]
   lead: string
   variant: 'quote' | 'discovery'
-  route: { label: string; steps: string[] }
+  route?: { label: string; steps: string[] }
   /** Forma inen bağlantı. */
-  jump: { href: string; label: string }
+  jump?: { href: string; label: string }
 }
 
-/** Form sayfalarının ortalanmış hero'su: M2 başlık + talep rotası sahnesi (hero anı). */
+/** Form sayfalarının ortalanmış hero'su: M2 başlık + isteğe bağlı talep rotası sahnesi. */
 export default function LeadHero({ eyebrow, title, lead, variant, route, jump }: LeadHeroProps) {
   const reduce = Boolean(useReducedMotion())
   const titleId = useId()
@@ -41,19 +41,23 @@ export default function LeadHero({ eyebrow, title, lead, variant, route, jump }:
           {lead}
         </Reveal>
 
-        <Reveal className={styles.jumpWrap} delay={0.6} y={14} amount={0.1}>
-          <a className={styles.jump} href={jump.href}>
-            {jump.label}
-            <svg viewBox="0 0 24 24" className={styles.jumpIcon} aria-hidden="true" focusable="false">
-              <path d="M12 5v14M6 13l6 6 6-6" />
-            </svg>
-          </a>
-        </Reveal>
+        {jump ? (
+          <Reveal className={styles.jumpWrap} delay={0.6} y={14} amount={0.1}>
+            <a className={styles.jump} href={jump.href}>
+              {jump.label}
+              <svg viewBox="0 0 24 24" className={styles.jumpIcon} aria-hidden="true" focusable="false">
+                <path d="M12 5v14M6 13l6 6 6-6" />
+              </svg>
+            </a>
+          </Reveal>
+        ) : null}
       </div>
 
-      <Reveal className={styles.stage} delay={0.35} y={28} amount={0.2}>
-        <RouteScene variant={variant} steps={route.steps} label={route.label} />
-      </Reveal>
+      {route ? (
+        <Reveal className={styles.stage} delay={0.35} y={28} amount={0.2}>
+          <RouteScene variant={variant} steps={route.steps} label={route.label} />
+        </Reveal>
+      ) : null}
     </section>
   )
 }

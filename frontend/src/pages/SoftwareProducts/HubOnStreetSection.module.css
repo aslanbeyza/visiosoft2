@@ -1,50 +1,7 @@
 .grid {
   display: grid;
-  gap: clamp(2.5rem, 5vw, 2.5rem);
+  gap: clamp(2rem, 4vw, 3rem);
   align-items: start;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin: 0 0 1rem;
-  color: var(--color-navy-600);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.eyebrow::before {
-  content: '';
-  display: block;
-  width: 1.75rem;
-  height: 2px;
-  background: currentColor;
-}
-
-.title {
-  margin: 0 0 1rem;
-  max-width: 20ch;
-  font-size: clamp(1.85rem, 2.6vw + 1rem, 2.75rem);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 1.08;
-  text-wrap: balance;
-  color: var(--color-navy-700);
-}
-
-.titleAccent {
-  color: #c2410c;
-}
-
-.lede {
-  margin: 0;
-  max-width: 36rem;
-  font-size: 0.92rem;
-  line-height: 1.65;
-  color: var(--color-corp-body);
 }
 
 .copy {
@@ -53,7 +10,7 @@
 
 .points {
   display: grid;
-  gap: 0.85rem;
+  gap: 1rem;
   margin: 1.75rem 0 0;
   padding: 0;
   list-style: none;
@@ -62,13 +19,13 @@
 
 .point {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
-.pointDot {
+.pointMark {
   flex-shrink: 0;
-  width: 0.4rem;
-  height: 0.4rem;
+  width: 0.35rem;
+  height: 0.35rem;
   margin-top: 0.55em;
   border-radius: 50%;
   background: var(--color-navy-600);
@@ -76,50 +33,56 @@
 
 .pointTitle {
   margin: 0;
-  font-size: 0.9rem;
-  font-weight: 600;
   color: var(--color-corp-ink);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
 }
 
 .pointDesc {
   margin: 0.2rem 0 0;
-  font-size: 0.82rem;
-  line-height: 1.45;
-  color: var(--color-corp-muted);
+  color: var(--color-corp-body);
+  font-size: 0.95rem;
+  line-height: 1.55;
 }
 
 .timelineBlock {
-  margin-top: 2.25rem;
+  margin-top: 2rem;
   max-width: 36rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-corp-line);
 }
 
 .timelineKicker {
   margin: 0 0 0.75rem;
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
   color: var(--color-corp-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .tabs {
   display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
   padding: 0.2rem;
-  border-radius: 999px;
-  border: 1px solid rgb(15 20 48 / 0.12);
-  background: var(--color-navy-50);
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.65rem;
+  background: var(--color-corp-surface);
 }
 
 .tab,
 .tabActive {
-  min-height: 2rem;
-  padding: 0.35rem 1rem;
+  min-height: 2.1rem;
+  padding: 0.35rem 0.95rem;
   border: none;
-  border-radius: 999px;
-  font-size: 0.82rem;
+  border-radius: 0.5rem;
+  font-size: 0.84rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .tab {
@@ -127,16 +90,20 @@
   color: var(--color-corp-muted);
 }
 
+.tab:hover {
+  color: var(--color-corp-ink);
+}
+
 .tabActive {
   background: #fff;
   color: var(--color-corp-ink);
-  box-shadow: 0 1px 3px rgb(15 20 48 / 0.08);
+  box-shadow: 0 1px 2px rgb(15 20 48 / 0.06);
 }
 
 .steps {
   display: grid;
   gap: 0;
-  margin: 1.25rem 0 0;
+  margin: 1.15rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -144,9 +111,9 @@
 .step {
   position: relative;
   display: flex;
-  gap: 1rem;
+  gap: 0.9rem;
   align-items: flex-start;
-  padding-bottom: 1.1rem;
+  padding-bottom: 0.95rem;
 }
 
 .step:last-child {
@@ -159,7 +126,7 @@
   top: 1rem;
   bottom: 0;
   width: 1px;
-  background: rgb(15 20 48 / 0.12);
+  background: var(--color-corp-line);
 }
 
 .stepLine[data-done] {
@@ -174,8 +141,8 @@
   height: 0.55rem;
   margin-top: 0.35rem;
   border-radius: 50%;
-  background: rgb(15 20 48 / 0.25);
-  transition: box-shadow 0.25s ease, background 0.25s ease;
+  background: color-mix(in srgb, var(--color-corp-muted) 45%, transparent);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .stepDot[data-done],
@@ -184,7 +151,7 @@
 }
 
 .stepDot[data-live] {
-  box-shadow: 0 0 0 4px rgb(30 58 138 / 0.18);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-navy-600) 16%, transparent);
 }
 
 .stepButton {
@@ -193,10 +160,14 @@
   background: none;
   text-align: left;
   font: inherit;
-  font-size: 0.9rem;
-  line-height: 1.45;
+  font-size: 0.94rem;
+  line-height: 1.5;
   color: var(--color-corp-muted);
   cursor: pointer;
+}
+
+.stepButton:hover {
+  color: var(--color-corp-ink);
 }
 
 .stepButton[data-done] {
@@ -208,18 +179,12 @@
   color: var(--color-corp-ink);
 }
 
+/* Medya: MediaFrame paspartusu — dikey video kırpılmadan, tam kare. */
 .figure {
   position: relative;
-  width: 100%;
-  max-width: 20rem;
-  margin-inline: auto;
-  padding: 0.75rem;
-  border-radius: 1rem;
-  border: 1px solid rgb(15 20 48 / 0.14);
-  background: var(--color-navy-950, #0a0f24);
-  box-shadow:
-    0 4px 8px rgb(15 27 45 / 0.06),
-    0 40px 90px -45px rgb(15 27 45 / 0.26);
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .figureHead {
@@ -227,127 +192,89 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding-inline: 0.15rem;
+  margin-bottom: 0.65rem;
+  width: 100%;
 }
 
-.recBadge {
+.statusBadge {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.58rem;
+  gap: 0.4rem;
+  color: var(--color-navy-600);
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #ea580c;
 }
 
-.recDot {
-  width: 0.4rem;
-  height: 0.4rem;
+.statusDot {
+  width: 0.35rem;
+  height: 0.35rem;
   border-radius: 50%;
-  background: #ea580c;
+  background: currentColor;
 }
 
 .deviceLabel {
-  font-size: 0.58rem;
+  color: var(--color-corp-muted);
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 0.45);
+}
+
+.matte {
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.65rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--color-corp-line) 40%, var(--color-corp-surface));
+  box-shadow: 0 1px 2px rgb(15 20 48 / 0.04), 0 18px 36px -22px rgb(15 20 48 / 0.2);
 }
 
 .videoWrap {
   position: relative;
   overflow: hidden;
-  border-radius: 0.65rem;
-  background: #050810;
+  border-radius: 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--color-corp-line) 55%, transparent);
+  background: #fff;
+  /* Kaynak 464×832 — oran korunur; contain ile yanlar kesilmez. */
+  aspect-ratio: 464 / 832;
+  width: min(16.5rem, 72vw, calc(min(56svh, 28rem) * 464 / 832));
+  max-height: min(56svh, 28rem);
 }
 
 .video {
   display: block;
   width: 100%;
-  filter: contrast(1.1) saturate(1.12) brightness(1.03);
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
 }
 
-.vignette {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgb(15 27 45 / 0.2) 100%);
-}
-
-.videoOverlay {
-  pointer-events: none;
-  position: absolute;
-  inset-inline: 0.75rem;
-  bottom: 0.75rem;
+.nowPlaying {
   display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  padding: 0.45rem 0.6rem;
-  border-radius: 0.45rem;
-  border: 1px solid rgb(46 106 201 / 0.35);
-  background: rgb(5 8 16 / 0.92);
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.65rem;
+  margin: 0.75rem 0 0;
+  max-width: 100%;
 }
 
-.overlayTx {
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: #7eb8ff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.overlayStep {
-  font-size: 0.6rem;
+.nowTx {
+  color: var(--color-corp-muted);
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.08em;
-  color: rgb(255 255 255 / 0.92);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-transform: uppercase;
 }
 
-.corner {
-  pointer-events: none;
-  position: absolute;
-  z-index: 2;
-  width: 1.4rem;
-  height: 1.4rem;
-  border-color: rgb(255 255 255 / 0.35);
-  border-style: solid;
-  border-width: 0;
-}
-
-.corner_tl {
-  top: 0.5rem;
-  left: 0.5rem;
-  border-top-width: 1px;
-  border-left-width: 1px;
-}
-
-.corner_tr {
-  top: 0.5rem;
-  right: 0.5rem;
-  border-top-width: 1px;
-  border-right-width: 1px;
-}
-
-.corner_bl {
-  bottom: 0.5rem;
-  left: 0.5rem;
-  border-bottom-width: 1px;
-  border-left-width: 1px;
-}
-
-.corner_br {
-  bottom: 0.5rem;
-  right: 0.5rem;
-  border-bottom-width: 1px;
-  border-right-width: 1px;
+.nowStep {
+  color: var(--color-corp-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .playToggle {
@@ -360,83 +287,105 @@
   background: transparent;
   opacity: 0;
   cursor: pointer;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
 }
 
 .playToggle:hover,
 .playToggle:focus-visible {
   opacity: 1;
+  background: rgb(15 20 48 / 0.1);
 }
 
 .playToggleLabel {
-  padding: 0.45rem 0.85rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--color-corp-line);
   border-radius: 999px;
-  border: 1px solid rgb(255 255 255 / 0.2);
-  background: rgb(5 8 16 / 0.92);
-  font-size: 0.6rem;
+  background: #fff;
+  color: var(--color-corp-ink);
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 0.92);
+  box-shadow: 0 1px 3px rgb(15 20 48 / 0.08);
 }
 
 .progressRow {
   display: flex;
-  gap: 0.25rem;
-  margin-top: 0.5rem;
+  gap: 0.3rem;
+  margin-top: 0.65rem;
+  width: 100%;
 }
 
 .progressTrack {
   height: 2px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgb(255 255 255 / 0.12);
+  background: color-mix(in srgb, var(--color-corp-line) 80%, transparent);
 }
 
 .progressFill {
   height: 100%;
-  background: #4ade80;
+  background: var(--color-navy-600);
   transition: width 0.2s linear;
 }
 
 .progressLabels {
   display: flex;
-  gap: 0.25rem;
-  margin-top: 0.25rem;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+  width: 100%;
 }
 
 .progressLabel {
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: rgb(255 255 255 / 0.4);
+  color: var(--color-corp-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .progressLabel[data-active] {
-  color: #86efac;
+  color: var(--color-navy-600);
+  font-weight: 600;
 }
 
 .caption {
-  margin: 0.65rem 0 0;
-  padding-inline: 0.15rem;
-  font-size: 0.7rem;
-  line-height: 1.45;
-  color: rgb(255 255 255 / 0.55);
+  margin: 0.7rem 0 0;
+  max-width: 22rem;
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
-    gap: clamp(2.5rem, 5vw, 4rem);
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: clamp(1.5rem, 3.5vw, 2.75rem);
+    align-items: center;
   }
 
   .figure {
     position: sticky;
-    top: calc(var(--scroll-padding-top, 8.25rem) + 1rem);
+    top: calc(var(--scroll-padding-top, 6.5rem) + 0.75rem);
     margin-inline: 0;
     justify-self: end;
+  }
+
+  .videoWrap {
+    width: min(17rem, calc(min(50svh, 26rem) * 464 / 832));
+    max-height: min(50svh, 26rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    column-gap: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .videoWrap {
+    width: min(18rem, calc(min(52svh, 28rem) * 464 / 832));
+    max-height: min(52svh, 28rem);
   }
 }

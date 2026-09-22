@@ -15,12 +15,6 @@ export const plakaCopy = {
     lead: 'Zorlu koşullarda bile %99 üzeri doğruluk. Araç yaklaşır, kamera plakayı okur, kayıt doğrulanır ve bariyer açılır.',
     primary: 'Teklif Al',
     secondary: 'Ücretsiz Keşif İste',
-    factsLabel: 'Öne çıkan değerler',
-    facts: [
-      { term: 'Tanıma süresi', value: '100 ms altında' },
-      { term: 'İşlem birimi', value: 'Jetson Orin Nano' },
-      { term: 'Güç tüketimi', value: '15 W' },
-    ],
     flowLabel: 'Plaka tanıma ile otopark geçiş akışı',
   },
   flowSteps: [
@@ -30,12 +24,6 @@ export const plakaCopy = {
     { id: 'pay', title: 'Ödeme alınır', description: 'HGS, banka kartı (POS) ya da QR ile tahsilat tamamlanır.' },
     { id: 'open', title: 'Bariyer açılır', description: 'Bariyer kalkar, geçiş kayda geçer.' },
   ] satisfies ParkingFlowStep[],
-  subNav: [
-    { id: 'basari', label: 'Başarı' },
-    { id: 'hiz', label: 'Hız' },
-    { id: 'teknoloji', label: 'Teknoloji' },
-    { id: 'saha', label: 'Saha' },
-  ],
   scan: {
     eyebrow: 'Zorlu koşullar',
     title: 'Gerçek saha başarısı',

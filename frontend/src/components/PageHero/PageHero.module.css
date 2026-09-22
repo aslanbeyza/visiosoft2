@@ -44,8 +44,8 @@
 
 .inner {
   display: grid;
-  gap: clamp(2.5rem, 5vw, 4rem);
-  width: min(80rem, calc(100% - 2rem));
+  gap: clamp(2rem, 4vw, 3.5rem);
+  width: min(80rem, calc(100% - clamp(2rem, 4vw, 3rem)));
   margin-inline: auto;
 }
 
@@ -251,20 +251,17 @@
 }
 
 @media (min-width: 768px) {
-  .inner {
-    width: min(80rem, calc(100% - 3rem));
-  }
-
   .hero[data-variant='centered'] .inner {
-    width: min(52rem, calc(100% - 3rem));
+    width: min(52rem, calc(100% - clamp(2rem, 4vw, 3rem)));
   }
 }
 
 @media (min-width: 1024px) {
   .hero[data-media='true'] .inner {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
     align-items: center;
-    column-gap: clamp(2.5rem, 5vw, 5rem);
+    /* vw ile nefes alır; cihaz genişledikçe aralık artar (sabit rem yok). */
+    column-gap: clamp(1.5rem, 3.5vw, 2.5rem);
   }
 
   .hero[data-variant='product'][data-media='true'] .inner {
@@ -283,5 +280,17 @@
   .stageInner > img,
   .stageInner > picture > img {
     max-height: min(38rem, calc(100svh - 14rem));
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero[data-media='true'] .inner {
+    column-gap: clamp(2rem, 4vw, 3rem);
+  }
+}
+
+@media (min-width: 1536px) {
+  .hero[data-media='true'] .inner {
+    column-gap: clamp(2.25rem, 4.5vw, 3.5rem);
   }
 }

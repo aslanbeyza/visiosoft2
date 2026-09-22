@@ -1,11 +1,9 @@
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { revealEase } from '../Reveal/motion.ts'
-import { heroCopy } from './heroCopy.ts'
 import { STATIC_PHASE, heroVideo } from './heroTimeline.ts'
 import HeroIntro from './HeroIntro.tsx'
 import HeroStatus from './HeroStatus.tsx'
-import VideoToggle from './VideoToggle.tsx'
 import { useHeroPlayback } from './useHeroPlayback.ts'
 import { usePrefersReducedMotion } from './usePrefersReducedMotion.ts'
 import { useVideoPhase } from './useVideoPhase.ts'
@@ -22,7 +20,7 @@ export default function Hero() {
   const [mobile] = useState(() => window.matchMedia('(max-width: 640px)').matches)
   const [playing, setPlaying] = useState(false)
 
-  const { userPaused, toggle } = useHeroPlayback(videoRef, sectionRef, reduce)
+  useHeroPlayback(videoRef, sectionRef, reduce)
   const { phase: livePhase, progress } = useVideoPhase(videoRef, !reduce)
   const phase = reduce ? STATIC_PHASE : livePhase
   const sources = mobile ? heroVideo.mobile : heroVideo.desktop
@@ -67,23 +65,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: revealEase, delay: 0.9 }}
           >
-            {/* Duraklat düğmesi kartın başlık satırında: videoyu ve kartı birlikte dondurduğu görünür. */}
-            <HeroStatus
-              phase={phase}
-              progress={progress}
-              reduce={reduce}
-              playing={playing}
-              control={
-                reduce ? null : (
-                  <VideoToggle
-                    paused={userPaused}
-                    onToggle={toggle}
-                    playLabel={heroCopy.hud.play}
-                    pauseLabel={heroCopy.hud.pause}
-                  />
-                )
-              }
-            />
+            <HeroStatus phase={phase} progress={progress} reduce={reduce} playing={playing} />
           </motion.div>
         </div>
       </div>

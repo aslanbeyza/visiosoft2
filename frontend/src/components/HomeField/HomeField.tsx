@@ -6,7 +6,9 @@ import Section from '../Section/index.ts'
 import SectionHeading from '../SectionHeading/index.ts'
 import { flagshipInfo, flagships } from '../HomeFlagships/flagships.ts'
 import type { Flagship } from '../HomeFlagships/flagships.ts'
+import { useMediaQuery } from '../../hooks/useMediaQuery/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
+import FieldStack from './FieldStack.tsx'
 import { homeFieldCopy as text } from './homeFieldCopy.ts'
 import styles from './HomeField.module.css'
 
@@ -80,10 +82,13 @@ function scrollToStep(story: HTMLElement, index: number, progress: number) {
   window.scrollTo({ top: top + distance * (target / SPAN), behavior: 'smooth' })
 }
 
-/** Kaydırmada ürün yukarı uçar; LED’den sonra kiosk yine gelir, hikâye bitince sayfa iner. */
+/** Masaüstü: kaydırınca ürün uçar. Mobil: yığılmış kart destesı. */
 export default function HomeField() {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
+  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const desktopRef = useRef(isDesktop)
+  desktopRef.current = isDesktop
   const storyRef = useRef<HTMLDivElement>(null)
   const slotRefs = useRef<(HTMLDivElement | null)[]>([])
   const progressRef = useRef(0)
@@ -94,10 +99,12 @@ export default function HomeField() {
   const [stepLocal, setStepLocal] = useState(0)
 
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
+    if (!desktopRef.current) return
     progressRef.current = value
   })
 
   useMotionValueEvent(fly, 'change', (value) => {
+    if (!desktopRef.current) return
     slotRefs.current.forEach((slot, index) => {
       slot?.style.setProperty('--off', String(wrapOff(index, value, COUNT)))
     })
@@ -108,6 +115,8 @@ export default function HomeField() {
   })
 
   const prevIndex = (active - 1 + COUNT) % COUNT
+  const tickFill = Math.max(stepLocal, 0.08)
+  const catalogHref = path('hardware-products')
 
   return (
     <Section id="saha" tone="surface" spacing="none" labelledBy={text.titleId} className={styles.section}>
@@ -115,7 +124,7 @@ export default function HomeField() {
         <>
           <SectionHeading eyebrow={text.eyebrow} title={text.title} lead={text.lead} id={text.titleId} />
           <p className={styles.more}>
-            <CatalogLink to={path('hardware-products')} label={text.all} />
+            <CatalogLink to={catalogHref} label={text.all} />
           </p>
           <ul className={styles.grid} aria-label={text.galleryLabel}>
             {ITEMS.map((item, index) => {
@@ -136,14 +145,21 @@ export default function HomeField() {
             })}
           </ul>
         </>
+      ) : !isDesktop ? (
+        <FieldStack items={ITEMS} catalogHref={catalogHref} />
       ) : (
-        <div ref={storyRef} className={styles.story} style={{ '--story': STORY } as CSSProperties}>
+        <div
+          ref={storyRef}
+          className={styles.story}
+          data-scroll="track"
+          style={{ '--story': STORY } as CSSProperties}
+        >
           <div className={styles.sticky}>
             <div className={styles.stage}>
               <p className={styles.kicker}>{text.eyebrow}</p>
               <h2 id={text.titleId} className={styles.headline}>{text.title}</h2>
               <p className={styles.hint}>{text.hint}</p>
-              <CatalogLink to={path('hardware-products')} label={text.all} />
+              <CatalogLink to={catalogHref} label={text.all} />
               <div className={styles.floor} aria-hidden="true" />
               {ITEMS.map((item, index) => (
                 <div
@@ -212,7 +228,7 @@ export default function HomeField() {
                               >
                                 <span
                                   className={styles.tickFill}
-                                  style={{ transform: `scaleX(${current ? Math.max(stepLocal, 0.08) : 0})` }}
+                                  style={{ transform: `scaleX(${current ? tickFill : 0})` }}
                                 />
                               </button>
                             )
@@ -228,7 +244,6 @@ export default function HomeField() {
           </div>
         </div>
       )}
-
     </Section>
   )
 }

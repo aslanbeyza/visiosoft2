@@ -1,6 +1,5 @@
 /** Talep sayfalarının (teklif, keşif) ortak yan panel metinleri; İletişim sayfasındaki ifadelerle aynıdır. */
 export const leadPageCopy = {
-  jumpLabel: 'Forma geçin',
   formEyebrow: 'Talep formu',
   nextSteps: {
     eyebrow: 'Süreç',

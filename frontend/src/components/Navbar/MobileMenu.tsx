@@ -5,10 +5,9 @@ import type { Variants } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Button from '../Button/index.ts'
 import { revealEase } from '../Reveal/index.ts'
-import { company, whatsappUrl } from '../../data/company.ts'
+import { company } from '../../data/company.ts'
 import { navCta } from '../../data/siteNav.ts'
 import type { NavItem } from '../../data/siteNav.ts'
-import { useLocale } from '../../hooks/useLocale/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import { GroupLinks, SubLink } from './MobileMenuItems.tsx'
 import NavIcon from './NavIcon.tsx'
@@ -46,15 +45,11 @@ type MobileMenuProps = {
 /** 1024px altındaki tam yükseklik menü: akordeon gruplar, düz bağlantılar, CTA ve iletişim. */
 export default function MobileMenu({ id, items, current, reduce, sheetRef, onNavigate }: MobileMenuProps) {
   const path = usePath()
-  const { config } = useLocale()
   const baseId = useId()
   // Açılışta etkin sayfanın grubu açık gelir.
   const [expanded, setExpanded] = useState<string | null>(
     () => items.find((item) => item.menu?.some((link) => link.route === current))?.key ?? null,
   )
-
-  const waId = config?.whatsapp_wa_id || company.whatsapp.waId
-  const waDisplay = config?.whatsapp_display || company.whatsapp.display
 
   return (
     <motion.div
@@ -172,11 +167,6 @@ export default function MobileMenu({ id, items, current, reduce, sheetRef, onNav
             <a href={`mailto:${company.email}`} className={styles.contactLink}>
               <NavIcon name="mail" className={styles.contactIcon} />
               <span>{company.email}</span>
-            </a>
-            <a href={whatsappUrl(waId)} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
-              <NavIcon name="chat" className={styles.contactIcon} />
-              <span>{waDisplay}</span>
-              <span className={styles.srOnly}>{`, ${navbarCopy.whatsappHint}`}</span>
             </a>
           </div>
         </motion.div>

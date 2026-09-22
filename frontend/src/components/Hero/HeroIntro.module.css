@@ -5,12 +5,12 @@
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 0.875rem;
+  gap: clamp(0.55rem, 0.3rem + 1.2vw, 0.875rem);
   margin: 0;
   color: rgb(255 255 255 / 0.82);
-  font-size: 0.8125rem;
+  font-size: clamp(0.7rem, 0.62rem + 0.35vw, 0.8125rem);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: clamp(0.12em, 0.1em + 0.08vw, 0.16em);
   line-height: 1.2;
   text-transform: uppercase;
 }
@@ -20,48 +20,60 @@
 }
 
 .rule {
-  width: 2.25rem;
+  width: clamp(1.35rem, 0.9rem + 1.5vw, 2.25rem);
   height: 1px;
   background: rgb(255 255 255 / 0.7);
   transform-origin: left center;
 }
 
+/* vw + svh: dar ve kısa ekranlarda başlık birlikte küçülür, breakpoint yok. */
 .title {
-  margin: 1.25rem 0 0;
+  margin: clamp(0.5rem, 0.55svh + 0.3rem, 1.25rem) 0 0;
   color: #fff;
-  font-size: clamp(2.35rem, 1rem + 4.1vw, 4.35rem);
+  font-size: clamp(1.55rem, 0.35rem + 2.6vw + 1.9svh, 4.35rem);
   font-weight: 650;
   letter-spacing: -0.035em;
-  line-height: 1.05;
+  line-height: 1.1;
   text-wrap: balance;
 }
 
 .description {
   max-width: 33rem;
-  margin: 1.25rem 0 0;
+  margin: clamp(0.5rem, 0.7svh + 0.3rem, 1.25rem) 0 0;
   color: rgb(255 255 255 / 0.8);
-  font-size: clamp(1.02rem, 0.94rem + 0.3vw, 1.2rem);
-  line-height: 1.6;
+  font-size: clamp(0.92rem, 0.84rem + 0.25vw + 0.25svh, 1.2rem);
+  line-height: 1.55;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 2rem;
+  gap: clamp(0.55rem, 0.4rem + 0.6vw, 0.75rem);
+  margin-top: clamp(1rem, 1.6svh + 0.55rem, 2rem);
 }
 
 .cta {
-  flex: none;
+  flex: 1 1 12rem;
+}
+
+.button {
+  width: 100%;
 }
 
 .secondary {
+  flex: 1 1 12rem;
   background: rgb(6 8 34 / 0.28);
 }
 
+/*
+  Kısa viewport’ta kanıt satırı akışkan şekilde kaybolur (opacity + max-height),
+  böylece ayrı “mobil gizle” media query gerekmez.
+*/
 .proofWrap {
-  margin-top: 2rem;
+  margin-top: clamp(0rem, calc(100svh - 46rem), 2rem);
+  max-height: clamp(0rem, calc(100svh - 44rem), 4.5rem);
   overflow: hidden;
+  opacity: clamp(0, calc((100svh - 44rem) / 5rem), 1);
 }
 
 /* Negatif kenar = nokta (0,25rem) + iç boşluk (0,875rem): satır başındaki nokta kırpılır. */
@@ -74,7 +86,7 @@
   padding: 0;
   list-style: none;
   color: rgb(255 255 255 / 0.88);
-  font-size: 0.9375rem;
+  font-size: clamp(0.8rem, 0.74rem + 0.25vw, 0.9375rem);
   font-weight: 500;
   line-height: 1.4;
 }
@@ -91,24 +103,4 @@
   height: 0.25rem;
   border-radius: 50%;
   background: rgb(255 255 255 / 0.5);
-}
-
-@media (max-width: 479.98px) {
-  .actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .cta,
-  .button {
-    width: 100%;
-  }
-
-  .proofWrap {
-    margin-top: 1.5rem;
-  }
-
-  .proof {
-    font-size: 0.875rem;
-  }
 }

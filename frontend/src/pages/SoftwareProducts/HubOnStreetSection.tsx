@@ -1,14 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Section from '../../components/Section/index.ts'
+import SectionHeading from '../../components/SectionHeading/index.ts'
 import { hubOnStreetCopy } from './hubOnStreetCopy.ts'
 import styles from './HubOnStreetSection.module.css'
 
 const copy = hubOnStreetCopy
 
-function labelUpper(text: string) {
-  return text.toLocaleUpperCase('tr-TR')
-}
-
+/** Yol üstü saha kaydı — site diline uyumlu, sakin iki kolon. */
 export default function HubOnStreetSection() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -35,7 +33,7 @@ export default function HubOnStreetSection() {
           video.pause()
         }
       },
-      { rootMargin: '1200px 0px', threshold: 0.01 },
+      { rootMargin: '800px 0px', threshold: 0.05 },
     )
     io.observe(el)
     return () => io.disconnect()
@@ -69,19 +67,20 @@ export default function HubOnStreetSection() {
   }
 
   return (
-    <Section id="yol-ustu" tone="surface" spacing="lg" labelledBy="hub-yol-ustu-title">
+    <Section id="yol-ustu" tone="paper" spacing="lg" labelledBy="hub-yol-ustu-title">
       <div ref={wrapRef} className={styles.grid}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>{copy.eyebrow}</p>
-          <h2 id="hub-yol-ustu-title" className={styles.title}>
-            {copy.title}{' '}
-            <span className={styles.titleAccent}>{copy.titleAccent}</span>
-          </h2>
-          <p className={styles.lede}>{copy.lede}</p>
+          <SectionHeading
+            id="hub-yol-ustu-title"
+            eyebrow={copy.eyebrow}
+            title={`${copy.title} ${copy.titleAccent}`}
+            lead={copy.lede}
+          />
+
           <ul className={styles.points}>
             {copy.points.map((point) => (
               <li key={point.title} className={styles.point}>
-                <span className={styles.pointDot} aria-hidden="true" />
+                <span className={styles.pointMark} aria-hidden="true" />
                 <div>
                   <p className={styles.pointTitle}>{point.title}</p>
                   <p className={styles.pointDesc}>{point.description}</p>
@@ -161,48 +160,49 @@ export default function HubOnStreetSection() {
           </div>
         </div>
 
-        <figure className={styles.figure} data-onstreet>
+        <figure className={styles.figure}>
           <div className={styles.figureHead}>
-            <span className={styles.recBadge}>
-              <span className={styles.recDot} aria-hidden="true" />
+            <span className={styles.statusBadge}>
+              <span className={styles.statusDot} aria-hidden="true" />
               Saha kaydı
             </span>
             <span className={styles.deviceLabel}>El terminali</span>
           </div>
 
-          <div className={styles.videoWrap}>
-            <video
-              ref={videoRef}
-              src={copy.videoSrc}
-              aria-label={copy.videoAriaLabel}
-              muted
-              loop
-              playsInline
-              preload="none"
-              className={styles.video}
-              onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
-              onPlay={() => setPlaying(true)}
-              onPause={() => setPlaying(false)}
-            />
-            <span className={styles.vignette} aria-hidden="true" />
-            <span className={styles.videoOverlay}>
-              <span className={styles.overlayTx}>
-                {labelUpper(copy.transactions.find((tx) => tx.id === activeTx)?.label ?? '')}
-              </span>
-              <span className={styles.overlayStep}>{labelUpper(activeStep?.label ?? '')}</span>
-            </span>
-            {(['tl', 'tr', 'bl', 'br'] as const).map((corner) => (
-              <span key={corner} className={`${styles.corner} ${styles[`corner_${corner}`]}`} aria-hidden="true" />
-            ))}
-            <button
-              type="button"
-              className={styles.playToggle}
-              onClick={togglePlay}
-              aria-label={playing ? 'Duraklat' : 'Oynat'}
-            >
-              <span className={styles.playToggleLabel}>{playing ? 'Duraklat' : 'Oynat'}</span>
-            </button>
+          <div className={styles.matte}>
+            <div className={styles.videoWrap}>
+              <video
+                ref={videoRef}
+                src={copy.videoSrc}
+                aria-label={copy.videoAriaLabel}
+                muted
+                loop
+                playsInline
+                preload="none"
+                className={styles.video}
+                onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
+                onPlay={() => setPlaying(true)}
+                onPause={() => setPlaying(false)}
+              />
+              <button
+                type="button"
+                className={styles.playToggle}
+                onClick={togglePlay}
+                aria-label={playing ? 'Duraklat' : 'Oynat'}
+              >
+                <span className={styles.playToggleLabel}>{playing ? 'Duraklat' : 'Oynat'}</span>
+              </button>
+            </div>
           </div>
+
+          <p className={styles.nowPlaying}>
+            <span className={styles.nowTx}>
+              {copy.transactions.find((tx) => tx.id === activeTx)?.label ?? ''}
+            </span>
+            <span className={styles.nowStep} aria-live="polite">
+              {activeStep?.label ?? ''}
+            </span>
+          </p>
 
           <div className={styles.progressRow}>
             {copy.transactions.map((tx) => {
@@ -233,7 +233,7 @@ export default function HubOnStreetSection() {
                 data-active={activeTx === tx.id ? '' : undefined}
                 style={{ flex: tx.to - tx.from }}
               >
-                {labelUpper(tx.label)}
+                {tx.label}
               </span>
             ))}
           </div>

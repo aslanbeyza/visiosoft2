@@ -324,12 +324,6 @@
   line-height: 1.45;
 }
 
-/* Alt blok: CTA ve iletişim, içerik kısaysa ekranın dibine oturur. */
-.foot {
-  margin-top: auto;
-  padding-top: 2rem;
-}
-
 .actions {
   display: grid;
   gap: 0.75rem;

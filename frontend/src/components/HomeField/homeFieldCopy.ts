@@ -8,4 +8,5 @@ export const homeFieldCopy = {
   all: 'Tüm donanımlar',
   inspect: 'Ürünü incele',
   hint: 'Kaydırın — ürünler uçar.',
+  stackHint: 'Kartı yana kaydırın.',
 } as const

@@ -7,7 +7,6 @@ export const navbarCopy = {
   closeMenu: 'Menüyü kapat',
   submenu: (label: string) => `${label} alt menüsü`,
   contactTitle: 'Bize ulaşın',
-  whatsappHint: 'WhatsApp, yeni sekmede açılır',
   accessoryLabel: 'Aksesuar',
 }
 

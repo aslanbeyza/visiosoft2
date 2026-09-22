@@ -1,5 +1,4 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import type { Variants } from 'framer-motion'
 import Button from '../../components/Button/index.ts'
 import Magnetic from '../../components/Magnetic/index.ts'
 import ParkingFlow from '../../components/ParkingFlow/index.ts'
@@ -12,19 +11,6 @@ import styles from './PlakaHero.module.css'
 
 const copy = plakaCopy.hero
 export const PLAKA_TITLE_ID = 'plaka-tanima-baslik'
-
-const factList: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.75 } },
-}
-const factItem: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: revealEase } },
-}
-const factLine: Variants = {
-  hidden: { scaleX: 0 },
-  show: { scaleX: 1, transition: { duration: 1, ease: revealEase } },
-}
 
 /**
  * "Okuma" anı: masaüstünde sol metin sabitlenir, sağda kaydırmayla ilerleyen ParkingFlow sahnesi
@@ -71,15 +57,6 @@ export default function PlakaHero() {
                 {copy.secondary}
               </Button>
             </motion.div>
-            <motion.dl className={styles.facts} initial={reduce ? false : 'hidden'} animate="show" variants={factList}>
-              {copy.facts.map((fact) => (
-                <motion.div key={fact.term} className={styles.fact} variants={factItem}>
-                  <motion.span className={styles.factLine} aria-hidden="true" variants={factLine} />
-                  <dt className={styles.factTerm}>{fact.term}</dt>
-                  <dd className={styles.factValue}>{fact.value}</dd>
-                </motion.div>
-              ))}
-            </motion.dl>
           </div>
         </div>
         <motion.div className={styles.flowCell} {...rise(0.3)}>

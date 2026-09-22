@@ -21,8 +21,6 @@ export type HeroCopy = {
     farewell: string
     progressLabel: string
     stages: Record<StageId, { headline: string; step: string }>
-    play: string
-    pause: string
   }
 }
 
@@ -50,7 +48,5 @@ export const heroCopy: HeroCopy = {
       verified: { headline: 'Plaka doğrulandı', step: 'Doğrulama' },
       open: { headline: 'Bariyer açıldı', step: 'Bariyer' },
     },
-    play: 'Videoyu oynat',
-    pause: 'Videoyu duraklat',
   },
 }

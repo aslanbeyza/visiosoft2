@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import type { MotionValue } from 'framer-motion'
-import type { ReactNode } from 'react'
 import { revealEase } from '../Reveal/motion.ts'
 import { heroCopy } from './heroCopy.ts'
 import { stageOf, stages } from './heroTimeline.ts'
@@ -16,8 +15,6 @@ type HeroStatusProps = {
   progress: MotionValue<number>
   reduce: boolean
   playing: boolean
-  /** Başlık satırının sağ ucundaki denetim (video duraklat/oynat). */
-  control?: ReactNode
 }
 
 const hud = heroCopy.hud
@@ -26,7 +23,7 @@ const hud = heroCopy.hud
  * Videoyla eşzamanlı geçiş kartı. Görsel içerik ekran okuyuculardan gizlidir;
  * yerine sabit bir özet okunur (otomatik değişen içerikte aria-live yok).
  */
-export default function HeroStatus({ phase, progress, reduce, playing, control }: HeroStatusProps) {
+export default function HeroStatus({ phase, progress, reduce, playing }: HeroStatusProps) {
   const stage = stageOf(phase)
   const swap = { duration: reduce ? 0 : 0.35, ease: revealEase }
   const layer = (visible: boolean) => ({
@@ -48,7 +45,6 @@ export default function HeroStatus({ phase, progress, reduce, playing, control }
           <span className={styles.camera} aria-hidden="true">
             {hud.camera}
           </span>
-          {control}
         </span>
       </div>
 

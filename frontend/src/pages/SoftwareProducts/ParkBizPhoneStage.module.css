@@ -1,13 +1,18 @@
 .stage {
-  width: 100%;
-  max-width: 20rem;
+  /* Konteyner sorgusu: telefon genişliği sarmalayıcıya göre ölçeklenir. */
+  container-type: inline-size;
+  /*
+   * Genişlik: rem / vw / viewport yüksekliği — hangisi küçükse o kazanır.
+   * Böylece kısa ekranda telefon kesilmez, tamamı görünür.
+   */
+  width: min(15rem, 78vw, calc((100svh - 14rem) * 416 / 870));
+  max-width: 100%;
   margin-inline: auto;
 }
 
 .wrap {
   position: relative;
-  width: min(100%, 18.5rem);
-  margin-inline: auto;
+  width: 100%;
   isolation: isolate;
 }
 
@@ -23,13 +28,43 @@
   pointer-events: none;
 }
 
-@media (min-width: 1024px) {
-  .stage {
-    max-width: 21rem;
-    margin-inline: 0;
-  }
+.phoneSlot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 416 / 870;
+  overflow: hidden;
+}
 
-  .wrap {
-    width: min(100%, 19.25rem);
+.phoneScale {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 416px;
+  height: 870px;
+  transform: scale(calc(100cqw / 416px));
+  transform-origin: top left;
+}
+
+@media (min-width: 48rem) {
+  .stage {
+    width: min(15.75rem, 55vw, calc((100svh - 13rem) * 416 / 870));
+  }
+}
+
+@media (min-width: 64rem) {
+  .stage {
+    width: min(16.25rem, 22vw, calc((100svh - 11rem) * 416 / 870));
+    margin-inline: auto 0;
+  }
+}
+
+@media (min-width: 80rem) {
+  .stage {
+    width: min(17rem, 20vw, calc((100svh - 10rem) * 416 / 870));
+  }
+}
+
+@media (min-width: 96rem) {
+  .stage {
+    width: min(17.5rem, 18vw, calc((100svh - 9rem) * 416 / 870));
   }
 }

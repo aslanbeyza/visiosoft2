@@ -5,15 +5,6 @@ export const discoveryCopy = {
     description:
       'Otoparkınız için ücretsiz keşif talep edin. Uzman ekibimiz yerinde inceleme yapsın, size en uygun çözümü sunalım.',
   },
-  hero: {
-    eyebrow: 'Ücretsiz Keşif',
-    title: 'Otoparkınızı yerinde inceleyelim.',
-    lead: 'Size en uygun çözümü projelendirelim. Adresinizi bırakın, ekibimiz randevu için sizinle iletişime geçsin.',
-  },
-  route: {
-    label: 'Keşif talebinizin izleyeceği yol',
-    steps: ['Talebiniz', 'Randevu', 'Yerinde keşif', 'Projelendirme'],
-  },
   form: {
     id: 'kesif-formu',
     eyebrow: 'Talep formu',

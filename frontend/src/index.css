@@ -28,6 +28,33 @@
   --color-corp-line: #e2e5ee;
   --color-corp-surface: #f5f6f9;
   --color-success: #12805c;
+
+  /*
+   * ParkBiz telefon ikizi (visiosoft-3d panel) — Tailwind utility isimleri.
+   * Değerler site genelinde nötr tutulur; .app-phone kökü panel-theme.css
+   * içinde marka lacivertine yeniden bağlar.
+   */
+  --color-void: #f6f8fb;
+  --color-carbon: #ffffff;
+  --color-anthracite: #eef2f7;
+  --color-graphite: #e3e9f1;
+  --color-steel: #c6d0de;
+  --color-line-strong: #c6d0de;
+  --color-ash: #3f4e63;
+  --color-slatey: #566783;
+  --color-electric: #1667d6;
+  --color-electric-deep: #0f4faa;
+  --color-electric-soft: #37659c;
+  --color-neon: #0a7a52;
+  --color-neon-deep: #065c3c;
+  --color-neon-soft: #2a7354;
+  --color-plasma: #4b3fae;
+  --color-alert: #c0243a;
+  --color-amber: #8a5a00;
+  --color-tint-blue: #e8f0fd;
+  --color-tint-green: #e6f4ee;
+  --color-tint-amber: #fbf1e0;
+  --color-tint-alert: #fdecee;
 }
 
 /*

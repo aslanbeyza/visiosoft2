@@ -1,4 +1,4 @@
-import { useEffect, useState, useSyncExternalStore } from 'react'
+import { useEffect, useSyncExternalStore } from 'react'
 import type { RefObject } from 'react'
 import { useInView } from 'framer-motion'
 
@@ -10,7 +10,7 @@ const pageVisible = () => document.visibilityState !== 'hidden'
 const serverVisible = () => true
 
 /**
- * Video yalnızca bölüm görünürken, sekme açıkken ve kullanıcı duraklatmamışken oynar.
+ * Video yalnızca bölüm görünürken ve sekme açıkken oynar.
  * Hareket azaltma tercihinde hiç oynatılmaz (afiş kalır).
  */
 export function useHeroPlayback(
@@ -20,8 +20,7 @@ export function useHeroPlayback(
 ) {
   const inView = useInView(sectionRef, { amount: 0.15 })
   const visible = useSyncExternalStore(subscribeVisibility, pageVisible, serverVisible)
-  const [userPaused, setUserPaused] = useState(false)
-  const shouldPlay = !reduce && inView && visible && !userPaused
+  const shouldPlay = !reduce && inView && visible
 
   useEffect(() => {
     const video = videoRef.current
@@ -33,8 +32,4 @@ export function useHeroPlayback(
     video.muted = true
     video.play().catch(() => undefined)
   }, [shouldPlay, videoRef])
-
-  const toggle = () => setUserPaused((paused) => !paused)
-
-  return { userPaused, toggle }
 }
