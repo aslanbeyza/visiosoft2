@@ -115,7 +115,7 @@ const kiosk = loc(
     meta: [
       { label: 'Kategori', value: 'Kiosk sistemleri' },
       { label: 'Entegrasyon', value: 'HGS / POS / QR / Yazıcı / Ağ' },
-      { label: 'Kullanım', value: 'Plaka girişi olmadan temassız çıkış tahsilatı' },
+      { label: 'Kullanım', value: 'Temassız çıkış tahsilatı' },
       { label: 'İzleme', value: 'Uzaktan 7/24 takip' },
     ],
     highlights_desc: 'Çıkış noktasında plaka girişi gerektirmeyen, çok kanallı insansız tahsilat altyapısı.',

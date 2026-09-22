@@ -34,17 +34,93 @@ export const hubSeo = {
 export const heroCopy = {
   eyebrow: 'Park Yazılım',
   title: ['Otoparkınızı', 'telefondan yönetin.'],
-  lead: 'Güvenli, hızlı ve anlık takip hep elinizde. Oturumlar, tahsilat, abonelik ve cihazlar Zone panelinde; ödeme ve abonelik müşterilerinizin cebinde.',
+  lead:
+    'Mobil uygulama, saha terminali ve Zone paneli aynı platformda: oturum, tahsilat, abonelik ve cihazlar tek akışta.',
   primary: { label: 'Teklif Al', route: 'quote.index' },
-  secondary: { label: 'Geliştiriciler', route: 'developers' },
+  secondary: { label: 'Saha kaydını izle', anchor: 'yol-ustu' as const },
   lineupLabel: 'ParkBiz mobil uygulaması: alt sekmelerle gezilebilir demo',
   tablistLabel: 'ParkBiz alt sekmeleri',
+  phoneNote: 'ParkBiz · alt sekmelerle demo ekranları',
 }
 
+/** Sayfa içi anchor — tekrarlayan bölüm yok. */
 export const subNavItems = [
+  { id: 'yol-ustu', label: 'Saha kaydı' },
   { id: 'zone', label: 'Zone paneli' },
   { id: 'canli-izleme', label: 'Canlı izleme' },
+  { id: 'cozumler', label: 'Tüm çözümler' },
 ]
+
+/** visiosoft.com.tr hub-software ile aynı kapsam; rotalar visiosoft2 routes.ts ile eşleşir. */
+export const solutionHubCopy = {
+  eyebrow: 'Park Yazılım',
+  title: 'Ana çözümler',
+  lead: 'Otopark yazılımı, saha senaryoları ve entegrasyon sayfalarına buradan geçin.',
+  listLabel: 'Yazılım ve çözüm sayfaları',
+  action: 'İncele',
+  items: [
+    {
+      route: 'parking-software' as const,
+      title: 'Otopark yazılımı',
+      description: 'Bulut tabanlı yönetim; giriş-çıkış, ödeme, abonelik ve raporlama tek platformda.',
+    },
+    {
+      route: 'end-to-end' as const,
+      title: 'Uçtan uca sistem',
+      description: 'Çağrı merkezi, otopark yönetimi, fatura ve abone yönetimi tek platformda.',
+    },
+    {
+      route: 'on-street' as const,
+      title: 'Yol üstü parklandırma',
+      description: 'Yol kenarı park yerlerinde kamera ve yapay zeka; HGS ile otomatik ücretlendirme.',
+    },
+    {
+      route: 'website-pricing' as const,
+      title: 'Site otopark yönetimi',
+      description: 'Site ve rezidans otoparkları için araç kotalı, bulut panelli yönetim.',
+    },
+    {
+      route: 'parking-violations' as const,
+      title: 'İşgaliye ve park ceza',
+      description: 'İşgaliye ve kural ihlallerini anında tespit ederek kazanç kaybını önler.',
+    },
+    {
+      route: 'hgs' as const,
+      title: 'HGS ödeme sistemi',
+      description: 'HGS, POS, QR ve canlı raporlamayla insansız otopark akışı.',
+    },
+    {
+      route: 'hgs-park' as const,
+      title: 'HGS Park',
+      description: 'Plaka tanıma altyapınızı hızlı ve güvenli bir ödeme merkezine dönüştürür.',
+    },
+    {
+      route: 'kus-bakisi' as const,
+      title: 'Kuş bakışı yönetim',
+      description: 'Tüm operasyonu tek ekrandan yönetin; anlık veriler ve canlı kameralar.',
+    },
+    {
+      route: 'parking-reports' as const,
+      title: 'Raporlar',
+      description: 'Operasyonel, finansal ve abonelik raporları tek panelde.',
+    },
+    {
+      route: 'low-confidence' as const,
+      title: 'HGS ile onay',
+      description: 'Düşük güvenli plaka okumalarında devreye giren insan onay mekanizması.',
+    },
+    {
+      route: 'mobil-abonelik' as const,
+      title: 'Mobil abonelik',
+      description: 'Mobil uygulama üzerinden park aboneliği oluşturma rehberi.',
+    },
+    {
+      route: 'designer-tool' as const,
+      title: 'Designer aracı',
+      description: 'Kuş bakışı kurulumu için otoparkınızı dijital ortamda çizin ve yönetin.',
+    },
+  ],
+}
 
 export const zoneCopy = {
   eyebrow: 'Zone',

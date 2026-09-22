@@ -164,10 +164,10 @@ export default function ParkingFlowScene({
         <g transform={`translate(${ARM_PIVOT.x} ${ARM_PIVOT.y})`}>
           <g ref={armRef}>
             <path d={`M-6 0h12L7 ${ARM_LENGTH}h-14Z`} className={styles.body} />
-            <rect x="-4" y="18" width="8" height="10" rx="2" className={styles.stripe} />
-            <rect x="-4.5" y="42" width="9" height="10" rx="2" className={styles.stripe} />
-            <rect x="-5" y="66" width="10" height="10" rx="2" className={styles.stripe} />
-            <rect x="-5.5" y="90" width="11" height="10" rx="2" className={styles.stripe} />
+            <rect x="-4" y="28" width="8" height="10" rx="2" className={styles.stripe} />
+            <rect x="-4.5" y="66" width="9" height="10" rx="2" className={styles.stripe} />
+            <rect x="-5" y="104" width="10" height="10" rx="2" className={styles.stripe} />
+            <rect x="-5.5" y="142" width="11" height="10" rx="2" className={styles.stripe} />
           </g>
         </g>
         <circle cx={ARM_PIVOT.x} cy={ARM_PIVOT.y} r="6" className={styles.body} />

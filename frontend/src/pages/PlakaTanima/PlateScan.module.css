@@ -232,6 +232,16 @@
     0 16px 40px -20px rgb(15 20 48 / 0.28);
 }
 
+.stage::after {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.35);
+  pointer-events: none;
+  content: '';
+}
+
 .conditionTag,
 .accuracy {
   position: absolute;
@@ -255,8 +265,9 @@
 }
 
 .accuracy {
+  top: clamp(0.6rem, 2vw, 1rem);
   right: clamp(0.6rem, 2vw, 1rem);
-  bottom: clamp(0.6rem, 2vw, 1rem);
+  bottom: auto;
   gap: 0.5rem;
   padding: 0.5rem 0.8rem;
   background: #fff;
@@ -273,59 +284,81 @@
   content: '';
 }
 
-.phases {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.75rem, 2vw, 1.25rem);
-  margin: 1.25rem 0 0;
-  padding: 0;
+.hud {
+  position: absolute;
+  right: clamp(0.55rem, 2vw, 0.85rem);
+  bottom: clamp(0.55rem, 2vw, 0.85rem);
+  left: clamp(0.55rem, 2vw, 0.85rem);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hudSteps {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.65rem;
+  margin: 0;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  background: rgb(6 8 34 / 0.78);
+  backdrop-filter: blur(8px);
   list-style: none;
 }
 
-.phase {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0 0.5rem;
-}
-
-.phaseTrack {
-  position: relative;
-  flex: 1 0 100%;
-  height: 2px;
-  margin-bottom: 0.7rem;
-  overflow: hidden;
-  background: var(--color-corp-line);
-}
-
-.phaseFill {
-  position: absolute;
-  inset: 0;
-  background: var(--color-navy-600);
-  transform-origin: left center;
-}
-
-.phaseIndex {
-  color: var(--color-corp-muted);
+.hudStep {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgb(255 255 255 / 0.42);
   font-size: 0.72rem;
   font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-.phaseLabel {
-  color: var(--color-corp-muted);
-  font-size: clamp(0.9rem, 0.3vw + 0.82rem, 1rem);
-  font-weight: 600;
+  letter-spacing: 0.02em;
   transition: color 0.35s var(--ease-apple);
 }
 
-.phase[data-state='active'] .phaseIndex {
-  color: var(--color-navy-600);
+.hudDot {
+  position: relative;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.14);
+  overflow: hidden;
 }
 
-.phase[data-state='active'] .phaseLabel,
-.phase[data-state='done'] .phaseLabel {
-  color: var(--color-corp-ink);
+.hudDotFill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-navy-300);
+  transform-origin: center;
+}
+
+.hudIndex {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+
+.hudLabel {
+  white-space: nowrap;
+}
+
+.hudStep[data-state='active'] {
+  color: #fff;
+}
+
+.hudStep[data-state='active'] .hudDotFill {
+  background: #fff;
+}
+
+.hudStep[data-state='done'] {
+  color: rgb(255 255 255 / 0.82);
+}
+
+.hudStep[data-state='done'] .hudDotFill {
+  background: var(--color-success);
 }
 
 .caption {
@@ -368,7 +401,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .option,
-  .phaseLabel {
+  .hudStep {
     transition: none;
   }
 

@@ -58,30 +58,31 @@ export const plakaCopy = {
   },
   speed: {
     eyebrow: 'Performans',
-    title: 'Hızlı, verimli ve her koşulda güvenilir.',
-    lead: 'Plaka tanıma sisteminin sahadaki farkını dört özellik belirler.',
+    title: 'Hız, edge işleme ve düşük tüketim.',
+    lead: 'Tanıma süresi, sahadaki işlem kutusu ve enerji — otopark girişinde akışı belirleyen üç somut değer.',
     items: [
       {
-        meta: 'Hız',
-        title: '100 ms altında tanıma',
-        description: 'Jet hızında bariyer açılışı. Sahada bekleme yapmadan akıcı geçiş deneyimi.',
+        meta: '100 ms',
+        title: 'Bekleme yok, kuyruk oluşmaz',
+        description:
+          'Tanıma anında biter; bariyer kararı gecikmez. Yoğun giriş–çıkışta akış durmaz.',
       },
       {
-        meta: 'Teknoloji',
-        title: 'Tek cihazda 4 kamera',
-        description: 'Nvidia Jetson Orin Nano ile tek cihazda 4 kamera işleme teknolojisi.',
+        meta: 'Edge',
+        title: 'Tek kutuda 4 kamera',
+        description:
+          'Jetson Orin Nano ile görüntü işleme sahadaki kutuda kalır; ayrı PC ve kablo yığını gerekmez.',
       },
       {
-        meta: 'Verim',
-        title: 'Sadece 15 W güç',
-        description: 'Bir ampul kadar enerjiyle çalışır; işletme maliyetini ve karbon ayak izinizi düşürür.',
-      },
-      {
-        meta: 'Saha',
-        title: 'Zorlu koşullarda saha başarısı',
-        description: 'Kar, yağmur, çamur, sis veya gece karanlığında bile plaka görülür, tanınır ve onaylanır.',
+        meta: '15 W',
+        title: 'Düşük işletme maliyeti',
+        description: '7/24 açık otoparklarda ampul seviyesinde tüketim; soğutma ve elektrik faturası hafifler.',
       },
     ],
+    basariLink: {
+      label: 'Zorlu hava ve gece koşulları → Başarı bölümü',
+      href: '#basari',
+    },
   },
   tech: {
     eyebrow: 'Teknoloji',
@@ -129,12 +130,5 @@ export const plakaCopy = {
         description: 'Kamera, yazılım ve tahsilatın tek projede nasıl bir araya geldiğini görün.',
       },
     ],
-  },
-  cta: {
-    eyebrow: 'Mühendislerimizle tanışın',
-    title: 'Sahanızı birlikte planlayalım.',
-    description: 'Keşif ücretsizdir. Giriş-çıkış, tarife ve donanım ihtiyacı yerinde netleşir.',
-    primary: 'Ücretsiz Keşif İste',
-    secondary: 'Teklif Al',
   },
 }

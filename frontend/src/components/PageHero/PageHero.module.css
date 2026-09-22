@@ -185,6 +185,11 @@
   position: relative;
 }
 
+.mediaInner[data-interactive] {
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
 .stage {
   position: relative;
   display: grid;

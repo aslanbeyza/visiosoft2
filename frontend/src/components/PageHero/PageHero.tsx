@@ -41,6 +41,11 @@ export type PageHeroProps = {
   mediaOrder?: 'first' | 'last'
   /** Görselin altındaki küçük not (ör. "temsilî görsel"). */
   mediaNote?: string
+  /**
+   * true: medya alanında tıklanabilir içerik (canlı telefon demosu vb.) varsa giriş animasyonu
+   * yalnızca opacity kullanır; translateY transform'u iç içe scale ile tıklama hedeflerini bozar.
+   */
+  mediaInteractive?: boolean
   id?: string
   /**
    * Alt boşluk: default (clamp 3–4.5rem) · compact (clamp 2.5–3.5rem; altında bitişik bir sahne/bölüm varsa) ·
@@ -63,6 +68,7 @@ export default function PageHero({
   className = '',
   mediaOrder,
   mediaNote,
+  mediaInteractive = false,
   id,
   spacing = 'default',
 }: PageHeroProps) {
@@ -98,12 +104,19 @@ export default function PageHero({
     return () => added.forEach((node) => node.remove())
   }, [lineKey, titleId, reduce])
 
-  const mediaEntrance = {
-    initial: reduce ? false : { opacity: 0, y: 48 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.15 },
-    transition: { duration: 1.1, delay: 0.25, ease: revealEase },
-  }
+  const mediaEntrance = mediaInteractive
+    ? {
+        initial: reduce ? false : { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true, amount: 0.15 },
+        transition: { duration: 0.55, delay: 0.1, ease: revealEase },
+      }
+    : {
+        initial: reduce ? false : { opacity: 0, y: 48 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, amount: 0.15 },
+        transition: { duration: 1.1, delay: 0.25, ease: revealEase },
+      }
 
   return (
     <section
@@ -170,7 +183,11 @@ export default function PageHero({
                 </motion.div>
               </div>
             ) : (
-              <motion.div className={styles.mediaInner} {...mediaEntrance}>
+              <motion.div
+                className={styles.mediaInner}
+                data-interactive={mediaInteractive ? '' : undefined}
+                {...mediaEntrance}
+              >
                 {media}
               </motion.div>
             )}

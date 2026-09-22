@@ -14,8 +14,10 @@ import Seo from '../../components/Seo/index.ts'
 import SubNav from '../../components/SubNav/index.ts'
 import { useMediaQuery } from '../../hooks/useMediaQuery/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
-import HeroLineup from './HeroLineup.tsx'
+import HubOnStreetSection from './HubOnStreetSection.tsx'
 import MonitorSection from './MonitorSection.tsx'
+import ParkBizPhoneStage from './ParkBizPhoneStage.tsx'
+import { SolutionsHubSection } from './SoftwareHubSections.tsx'
 import { ctaCopy, heroCopy, hubSeo, subNavItems, zoneCopy } from './softwareHubCopy.ts'
 import { useSubNavArrival } from './useSubNavArrival.ts'
 import styles from './SoftwareHub.module.css'
@@ -35,15 +37,8 @@ const zoneItems = zoneCopy.items.map((item) => ({
   ),
 }))
 
-/** SubNav çubuğunun yüksekliği (SubNav.module.css .inner, 3.25rem). */
 const SUBNAV_REM = 3.25
 
-/**
- * Zone kartları yalnızca gerçekten yapışmışken alt menüyü gizletir. Kartlar liste üstü navbar altındaki yapışma
- * çizgisine (--ss-nav) ulaşınca yapışır; son kart çubukların (navbar + alt menü) altından çıkınca menü geri gelir.
- * Liste sarmalayıcısını ekranın üst şeridinde görmek yetmez: #canli-izleme bağlantısıyla gelindiğinde yığının alt
- * boşluğu o şeritte kalır ama kart yoktur, menü görünür ve tıklanabilir kalmalıdır.
- */
 function useStackPinned(ref: RefObject<HTMLDivElement | null>, enabled: boolean) {
   const { scrollY } = useScroll()
   const [pinned, setPinned] = useState(false)
@@ -59,22 +54,23 @@ function useStackPinned(ref: RefObject<HTMLDivElement | null>, enabled: boolean)
   }
 
   useMotionValueEvent(scrollY, 'change', update)
-  // İlk yüklemede (ör. #canli-izleme ile açılış) ve genişlik/hareket tercihi değişince kaydırma beklenmeden hesaplanır.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(update, [enabled])
 
   return enabled && pinned
 }
 
-/** /yazilim-urunleri — Park Yazılım merkezi: Zone ekranları ve canlı izleme. */
+/**
+ * /yazilim-urunleri — Park Yazılım merkezi.
+ * Hikâye: ne sunuyoruz (hero) → sahadan kanıt → Zone ekranları → izleme → çözüm sayfaları.
+ */
 export default function SoftwareHub() {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
   const wide = useMediaQuery('(min-width: 1024px)')
   const stackRef = useRef<HTMLDivElement>(null)
-  // Yapışmış Zone kartları ekranın üst şeridini kaplarken alt menü kartları örtmesin diye yukarı çekilir.
   const stackCoversTop = useStackPinned(stackRef, wide && !reduce)
-  // Alt menü hedeflerinde başlık, varışta görünen çubukların 1rem altına oturur (önceki bölümden şerit kalmaz).
+
   useSubNavArrival(SUBNAV_IDS, reduce)
 
   return (
@@ -84,11 +80,13 @@ export default function SoftwareHub() {
       <PageHero
         variant="split"
         tone="paper"
+        spacing="compact"
         eyebrow={heroCopy.eyebrow}
         title={heroCopy.title}
         lead={heroCopy.lead}
         mediaOrder="last"
-        media={<HeroLineup />}
+        mediaNote={heroCopy.phoneNote}
+        media={<ParkBizPhoneStage animateOnView={false} />}
         actions={
           <>
             <Magnetic>
@@ -96,7 +94,7 @@ export default function SoftwareHub() {
                 {heroCopy.primary.label}
               </Button>
             </Magnetic>
-            <Button to={path(heroCopy.secondary.route)} variant="secondary" size="lg">
+            <Button to={`${path('software-products')}#${heroCopy.secondary.anchor}`} variant="secondary" size="lg">
               {heroCopy.secondary.label}
             </Button>
           </>
@@ -105,14 +103,24 @@ export default function SoftwareHub() {
 
       <SubNav items={subNavItems} hidden={stackCoversTop} />
 
-      <Section id="zone" tone="surface" spacing="lg" labelledBy="hub-zone-title">
-        <SectionHeading eyebrow={zoneCopy.eyebrow} title={zoneCopy.title} lead={zoneCopy.lead} id="hub-zone-title" className={styles.heading} />
-        <div ref={stackRef}>
+      <HubOnStreetSection />
+
+      <Section id="zone" tone="paper" spacing="lg" labelledBy="hub-zone-title">
+        <SectionHeading
+          eyebrow={zoneCopy.eyebrow}
+          title={zoneCopy.title}
+          lead={zoneCopy.lead}
+          id="hub-zone-title"
+          className={styles.sectionHeading}
+        />
+        <div ref={stackRef} className={styles.zoneStack}>
           <ScrollStack items={zoneItems} label={zoneCopy.listLabel} />
         </div>
       </Section>
 
       <MonitorSection />
+
+      <SolutionsHubSection />
 
       <CtaBand
         eyebrow={ctaCopy.eyebrow}

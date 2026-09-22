@@ -31,23 +31,25 @@ export default function DetailHero({ data }: DetailHeroProps) {
     <section className={styles.hero} aria-labelledby={titleId}>
       <div className={styles.inner}>
         <div className={styles.copy}>
-          <RevealGroup stagger={0.08} amount={0.05}>
-            <RevealItem y={12} className={styles.crumbs}>
-              <Breadcrumbs items={crumbs} />
-            </RevealItem>
-            <RevealItem as="p" className={styles.eyebrow}>
-              <motion.span
-                className={styles.rule}
-                aria-hidden="true"
-                initial={reduce ? false : { scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.9, delay: 0.35, ease: revealEase }}
-              />
-              {copy.eyebrow}
-            </RevealItem>
-          </RevealGroup>
+          <div className={styles.intro}>
+            <RevealGroup stagger={0.08} amount={0.05}>
+              <RevealItem y={12}>
+                <Breadcrumbs items={crumbs} />
+              </RevealItem>
+              <RevealItem as="p" className={styles.eyebrow}>
+                <motion.span
+                  className={styles.rule}
+                  aria-hidden="true"
+                  initial={reduce ? false : { scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.9, delay: 0.35, ease: revealEase }}
+                />
+                {copy.eyebrow}
+              </RevealItem>
+            </RevealGroup>
 
-          <TextReveal as="h1" id={titleId} text={copy.name} className={styles.title} delay={0.15} />
+            <TextReveal as="h1" id={titleId} text={copy.name} className={styles.title} delay={0.15} />
+          </div>
 
           <RevealGroup stagger={0.1} delay={0.45} amount={0.05}>
             <RevealItem as="p" className={styles.lead}>

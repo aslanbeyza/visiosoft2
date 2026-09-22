@@ -1,3 +1,7 @@
-.heading {
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+.sectionHeading {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.zoneStack {
+  min-width: 0;
 }

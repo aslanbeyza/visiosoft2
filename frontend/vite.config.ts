@@ -10,6 +10,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  optimizeDeps: {
+    include: ['three', '@react-three/fiber', '@react-three/drei'],
+  },
   server: {
     port: 5173,
     // Cursor/agent sandbox'ları FSEvents bildirimlerini engelleyebiliyor; polling ile HMR her ortamda çalışır.

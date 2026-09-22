@@ -38,7 +38,7 @@ export const SCENE_HEIGHT = 520
  */
 export const COMPACT_VIEW = { x: 80, y: 72, width: 1092, height: 400 } as const
 /** Sahne alanı bu genişliğin (px) altındaysa vurgu etiketi şeridin altına iner ve görünüm kırpılır. */
-export const COMPACT_BELOW = 560
+export const COMPACT_BELOW = 640
 
 export const CAR_START = -200
 export const CAR_READ = 400
@@ -46,9 +46,9 @@ export const CAR_KIOSK = 600
 export const CAR_EXIT = 1320
 /** Bariyer kapalıyken aracın durduğu son konum (ön tampon, şeride inen kola değmez). */
 export const CAR_STOP = 778
-/** Kol gövdenin yol kenarındaki menteşesinde döner; kapalıyken şeridin içine iner. */
-export const ARM_PIVOT = { x: 946, y: 338 } as const
-export const ARM_LENGTH = 108
+/** Kol, direk gövdesindeki gösterge halkasında (cy 276) döner; kapalıyken şeride iner. */
+export const ARM_PIVOT = { x: 946, y: 276 } as const
+export const ARM_LENGTH = 170
 /** Kapalı kol +y (şeridi keser). Açılınca ters saat yönünde (−170°) yukarı kalkar; saat yönü kioskun içinden geçer. */
 export const ARM_OPEN = -170
 

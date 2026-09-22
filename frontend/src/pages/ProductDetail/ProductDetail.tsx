@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
 import CtaBand from '../../components/CtaBand/index.ts'
+import KioskExplode from '../../components/KioskExplode/index.ts'
 import Seo from '../../components/Seo/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import DetailDrawing from './DetailDrawing.tsx'
@@ -25,47 +26,73 @@ export type ProductDetailProps = {
 /** Donanım ürün detay sayfası; sekiz ürünün tamamı aynı şablonla, ürün verisine göre çizilir. */
 export default function ProductDetail({ slug }: ProductDetailProps) {
   const path = usePath()
-  const reduce = Boolean(useReducedMotion())
-  const data = productDetails[slug]
-  const { copy } = data
-  const pinned = data.zoom?.kind === 'kiosk' || data.zoom?.kind === 'drawing'
+  const prefersReducedMotion = Boolean(useReducedMotion())
+  const product = productDetails[slug]
+  const { copy } = product
+  const hasPinnedZoom = product.zoom?.kind === 'drawing' || Boolean(product.explode)
+  const hasExplode = Boolean(product.explode)
+  const hasPhotoZoom = Boolean(product.zoom)
 
-  // Sabitlenmiş yakınlaşma ekranı kaplarken ürün çubuğu yukarı kayar (üst üste binmesin).
+  // Sabitlenmiş yakınlaşma veya patlatma ekranı kaplarken ürün çubuğu yukarı kayar (üst üste binmesin).
   const zoomRef = useRef<HTMLDivElement>(null)
+  const explodeRef = useRef<HTMLDivElement>(null)
   const zoomActiveRef = useRef(false)
+  const explodeActiveRef = useRef(false)
   const [zoomActive, setZoomActive] = useState(false)
+  const [explodeActive, setExplodeActive] = useState(false)
   const { scrollYProgress } = useScroll({ target: zoomRef, offset: ['start 160px', 'end start'] })
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const next = latest > 0 && latest < 1
-    if (next !== zoomActiveRef.current) {
-      zoomActiveRef.current = next
-      setZoomActive(next)
+  const { scrollYProgress: explodeProgress } = useScroll({ target: explodeRef, offset: ['start 160px', 'end start'] })
+  useMotionValueEvent(scrollYProgress, 'change', (progress) => {
+    const isZoomPinned = progress > 0 && progress < 1
+    if (isZoomPinned !== zoomActiveRef.current) {
+      zoomActiveRef.current = isZoomPinned
+      setZoomActive(isZoomPinned)
     }
   })
+  useMotionValueEvent(explodeProgress, 'change', (progress) => {
+    const isExplodePinned = progress > 0 && progress < 1
+    if (isExplodePinned !== explodeActiveRef.current) {
+      explodeActiveRef.current = isExplodePinned
+      setExplodeActive(isExplodePinned)
+    }
+  })
+  const isSwitcherHidden = !prefersReducedMotion && hasPinnedZoom && (zoomActive || explodeActive)
 
   return (
     <>
-      <Seo title={data.seo.title} description={data.seo.description} />
+      <Seo title={product.seo.title} description={product.seo.description} />
 
       <div className={styles.page}>
-        <DetailHero data={data} />
-        <ProductSwitcher current={slug} hidden={!reduce && pinned && zoomActive} />
+        <DetailHero data={product} />
+        <ProductSwitcher current={slug} hidden={isSwitcherHidden} />
 
         <KeyFigures
-          label={data.figures.label}
-          items={data.figures.items}
-          drawingLink={data.drawing ? detailCopy.figures.drawingLink : undefined}
-          drawingId={data.drawing ? detailCopy.drawing.id : undefined}
+          label={product.figures.label}
+          items={product.figures.items}
+          drawingLink={product.drawing ? detailCopy.figures.drawingLink : undefined}
+          drawingId={product.drawing ? detailCopy.drawing.id : undefined}
         />
 
-        <div ref={zoomRef} id="yakindan" className={styles.zoom}>
-          {data.zoom ? <DetailZoom zoom={data.zoom} /> : null}
-        </div>
+        {hasPhotoZoom && product.zoom ? (
+          <div ref={zoomRef} id="yakindan" className={styles.zoom}>
+            <DetailZoom zoom={product.zoom} />
+          </div>
+        ) : (
+          <div ref={zoomRef} />
+        )}
 
-        <DetailFeatures copy={copy} />
-        {data.process ? <DetailProcess process={data.process} /> : null}
-        {data.placement ? <DetailPlacement placement={data.placement} /> : null}
-        {data.drawing ? <DetailDrawing drawing={data.drawing} name={copy.name} /> : null}
+        {hasExplode ? (
+          <div ref={explodeRef} className={styles.zoom}>
+            <KioskExplode />
+          </div>
+        ) : (
+          <div ref={explodeRef} />
+        )}
+
+        {hasExplode ? null : <DetailFeatures copy={copy} />}
+        {product.process ? <DetailProcess process={product.process} /> : null}
+        {product.placement ? <DetailPlacement placement={product.placement} /> : null}
+        {product.drawing ? <DetailDrawing drawing={product.drawing} name={copy.name} /> : null}
         <DetailSpecs copy={copy} />
         <RelatedProducts current={slug} />
       </div>

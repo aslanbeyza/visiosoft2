@@ -40,7 +40,7 @@ export const kioskDetail: ProductDetailData = {
       { id: 'channels', label: 'Ödeme kanalları', text: 'HGS · POS · QR', srText: 'HGS, POS ve QR' },
     ],
   },
-  zoom: { kind: 'kiosk' },
+  explode: true,
   drawing: {
     image: drawingImage(
       'kiosk',

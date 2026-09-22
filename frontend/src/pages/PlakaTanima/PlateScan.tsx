@@ -16,9 +16,9 @@ const HOLD_MS = 2600
 const pad = (value: number) => String(value).padStart(2, '0')
 
 /**
- * Başarı bölümü: kamera görüntüsündeki TR plakası seçilen koşulda (gece, yağmur, kar, sis, çamur)
- * bulunur, karakterleri okunur ve ayraç kilitlenir. Görünürken koşullar kendiliğinden döner;
- * bir koşul seçilince o kareden devam eder. Hareket azaltmada kilitli son kare gösterilir.
+ * Başarı bölümü: sabit kamera kadrajında TR plakası; koşul yalnızca overlay katmanını değiştirir.
+ * Görür → Tanır → Onaylar plakanın altında cam HUD’da ilerler. Koşullar görünürken döner;
+ * seçimle o kareden devam eder. Hareket azaltmada kilitli son kare gösterilir.
  */
 export default function PlateScan() {
   const reduce = Boolean(useReducedMotion())
@@ -88,6 +88,37 @@ export default function PlateScan() {
           <span className={styles.conditionTag} aria-hidden="true">
             {condition.label}
           </span>
+          <div className={styles.hud} role="status" aria-live="polite">
+            <span className={styles.srOnly}>
+              {copy.phases[shown]} — {condition.label}
+            </span>
+            <ol className={styles.hudSteps} aria-hidden="true">
+              {copy.phases.map((label, phaseIndex) => {
+                const done = shown > phaseIndex || shown === 2
+                const state = done ? 'done' : shown === phaseIndex ? 'active' : 'idle'
+                return (
+                  <li key={label} className={styles.hudStep} data-state={state}>
+                    <span className={styles.hudDot} aria-hidden="true">
+                      <motion.span
+                        className={styles.hudDotFill}
+                        initial={false}
+                        animate={{ scale: shown >= phaseIndex ? 1 : 0 }}
+                        transition={
+                          reduce
+                            ? { duration: 0 }
+                            : shown >= phaseIndex
+                              ? { duration: FILL_S[phaseIndex], ease: 'linear' }
+                              : { duration: 0.25, ease: revealEase }
+                        }
+                      />
+                    </span>
+                    <span className={styles.hudIndex}>{pad(phaseIndex + 1)}</span>
+                    <span className={styles.hudLabel}>{label}</span>
+                  </li>
+                )
+              })}
+            </ol>
+          </div>
           <motion.p
             className={styles.accuracy}
             initial={false}
@@ -97,32 +128,6 @@ export default function PlateScan() {
             {copy.accuracy}
           </motion.p>
         </motion.div>
-        <ol className={styles.phases}>
-          {copy.phases.map((label, phaseIndex) => {
-            const done = shown > phaseIndex || shown === 2
-            const state = done ? 'done' : shown === phaseIndex ? 'active' : 'idle'
-            return (
-              <li key={label} className={styles.phase} data-state={state}>
-                <span className={styles.phaseTrack} aria-hidden="true">
-                  <motion.span
-                    className={styles.phaseFill}
-                    initial={false}
-                    animate={{ scaleX: shown >= phaseIndex ? 1 : 0 }}
-                    transition={
-                      reduce
-                        ? { duration: 0 }
-                        : shown >= phaseIndex
-                          ? { duration: FILL_S[phaseIndex], ease: 'linear' }
-                          : { duration: 0.3, ease: revealEase }
-                    }
-                  />
-                </span>
-                <span className={styles.phaseIndex}>{pad(phaseIndex + 1)}</span>
-                <span className={styles.phaseLabel}>{label}</span>
-              </li>
-            )
-          })}
-        </ol>
         <figcaption className={styles.caption}>
           <span className={styles.srOnly}>{copy.figureDescription(condition.label)} </span>
           {copy.note}

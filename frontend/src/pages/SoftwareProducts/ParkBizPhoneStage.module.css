@@ -1,13 +1,12 @@
-/* Hero: tek telefon; sekme hedefleri PhoneTabHits. */
 .stage {
   width: 100%;
-  max-width: 22rem;
+  max-width: 20rem;
   margin-inline: auto;
 }
 
-.phoneWrap {
+.wrap {
   position: relative;
-  width: min(100%, 18rem);
+  width: min(100%, 18.5rem);
   margin-inline: auto;
   isolation: isolate;
 }
@@ -19,17 +18,18 @@
   bottom: -2%;
   height: 5%;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(15 20 48 / 0.2), transparent);
+  background: radial-gradient(closest-side, rgb(15 20 48 / 0.18), transparent);
   z-index: -1;
   pointer-events: none;
 }
 
 @media (min-width: 1024px) {
   .stage {
-    max-width: 24rem;
+    max-width: 21rem;
+    margin-inline: 0;
   }
 
-  .phoneWrap {
-    width: min(100%, 19.5rem);
+  .wrap {
+    width: min(100%, 19.25rem);
   }
 }

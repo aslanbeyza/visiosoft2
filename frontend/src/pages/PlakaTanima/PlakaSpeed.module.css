@@ -1,28 +1,37 @@
-.inner {
-  display: grid;
-  gap: clamp(2rem, 4vw, 3rem);
+.head {
+  max-width: 40rem;
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
 }
 
-.head {
-  min-width: 0;
+.basariBridge {
+  margin: 1.1rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.basariLink {
+  color: var(--color-navy-600);
+  font-weight: 600;
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+.basariLink:hover {
+  text-decoration: underline;
+}
+
+.basariLink:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.grid {
+  gap: clamp(0.875rem, 2vw, 1.5rem);
 }
 
 @media (min-width: 1024px) {
-  .inner {
-    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-    align-items: start;
-    column-gap: clamp(2.5rem, 5vw, 5rem);
-  }
-
-  /* Başlık, kartlar boyunca alt gezinme çubuğunun altında sabit kalır. */
-  .head {
-    position: sticky;
-    top: 10rem;
-  }
-}
-
-@media (min-width: 1024px) and (max-height: 760px) {
-  .head {
-    top: 9rem;
+  .grid {
+    gap: 1.35rem 1.25rem;
   }
 }
