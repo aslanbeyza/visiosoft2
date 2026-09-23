@@ -22,7 +22,7 @@ export default function AboutTeam({ id }: { id: string }) {
             <ChipList items={copy.disciplines} label={copy.disciplinesLabel} />
           </Reveal>
         </div>
-        <MediaFrame className={styles.media} ratio="1617 / 828" parallax={4} caption={copy.caption}>
+        <MediaFrame className={styles.media} ratio="1617 / 828" parallax={4}>
           <Picture
             src="/img/pages/visiosoft_visio_takimimiz.webp"
             alt={copy.alt}
