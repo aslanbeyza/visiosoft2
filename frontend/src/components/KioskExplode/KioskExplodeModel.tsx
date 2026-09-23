@@ -6,6 +6,7 @@ import {
   Box3,
   BufferAttribute,
   BufferGeometry,
+  CanvasTexture,
   Color,
   Group,
   Line,
@@ -13,51 +14,61 @@ import {
   Mesh,
   MeshStandardMaterial,
   PerspectiveCamera,
+  PlaneGeometry,
+  SRGBColorSpace,
+  TextureLoader,
   Vector3,
   type Object3D,
   type Texture,
 } from 'three'
-import { kioskExplodeCopy } from './kioskExplodeCopy.ts'
+import type { ExplodeVariant } from './explodeVariants.ts'
 import { damp, easeInOut, kioskStage } from './kioskExplodeStage.ts'
 import { createKioskScreenTexture } from './kioskScreenTexture.ts'
+import { createLedPanelFaceTexture } from './ledPanelFaceTexture.ts'
 import styles from './KioskExplode.module.css'
 
-const MODEL_SRC = '/models/kiosk.glb'
-const DRACO_PATH = '/draco/'
 const MODEL_HEIGHT = 2.6
 const ENV_PRODUCT = 0.95
 const SCREEN_EMISSIVE = 0.9
 const LEADER_COLOR = '#566783'
 const LEADER_OPACITY = 0.72
-const COLUMN_X = 2.5
-const SLOT_Y = [3.05, 1.25, -0.55]
 const LABEL_Z = 0.6
 const CARD_MAX_PX = 182.4
 const CARD_VW = 0.3
 const EDGE_PAD = 24
-const END_RADIUS = 10.5
-const END_AZIM = 0.24
-const END_HEIGHT = 2.3
-const END_LOOK_Y = 1.42
-const END_FOV = 47
 
-/**
- * Showcase ile aynı ayrılma yönleri. Değerler model yüksekliğinin oranıdır.
- */
-const EXPLODE: Record<string, [number, number, number]> = {
-  tabletsc: [0, 0.1, 0.55],
-  Cube: [0, 0.55, 0.2],
-  PC_fan: [0, 0.05, -0.58],
-  pos: [-0.62, 0.02, 0.34],
-  possc: [-0.7, 0.02, 0.38],
-  printer1: [0.62, -0.1, 0.34],
-  printer2: [0.62, -0.1, 0.34],
-  pleksi1: [0.72, 0.05, 0.1],
-  plesi2: [-0.72, 0.05, 0.1],
-  kiosk: [0, 0, -0.14],
+type LabelFrame = {
+  columnX: number
+  slotY: number[]
+  endRadius: number
+  endAzim: number
+  endHeight: number
+  endLookY: number
+  endFov: number
 }
 
-const SCREENS = new Set(['tabletsc', 'possc'])
+function labelFrameFor(framing: 'tall' | 'compact'): LabelFrame {
+  if (framing === 'compact') {
+    return {
+      columnX: 2.15,
+      slotY: [1.55, 0.85, 0.15],
+      endRadius: 5.6,
+      endAzim: 0.3,
+      endHeight: 1.35,
+      endLookY: 0.8,
+      endFov: 42,
+    }
+  }
+  return {
+    columnX: 2.5,
+    slotY: [3.05, 1.25, -0.55],
+    endRadius: 10.5,
+    endAzim: 0.24,
+    endHeight: 2.3,
+    endLookY: 1.42,
+    endFov: 47,
+  }
+}
 
 type TrackedPart = {
   node: Object3D
@@ -66,18 +77,22 @@ type TrackedPart = {
   center: Vector3
 }
 
-type SlottedLabel = (typeof kioskExplodeCopy.parts)[number] & {
+type SlottedLabel = ExplodeVariant['copy']['parts'][number] & {
   anchor: [number, number, number]
 }
 
-function paintScreen(mesh: Mesh, screenTexture: Texture) {
+type KioskExplodeModelProps = {
+  variant: ExplodeVariant
+}
+
+function paintScreen(mesh: Mesh, screenTexture: Texture, intensity: number) {
   const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material]
   for (const material of materials) {
     const next = material as MeshStandardMaterial
     next.map = screenTexture
     next.emissiveMap = screenTexture
     next.emissive = new Color('#ffffff')
-    next.emissiveIntensity = mesh.name === 'tabletsc' ? SCREEN_EMISSIVE : SCREEN_EMISSIVE * (2 / 3)
+    next.emissiveIntensity = intensity
     next.color.set('#ffffff')
     next.metalness = 0
     next.roughness = 0.35
@@ -88,24 +103,138 @@ function paintScreen(mesh: Mesh, screenTexture: Texture) {
   }
 }
 
-function fitColumn(width: number, height: number) {
+/**
+ * CAD mesh UV’si güvenilmez olduğu için navbar fotoğrafını düzlem olarak öne yapıştırır.
+ * faceGroups içindeki ilk bulunan düğüm boyut/konum referansıdır.
+ */
+function attachNavFaceDecal(model: Object3D, faceTexture: Texture, faceGroups: ReadonlySet<string>) {
+  model.updateMatrixWorld(true)
+
+  let anchor: Object3D | null = null
+  for (const name of faceGroups) {
+    model.traverse((node) => {
+      if (!anchor && node.name === name) anchor = node
+    })
+    if (anchor) break
+  }
+  if (!anchor) return
+
+  // Plexi camı fotoğrafı bozar; gizle.
+  model.traverse((node) => {
+    if (!node.name.startsWith('PLEXI')) return
+    node.traverse((child) => {
+      const mesh = child as Mesh
+      if (mesh.isMesh) mesh.visible = false
+    })
+  })
+
+  const box = new Box3().setFromObject(anchor)
+  const size = new Vector3()
+  const center = new Vector3()
+  box.getSize(size)
+  box.getCenter(center)
+
+  const planeWidth = size.x * 0.9
+  const planeHeight = size.y * 0.9
+  const geometry = new PlaneGeometry(planeWidth, planeHeight)
+  const material = new MeshStandardMaterial({
+    map: faceTexture,
+    metalness: 0.02,
+    roughness: 0.42,
+    envMapIntensity: ENV_PRODUCT,
+    toneMapped: true,
+  })
+  const decal = new Mesh(geometry, material)
+  decal.name = '__navFaceDecal'
+  decal.position.set(center.x, center.y, box.max.z + Math.max(2, size.z * 0.04))
+  decal.castShadow = false
+  decal.receiveShadow = true
+  model.add(decal)
+}
+
+/**
+ * Siyah fondaki navbar ürün fotoğrafından panel yüzünü kırpar
+ * (ayak ve boşluk dışarıda kalır).
+ */
+function cropNavProductFace(image: HTMLImageElement | ImageBitmap): Texture {
+  const width = 'width' in image ? image.width : 0
+  const height = 'height' in image ? image.height : 0
+  const source = document.createElement('canvas')
+  source.width = width
+  source.height = height
+  const sourceCtx = source.getContext('2d')
+  if (!sourceCtx || width < 2 || height < 2) {
+    const fallback = new CanvasTexture(image as CanvasImageSource)
+    fallback.colorSpace = SRGBColorSpace
+    return fallback
+  }
+  sourceCtx.drawImage(image as CanvasImageSource, 0, 0)
+  const pixels = sourceCtx.getImageData(0, 0, width, height).data
+  let minX = width
+  let minY = height
+  let maxX = 0
+  let maxY = 0
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = (y * width + x) * 4
+      if (pixels[i] + pixels[i + 1] + pixels[i + 2] < 24) continue
+      if (x < minX) minX = x
+      if (y < minY) minY = y
+      if (x > maxX) maxX = x
+      if (y > maxY) maxY = y
+    }
+  }
+  if (maxX <= minX || maxY <= minY) {
+    const fallback = new CanvasTexture(image as CanvasImageSource)
+    fallback.colorSpace = SRGBColorSpace
+    return fallback
+  }
+  const contentW = maxX - minX + 1
+  const contentH = maxY - minY + 1
+  // Alt ~%24 kırmızı ayak; üstte LED + tarif yüzü kalsın.
+  const faceH = Math.max(1, Math.floor(contentH * 0.76))
+  // Yanlardan ince kırpım: beyaz çerçeve kenarı düzlemde dolsun.
+  const insetX = Math.floor(contentW * 0.02)
+  const cropW = Math.max(1, contentW - insetX * 2)
+  const crop = document.createElement('canvas')
+  crop.width = cropW
+  crop.height = faceH
+  const cropCtx = crop.getContext('2d')
+  if (!cropCtx) {
+    const fallback = new CanvasTexture(image as CanvasImageSource)
+    fallback.colorSpace = SRGBColorSpace
+    return fallback
+  }
+  cropCtx.drawImage(source, minX + insetX, minY, cropW, faceH, 0, 0, cropW, faceH)
+  const texture = new CanvasTexture(crop)
+  texture.colorSpace = SRGBColorSpace
+  texture.anisotropy = 8
+  texture.needsUpdate = true
+  return texture
+}
+
+function fitColumn(width: number, height: number, frame: LabelFrame) {
   const aspect = width / Math.max(height, 1)
-  const fov = END_FOV + (aspect < 0.95 ? 16 : aspect < 1.35 ? 8 : 0)
+  const fov = frame.endFov + (aspect < 0.95 ? 16 : aspect < 1.35 ? 8 : 0)
   const cardPx = Math.min(CARD_MAX_PX, width * CARD_VW)
   const camera = new PerspectiveCamera(fov, aspect, 0.1, 400)
-  camera.position.set(Math.sin(END_AZIM) * END_RADIUS, END_HEIGHT, Math.cos(END_AZIM) * END_RADIUS)
-  camera.lookAt(0, END_LOOK_Y, 0)
+  camera.position.set(
+    Math.sin(frame.endAzim) * frame.endRadius,
+    frame.endHeight,
+    Math.cos(frame.endAzim) * frame.endRadius,
+  )
+  camera.lookAt(0, frame.endLookY, 0)
   camera.updateMatrixWorld()
 
   const target = 1 - (2 * (cardPx + EDGE_PAD)) / width
   const projected = new Vector3()
   const ndcAt = (x: number) =>
-    Math.max(...SLOT_Y.map((y) => projected.set(x, y, LABEL_Z).project(camera).x))
+    Math.max(...frame.slotY.map((y) => projected.set(x, y, LABEL_Z).project(camera).x))
 
-  if (ndcAt(COLUMN_X) <= target) return COLUMN_X
+  if (ndcAt(frame.columnX) <= target) return frame.columnX
 
   let lo = 0
-  let hi = COLUMN_X
+  let hi = frame.columnX
   for (let i = 0; i < 24; i++) {
     const mid = (lo + hi) / 2
     if (ndcAt(mid) > target) hi = mid
@@ -114,8 +243,13 @@ function fitColumn(width: number, height: number) {
   return hi
 }
 
-function anchorFor(side: 'left' | 'right', order: number, columnX: number): [number, number, number] {
-  return [side === 'left' ? -columnX : columnX, SLOT_Y[Math.min(order, SLOT_Y.length - 1)], LABEL_Z]
+function anchorFor(
+  side: 'left' | 'right',
+  order: number,
+  columnX: number,
+  slotY: number[],
+): [number, number, number] {
+  return [side === 'left' ? -columnX : columnX, slotY[Math.min(order, slotY.length - 1)], LABEL_Z]
 }
 
 function createLeaderLine() {
@@ -136,19 +270,26 @@ function createLeaderLine() {
   return line
 }
 
-function prepareKiosk(scene: Object3D, screenTexture: Texture) {
+function prepareModel(
+  scene: Object3D,
+  screenTexture: Texture | null,
+  faceTexture: Texture | null,
+  variant: ExplodeVariant,
+) {
   const model = skeletonClone(scene)
   const box = new Box3().setFromObject(model)
   const extent = new Vector3()
   const center = new Vector3()
   box.getSize(extent)
   box.getCenter(center)
-  const scale = MODEL_HEIGHT / (extent.y || 1)
+  const target = variant.modelSize ?? MODEL_HEIGHT
+  const fitSpan = variant.fit === 'max' ? Math.max(extent.x, extent.y, extent.z) : extent.y
+  const scale = target / (fitSpan || 1)
   const parts: Record<string, TrackedPart> = {}
 
   model.traverse((node) => {
     const mesh = node as Mesh
-    if (!mesh.isMesh && !EXPLODE[node.name]) return
+    if (!mesh.isMesh && !variant.explode[node.name]) return
 
     if (mesh.isMesh && mesh.material) {
       const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material]
@@ -158,12 +299,15 @@ function prepareKiosk(scene: Object3D, screenTexture: Texture) {
         return next
       })
       mesh.material = Array.isArray(mesh.material) ? cloned : cloned[0]
-      if (SCREENS.has(node.name)) paintScreen(mesh, screenTexture)
-      mesh.castShadow = node.name !== 'kiosk' && !SCREENS.has(node.name)
+      if (screenTexture && variant.screens.has(node.name)) {
+        const intensity = node.name.startsWith('tabletsc') ? SCREEN_EMISSIVE : SCREEN_EMISSIVE * (2 / 3)
+        paintScreen(mesh, screenTexture, intensity)
+      }
+      mesh.castShadow = !variant.bodyNames.has(node.name) && !variant.screens.has(node.name)
       mesh.receiveShadow = true
     }
 
-    const dirRaw = EXPLODE[node.name]
+    const dirRaw = variant.explode[node.name]
     if (!dirRaw) return
 
     const partBox = new Box3().setFromObject(node)
@@ -172,10 +316,14 @@ function prepareKiosk(scene: Object3D, screenTexture: Texture) {
     parts[node.name] = {
       node,
       home: node.position.clone(),
-      dir: new Vector3(...dirRaw).multiplyScalar(extent.y),
+      dir: new Vector3(...dirRaw).multiplyScalar(fitSpan || extent.y),
       center: partCenter.clone().sub(new Vector3(center.x, box.min.y, center.z)).multiplyScalar(scale),
     }
   })
+
+  if (faceTexture && variant.faceGroups && variant.faceGroups.size > 0) {
+    attachNavFaceDecal(model, faceTexture, variant.faceGroups)
+  }
 
   return {
     root: model,
@@ -185,41 +333,85 @@ function prepareKiosk(scene: Object3D, screenTexture: Texture) {
   }
 }
 
-export default function KioskExplodeModel() {
-  const { scene } = useGLTF(MODEL_SRC, DRACO_PATH)
+export default function KioskExplodeModel({ variant }: KioskExplodeModelProps) {
+  const { scene } = useGLTF(variant.modelSrc, true, true)
   const explodeAmount = useRef(0)
   const revealCount = useRef(0)
   const labelRefs = useRef<(Group | null)[]>([])
   const [areLabelsVisible, setAreLabelsVisible] = useState(false)
   const [revealedCount, setRevealedCount] = useState(0)
+  const [faceTexture, setFaceTexture] = useState<Texture | null>(null)
   const { size } = useThree()
 
   const screenTexture = useMemo(() => createKioskScreenTexture(), [])
-  useEffect(() => () => screenTexture.dispose(), [screenTexture])
+  useEffect(() => () => screenTexture?.dispose(), [screenTexture])
+
+  useEffect(() => {
+    // LED: navbar fotoğrafı perspektifli; düz tarif yüzü çizilir. Fotoğraf yalnızca StaticExplode’da.
+    if (variant.id === 'ledli-reklam-paneli') {
+      const texture = createLedPanelFaceTexture()
+      setFaceTexture(texture)
+      return () => {
+        texture?.dispose()
+        setFaceTexture(null)
+      }
+    }
+
+    if (!variant.faceMapSrc) {
+      setFaceTexture(null)
+      return
+    }
+    const loader = new TextureLoader()
+    let disposed = false
+    loader.load(variant.faceMapSrc, (texture) => {
+      if (disposed) {
+        texture.dispose()
+        return
+      }
+      const image = texture.image as HTMLImageElement | ImageBitmap | undefined
+      texture.dispose()
+      if (!image) {
+        setFaceTexture(null)
+        return
+      }
+      setFaceTexture(cropNavProductFace(image))
+    })
+    return () => {
+      disposed = true
+      setFaceTexture((current) => {
+        current?.dispose()
+        return null
+      })
+    }
+  }, [variant.id, variant.faceMapSrc])
 
   const { root, parts, scale, offset } = useMemo(
-    () => prepareKiosk(scene, screenTexture),
-    [scene, screenTexture],
+    () => prepareModel(scene, screenTexture, faceTexture, variant),
+    [scene, screenTexture, faceTexture, variant],
   )
 
+  const framing = variant.framing ?? 'tall'
+  const labelFrame = useMemo(() => labelFrameFor(framing), [framing])
+
   const layout = useMemo(() => {
-    const columnX = fitColumn(size.width, size.height)
-    return { columnX, hasTwoColumns: columnX >= 1.6 && size.height >= 620 }
-  }, [size.width, size.height])
+    const columnX = fitColumn(size.width, size.height, labelFrame)
+    const showLabels = framing === 'compact' ? size.width >= 720 : columnX >= 1.6 && size.height >= 620
+    return { columnX, slotY: labelFrame.slotY, showLabels }
+  }, [size.width, size.height, labelFrame, framing])
 
   const slottedLabels = useMemo(() => {
-    const available = kioskExplodeCopy.parts.filter((part) => parts[part.partId])
+    const available = variant.copy.parts.filter((part) => parts[part.partId])
     const counters = { left: 0, right: 0 }
     return [...available]
       .sort((a, b) => parts[b.partId].center.y - parts[a.partId].center.y)
       .map((part) => {
         const slotted: SlottedLabel = {
           ...part,
-          anchor: anchorFor(part.side, counters[part.side]++, layout.columnX),
+          anchor: anchorFor(part.side, counters[part.side]++, layout.columnX, layout.slotY),
         }
         return slotted
       })
-  }, [parts, layout.columnX])
+  }, [parts, layout.columnX, layout.slotY, variant.copy.parts])
 
   const leaders = useMemo(() => slottedLabels.map(() => createLeaderLine()), [slottedLabels])
   useEffect(
@@ -293,12 +485,12 @@ export default function KioskExplodeModel() {
         <primitive object={root} />
       </group>
 
-      {layout.hasTwoColumns
+      {layout.showLabels
         ? leaders.map((line, index) => (
             <primitive key={`leader-${slottedLabels[index].partId}`} object={line} />
           ))
         : null}
-      {layout.hasTwoColumns
+      {layout.showLabels
         ? slottedLabels.map((label, index) => (
             <group
               key={label.partId}
@@ -326,4 +518,6 @@ export default function KioskExplodeModel() {
   )
 }
 
-useGLTF.preload(MODEL_SRC, DRACO_PATH)
+export function preloadExplodeModel(src: string) {
+  useGLTF.preload(src, true, true)
+}

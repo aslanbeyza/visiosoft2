@@ -2,24 +2,42 @@ import { ContactShadows, Environment, Lightformer } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Suspense, useRef } from 'react'
 import { NeutralToneMapping, Vector3, type PerspectiveCamera } from 'three'
+import type { ExplodeVariant } from './explodeVariants.ts'
 import KioskExplodeModel from './KioskExplodeModel.tsx'
 import { damp, easeInOut, lerp, mapRange, STUDIO_CLEAR, kioskStage } from './kioskExplodeStage.ts'
 
 type KioskExplodeSceneProps = {
   active: boolean
+  variant: ExplodeVariant
 }
 
 const LOOK_AT = new Vector3()
 
 /**
- * Yakın karede kiosk dolu; patlatmada Showcase gibi radius ≈ 10,5’e çekilir
- * ki uçan parçalar ve etiket sütunları kadraja sığsın.
+ * Yakın karede ürün dolu; patlatmada Showcase gibi uzaklaşır.
+ * compact: kamera muhafaza gibi alçak ürün — kiosk kadar yakın ve dolu kadraj.
  */
-function kioskCameraShot(progress: number, width: number, height: number) {
+function productCameraShot(
+  progress: number,
+  width: number,
+  height: number,
+  framing: 'tall' | 'compact',
+) {
   const approach = easeInOut(mapRange(progress, 0.02, 0.48))
   const explode = easeInOut(mapRange(progress, 0.5, 0.92))
   const aspect = width / Math.max(height, 1)
   const portraitBoost = aspect < 0.95 ? 16 : aspect < 1.35 ? 8 : 0
+
+  if (framing === 'compact') {
+    return {
+      radius: 3.35 - approach * 0.25 + explode * 2.4,
+      height: 1.05 - approach * 0.04 + explode * 0.35,
+      lookY: 0.72 + explode * 0.08,
+      azimuth: lerp(0.28, 0.32, explode),
+      fov: 38 - approach * 2 + explode * 8 + portraitBoost,
+    }
+  }
+
   return {
     radius: 5.2 - approach * 0.4 + explode * 5.7,
     height: 1.65 - approach * 0.08 + explode * 0.73,
@@ -29,14 +47,14 @@ function kioskCameraShot(progress: number, width: number, height: number) {
   }
 }
 
-function CameraRig() {
+function CameraRig({ framing }: { framing: 'tall' | 'compact' }) {
   const { size } = useThree()
   const pan = useRef({ x: 0, y: 0 })
 
   useFrame((state, delta) => {
     const frameDelta = Math.min(delta, 0.05)
     const { camera } = state
-    const shot = kioskCameraShot(kioskStage.progress, size.width, size.height)
+    const shot = productCameraShot(kioskStage.progress, size.width, size.height, framing)
     pan.current.x = damp(pan.current.x, kioskStage.pointer.x, 3.2, frameDelta)
     pan.current.y = damp(pan.current.y, kioskStage.pointer.y, 3.2, frameDelta)
     const perspectiveCamera = camera as PerspectiveCamera
@@ -102,15 +120,21 @@ function Studio() {
   )
 }
 
-/** İzole WebGL tuvali: yalnızca kiosk patlatma bölümünde yaşar. */
-export default function KioskExplodeScene({ active }: KioskExplodeSceneProps) {
+/** İzole WebGL tuvali: yalnızca patlatma bölümünde yaşar. */
+export default function KioskExplodeScene({ active, variant }: KioskExplodeSceneProps) {
+  const framing = variant.framing ?? 'tall'
+  const start =
+    framing === 'compact'
+      ? { fov: 38, position: [1.05, 1.05, 3.2] as [number, number, number] }
+      : { fov: 40, position: [1.13, 1.65, 5.07] as [number, number, number] }
+
   return (
     <Canvas
       frameloop="always"
       dpr={active ? [1, 2] : 1}
       resize={{ debounce: 0, scroll: false }}
       style={{ width: '100%', height: '100%', display: 'block' }}
-      camera={{ fov: 40, position: [1.13, 1.65, 5.07], near: 0.1, far: 80 }}
+      camera={{ fov: start.fov, position: start.position, near: 0.1, far: 80 }}
       gl={{ antialias: true, alpha: false, powerPreference: active ? 'high-performance' : 'low-power' }}
       onCreated={({ gl }) => {
         gl.toneMapping = NeutralToneMapping
@@ -118,10 +142,10 @@ export default function KioskExplodeScene({ active }: KioskExplodeSceneProps) {
         gl.setClearColor(STUDIO_CLEAR, 1)
       }}
     >
-      <CameraRig />
+      <CameraRig framing={framing} />
       <Studio />
       <Suspense fallback={null}>
-        <KioskExplodeModel />
+        <KioskExplodeModel variant={variant} />
       </Suspense>
     </Canvas>
   )

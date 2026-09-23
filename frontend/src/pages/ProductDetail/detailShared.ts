@@ -38,7 +38,6 @@ export const detailCopy = {
     nextLabel: 'Sonraki ürünler',
     cardAction: 'İncele',
   },
-  switcher: { label: 'Donanım ürünleri', heading: 'Donanım', all: 'Tüm donanımlar' },
 }
 
 /** Arka planı ayrılmış ürün kartı görsellerinin gerçek ölçüleri. */

@@ -1,53 +1,60 @@
-import { lazy, Suspense, useId, type Ref } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import type { HardwareSlug } from '../../pages/HardwareProduct/products.ts'
 import Picture from '../Picture/index.ts'
 import { revealEase } from '../Reveal/index.ts'
-import { kioskExplodeCopy } from './kioskExplodeCopy.ts'
+import { explodeVariantFor, type ExplodeVariant } from './explodeVariants.ts'
 import { padCount } from './kioskExplodeStage.ts'
+import { preloadExplodeModel } from './KioskExplodeModel.tsx'
 import styles from './KioskExplode.module.css'
 import { useKioskExplodeStage } from './useKioskExplodeStage.ts'
 import WebGlGate from './WebGlGate.tsx'
 
 const Scene = lazy(() => import('./KioskExplodeScene.tsx'))
 
-/**
- * Kaydırdıkça kiosk.glb parçalarına ayrılır.
- * visiosoft-3d KioskShowcase pin-spacer: 100svh sahne, +=200% kaydırma.
- */
-export default function KioskExplode() {
-  const prefersReducedMotion = Boolean(useReducedMotion())
-  return prefersReducedMotion ? <StaticExplode /> : <ScrollExplode />
+type KioskExplodeProps = {
+  /** Patlatma destekleyen ürün; varsayılan kiosk. */
+  slug?: HardwareSlug
 }
 
-function StaticExplode() {
-  const titleId = useId()
-  const { image } = kioskExplodeCopy
+/**
+ * Kaydırdıkça ürün GLB parçalarına ayrılır.
+ * visiosoft-3d KioskShowcase pin-spacer: 100svh sahne, +=200% kaydırma.
+ */
+export default function KioskExplode({ slug = 'kiosk' }: KioskExplodeProps) {
+  const prefersReducedMotion = Boolean(useReducedMotion())
+  const variant = explodeVariantFor(slug)
+  if (!variant) return null
+
+  return prefersReducedMotion ? <StaticExplode variant={variant} /> : <ScrollExplode variant={variant} />
+}
+
+function StaticExplode({ variant }: { variant: ExplodeVariant }) {
+  const { copy } = variant
 
   return (
-    <section id={kioskExplodeCopy.id} className={styles.staticSection} aria-labelledby={titleId}>
+    <section id={copy.id} className={styles.staticSection} aria-label={copy.rail}>
       <div className={styles.staticInner}>
-        <Header titleId={titleId} />
         <div className={styles.staticStage}>
           <Picture
-            src={image.src}
-            avif={image.avif}
-            alt={image.alt}
-            width={image.width}
-            height={image.height}
+            src={copy.image.src}
+            avif={copy.image.avif}
+            alt={copy.image.alt}
+            width={copy.image.width}
+            height={copy.image.height}
             className={styles.staticImage}
           />
         </div>
-        <PartCards className={styles.staticList} />
+        <PartCards variant={variant} className={styles.staticList} />
       </div>
     </section>
   )
 }
 
-function ScrollExplode() {
-  const titleId = useId()
+function ScrollExplode({ variant }: { variant: ExplodeVariant }) {
+  const { copy } = variant
   const {
     sectionRef,
-    headRef,
     railRef,
     counterRef,
     phase,
@@ -57,15 +64,19 @@ function ScrollExplode() {
     handlePointerLeave,
     currentPhase,
     phaseCount,
-  } = useKioskExplodeStage()
-  const fallback = <StageFallback />
+  } = useKioskExplodeStage(copy)
+  const fallback = <StageFallback loading={copy.loading} />
+
+  useEffect(() => {
+    preloadExplodeModel(variant.modelSrc)
+  }, [variant.modelSrc])
 
   return (
     <div ref={sectionRef} className={styles.pinSpacer}>
       <section
-        id={kioskExplodeCopy.id}
+        id={copy.id}
         className={styles.section}
-        aria-labelledby={titleId}
+        aria-label={copy.rail}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
       >
@@ -74,7 +85,7 @@ function ScrollExplode() {
             {isMounted ? (
               <WebGlGate fallback={fallback}>
                 <Suspense fallback={fallback}>
-                  <Scene active={isInView} />
+                  <Scene active={isInView} variant={variant} />
                 </Suspense>
               </WebGlGate>
             ) : (
@@ -85,8 +96,6 @@ function ScrollExplode() {
         </div>
 
         <div className={styles.overlay}>
-          <Header titleId={titleId} headRef={headRef} />
-
           <div className={styles.bottom}>
             <div className={styles.foot}>
               <div className={styles.caption}>
@@ -104,7 +113,7 @@ function ScrollExplode() {
                           {padCount(phase + 1)} / {padCount(phaseCount)}
                         </span>
                         <span className={styles.srOnly}>
-                          {kioskExplodeCopy.step} {phase + 1} / {phaseCount}
+                          {copy.step} {phase + 1} / {phaseCount}
                         </span>
                       </span>
                       <span className={styles.counterRule} aria-hidden="true" />
@@ -116,20 +125,20 @@ function ScrollExplode() {
               </div>
 
               <div className={styles.dots} aria-hidden="true">
-                {kioskExplodeCopy.phases.map((item, index) => (
+                {copy.phases.map((item, index) => (
                   <span key={item.title} className={styles.dot} data-on={index === phase ? 'true' : 'false'} />
                 ))}
               </div>
 
-              <p className={styles.hint}>{kioskExplodeCopy.hint}</p>
+              <p className={styles.hint}>{copy.hint}</p>
             </div>
 
-            <PartCards className={styles.cards} />
+            <PartCards variant={variant} className={styles.cards} />
           </div>
         </div>
 
         <div className={styles.rail} aria-hidden="true">
-          <span className={styles.railLabel}>{kioskExplodeCopy.rail}</span>
+          <span className={styles.railLabel}>{copy.rail}</span>
           <span className={styles.railTrack}>
             <span ref={railRef} className={styles.railFill} />
           </span>
@@ -142,25 +151,10 @@ function ScrollExplode() {
   )
 }
 
-function Header({ titleId, headRef }: { titleId: string; headRef?: Ref<HTMLElement> }) {
-  return (
-    <header ref={headRef} className={styles.head}>
-      <p className={styles.eyebrow}>
-        <span className={styles.rule} aria-hidden="true" />
-        {kioskExplodeCopy.eyebrow}
-      </p>
-      <h2 id={titleId} className={styles.title}>
-        {kioskExplodeCopy.title} <span className={styles.titleAccent}>{kioskExplodeCopy.titleAccent}</span>
-      </h2>
-      <p className={styles.lede}>{kioskExplodeCopy.lede}</p>
-    </header>
-  )
-}
-
-function PartCards({ className }: { className: string }) {
+function PartCards({ variant, className }: { variant: ExplodeVariant; className: string }) {
   return (
     <ul className={className}>
-      {kioskExplodeCopy.parts.map((part) => (
+      {variant.copy.parts.map((part) => (
         <li key={part.partId} className={styles.card}>
           <span className={styles.labelCode}>{part.code}</span>
           <span className={styles.labelTitle}>{part.title}</span>
@@ -171,11 +165,11 @@ function PartCards({ className }: { className: string }) {
   )
 }
 
-function StageFallback() {
+function StageFallback({ loading }: { loading: string }) {
   return (
     <div className={styles.fallback} role="status">
       <span className={styles.fallbackDot} />
-      {kioskExplodeCopy.loading}
+      {loading}
     </div>
   )
 }

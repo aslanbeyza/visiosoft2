@@ -4,10 +4,6 @@ export const KIOSK_EXPLODE_ID = 'iceriden'
 
 export const kioskExplodeCopy = {
   id: KIOSK_EXPLODE_ID,
-  eyebrow: 'Donanım · İnsansız Ödeme Noktası',
-  title: 'Kiosk',
-  titleAccent: 'içeriden',
-  lede: 'İnsansız Çıkış Ödeme Kiosk: plaka girişi olmadan, çıkışta temassız ödeme alan çok kanallı terminal. Kaydırın, kendi üretim modelimizi parçalarına ayıralım.',
   hint: 'Kaydırarak parçalarına ayırın',
   rail: 'Parçalara ayrılış',
   loading: 'Model yükleniyor',
@@ -82,15 +78,3 @@ export const kioskExplodeCopy = {
 
 export type KioskExplodePart = (typeof kioskExplodeCopy.parts)[number]
 export type KioskExplodePhase = (typeof kioskExplodeCopy.phases)[number]
-
-export function phaseIndexAt(progress: number) {
-  const { phases } = kioskExplodeCopy
-  let index = 0
-  for (let step = phases.length - 1; step >= 0; step--) {
-    if (progress >= phases[step].at) {
-      index = step
-      break
-    }
-  }
-  return index
-}

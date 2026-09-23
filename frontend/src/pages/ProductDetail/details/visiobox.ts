@@ -27,6 +27,7 @@ export const visioboxDetail: ProductDetailData = {
     note: 'Görsel, Box Pro seçeneğini gösterir.',
   },
   heroMeta: false,
+  explode: true,
   figures: { label: detailCopy.figures.profile, items: metaFigures(product.copy) },
   zoom: {
     kind: 'drawing',

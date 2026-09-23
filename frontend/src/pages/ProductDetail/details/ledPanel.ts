@@ -21,6 +21,7 @@ export const ledPanelDetail: ProductDetailData = {
     note: 'Temsilî çizim: görünüş, teknik çizimdeki oranlarla hazırlanmıştır.',
   },
   heroMeta: true,
+  explode: true,
   figures: {
     label: detailCopy.figures.dimensions,
     items: [

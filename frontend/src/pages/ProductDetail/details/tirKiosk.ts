@@ -28,6 +28,7 @@ export const tirKioskDetail: ProductDetailData = {
     baseGap: 3.6,
   },
   heroMeta: true,
+  explode: true,
   figures: {
     label: detailCopy.figures.dimensions,
     items: [

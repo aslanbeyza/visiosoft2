@@ -2,10 +2,14 @@ import { useId } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import Breadcrumbs from '../../components/Breadcrumbs/index.ts'
 import Button from '../../components/Button/index.ts'
+import KioskExplode from '../../components/KioskExplode/index.ts'
+import { explodeVariantFor } from '../../components/KioskExplode/explodeVariants.ts'
 import { RevealGroup, RevealItem, revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import HeroStage from './HeroStage.tsx'
+import ProductViewer from './ProductViewer.tsx'
+import { productModelSrc } from './productModels.ts'
 import { detailCopy } from './detailShared.ts'
 import type { ProductDetailData } from './detailTypes.ts'
 import styles from './DetailHero.module.css'
@@ -14,7 +18,10 @@ type DetailHeroProps = {
   data: ProductDetailData
 }
 
-/** Ürün kahramanı: künye, kısa tanım ve teknik pafta sahnesinde yükselen ürün. */
+/**
+ * Kahraman: kiosk/TIR’da kaydırmalı patlatma; diğer models/products ürünlerinde
+ * aynı stüdyoda tam ekran döner 3B; model yoksa klasik künye + foto.
+ */
 export default function DetailHero({ data }: DetailHeroProps) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
@@ -25,6 +32,15 @@ export default function DetailHero({ data }: DetailHeroProps) {
     { label: detailCopy.breadcrumb.category, to: path(detailCopy.breadcrumb.categoryRoute) },
     { label: data.navLabel },
   ]
+  const heroFallback = <HeroStage data={data} reduce={reduce} />
+
+  if (explodeVariantFor(data.slug)) {
+    return <KioskExplode slug={data.slug} />
+  }
+
+  if (productModelSrc(data.slug)) {
+    return <ProductViewer slug={data.slug} name={copy.name} mode="hero" fallback={heroFallback} />
+  }
 
   return (
     <section className={styles.hero} aria-labelledby={titleId}>
@@ -79,7 +95,7 @@ export default function DetailHero({ data }: DetailHeroProps) {
           </RevealGroup>
         </div>
 
-        <HeroStage data={data} reduce={reduce} />
+        {heroFallback}
       </div>
     </section>
   )
