@@ -79,18 +79,17 @@ export default function HgsHero() {
   return (
     <PageHero
       variant="split"
-      tone="night"
       eyebrow={hero.eyebrow}
       title={hero.title}
       lead={hero.lead}
       mediaOrder="last"
-      aside={<ChipList items={hero.outcomes} tone="dark" label={hero.outcomesLabel} className={styles.outcomes} />}
+      aside={<ChipList items={hero.outcomes} label={hero.outcomesLabel} className={styles.outcomes} />}
       actions={
         <>
-          <Button to={path('quote.index')} variant="light" size="lg" arrow>
+          <Button to={path('quote.index')} size="lg" arrow>
             {hero.primary}
           </Button>
-          <Button to={path('discovery.show')} variant="outlineLight" size="lg">
+          <Button to={path('discovery.show')} variant="secondary" size="lg">
             {hero.secondary}
           </Button>
         </>

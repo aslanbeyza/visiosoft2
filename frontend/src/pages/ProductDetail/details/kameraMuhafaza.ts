@@ -18,7 +18,7 @@ export const kameraMuhafazaDetail: ProductDetailData = {
   },
   hero: {
     kind: 'image',
-    image: cardImage('kamera-muhafaza', 'Visio Kamera muhafazası: kırmızı güneşlikli gövde, gri ön yüz ve duvar plakalı montaj ayağı'),
+    image: cardImage('kamera-muhafaza', 'Visio Kamera muhafazası: kırmızı güneşlikli gövde, beyaz ön yüz, ParkBiz markalı yan panel ve duvar plakalı montaj ayağı'),
   },
   heroMeta: false,
   figures: { label: detailCopy.figures.profile, items: metaFigures(product.copy) },

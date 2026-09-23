@@ -3,15 +3,14 @@
  * <ComparisonTable
  *   caption="Geleneksel otopark yönetimi ile Visiosoft karşılaştırması"
  *   columns={{ a: 'Geleneksel', b: 'Visiosoft' }}
- *   rows={[
- *     { feature: 'Uzaktan erişim', a: false, b: true },
- *     { feature: 'Tahsilat başarısı', a: 'Değişken', b: 'Yüksek', note: 'HGS + POS + QR' },
+ *   groups={[
+ *     { heading: 'Erişim', rows: [{ feature: 'Uzaktan erişim', a: false, b: true }] },
  *   ]}
  * />
  * ≥768px gerçek <table> (caption, scope); satırlar belirirken ince lacivert çizgi soldan sağa süpürür (M12).
- * Daha dar ekranlarda her satır bir kart olur. b sütunu vurguludur.
+ * Daha dar ekranlarda her satır bir kart olur. b sütunu vurguludur. `groups` verilirse bölüm başlıkları gösterilir.
  */
-import { useRef } from 'react'
+import { Fragment, useRef } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { revealEase } from '../Reveal/index.ts'
@@ -28,9 +27,17 @@ export type ComparisonRow = {
   note?: string
 }
 
+export type ComparisonGroup = {
+  heading: string
+  rows: ComparisonRow[]
+}
+
 export type ComparisonTableProps = {
   columns: { a: string; b: string }
-  rows: ComparisonRow[]
+  /** Düz satır listesi; `groups` yoksa kullanılır. */
+  rows?: ComparisonRow[]
+  /** Bölümlü karşılaştırma; verilirse `rows` yok sayılır. */
+  groups?: ComparisonGroup[]
   /** Tablonun erişilebilir başlığı; `captionVisible` ile görünür de yapılabilir. */
   caption: string
   captionVisible?: boolean
@@ -70,11 +77,11 @@ const headVariants: Variants = {
 }
 const bodyVariants: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.15 } },
+  show: { transition: { staggerChildren: 0.05, delayChildren: 0.12 } },
 }
 const rowVariants: Variants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.5, ease: revealEase } },
+  show: { opacity: 1, transition: { duration: 0.45, ease: revealEase } },
 }
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 18 },
@@ -109,9 +116,72 @@ function Mark({ value, strong = false }: { value: ComparisonValue; strong?: bool
   )
 }
 
+function FeatureCell({ row }: { row: ComparisonRow }) {
+  return (
+    <th scope="row" className={styles.feature}>
+      <Sweep column={0} />
+      <span className={styles.featureName}>{row.feature}</span>
+      {row.note ? <span className={styles.note}>{row.note}</span> : null}
+    </th>
+  )
+}
+
+function ValueCells({ row }: { row: ComparisonRow }) {
+  return (
+    <>
+      <td className={styles.cellA}>
+        <Sweep column={1} />
+        <Mark value={row.a} />
+      </td>
+      <td className={styles.cellB}>
+        <Sweep column={2} />
+        <Mark value={row.b} strong />
+      </td>
+    </>
+  )
+}
+
+function Card({
+  row,
+  columns,
+}: {
+  row: ComparisonRow
+  columns: { a: string; b: string }
+}) {
+  return (
+    <motion.article
+      className={styles.card}
+      role="listitem"
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.35 }}
+    >
+      <motion.span className={styles.cardLine} aria-hidden="true" variants={cardLineVariants} />
+      <h3 className={styles.cardTitle}>{row.feature}</h3>
+      {row.note ? <p className={styles.cardNote}>{row.note}</p> : null}
+      <dl className={styles.cardGrid}>
+        <div className={styles.cardCellA}>
+          <dt>{columns.a}</dt>
+          <dd>
+            <Mark value={row.a} />
+          </dd>
+        </div>
+        <div className={styles.cardCellB}>
+          <dt>{columns.b}</dt>
+          <dd>
+            <Mark value={row.b} strong />
+          </dd>
+        </div>
+      </dl>
+    </motion.article>
+  )
+}
+
 export default function ComparisonTable({
   columns,
-  rows,
+  rows = [],
+  groups,
   caption,
   captionVisible = false,
   featureLabel = copy.feature,
@@ -120,12 +190,14 @@ export default function ComparisonTable({
 }: ComparisonTableProps) {
   const reduce = useReducedMotion()
   const rootRef = useRef<HTMLDivElement>(null)
-  const inView = useInView(rootRef, { once: true, amount: 0.15 })
+  const inView = useInView(rootRef, { once: true, amount: 0.08 })
   const state = reduce || inView ? 'show' : 'hidden'
+  const sections: ComparisonGroup[] = groups?.length
+    ? groups
+    : [{ heading: '', rows }]
 
   return (
     <div ref={rootRef} className={`${styles.root} ${className}`.trim()} data-tone={tone}>
-      {/* Geniş ekran: gerçek tablo */}
       <div className={styles.scroller}>
         <motion.table className={styles.table} variants={tableVariants} initial={reduce ? false : 'hidden'} animate={state}>
           <caption className={captionVisible ? styles.caption : styles.srOnly}>{caption}</caption>
@@ -143,57 +215,35 @@ export default function ComparisonTable({
             </motion.tr>
           </thead>
           <motion.tbody variants={bodyVariants}>
-            {rows.map((row) => (
-              <motion.tr key={row.feature} className={styles.row} variants={rowVariants}>
-                <th scope="row" className={styles.feature}>
-                  <Sweep column={0} />
-                  <span className={styles.featureName}>{row.feature}</span>
-                  {row.note ? <span className={styles.note}>{row.note}</span> : null}
-                </th>
-                <td className={styles.cellA}>
-                  <Sweep column={1} />
-                  <Mark value={row.a} />
-                </td>
-                <td className={styles.cellB}>
-                  <Sweep column={2} />
-                  <Mark value={row.b} strong />
-                </td>
-              </motion.tr>
+            {sections.map((section) => (
+              <Fragment key={section.heading || 'rows'}>
+                {section.heading ? (
+                  <motion.tr className={styles.groupRow} variants={rowVariants}>
+                    <th className={styles.groupHeading} scope="colgroup" colSpan={3}>
+                      {section.heading}
+                    </th>
+                  </motion.tr>
+                ) : null}
+                {section.rows.map((row) => (
+                  <motion.tr key={`${section.heading}-${row.feature}`} className={styles.row} variants={rowVariants}>
+                    <FeatureCell row={row} />
+                    <ValueCells row={row} />
+                  </motion.tr>
+                ))}
+              </Fragment>
             ))}
           </motion.tbody>
         </motion.table>
       </div>
 
-      {/* Dar ekran: satır başına kart */}
       <div className={styles.cards} role="list" aria-label={caption}>
-        {rows.map((row) => (
-          <motion.article
-            key={row.feature}
-            className={styles.card}
-            role="listitem"
-            variants={cardVariants}
-            initial={reduce ? false : 'hidden'}
-            whileInView="show"
-            viewport={{ once: true, amount: 0.4 }}
-          >
-            <motion.span className={styles.cardLine} aria-hidden="true" variants={cardLineVariants} />
-            <h3 className={styles.cardTitle}>{row.feature}</h3>
-            {row.note ? <p className={styles.cardNote}>{row.note}</p> : null}
-            <dl className={styles.cardGrid}>
-              <div className={styles.cardCellA}>
-                <dt>{columns.a}</dt>
-                <dd>
-                  <Mark value={row.a} />
-                </dd>
-              </div>
-              <div className={styles.cardCellB}>
-                <dt>{columns.b}</dt>
-                <dd>
-                  <Mark value={row.b} strong />
-                </dd>
-              </div>
-            </dl>
-          </motion.article>
+        {sections.map((section) => (
+          <Fragment key={section.heading || 'cards'}>
+            {section.heading ? <p className={styles.cardGroup}>{section.heading}</p> : null}
+            {section.rows.map((row) => (
+              <Card key={`${section.heading}-${row.feature}`} row={row} columns={columns} />
+            ))}
+          </Fragment>
         ))}
       </div>
     </div>

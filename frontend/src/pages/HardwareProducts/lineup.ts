@@ -1,7 +1,7 @@
 /**
  * Hero ürün dizisi. Görseller kartlardaki kesimlerin saydam kenarları kırpılmış kopyalarıdır.
- * Çoğu public/img/products/lineup altındadır; kiosk ve rack-kabin ise marka izleri temizlenmiş,
- * ./img altından içe aktarılan kopyaları (kiosk-lineup.*, rack-lineup.*) kullanır.
+ * Çoğu public/img/products/lineup altındadır; kiosk ve rack-kabin ./img altından içe aktarılan
+ * ParkBiz markalı kopyaları (kiosk-lineup.*, rack-lineup.*) kullanır.
  * Yükseklikler milimetre; `measured` yalnızca products.ts'te ölçüsü olanlarda true.
  */
 import { products } from '../HardwareProduct/products.ts'
@@ -59,12 +59,12 @@ const item = (slug: LineupSlug & HardwareSlug, width: number, height: number, he
 
 // Sıra: uzun ürünler ortada, alçak ve geniş ürünler kenarlarda.
 export const lineupItems: LineupItem[] = [
-  item('visiobox', 704, 508, 260),
-  item('kiosk', 194, 888, 1800, true),
-  item('tir-kiosk', 92, 540, 2455, true),
-  item('kamera-montaj-kulesi', 80, 440, 2000),
-  item('rack-kabin', 654, 752, 620),
-  item('kamera-muhafaza', 776, 316, 200),
+  item('visiobox', 900, 507, 260),
+  item('kiosk', 672, 900, 1800, true),
+  item('tir-kiosk', 675, 900, 2455, true),
+  item('kamera-montaj-kulesi', 675, 900, 2000),
+  item('rack-kabin', 833, 900, 620),
+  item('kamera-muhafaza', 900, 450, 200),
 ]
 
 export const lineupRatio = (entry: LineupItem) => Math.max(entry.heightMm / TALLEST_MM, MIN_RATIO)

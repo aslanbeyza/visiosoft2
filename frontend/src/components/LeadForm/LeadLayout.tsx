@@ -21,7 +21,7 @@ export type LeadLayoutProps = {
   aside: ReactNode
 }
 
-/** Form bölümü: solda kart içinde form, sağda "sonraki adımlar" ve doğrudan iletişim paneli. */
+/** Form bölümü: tek kartta solda form, sağda "sonraki adımlar" ve doğrudan iletişim. */
 export default function LeadLayout({
   id,
   eyebrow,
@@ -43,32 +43,33 @@ export default function LeadLayout({
       labelledBy={titleId}
       className={`${styles.section} ${headingAs === 'h1' ? styles.first : ''}`.trim()}
     >
-      <div className={styles.grid}>
-        <motion.div
-          className={styles.card}
-          initial={reduce ? false : { opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.9, ease: revealEase }}
-        >
-          <motion.span
-            className={styles.cardRule}
-            aria-hidden="true"
-            initial={reduce ? false : { scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 1.1, delay: 0.25, ease: revealEase }}
-          />
-          <header className={styles.head}>
-            <p className={styles.eyebrow}>{eyebrow}</p>
-            <TextReveal as={headingAs} id={titleId} className={styles.title} text={title} delay={0.1} />
-            {lead ? <p className={styles.lead}>{lead}</p> : null}
-          </header>
-          {children}
-        </motion.div>
-
-        <div className={styles.aside}>{aside}</div>
-      </div>
+      <motion.div
+        className={styles.card}
+        initial={reduce ? false : { opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.08 }}
+        transition={{ duration: 0.9, ease: revealEase }}
+      >
+        <motion.span
+          className={styles.cardRule}
+          aria-hidden="true"
+          initial={reduce ? false : { scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true, amount: 0.08 }}
+          transition={{ duration: 1.1, delay: 0.25, ease: revealEase }}
+        />
+        <div className={styles.body}>
+          <div className={styles.main}>
+            <header className={styles.head}>
+              <p className={styles.eyebrow}>{eyebrow}</p>
+              <TextReveal as={headingAs} id={titleId} className={styles.title} text={title} delay={0.1} />
+              {lead ? <p className={styles.lead}>{lead}</p> : null}
+            </header>
+            {children}
+          </div>
+          <aside className={styles.aside}>{aside}</aside>
+        </div>
+      </motion.div>
     </Section>
   )
 }

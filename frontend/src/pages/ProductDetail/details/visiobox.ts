@@ -23,7 +23,7 @@ export const visioboxDetail: ProductDetailData = {
   },
   hero: {
     kind: 'image',
-    image: cardImage('visiobox', 'Visiobox kontrol kutusu: kırmızı kilitli ön kapak, etiket alanı ve beyaz metal gövde'),
+    image: cardImage('visiobox', 'Visiobox kontrol kutusu: kırmızı kilitli ön kapak, ParkBiz markalı üst yüzey ve beyaz metal gövde'),
     note: 'Görsel, Box Pro seçeneğini gösterir.',
   },
   heroMeta: false,

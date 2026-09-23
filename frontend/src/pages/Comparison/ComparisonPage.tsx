@@ -1,6 +1,5 @@
 import Button from '../../components/Button/index.ts'
 import ComparisonTable from '../../components/ComparisonTable/index.ts'
-import CtaBand from '../../components/CtaBand/index.ts'
 import FeatureGrid, { FeatureIcon } from '../../components/FeatureGrid/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Section from '../../components/Section/index.ts'
@@ -10,6 +9,8 @@ import { usePath } from '../../hooks/usePath/index.ts'
 import { comparisonCopy as copy } from './comparisonCopy.ts'
 import ContrastCards from './ContrastCards.tsx'
 import RemoteView from './RemoteView.tsx'
+import RoiCalculator from './RoiCalculator.tsx'
+import { roiCopy } from './roiCopy.ts'
 import styles from './ComparisonPage.module.css'
 
 export default function ComparisonPage() {
@@ -63,7 +64,7 @@ export default function ComparisonPage() {
           lead={copy.table.lead}
           className={styles.heading}
         />
-        <ComparisonTable caption={copy.table.caption} columns={copy.table.columns} rows={copy.table.rows} />
+        <ComparisonTable caption={copy.table.caption} columns={copy.table.columns} groups={copy.table.groups} />
       </Section>
 
       <Section id="altyapi" tone="surface" labelledBy="altyapi-title">
@@ -73,13 +74,10 @@ export default function ComparisonPage() {
         </div>
       </Section>
 
-      <CtaBand
-        eyebrow={copy.cta.eyebrow}
-        title={copy.cta.title}
-        description={copy.cta.description}
-        primary={{ label: copy.cta.primary, to: path('discovery.show') }}
-        secondary={{ label: copy.cta.secondary, to: path('contact') }}
-      />
+      <Section id={roiCopy.id} labelledBy="amortisman-title">
+        <SectionHeading id="amortisman-title" eyebrow={roiCopy.eyebrow} title={roiCopy.title} lead={roiCopy.lead} />
+        <RoiCalculator />
+      </Section>
     </>
   )
 }

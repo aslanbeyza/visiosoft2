@@ -9,13 +9,15 @@ type LayerFlowProps = {
   hub: string
   channel: string
   outputs: string[]
+  /** Bulunduğu bölümün zemini; açık bölümde çizgi ve kutular koyu renge döner. */
+  tone?: 'light' | 'dark'
 }
 
 /**
  * Katman şeması: kaynaklar → merkez (SDK/API) → kanal → hedefler.
  * Bağlantılar sırayla çizilir; dar ekranda dikey akar. Tüm metin gerçek DOM'dur.
  */
-export default function LayerFlow({ label, inputs, hub, channel, outputs }: LayerFlowProps) {
+export default function LayerFlow({ label, inputs, hub, channel, outputs, tone = 'dark' }: LayerFlowProps) {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)
   const inView = useInView(rootRef, { once: true, amount: 0.4 })
@@ -33,7 +35,7 @@ export default function LayerFlow({ label, inputs, hub, channel, outputs }: Laye
   })
 
   return (
-    <div ref={rootRef} className={styles.root} role="group" aria-label={label}>
+    <div ref={rootRef} className={styles.root} data-tone={tone} role="group" aria-label={label}>
       <ul className={styles.list} data-side="inputs">
         {inputs.map((item, index) => (
           <motion.li key={item} className={styles.item} {...appear(0.1 + index * 0.08)}>

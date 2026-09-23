@@ -21,13 +21,8 @@ export const contactCopy = {
     { title: 'Yönlendirme', description: 'Teklif, keşif veya destek için doğru kişiyle devam ederiz.' },
   ],
 
-  subNav: [
-    { id: 'iletisim-formu', label: 'Form' },
-    { id: 'sirket-bilgileri', label: 'Şirket bilgileri' },
-    { id: 'gorusme', label: 'Online görüşme' },
-  ],
-
   corporate: {
+    id: 'sirket-bilgileri',
     eyebrow: 'Kurumsal',
     title: 'Şirket bilgileri',
     lead: 'Resmi yazışma, fatura ve sözleşme süreçlerinde kullanabileceğiniz şirket bilgilerimiz.',
@@ -46,6 +41,7 @@ export const contactCopy = {
   },
 
   meeting: {
+    id: 'gorusme',
     eyebrow: 'Online görüşme',
     title: 'Uzmanla 20 dakikada netleşin.',
     lead: 'Otopark ihtiyacınızı canlıda konuşun; uygun günü seçip randevunuzu hemen oluşturun.',
@@ -67,12 +63,5 @@ export const contactCopy = {
     load: 'Takvimi aç',
     open: 'Takvimi yeni sekmede açın',
     fallbackUrl: 'https://calendly.com/fatihalp/30min?hide_gdpr_banner=1',
-  },
-
-  cta: {
-    title: 'Otoparkınız için ilk adımı atın.',
-    description: 'Keşif ücretsizdir. Giriş-çıkış, tarife ve donanım ihtiyacı yerinde netleşir.',
-    primary: 'Ücretsiz keşif',
-    secondary: 'Teklif al',
   },
 }

@@ -1,5 +1,6 @@
 import type { ParkingFlowDevice, ParkingFlowStep, ParkingFlowStepId } from '../../components/ParkingFlow/index.ts'
 import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
+import type { FallbackStoryStep } from './HgsFallbackStory.tsx'
 
 export type MethodKey = 'hgs' | 'pos' | 'qr'
 
@@ -44,7 +45,7 @@ const methods: PaymentMethod[] = [
     label: 'QR',
     title: 'QR ve mobil ödeme',
     description: 'Sürücünün telefonundan tamamlanan mobil ödeme akışı.',
-    route: ['Sürücü cep telefonundan öder', 'Sonuç operatör paneline düşer', 'Bariyer açılır'],
+    route: ['Sürücü cep telden öder', 'Sonuç operatör paneline düşer', 'Bariyer açılır'],
     step: 'open',
     device: 'barrier',
     deviceLabel: 'Bariyer · QR',
@@ -97,12 +98,6 @@ export const hgsPageCopy = {
     methods,
     flowSteps,
   },
-  subNav: [
-    { id: 'yontemler', label: 'Ödeme yöntemleri' },
-    { id: 'avantajlar', label: 'Avantajlar' },
-    { id: 'nasil-calisir', label: 'Nasıl çalışır?' },
-    { id: 'sektorler', label: 'Kimler için' },
-  ],
   methods: {
     id: 'yontemler',
     eyebrow: 'Yedekli tahsilat',
@@ -128,14 +123,38 @@ export const hgsPageCopy = {
       { icon: 'shield', title: 'Geliri koruyan akış', description: 'Her geçiş kayıt altına alınır; HGS başarısızsa sistem başka ödeme kanalına yönlendirir.' },
       { icon: 'chart', title: 'Yönetilebilir raporlama', description: 'Tahsilatı ödeme tipine, tarihe, bariyere ve istisnaya göre tek panelden analiz edin.' },
     ] satisfies { icon: AdvantageIconName; title: string; description: string }[],
-    image: {
-      src: '/img/software/zone-sessions.webp',
-      avif: '/img/software/zone-sessions.avif',
-      width: 1024,
-      height: 576,
-      alt: 'Zone yönetim panelinde oturumlar tablosu: plaka, giriş ve çıkış saati, süre, ücret ve ödeme durumu sütunları',
-      caption: 'Zone oturumlar ekranı — demo verisi',
-      chips: [{ label: 'Ödeme durumu' }, { label: 'Tek panel' }],
+    fallbackStory: {
+      kicker: 'Operasyon sonucu',
+      caption: 'Temsilî senaryo — gerçek süreler ve tutarlar tesise göre değişir.',
+      ariaLabel: 'HGS başarısız olduğunda POS ile tahsilat örneği',
+      metrics: [
+        { value: '12 sn', label: 'POS tahsilat süresi' },
+        { value: '%94', label: 'HGS otomatik tahsilat' },
+        { value: '0', label: 'Manuel gişe müdahalesi' },
+      ],
+      session: {
+        plate: '34 ABC 123',
+        duration: 'Oturum · 1 sa 24 dk',
+        gate: 'Çıkış · A-2 kiosk',
+        amount: '₺185',
+      },
+      steps: [
+        {
+          state: 'warn',
+          title: 'HGS reddedildi',
+          detail: 'Etiket bakiyesi yetersiz; oturum beklemeye alınır.',
+        },
+        {
+          state: 'active',
+          title: 'POS yönlendirildi',
+          detail: 'Sürücü aynı çıkışta kiosk ekranına yönlendirilir.',
+        },
+        {
+          state: 'done',
+          title: 'Tahsil edildi',
+          detail: 'Kart ile ödeme tamamlanır; kayıt panele ve rapora düşer.',
+        },
+      ] satisfies FallbackStoryStep[],
     },
   },
   flow: {

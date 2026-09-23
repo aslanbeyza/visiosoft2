@@ -17,8 +17,8 @@ const productCards: { route: string; image: LinkCardImage }[] = [
     image: {
       src: '/img/products/cards/kamera-muhafaza.webp',
       avif: '/img/products/cards/kamera-muhafaza.avif',
-      width: 794,
-      height: 397,
+      width: 900,
+      height: 450,
       alt: '',
       fit: 'contain',
     },
@@ -28,8 +28,8 @@ const productCards: { route: string; image: LinkCardImage }[] = [
     image: {
       src: '/img/products/cards/kamera-montaj-kulesi.webp',
       avif: '/img/products/cards/kamera-montaj-kulesi.avif',
-      width: 433,
-      height: 577,
+      width: 675,
+      height: 900,
       alt: '',
       fit: 'contain',
     },

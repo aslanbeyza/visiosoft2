@@ -17,7 +17,15 @@ export default function NextSteps({ eyebrow, title, steps }: NextStepsProps) {
     <section className={styles.block} aria-labelledby={titleId}>
       <p className={styles.eyebrow}>{eyebrow}</p>
       <TextReveal as="h2" id={titleId} className={styles.title} text={title} />
-      <StepList direction="vertical" progress="scroll" steps={steps} headingAs="h3" label={title} className={styles.steps} />
+      <StepList
+        direction="vertical"
+        progress="scroll"
+        compact
+        steps={steps}
+        headingAs="h3"
+        label={title}
+        className={styles.steps}
+      />
     </section>
   )
 }

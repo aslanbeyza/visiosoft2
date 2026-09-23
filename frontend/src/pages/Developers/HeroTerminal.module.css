@@ -19,7 +19,7 @@
   right: 12.5%;
   left: 12.5%;
   height: 1px;
-  background: linear-gradient(90deg, var(--color-navy-300), rgb(154 161 227 / 0.35));
+  background: linear-gradient(90deg, var(--color-navy-600), rgb(23 27 153 / 0.25));
   transform-origin: left center;
 }
 
@@ -34,18 +34,18 @@
 .dot {
   width: 0.875rem;
   height: 0.875rem;
-  border: 2px solid var(--color-navy-300);
+  border: 2px solid var(--color-navy-600);
   border-radius: 999px;
-  background: var(--color-navy-950);
+  background: #fff;
 }
 
 .step:nth-child(3) .dot,
 .step:nth-child(4) .dot {
-  background: var(--color-navy-300);
+  background: var(--color-navy-600);
 }
 
 .stepLabel {
-  color: rgb(255 255 255 / 0.72);
+  color: var(--color-corp-body);
   font-size: clamp(0.7rem, 1.8vw, 0.8125rem);
   font-weight: 600;
   line-height: 1.3;

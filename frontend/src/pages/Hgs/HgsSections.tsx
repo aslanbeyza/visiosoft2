@@ -1,9 +1,8 @@
 import FeatureGrid, { FeatureIcon } from '../../components/FeatureGrid/index.ts'
-import MediaFrame from '../../components/MediaFrame/index.ts'
-import Picture from '../../components/Picture/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
 import StepList from '../../components/StepList/index.ts'
+import HgsFallbackStory from './HgsFallbackStory.tsx'
 import HgsIcon from './hgsIcons.tsx'
 import { hgsPageCopy } from './hgsPageCopy.ts'
 import styles from './HgsSections.module.css'
@@ -28,9 +27,9 @@ export function HgsMethods() {
   )
 }
 
-/** Avantajlar: solda başlık ve gerçek panel ekranı, sağda iki sütunlu avantaj listesi. */
+/** Avantajlar: solda başlık ve yedek tahsilat hikâyesi, sağda iki sütunlu avantaj listesi. */
 export function HgsAdvantages() {
-  const { image } = advantages
+  const { fallbackStory } = advantages
 
   return (
     <Section id={advantages.id} tone="surface" labelledBy={headingId(advantages.id)}>
@@ -42,17 +41,15 @@ export function HgsAdvantages() {
             title={advantages.title}
             lead={advantages.lead}
           />
-          {/* Arayüz ekran görüntüsü: screenshot kipi görseli ölçeklemez, kenarlarını kırpmaz. */}
-          <MediaFrame ratio="16 / 9" caption={image.caption} chips={image.chips} mode="screenshot" className={styles.frame}>
-            <Picture
-              src={image.src}
-              avif={image.avif}
-              width={image.width}
-              height={image.height}
-              alt={image.alt}
-              sizes="(min-width: 1024px) 40vw, 100vw"
-            />
-          </MediaFrame>
+          <HgsFallbackStory
+            className={styles.frame}
+            kicker={fallbackStory.kicker}
+            caption={fallbackStory.caption}
+            ariaLabel={fallbackStory.ariaLabel}
+            metrics={fallbackStory.metrics}
+            session={fallbackStory.session}
+            steps={fallbackStory.steps}
+          />
         </div>
         <FeatureGrid
           columns={2}

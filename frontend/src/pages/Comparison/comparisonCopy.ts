@@ -1,4 +1,4 @@
-import type { ComparisonRow } from '../../components/ComparisonTable/index.ts'
+import type { ComparisonGroup } from '../../components/ComparisonTable/index.ts'
 import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
 
 type InfraItem = { icon: FeatureIconName; title: string; description: string }
@@ -60,23 +60,128 @@ export const comparisonCopy = {
 
   table: {
     eyebrow: 'Özellik özellik',
-    title: 'Detaylı Karşılaştırma',
-    lead: 'Özellik bazında farkları keşfedin.',
+    title: 'Detaylı karşılaştırma',
+    lead: 'Erişimden tahsilata, rapordan desteğe kadar geleneksel kurulum ile Visiosoft’un sahada ne fark yarattığını satır satır görün.',
     caption: 'Geleneksel otopark sistemleri ile Visiosoft özellik karşılaştırması',
     columns: { a: 'Geleneksel', b: 'Visiosoft' },
-    rows: [
-      { feature: 'İşletim Sistemi', a: 'Windows', b: 'Pardus & Ubuntu', note: 'Pardus ve Ubuntu ücretsiz ve açık kaynaklı Linux dağıtımlarıdır.' },
-      { feature: 'Uzaktan Erişim', a: false, b: 'Her yerden', note: 'Evden, ofisten veya seyahatte bile sisteminizi yönetebilirsiniz.' },
-      { feature: 'Canlı Görüntü İzleme', a: false, b: 'Gerçek zamanlı', note: 'Tailscale VPN güvenli bağlantı ve Grafana izleme sistemi.' },
-      { feature: 'Tahsilat Başarısı', a: 'Değişken', b: 'Yüksek', note: 'Kaçak geçiş en aza iner, gelir takibi kolaylaşır.' },
-      { feature: 'Plaka Tanıma', a: 'Karakter Tanıma', b: 'Derin Öğrenme Yapay Zeka', note: 'Yapay zeka modelimiz her ay otoparkınızdan öğrenir.' },
-      { feature: 'Mobil Uygulama', a: false, b: 'iOS & Android', note: 'Bildirimleri alın, işlemleri telefonunuzdan yapın.' },
-      { feature: 'Veri Güvenliği', a: 'Yerel', b: 'Bulut Yedekli', note: 'Donanım arızası veya hırsızlık durumunda bile verileriniz korunur.' },
-      { feature: 'Teknik Destek', a: 'Sınırlı', b: '7/24', note: 'Gece gündüz her zaman yardım alabilirsiniz.' },
-      { feature: 'KVKK Uyumlu Veri Yönetimi', a: false, b: true, note: 'Görüntülerdeki yüz ve özel veriler bulanıklaştırılır.' },
-      { feature: 'Donanım Altyapısı', a: 'Standart CPU', b: 'Nvidia CUDA & ARM', note: 'Hızlı plaka tanıma ve verimli GPU/CPU performansı.' },
-      { feature: 'Otomatik Güncelleme', a: 'Manuel', b: 'Uzaktan (aylık)', note: 'Yeni özellikler ve güvenlik yamaları uzaktan uygulanır.' },
-    ] as ComparisonRow[],
+    groups: [
+      {
+        heading: 'Erişim ve izleme',
+        rows: [
+          {
+            feature: 'Uzaktan erişim',
+            a: false,
+            b: 'Her yerden güvenli',
+            note: 'Evden, ofisten veya seyahatte Tailscale VPN üzerinden panele ve canlı görüntüye bağlanırsınız.',
+          },
+          {
+            feature: 'Canlı görüntü izleme',
+            a: false,
+            b: 'Gerçek zamanlı',
+            note: 'Giriş-çıkış kameraları ve bariyer durumu Grafana izleme ile tek ekranda takip edilir.',
+          },
+          {
+            feature: 'Mobil uygulama',
+            a: false,
+            b: 'iOS & Android',
+            note: 'Olay bildirimleri, oturum ve işlemler telefonda; gişeye bağlı kalmazsınız.',
+          },
+          {
+            feature: 'Çoklu saha yönetimi',
+            a: 'Tek lokasyon odaklı',
+            b: 'Tek panelden çok saha',
+            note: 'Birden fazla otoparkı aynı Zone hesabından izler, raporları birleştirirsiniz.',
+          },
+        ],
+      },
+      {
+        heading: 'Tahsilat ve operasyon',
+        rows: [
+          {
+            feature: 'Ödeme yöntemleri',
+            a: 'Genelde tek kanal',
+            b: 'HGS + POS + QR',
+            note: 'HGS başarısızsa POS veya QR’a yönlendirilir; tahsilat zinciri kırılmaz.',
+          },
+          {
+            feature: 'Tahsilat başarısı',
+            a: 'Değişken / personel bağımlı',
+            b: 'Yüksek, yedekli akış',
+            note: 'Kaçak geçiş ve “ödemeden çıktı” senaryoları kayıt altına alınır, gelir takibi netleşir.',
+          },
+          {
+            feature: 'Abonelik ve filo',
+            a: 'Manuel listeler',
+            b: 'Kurallı geçiş & faturalama',
+            note: 'Site sakini, personel ve kurumsal filolar paneldan tanımlanır; toplu faturalama desteklenir.',
+          },
+          {
+            feature: 'İsgaliye / park ihlali',
+            a: 'Kağıt veya sözlü takip',
+            b: 'Dijital kayıt ve süreç',
+            note: 'İhlal satırları, süre ve ücret panoda görünür; operatör müdahalesi belgelenir.',
+          },
+          {
+            feature: 'Raporlama',
+            a: 'Sınırlı / dışa aktarım zor',
+            b: 'Operasyonel + finansal',
+            note: 'Ödeme tipi, bariyer, tarih ve istisna kırılımları; günlük operasyon ve amortisman için net özet.',
+          },
+        ],
+      },
+      {
+        heading: 'Yazılım ve donanım',
+        rows: [
+          {
+            feature: 'İşletim sistemi',
+            a: 'Windows lisansı',
+            b: 'Pardus & Ubuntu',
+            note: 'Pardus ve Ubuntu ücretsiz, açık kaynaklı Linux dağıtımlarıdır; lisans maliyeti düşer.',
+          },
+          {
+            feature: 'Plaka tanıma (PTS)',
+            a: 'Klasik karakter tanıma',
+            b: 'Derin öğrenme modeli',
+            note: 'Model sahadan öğrenmeye devam eder; zor ışık ve kirli plakada daha tutarlı sonuç.',
+          },
+          {
+            feature: 'Donanım altyapısı',
+            a: 'Standart CPU',
+            b: 'Nvidia CUDA & ARM',
+            note: 'Hızlı plaka tanıma ve verimli GPU/CPU kullanımı; sahada düşük gecikme.',
+          },
+          {
+            feature: 'Otomatik güncelleme',
+            a: 'Manuel / yerinde',
+            b: 'Uzaktan, planlı',
+            note: 'Özellik ve güvenlik yamaları uzaktan uygulanır; saha ziyareti ihtiyacı azalır.',
+          },
+        ],
+      },
+      {
+        heading: 'Güvenlik ve destek',
+        rows: [
+          {
+            feature: 'Veri güvenliği',
+            a: 'Yalnızca yerel disk',
+            b: 'Bulut yedekli',
+            note: 'Donanım arızası veya hırsızlıkta bile oturum ve faturalama kayıtları korunur.',
+          },
+          {
+            feature: 'KVKK uyumlu veri',
+            a: false,
+            b: true,
+            note: 'Görüntülerdeki yüz ve özel alanlar bulanıklaştırılabilir; saklama politikası tanımlanır.',
+          },
+          {
+            feature: 'Teknik destek',
+            a: 'Mesai / sınırlı',
+            b: '7/24',
+            note: 'Gece vardiyası ve yoğun saatlerde de uzaktan müdahale ve yönlendirme alınır.',
+          },
+        ],
+      },
+    ] satisfies ComparisonGroup[],
   },
 
   infra: {
@@ -89,13 +194,5 @@ export const comparisonCopy = {
       { icon: 'chart', title: 'Grafana izleme', description: 'Giriş-çıkış ve cihaz durumu tek bir izleme sisteminde takip edilir.' },
       { icon: 'camera', title: 'Nvidia CUDA & ARM', description: 'Plaka Tanıma Sistemi (PTS) verimli GPU/CPU performansıyla çalışır.' },
     ] as InfraItem[],
-  },
-
-  cta: {
-    eyebrow: 'Hemen Başlayın',
-    title: 'Geleceğe Hazır Mısınız?',
-    description: 'Otopark yönetiminizi modernleştirin. Ücretsiz keşif toplantısı için hemen iletişime geçin.',
-    primary: 'Ücretsiz Keşif İste',
-    secondary: 'İletişime geçin',
   },
 }

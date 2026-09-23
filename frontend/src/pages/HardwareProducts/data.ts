@@ -50,13 +50,13 @@ const card = (name: string, width: number, height: number): HardwareImage => ({
 })
 
 const entries: { slug: HardwareSlug; category: CategoryKey; image: HardwareImage }[] = [
-  // Kiosk ve rack kabin kesimlerinde müşteri logosu vardı; kapak düz boyanmış kopyalar ./img altında (aynı piksel ölçüsü).
-  { slug: 'kiosk', category: 'kiosk', image: { ...card('kiosk', 238, 900), src: kioskCardWebp, avif: kioskCardAvif } },
-  { slug: 'tir-kiosk', category: 'kiosk', image: card('tir-kiosk', 433, 577) },
-  { slug: 'visiobox', category: 'control', image: card('visiobox', 736, 541) },
-  { slug: 'rack-kabin', category: 'cabinet', image: { ...card('rack-kabin', 682, 900), src: rackCardWebp, avif: rackCardAvif } },
-  { slug: 'kamera-muhafaza', category: 'camera', image: card('kamera-muhafaza', 794, 397) },
-  { slug: 'kamera-montaj-kulesi', category: 'camera', image: card('kamera-montaj-kulesi', 433, 577) },
+  // Kiosk ve rack kabin: ParkBiz markalı lens görsellerinin ./img kopyaları (kart ve lineup ile aynı piksel ölçüsü).
+  { slug: 'kiosk', category: 'kiosk', image: { ...card('kiosk', 672, 900), src: kioskCardWebp, avif: kioskCardAvif } },
+  { slug: 'tir-kiosk', category: 'kiosk', image: card('tir-kiosk', 675, 900) },
+  { slug: 'visiobox', category: 'control', image: card('visiobox', 900, 507) },
+  { slug: 'rack-kabin', category: 'cabinet', image: { ...card('rack-kabin', 833, 900), src: rackCardWebp, avif: rackCardAvif } },
+  { slug: 'kamera-muhafaza', category: 'camera', image: card('kamera-muhafaza', 900, 450) },
+  { slug: 'kamera-montaj-kulesi', category: 'camera', image: card('kamera-montaj-kulesi', 675, 900) },
   {
     slug: 'ledli-reklam-paneli',
     category: 'panel',

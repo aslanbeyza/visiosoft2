@@ -82,10 +82,37 @@
   font-size: 0.75rem;
 }
 
+/*
+ * Açık zemin: beyaz-alfa renkler görünmez olurdu. Merkez kutusu iki zeminde de lacivert kalır, şema
+ * böylece aynı okunuyor; çevresindeki çizgi ve kutular sadece kontrast için ton değiştirir.
+ */
+.root[data-tone='light'] {
+  border-color: var(--color-corp-line);
+  background: #fff;
+}
+
+.root[data-tone='light'] .item {
+  border-color: var(--color-corp-line);
+  color: var(--color-corp-body);
+}
+
+.root[data-tone='light'] .item[data-output='true'] {
+  border-color: var(--color-navy-600);
+  color: var(--color-navy-600);
+}
+
+.root[data-tone='light'] .connectorLine {
+  background: linear-gradient(180deg, rgb(23 27 153 / 0.25), var(--color-navy-600));
+}
+
 @media (min-width: 768px) {
   .root {
     grid-template-columns: minmax(0, 1fr) minmax(2rem, 4rem) auto minmax(2rem, 4rem) minmax(0, 1fr);
     align-items: center;
+  }
+
+  .root[data-tone='light'] .connectorLine {
+    background: linear-gradient(90deg, rgb(23 27 153 / 0.25), var(--color-navy-600));
   }
 
   .list {

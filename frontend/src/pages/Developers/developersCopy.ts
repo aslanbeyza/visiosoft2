@@ -30,7 +30,6 @@ export const developersCopy = {
     { id: 'gate-sdk', label: 'GATE SDK' },
     { id: 'zone-api', label: 'ZONE API' },
     { id: 'kullanim', label: 'Neler geliştirilebilir' },
-    { id: 'altyapi', label: 'Teknoloji Omurgası' },
   ],
   gate: {
     eyebrow: 'GATE Yazılımı',

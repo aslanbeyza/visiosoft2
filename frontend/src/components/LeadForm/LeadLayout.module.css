@@ -7,16 +7,10 @@
   padding-top: clamp(5.5rem, 4vw + 4rem, 7rem);
 }
 
-.grid {
-  display: grid;
-  gap: clamp(3rem, 6vw, 4rem);
-  align-items: start;
-}
-
 .card {
   position: relative;
   min-width: 0;
-  padding: clamp(1.35rem, 3.2vw, 2.75rem);
+  padding: clamp(1.35rem, 3.2vw, 2.5rem);
   border: 1px solid var(--color-corp-line);
   border-radius: 0.75rem;
   background: #fff;
@@ -34,9 +28,19 @@
   transform-origin: left center;
 }
 
+.body {
+  display: grid;
+  gap: clamp(1.75rem, 3.5vw, 2.5rem);
+  align-items: start;
+}
+
+.main {
+  min-width: 0;
+}
+
 .head {
-  margin-bottom: clamp(1.5rem, 3vw, 2rem);
-  padding-bottom: clamp(1.25rem, 2.5vw, 1.6rem);
+  margin-bottom: clamp(1.35rem, 2.5vw, 1.75rem);
+  padding-bottom: clamp(1.1rem, 2vw, 1.4rem);
   border-bottom: 1px solid var(--color-corp-line);
 }
 
@@ -69,15 +73,20 @@
 
 .aside {
   min-width: 0;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--color-corp-line);
 }
 
 @media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-    column-gap: clamp(2.5rem, 4.5vw, 5rem);
+  .body {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+    column-gap: clamp(1.75rem, 3vw, 2.75rem);
   }
 
   .aside {
-    padding-top: clamp(1rem, 2vw, 2rem);
+    padding-top: 0;
+    padding-left: clamp(1.5rem, 2.5vw, 2.25rem);
+    border-top: 0;
+    border-left: 1px solid var(--color-corp-line);
   }
 }

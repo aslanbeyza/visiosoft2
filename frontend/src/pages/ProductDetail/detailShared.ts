@@ -43,12 +43,12 @@ export const detailCopy = {
 
 /** Arka planı ayrılmış ürün kartı görsellerinin gerçek ölçüleri. */
 export const cardSizes: Partial<Record<HardwareSlug, { width: number; height: number }>> = {
-  kiosk: { width: 238, height: 900 },
-  'tir-kiosk': { width: 433, height: 577 },
-  visiobox: { width: 736, height: 541 },
-  'rack-kabin': { width: 682, height: 900 },
-  'kamera-muhafaza': { width: 794, height: 397 },
-  'kamera-montaj-kulesi': { width: 433, height: 577 },
+  kiosk: { width: 672, height: 900 },
+  'tir-kiosk': { width: 675, height: 900 },
+  visiobox: { width: 900, height: 507 },
+  'rack-kabin': { width: 833, height: 900 },
+  'kamera-muhafaza': { width: 900, height: 450 },
+  'kamera-montaj-kulesi': { width: 675, height: 900 },
 }
 
 export function cardImage(slug: HardwareSlug, alt: string): DetailImage {

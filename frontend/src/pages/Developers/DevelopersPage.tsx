@@ -11,13 +11,12 @@ import { usePath } from '../../hooks/usePath/index.ts'
 import { developersCopy as copy } from './developersCopy.ts'
 import HeroTerminal from './HeroTerminal.tsx'
 import LayerFlow from './LayerFlow.tsx'
-import { stackCopy } from './stackCopy.ts'
-import StackTiles from './StackTiles.tsx'
 import styles from './DevelopersPage.module.css'
 
+// Sayfa beyaz / yüzey ağırlıklı; lacivert yalnızca CTA bandında vurgu olarak kalır.
 const layers = [
-  { id: 'gate-sdk', tone: 'navy', data: copy.gate },
-  { id: 'zone-api', tone: 'night', data: copy.zone },
+  { id: 'gate-sdk', tone: 'paper', data: copy.gate },
+  { id: 'zone-api', tone: 'surface', data: copy.zone },
 ] as const
 
 export default function DevelopersPage() {
@@ -29,18 +28,16 @@ export default function DevelopersPage() {
 
       <PageHero
         variant="split"
-        tone="night"
         eyebrow={copy.hero.eyebrow}
         title={copy.hero.title}
         lead={copy.hero.lead}
         mediaOrder="last"
-        className={styles.hero}
         actions={
           <>
-            <Button to={path('contact')} variant="light" size="lg" arrow>
+            <Button to={path('contact')} size="lg" arrow>
               {copy.hero.primary}
             </Button>
-            <Button to={path('software-products')} variant="outlineLight" size="lg">
+            <Button to={path('software-products')} variant="secondary" size="lg">
               {copy.hero.secondary}
             </Button>
           </>
@@ -63,42 +60,28 @@ export default function DevelopersPage() {
             <div className={styles.layerCopy}>
               <SectionHeading
                 id={`${layer.id}-title`}
-                tone="dark"
                 eyebrow={layer.data.eyebrow}
                 title={layer.data.title}
                 lead={layer.data.lead}
               />
-              <CheckList items={layer.data.points} tone="dark" label={layer.data.eyebrow} />
+              <CheckList items={layer.data.points} label={layer.data.eyebrow} />
             </div>
             <div className={styles.layerFlow}>
-              <LayerFlow label={copy.flowLabel(layer.data.flow.hub)} {...layer.data.flow} />
+              <LayerFlow label={copy.flowLabel(layer.data.flow.hub)} tone="light" {...layer.data.flow} />
             </div>
           </div>
         </Section>
       ))}
 
-      <Section id="kullanim" tone="navy" labelledBy="kullanim-title">
+      <Section id="kullanim" tone="surface" labelledBy="kullanim-title">
         <SectionHeading
           id="kullanim-title"
-          tone="dark"
           eyebrow={copy.useCases.eyebrow}
           title={copy.useCases.title}
           lead={copy.useCases.lead}
           className={styles.heading}
         />
-        <FeatureGrid items={copy.useCases.items} columns={4} variant="numbered" tone="dark" label={copy.useCases.eyebrow} />
-      </Section>
-
-      <Section id="altyapi" tone="night" labelledBy="altyapi-title">
-        <SectionHeading
-          id="altyapi-title"
-          tone="dark"
-          eyebrow={stackCopy.eyebrow}
-          title={stackCopy.title}
-          lead={stackCopy.lead}
-          className={styles.heading}
-        />
-        <StackTiles groups={stackCopy.groups} label={stackCopy.title} />
+        <FeatureGrid items={copy.useCases.items} columns={4} variant="numbered" label={copy.useCases.eyebrow} />
       </Section>
 
       <CtaBand

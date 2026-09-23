@@ -16,34 +16,34 @@
       "slug": "plaka-tanima-kamerasi",
       "file": "/img/home/products/kamera-muhafaza.webp",
       "avif": "/img/home/products/kamera-muhafaza.avif",
-      "width": 804,
-      "height": 352,
+      "width": 900,
+      "height": 450,
       "bboxInFile": [
         10,
         10,
-        794,
-        342
+        890,
+        440
       ],
       "facing": "left",
       "realHeightMm": null,
-      "notes": "Visio Kamera housing (products.ts:534-536), used as the plate-recognition camera card. Source: img/products/cards/kamera-muhafaza.webp cutout, edge colours decontaminated (light halo removed) and trimmed; no pixel content changed. Only mark: TOGER cut-out (own brand). 3/4 view, lens toward frame-left, camera slightly above. No verified dimensions (lineup.ts:44 uses an unmeasured 200)."
+      "notes": "Visio Kamera housing. Source: lens-assets/products/kamera-muhafaza.webp (ParkBiz markalı yan panel). 3/4 view, lens toward frame-left."
     },
     {
       "slug": "kontrol-kutusu",
       "file": "/img/home/products/visiobox.webp",
       "avif": "/img/home/products/visiobox.avif",
-      "width": 744,
-      "height": 549,
+      "width": 900,
+      "height": 507,
       "bboxInFile": [
         10,
         10,
-        734,
-        539
+        890,
+        497
       ],
       "facing": "left",
       "realHeightMm": 300,
       "realWidthMm": 400,
-      "notes": "Visiobox Pro (products.ts:327-329). Source: img/products/cards/visiobox.webp cutout, edge colours decontaminated and trimmed; label \"Toger Parking Box PRO\" kept (own brand). High (~40 deg down) corner view, connector face toward frame-left. 300 high / 400 wide / 125 deep from the technical drawing (Pro); the photo is a high-angle view, so image height is not the 300 mm face height."
+      "notes": "Visiobox Pro. Source: lens-assets/products/visiobox.webp (ParkBiz markalı üst yüzey). High corner view, connector face toward frame-left."
     },
     {
       "slug": "led-panel",

@@ -464,6 +464,19 @@
   }
 }
 
+/*
+ * Uzun pencerelerde sahne 32rem'de takılı kalıp altında büyük bir boşluk bırakıyordu: yapışık blok
+ * ekranın tepesine dayanıyor, kalan yükseklik boşta duruyordu. Sahneyi büyütmek boşluğu sahnenin içine
+ * taşımaktan ibaret olurdu (kart kendi boyunda kalır), o yüzden blok viewport içinde dikeyde ortalanıyor.
+ */
+@media (min-width: 768px) and (min-height: 900px) {
+  .sticky {
+    display: grid;
+    align-content: center;
+    min-height: 100svh;
+  }
+}
+
 @media (max-height: 760px) {
   .sticky {
     padding: 3rem 0 0.65rem;

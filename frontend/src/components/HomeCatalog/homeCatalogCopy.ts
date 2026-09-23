@@ -43,9 +43,9 @@ export const homeCatalogCopy = {
           image: {
             src: '/img/home/products/kamera-muhafaza.webp',
             avif: '/img/home/products/kamera-muhafaza.avif',
-            width: 804,
-            height: 352,
-            alt: 'Visio Kamera: plaka tanıma kamerası için dış ortam muhafazası',
+            width: 900,
+            height: 450,
+            alt: 'Visio Kamera: ParkBiz markalı plaka tanıma muhafazası',
           },
         },
         {

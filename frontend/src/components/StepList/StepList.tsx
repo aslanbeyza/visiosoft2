@@ -25,6 +25,8 @@ export type StepListProps = {
   direction?: 'horizontal' | 'vertical'
   progress?: 'scroll' | 'static'
   tone?: 'light' | 'dark'
+  /** Form kartı gibi dar panellerde daha küçük tipografi. */
+  compact?: boolean
   /** Başlık düzeyi; bölüm başlığı h2 ise h3 (varsayılan). */
   headingAs?: 'h3' | 'h4'
   /** Listenin erişilebilir adı. */
@@ -68,6 +70,7 @@ export default function StepList({
   direction = 'horizontal',
   progress = 'scroll',
   tone = 'light',
+  compact = false,
   headingAs: Heading = 'h3',
   label,
   className = '',
@@ -98,6 +101,7 @@ export default function StepList({
       data-direction={direction}
       data-tablet={count === 3 ? 'row' : 'pairs'}
       data-tone={tone}
+      data-compact={compact ? 'true' : undefined}
       style={{ '--count': count } as CSSProperties}
       variants={listVariants}
       initial={reduce ? false : 'hidden'}

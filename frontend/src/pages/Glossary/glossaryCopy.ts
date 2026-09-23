@@ -18,13 +18,6 @@ export const glossaryCopy = {
   clear: 'Süzgeci temizle',
   related: 'İlgili sayfa',
   also: 'Ayrıca',
-  cta: {
-    eyebrow: 'Destek',
-    title: 'Keşifte geçen bir terim mi kaldı?',
-    description: 'Kurulum, tahsilat ve panel dilini saha ekibiyle aynı yerden netleştiririz.',
-    primary: 'İletişime geçin',
-    secondary: 'Saha kılavuzu',
-  },
 } as const
 
 export const topicLabels = {

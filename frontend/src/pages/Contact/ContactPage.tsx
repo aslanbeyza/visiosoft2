@@ -1,22 +1,16 @@
-import CtaBand from '../../components/CtaBand/index.ts'
 import LeadForm, { LeadAside, LeadLayout } from '../../components/LeadForm/index.ts'
 import Seo from '../../components/Seo/index.ts'
-import SubNav from '../../components/SubNav/index.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
-import { usePath } from '../../hooks/usePath/index.ts'
 import CompanyFacts from './CompanyFacts.tsx'
 import MeetingSection from './MeetingSection.tsx'
 import { contactCopy as copy } from './contactCopy.ts'
 
-const [formId, factsId, meetingId] = copy.subNav.map((item) => item.id)
-
 /**
  * /iletisim — form ilk ekranda → yan panelde WhatsApp/e-posta →
- * şirket bilgileri → online görüşme → CtaBand.
+ * şirket bilgileri → online görüşme.
  */
 export default function ContactPage() {
   const { config } = useLocale()
-  const path = usePath()
   const calendlyUrl = config?.calendly_url || copy.meeting.fallbackUrl
 
   return (
@@ -24,7 +18,7 @@ export default function ContactPage() {
       <Seo title={copy.seoTitle} description={copy.seoDescription} />
 
       <LeadLayout
-        id={formId}
+        id={copy.form.id}
         eyebrow={copy.form.eyebrow}
         title={copy.form.title}
         lead={copy.form.lead}
@@ -42,18 +36,9 @@ export default function ContactPage() {
         />
       </LeadLayout>
 
-      <SubNav items={copy.subNav} />
+      <CompanyFacts id={copy.corporate.id} />
 
-      <CompanyFacts id={factsId} />
-
-      <MeetingSection id={meetingId} calendlyUrl={calendlyUrl} />
-
-      <CtaBand
-        title={copy.cta.title}
-        description={copy.cta.description}
-        primary={{ label: copy.cta.primary, to: path('discovery.show') }}
-        secondary={{ label: copy.cta.secondary, to: path('quote.index') }}
-      />
+      <MeetingSection id={copy.meeting.id} calendlyUrl={calendlyUrl} />
     </>
   )
 }
