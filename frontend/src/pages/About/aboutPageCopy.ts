@@ -11,11 +11,6 @@ export const aboutPageCopy = {
     secondary: 'Referanslarımız',
   },
 
-  subNav: [
-    { id: 'yaklasim', label: 'Yaklaşım' },
-    { id: 'ekip', label: 'Ekip' },
-  ],
-
   story: {
     eyebrow: 'Yaklaşım',
     title: 'Tek muhatap, parçalanmayan operasyon.',
@@ -48,14 +43,6 @@ export const aboutPageCopy = {
     lead: 'Operatör masası ile üretim masası birbirini görür. Keşif, kurulum ve 7/24 destek tek muhatapta kalır.',
     disciplines: ['Yazılım', 'Saha kurulumu', '7/24 destek', 'Ar-Ge'],
     disciplinesLabel: 'Ekipteki uzmanlıklar',
-    caption: 'Ekibimiz',
     alt: 'Visiosoft ekibi, elektrikli araç şarj alanında bir arada',
-  },
-
-  cta: {
-    title: 'Sahanızı birlikte planlayalım.',
-    description: 'Keşif ücretsizdir. Giriş-çıkış, tarife ve donanım ihtiyacı yerinde netleşir.',
-    primary: 'İletişime geç',
-    secondary: 'Ücretsiz keşif',
   },
 }

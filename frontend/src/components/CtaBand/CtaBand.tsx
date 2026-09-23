@@ -18,17 +18,20 @@ type CtaBandProps = {
   description?: string
   primary: CtaAction
   secondary?: CtaAction
+  /** dark: sayfa sonu lacivert band (varsayılan). surface: açık zemin, koyu metin. */
+  tone?: 'dark' | 'surface'
 }
 
 /**
  * Sayfa sonlarındaki koyu lacivert dönüşüm bandı.
  * `data-page-cta`: sayfada bu bant varken Footer aynı iki düğmeyi tekrar göstermez (Footer.module.css).
  */
-export default function CtaBand({ eyebrow, title, description, primary, secondary }: CtaBandProps) {
+export default function CtaBand({ eyebrow, title, description, primary, secondary, tone = 'dark' }: CtaBandProps) {
   const reduce = useReducedMotion()
+  const onSurface = tone === 'surface'
 
   return (
-    <section className={styles.band} aria-label={title} data-page-cta="">
+    <section className={styles.band} data-tone={tone} aria-label={title} data-page-cta="">
       <motion.span
         className={styles.line}
         aria-hidden="true"
@@ -54,11 +57,24 @@ export default function CtaBand({ eyebrow, title, description, primary, secondar
           ) : null}
         </div>
         <RevealItem className={styles.actions}>
-          <Button to={primary.to} href={primary.href} external={primary.external} variant="light" size="lg" arrow>
+          <Button
+            to={primary.to}
+            href={primary.href}
+            external={primary.external}
+            variant={onSurface ? 'primary' : 'light'}
+            size="lg"
+            arrow
+          >
             {primary.label}
           </Button>
           {secondary ? (
-            <Button to={secondary.to} href={secondary.href} external={secondary.external} variant="outlineLight" size="lg">
+            <Button
+              to={secondary.to}
+              href={secondary.href}
+              external={secondary.external}
+              variant={onSurface ? 'secondary' : 'outlineLight'}
+              size="lg"
+            >
               {secondary.label}
             </Button>
           ) : null}

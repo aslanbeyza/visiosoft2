@@ -8,6 +8,13 @@
   color: #fff;
 }
 
+.band[data-tone='surface'] {
+  background:
+    linear-gradient(var(--color-navy-100) 1px, transparent 1px) 0 0 / 100% 4rem,
+    var(--color-corp-surface);
+  color: var(--color-corp-ink);
+}
+
 .line {
   position: absolute;
   top: 0;
@@ -24,6 +31,18 @@
   align-items: end;
   width: min(80rem, calc(100% - 2rem));
   margin-inline: auto;
+}
+
+.band[data-tone='surface'] .line {
+  background: var(--color-navy-100);
+}
+
+.band[data-tone='surface'] .eyebrow {
+  color: var(--color-navy-600);
+}
+
+.band[data-tone='surface'] .description {
+  color: rgb(15 23 42 / 0.68);
 }
 
 .eyebrow {
