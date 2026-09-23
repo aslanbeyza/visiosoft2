@@ -111,6 +111,20 @@
   line-height: 1.45;
 }
 
+.groupRow th {
+  border-bottom: 1px solid var(--line);
+}
+
+.groupHeading {
+  padding: 0.85rem 1.15rem;
+  background: var(--head-bg);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .cellA {
   color: var(--body);
 }
@@ -168,6 +182,19 @@
 .cards {
   display: grid;
   gap: 1rem;
+}
+
+.cardGroup {
+  margin: 0.5rem 0 0;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cardGroup:first-child {
+  margin-top: 0;
 }
 
 .card {
