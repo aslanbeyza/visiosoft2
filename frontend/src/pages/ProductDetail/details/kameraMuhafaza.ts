@@ -21,6 +21,7 @@ export const kameraMuhafazaDetail: ProductDetailData = {
     image: cardImage('kamera-muhafaza', 'Visio Kamera muhafazası: kırmızı güneşlikli gövde, gri ön yüz ve duvar plakalı montaj ayağı'),
   },
   heroMeta: false,
+  explode: true,
   figures: { label: detailCopy.figures.profile, items: metaFigures(product.copy) },
   zoom: {
     kind: 'drawing',

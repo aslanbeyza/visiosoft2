@@ -1,22 +1,15 @@
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { useInView, useMotionValueEvent, useScroll } from 'framer-motion'
-import { kioskExplodeCopy, phaseIndexAt } from './kioskExplodeCopy.ts'
-import { clamp, clearPointer, mapRange, padCount, writePointer, writeStageFromProgress } from './kioskExplodeStage.ts'
-
-function applyHeadFade(head: HTMLElement, progress: number) {
-  const fade = 1 - clamp(mapRange(progress, 0.12, 0.42))
-  head.style.opacity = fade.toFixed(3)
-  head.style.transform = `translateY(${((1 - fade) * -32).toFixed(1)}px)`
-  head.style.visibility = fade < 0.04 ? 'hidden' : 'visible'
-}
+import type { ExplodeCopy } from './explodeVariants.ts'
+import { phaseIndexAt } from './explodeVariants.ts'
+import { clearPointer, padCount, writePointer, writeStageFromProgress } from './kioskExplodeStage.ts'
 
 /**
  * Kaydırma ilerlemesini 3B sahneye yazar; faz indeksini React’e yalnızca değişince taşır.
  * Model, bölüm yaklaşınca bir kez yüklenir.
  */
-export function useKioskExplodeStage() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const headRef = useRef<HTMLElement>(null)
+export function useKioskExplodeStage(copy: ExplodeCopy) {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const railRef = useRef<HTMLSpanElement>(null)
   const counterRef = useRef<HTMLSpanElement>(null)
   const phaseRef = useRef(0)
@@ -29,8 +22,7 @@ export function useKioskExplodeStage() {
     writeStageFromProgress(progress)
     if (railRef.current) railRef.current.style.transform = `scaleY(${progress.toFixed(3)})`
     if (counterRef.current) counterRef.current.textContent = padCount(Math.round(progress * 100))
-    if (headRef.current) applyHeadFade(headRef.current, progress)
-    const nextPhase = phaseIndexAt(progress)
+    const nextPhase = phaseIndexAt(copy.phases, progress)
     if (nextPhase !== phaseRef.current) {
       phaseRef.current = nextPhase
       setPhase(nextPhase)
@@ -68,7 +60,6 @@ export function useKioskExplodeStage() {
 
   return {
     sectionRef,
-    headRef,
     railRef,
     counterRef,
     phase,
@@ -76,7 +67,7 @@ export function useKioskExplodeStage() {
     isInView,
     handlePointerMove,
     handlePointerLeave,
-    currentPhase: kioskExplodeCopy.phases[phase],
-    phaseCount: kioskExplodeCopy.phases.length,
+    currentPhase: copy.phases[phase],
+    phaseCount: copy.phases.length,
   }
 }

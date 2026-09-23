@@ -127,7 +127,7 @@ export type ProductDetailData = {
   /** Ölçü içermeyen ürünlerde künye satırları kahramanda değil ölçü bandında gösterilir. */
   heroMeta: boolean
   zoom?: DetailZoom
-  /** Kiosk: fotoğraf yakınlaştırması yerine 3B patlatma. */
+  /** Kiosk / TIR kiosk: kahramanda kaydırmalı 3B patlatma. */
   explode?: boolean
   process?: DetailProcess
   placement?: DetailPlacement

@@ -20,6 +20,7 @@ export const rackKabinDetail: ProductDetailData = {
     note: 'Temsilî görsel: kapak logosuz gösterilmiştir.',
   },
   heroMeta: true,
+  explode: true,
   figures: {
     label: detailCopy.figures.dimensions,
     items: [
