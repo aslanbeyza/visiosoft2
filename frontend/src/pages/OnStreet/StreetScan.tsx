@@ -31,7 +31,7 @@ export default function StreetScan() {
   return (
     <div ref={ref} className={styles.root}>
       {/* Çizimin sağ üstündeki kamera kutusu kenara yakın; screenshot kipi onu kırpmaz, plaka katmanları görselle birlikte kayar. */}
-      <MediaFrame caption={scene.caption} mode="screenshot" amount={0.2}>
+      <MediaFrame mode="screenshot" amount={0.2}>
         <div className={styles.stage}>
           <Picture
             src="/img/pages/yol_ustu.jpg"

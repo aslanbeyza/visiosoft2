@@ -1,18 +1,15 @@
 import Button from '../../components/Button/index.ts'
 import ChipList from '../../components/ChipList/index.ts'
 import CountUp from '../../components/CountUp/index.ts'
-import CtaBand from '../../components/CtaBand/index.ts'
+import DeviceFrame from '../../components/DeviceFrame/index.ts'
 import Faq from '../../components/Faq/index.ts'
 import FeatureGrid from '../../components/FeatureGrid/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Reveal from '../../components/Reveal/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
 import Seo from '../../components/Seo/index.ts'
-import SubNav from '../../components/SubNav/index.ts'
-import { company, whatsappUrl } from '../../data/company.ts'
-import { useLocale } from '../../hooks/useLocale/index.ts'
+import { useMediaQuery } from '../../hooks/useMediaQuery/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import FinanceSummaryDemo from './FinanceSummaryDemo.tsx'
 import ReportDeck from './ReportDeck.tsx'
@@ -22,6 +19,9 @@ import { reportsCopy as copy } from './reportsCopy.ts'
 import styles from './ParkingReportsPage.module.css'
 
 const tones = ['paper', 'surface', 'paper'] as const
+
+// Rozetteki sayı metinden değil gruplardan gelir; rapor eklenince metin eskimez.
+const totalReports = reportGroups.reduce((sum, group) => sum + group.items.length, 0)
 
 // Arkadan öne: yeni rapor kartı en arkada, operasyonel raporlar en önde.
 const deckCards: DeckCard[] = [
@@ -44,13 +44,8 @@ const deckCards: DeckCard[] = [
 ]
 
 export default function ParkingReportsPage() {
-  const { config } = useLocale()
   const path = usePath()
-  const waHref = whatsappUrl(config?.whatsapp_wa_id || company.whatsapp.waId, copy.cta.whatsappMessage)
-  const navItems = [
-    ...reportGroups.map((group) => ({ id: group.anchor, label: group.short })),
-    { id: copy.newReports.anchor, label: copy.newReportsNav },
-  ]
+  const onLaptop = useMediaQuery('(min-width: 1024px)')
 
   return (
     <>
@@ -62,14 +57,18 @@ export default function ParkingReportsPage() {
         title={copy.hero.title}
         lead={copy.hero.lead}
         mediaOrder="last"
-        aside={<ChipList items={copy.hero.highlights} icon="dot" label={copy.hero.highlightsLabel} />}
+        aside={
+          <ChipList
+            items={[`${totalReports} ${copy.hero.reportUnit}`, ...copy.hero.highlights]}
+            icon="dot"
+            label={copy.hero.highlightsLabel}
+          />
+        }
         actions={
           <>
-            <Magnetic>
-              <Button to={path('quote.index')} size="lg" arrow>
-                {copy.hero.primary}
-              </Button>
-            </Magnetic>
+            <Button to={path('quote.index')} size="lg" arrow>
+              {copy.hero.primary}
+            </Button>
             <Button href={`#${reportGroups[0].anchor}`} variant="secondary" size="lg">
               {copy.hero.secondary}
             </Button>
@@ -77,8 +76,6 @@ export default function ParkingReportsPage() {
         }
         media={<ReportDeck cards={deckCards} />}
       />
-
-      <SubNav items={navItems} label={copy.subNavLabel} />
 
       {reportGroups.map((group, index) => (
         <Section key={group.anchor} id={group.anchor} tone={tones[index]} labelledBy={`${group.anchor}-title`}>
@@ -92,7 +89,15 @@ export default function ParkingReportsPage() {
 
           {group.anchor === 'finansal' ? (
             <div className={styles.finance}>
-              <FinanceSummaryDemo />
+              {onLaptop ? (
+                <DeviceFrame kind="laptop" className={styles.laptop}>
+                  <div className={styles.laptopViewport}>
+                    <FinanceSummaryDemo className={styles.inScreen} />
+                  </div>
+                </DeviceFrame>
+              ) : (
+                <FinanceSummaryDemo />
+              )}
             </div>
           ) : null}
 
@@ -119,14 +124,6 @@ export default function ParkingReportsPage() {
           <Faq items={copy.faq.items} schema label={copy.faq.label} defaultOpen={0} />
         </div>
       </Section>
-
-      <CtaBand
-        eyebrow={copy.cta.eyebrow}
-        title={copy.cta.title}
-        description={copy.cta.description}
-        primary={{ label: copy.cta.primary, to: path('quote.index') }}
-        secondary={{ label: copy.cta.secondary, href: waHref, external: true }}
-      />
     </>
   )
 }

@@ -2,7 +2,6 @@ import Button from '../../components/Button/index.ts'
 import CheckList from '../../components/CheckList/index.ts'
 import CtaBand from '../../components/CtaBand/index.ts'
 import FeatureGrid from '../../components/FeatureGrid/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
@@ -38,11 +37,9 @@ export default function DevelopersPage() {
         className={styles.hero}
         actions={
           <>
-            <Magnetic>
-              <Button to={path('contact')} variant="light" size="lg" arrow>
-                {copy.hero.primary}
-              </Button>
-            </Magnetic>
+            <Button to={path('contact')} variant="light" size="lg" arrow>
+              {copy.hero.primary}
+            </Button>
             <Button to={path('software-products')} variant="outlineLight" size="lg">
               {copy.hero.secondary}
             </Button>

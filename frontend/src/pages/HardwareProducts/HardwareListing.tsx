@@ -1,20 +1,16 @@
 import { useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
-import CtaBand from '../../components/CtaBand/index.ts'
 import Seo from '../../components/Seo/index.ts'
-import SubNav from '../../components/SubNav/index.ts'
-import { usePath } from '../../hooks/usePath/index.ts'
 import CatalogTeaser from './CatalogTeaser.tsx'
 import CategoriesSection from './CategoriesSection.tsx'
 import type { FilterKey } from './CategoryFilter.tsx'
 import type { CategoryKey } from './data.ts'
 import HeroLineup from './HeroLineup.tsx'
-import { ctaCopy, listingSeo, subNavItems } from './listingCopy.ts'
+import { listingSeo } from './listingCopy.ts'
 import ProductsSection from './ProductsSection.tsx'
 
-/** /donanim-urunleri: ürün dizisi hero'su → alt menü → filtrelenebilir kartlar → kategoriler + sayılar → katalog → CTA. */
+/** /donanim-urunleri: ürün dizisi hero'su → filtrelenebilir kartlar → kategoriler + sayılar → katalog. */
 export default function HardwareListing() {
-  const path = usePath()
   const reduce = useReducedMotion()
   const [active, setActive] = useState<FilterKey>('all')
 
@@ -31,17 +27,9 @@ export default function HardwareListing() {
     <>
       <Seo title={listingSeo.title} description={listingSeo.description} />
       <HeroLineup />
-      <SubNav items={subNavItems} />
       <ProductsSection active={active} onChange={setActive} />
       <CategoriesSection onSelect={selectCategory} />
       <CatalogTeaser />
-      <CtaBand
-        eyebrow={ctaCopy.eyebrow}
-        title={ctaCopy.title}
-        description={ctaCopy.description}
-        primary={{ label: ctaCopy.primary, to: path('discovery.show') }}
-        secondary={{ label: ctaCopy.secondary, to: path('quote.index') }}
-      />
     </>
   )
 }

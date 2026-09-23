@@ -1,7 +1,6 @@
 import { useId } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import Button from '../../components/Button/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import Reveal, { revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
@@ -39,11 +38,9 @@ export default function E2eHero() {
           </Reveal>
 
           <Reveal className={styles.actions} delay={0.6} y={16} amount={0.1}>
-            <Magnetic>
-              <Button to={path('quote.index')} size="lg" arrow>
-                {hero.quote}
-              </Button>
-            </Magnetic>
+            <Button to={path('quote.index')} size="lg" arrow>
+              {hero.quote}
+            </Button>
             <Button to={path('contact')} size="lg" variant="secondary">
               {hero.contact}
             </Button>

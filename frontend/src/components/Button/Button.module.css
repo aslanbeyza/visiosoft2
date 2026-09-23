@@ -19,7 +19,13 @@
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease,
+    transform 0.12s ease;
+}
+
+/* Tıklamanın tek geri bildirimi: basılıyken hafif çöker, bırakınca yerine döner. */
+.button:not(:disabled):active {
+  transform: scale(0.97);
 }
 
 .button:hover {
@@ -98,5 +104,9 @@
   .button,
   .arrow {
     transition: none;
+  }
+
+  .button:not(:disabled):active {
+    transform: none;
   }
 }

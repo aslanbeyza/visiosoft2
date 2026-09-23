@@ -21,12 +21,6 @@ export const heroCopy = {
   heightLabel: 'Yükseklik',
 }
 
-export const subNavItems = [
-  { id: 'urunler', label: 'Ürünler' },
-  { id: 'kategoriler', label: 'Kategoriler' },
-  { id: 'katalog', label: 'Katalog' },
-]
-
 export const productsCopy = {
   eyebrow: 'Ürünler',
   title: 'Donanım ürünleri.',

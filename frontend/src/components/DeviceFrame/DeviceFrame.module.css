@@ -1,0 +1,38 @@
+.device {
+  position: relative;
+  margin: 0;
+}
+
+.screen {
+  position: absolute;
+  top: var(--screen-top);
+  right: var(--screen-right);
+  bottom: var(--screen-bottom);
+  left: var(--screen-left);
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 0.2rem;
+  background: #0b0c12;
+}
+
+.screen > * {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.device[data-kind='phone'] .screen {
+  border-radius: 1.35rem;
+}
+
+/* Çerçeve görseli ekranın üstünde durur; tıklamalar altındaki içeriğe geçer. */
+.frame {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}

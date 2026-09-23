@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import Button from '../../components/Button/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import { revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
@@ -47,11 +46,9 @@ export default function HeroLineup() {
               {heroCopy.lead}
             </motion.p>
             <motion.div className={styles.actions} {...rise(0.6)}>
-              <Magnetic>
-                <Button href="#urunler" size="lg" arrow>
-                  {heroCopy.primary}
-                </Button>
-              </Magnetic>
+              <Button href="#urunler" size="lg" arrow>
+                {heroCopy.primary}
+              </Button>
               <Button to={path('hardware-products.catalog')} variant="secondary" size="lg">
                 {heroCopy.secondary}
               </Button>

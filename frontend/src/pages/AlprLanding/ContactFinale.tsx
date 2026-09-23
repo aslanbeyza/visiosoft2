@@ -1,7 +1,6 @@
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import Button from '../../components/Button/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import Reveal, { revealEase } from '../../components/Reveal/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
@@ -34,11 +33,9 @@ export default function ContactFinale() {
             {finale.text}
           </Reveal>
           <Reveal className={styles.actions} delay={0.3}>
-            <Magnetic fill className={styles.primary}>
-              <Button to={path('contact')} variant="light" size="lg" arrow>
-                {alprCopy.contact}
-              </Button>
-            </Magnetic>
+            <Button to={path('contact')} variant="light" size="lg" arrow className={styles.primary}>
+              {alprCopy.contact}
+            </Button>
             <Button href={`mailto:${company.email}`} variant="outlineLight" size="lg" external>
               {finale.email}
               <span className={styles.srOnly}>{finale.newTab}</span>

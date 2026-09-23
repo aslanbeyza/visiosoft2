@@ -9,49 +9,40 @@ export const titleIds = { hero: 'isgaliye-baslik', board: 'ihlal-turleri-baslik'
 
 export const violationsCopy = {
   seo: {
-    title: 'İşgaliye ve Park Ceza | Akıllı Park Sistemi - Visiosoft',
+    title: 'İşgaliye ve Park Ceza | Visiosoft',
     description:
-      'Gereksiz kullanım ve işgaliyenin önüne geçerek, Akıllı Park Sistemi ile kazanç kaybınızı önleyin. Hatalı park ve süre aşımı tespiti.',
+      'Yanlış park, çift slot kullanımı ve süre aşımı tespiti. Şarj, engelli ve kiralanmış slotların doğru kullanımı için kamera denetimi.',
   },
   hero: {
-    eyebrow: 'Yapay Zeka Destekli',
-    title: ['İşgaliye ve', 'Park Ceza'],
-    lead: 'Gereksiz kullanım ve işgaliyenin önüne geçerek, Akıllı Park Sistemi ile kazanç kaybınızı önleyin.',
+    eyebrow: 'Otopark ihlali',
+    title: ['İşgaliye ve', 'park cezası'],
+    lead: 'Kural dışı park ve slot işgalini görüntüden tespit edin; boşa giden kapasiteyi ve gelir kaybını azaltın.',
     primary: 'Teklif Al',
     secondary: 'İhlal türlerini inceleyin',
   },
   board: {
     id: 'ihlal-turleri',
-    eyebrow: 'Akıllı Park Sistemi',
-    title: 'İşgaliye ve Park Ceza Durumları',
-    lead: 'Bir durumun üzerine gelin ya da seçin; park alanı planında ilgili slot vurgulanır.',
-    listLabel: 'İhlal türleri',
+    eyebrow: 'İhlal türleri',
+    title: 'Sık görülen park ihlalleri',
+    lead: 'Plandaki 1–8 numaraları listedeki sırayla aynıdır. Numaraya veya satıra tıklayın; ilgili slot vurgulanır.',
+    listLabel: 'Sekiz ihlal türü',
     diagramLabel: 'Park alanı planı: slotlar, şarj alanları, engelli ve kiralanmış park yerleri',
-    selected: 'Planda gösterilen durum · temsilî çizim',
-    pause: 'Otomatik gösterimi duraklat',
-    play: 'Otomatik gösterimi başlat',
-    legend: [
-      { key: 'ev', label: 'Şarj slotu' },
-      { key: 'disabled', label: 'Engelli park yeri' },
-      { key: 'rented', label: 'Kiralanmış slot' },
-      { key: 'marked', label: 'İşaretlenmiş slot' },
-    ],
   },
   violations: [
     { id: 'evDouble', label: 'Çift şarj alanına park etme', hint: 'Araç iki şarj slotunu birden kapatır.' },
     { id: 'doubleSlot', label: 'Çift park slotuna park etme', hint: 'Tek araç iki park slotunu kullanır.' },
     { id: 'lineCross', label: 'Hat ihlali park etme', hint: 'Araç slot çizgisinin üzerine taşar.' },
-    { id: 'outside', label: 'Slot dışına park etme', hint: 'Araç manevra alanında, slot dışında bekler.' },
     { id: 'disabled', label: 'Engelli araç park yeri', hint: 'Engelli park yeri yetkisiz araçça kullanılır.' },
-    { id: 'fossil', label: 'Şarj slotuna fosil yakıtlı araç', hint: 'Şarj slotunu elektrikli olmayan araç kapatır.' },
     { id: 'marked', label: 'İşaretlenmiş slota park etme', hint: 'Park yasağı işaretli alana araç bırakılır.' },
+    { id: 'outside', label: 'Slot dışına park etme', hint: 'Araç manevra alanında, slot dışında bekler.' },
+    { id: 'fossil', label: 'Şarj slotuna fosil yakıtlı araç', hint: 'Şarj slotunu elektrikli olmayan araç kapatır.' },
     { id: 'rented', label: 'Kiralanmış slota park etme', hint: 'Kiralanmış slotu başka bir araç kullanır.' },
   ] satisfies Violation[],
   audit: {
     id: 'denetim',
     eyebrow: 'Denetim altyapısı',
     title: 'Kurallara sürekli uyum, daha az kazanç kaybı.',
-    lead: 'Yapay zeka destekli denetim altyapısı, park alanındaki ihlalleri tespit ederek kurallara sürekli uyum sağlar.',
+    lead: 'Kamera görüntüsü üzerinden slot kurallarına aykırı park durumları sürekli denetlenir.',
     checks: [
       'Gereksiz kullanım ve işgaliyenin önüne geçer',
       'Hatalı park ve süre aşımı tespiti',
@@ -59,7 +50,6 @@ export const violationsCopy = {
       'Kazanç kaybınızı önlemeye yardımcı olur',
     ],
     chip: 'Kamera görüntüsü',
-    caption: 'Kapalı otopark alanı · temsilî görsel',
     alt: 'Sarı şerit ve kolon işaretleri olan boş kapalı otopark koridoru',
   },
   process: {
@@ -73,19 +63,12 @@ export const violationsCopy = {
       },
       {
         title: 'Park alanı denetlenir',
-        description: 'Yapay zeka destekli denetim altyapısı kurala aykırı park durumlarını tespit eder.',
+        description: 'Kamera ve yazılım kurala aykırı park durumlarını işaretler.',
       },
       {
         title: 'İhlal kayda geçer',
         description: 'Tespit edilen durumlar işgaliye ve park ceza süreçleriniz için raporlanır.',
       },
     ],
-  },
-  cta: {
-    eyebrow: 'Akıllı Park Sistemi',
-    title: 'Park alanınızdaki ihlalleri birlikte planlayalım.',
-    description: 'Slot yapınızı ve denetlemek istediğiniz durumları paylaşın; size uygun kurulumu önerelim.',
-    primary: 'Teklif Al',
-    secondary: 'İletişime geçin',
   },
 }

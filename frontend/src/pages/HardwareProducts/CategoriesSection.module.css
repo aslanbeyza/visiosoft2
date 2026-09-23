@@ -9,11 +9,6 @@
     align-items: start;
     gap: 4rem;
   }
-
-  .heading {
-    position: sticky;
-    top: 9rem;
-  }
 }
 
 .list {

@@ -1,6 +1,5 @@
 import Button from '../../components/Button/index.ts'
 import CtaBand from '../../components/CtaBand/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import MediaFrame from '../../components/MediaFrame/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Picture from '../../components/Picture/index.ts'
@@ -52,11 +51,9 @@ export default function SoftwareHub() {
         media={<ParkBizPhoneStage animateOnView={false} />}
         actions={
           <>
-            <Magnetic>
-              <Button to={path(heroCopy.primary.route)} size="lg" arrow>
-                {heroCopy.primary.label}
-              </Button>
-            </Magnetic>
+            <Button to={path(heroCopy.primary.route)} size="lg" arrow>
+              {heroCopy.primary.label}
+            </Button>
             <Button to={`${path('software-products')}#${heroCopy.secondary.anchor}`} variant="secondary" size="lg">
               {heroCopy.secondary.label}
             </Button>

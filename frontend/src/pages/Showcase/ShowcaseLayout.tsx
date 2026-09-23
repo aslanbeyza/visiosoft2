@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import Button from '../../components/Button/index.ts'
 import CtaBand from '../../components/CtaBand/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Seo from '../../components/Seo/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
@@ -38,11 +37,9 @@ export default function ShowcaseLayout({ route, relatedTone, children }: Showcas
         ]}
         actions={
           <>
-            <Magnetic>
-              <Button to={path(copy.ctaRoute)} size="lg" arrow>
-                {copy.cta}
-              </Button>
-            </Magnetic>
+            <Button to={path(copy.ctaRoute)} size="lg" arrow>
+              {copy.cta}
+            </Button>
             <Button href={`#${copy.jump.id}`} variant="secondary" size="lg">
               {copy.jump.label}
             </Button>

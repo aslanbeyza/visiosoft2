@@ -1,7 +1,5 @@
 import Button from '../../components/Button/index.ts'
-import CtaBand from '../../components/CtaBand/index.ts'
 import FeatureGrid, { FeatureIcon } from '../../components/FeatureGrid/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
@@ -12,7 +10,7 @@ import { onStreetCopy as copy } from './onStreetCopy.ts'
 import StreetScan from './StreetScan.tsx'
 import styles from './OnStreetPage.module.css'
 
-/** /yol-ustu-parklandirma — tarama anlı split hero, dört adımlı akış, avantajlar ve dönüşüm bandı. */
+/** /yol-ustu-parklandirma — tarama anlı split hero, dört adımlı akış ve avantajlar. */
 export default function OnStreetPage() {
   const path = usePath()
 
@@ -30,12 +28,10 @@ export default function OnStreetPage() {
         aside={<p className={styles.asideText}>{copy.hero.aside}</p>}
         actions={
           <>
-            <Magnetic>
-              <Button to={path('contact')} size="lg" arrow>
-                {copy.hero.primary}
-              </Button>
-            </Magnetic>
-            <Button to={path('quote.index')} size="lg" variant="secondary">
+            <Button to={path('contact')} size="lg" className={styles.heroPrimary}>
+              {copy.hero.primary}
+            </Button>
+            <Button to={path('quote.index')} size="lg" variant="secondary" className={styles.heroSecondary}>
               {copy.hero.secondary}
             </Button>
           </>
@@ -77,14 +73,6 @@ export default function OnStreetPage() {
           />
         </div>
       </Section>
-
-      <CtaBand
-        eyebrow={copy.cta.eyebrow}
-        title={copy.cta.title}
-        description={copy.cta.description}
-        primary={{ label: copy.hero.primary, to: path('contact') }}
-        secondary={{ label: copy.hero.secondary, to: path('quote.index') }}
-      />
     </>
   )
 }

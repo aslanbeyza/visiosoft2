@@ -32,7 +32,7 @@
   }
 }
 
-/* Geniş ekranda Magnetic doldurma kipi satırı kaplamaz; düğme doğal genişliğinde kalır. */
+/* Geniş ekranda birincil düğme satırı kaplamaz; doğal genişliğinde kalır. */
 @media (min-width: 768px) {
   .actions .primary {
     flex: 0 0 auto;

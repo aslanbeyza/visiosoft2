@@ -3,7 +3,6 @@ import CtaBand from '../../components/CtaBand/index.ts'
 import Faq from '../../components/Faq/index.ts'
 import FeatureGrid, { FeatureIcon } from '../../components/FeatureGrid/index.ts'
 import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Prose from '../../components/Prose/index.ts'
 import Section from '../../components/Section/index.ts'
@@ -37,11 +36,9 @@ export default function PlateRecognitionSystem() {
         media={<HeroMap />}
         actions={
           <div className={styles.actions}>
-            <Magnetic>
-              <Button to={path('quote.index')} size="lg" arrow>
-                {copy.quote}
-              </Button>
-            </Magnetic>
+            <Button to={path('quote.index')} size="lg" arrow>
+              {copy.quote}
+            </Button>
             <Button to={path('contact')} size="lg" variant="secondary">
               {copy.contact}
             </Button>

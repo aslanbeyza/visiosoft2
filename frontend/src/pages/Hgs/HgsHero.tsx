@@ -4,7 +4,6 @@ import { motion, useInView, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import Button from '../../components/Button/index.ts'
 import ChipList from '../../components/ChipList/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import { revealEase } from '../../components/Reveal/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
@@ -88,11 +87,9 @@ export default function HgsHero() {
       aside={<ChipList items={hero.outcomes} tone="dark" label={hero.outcomesLabel} className={styles.outcomes} />}
       actions={
         <>
-          <Magnetic>
-            <Button to={path('quote.index')} variant="light" size="lg" arrow>
-              {hero.primary}
-            </Button>
-          </Magnetic>
+          <Button to={path('quote.index')} variant="light" size="lg" arrow>
+            {hero.primary}
+          </Button>
           <Button to={path('discovery.show')} variant="outlineLight" size="lg">
             {hero.secondary}
           </Button>

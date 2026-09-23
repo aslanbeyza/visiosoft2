@@ -2,9 +2,10 @@ import { useId } from 'react'
 import { motion } from 'framer-motion'
 import type { Transition, Variants } from 'framer-motion'
 import { revealEase } from '../../components/Reveal/index.ts'
-import BayCar, { BayMarker } from './BayCar.tsx'
+import BayCar from './BayCar.tsx'
 import { BoltMark, DisabledMark, KeyMark } from './BayGlyphs.tsx'
-import { SLOT, VIEW, bracketPaths, hatchLines, parkedCars, scenarios, slotLines } from './bayGeometry.ts'
+import { SLOT, VIEW, bracketPaths, hatchLines, parkedCars, pinPoint, scenarios, slotLines } from './bayGeometry.ts'
+import { violationsCopy } from './violationsCopy.ts'
 import type { ViolationId } from './violationsCopy.ts'
 import styles from './BayDiagram.module.css'
 
@@ -24,22 +25,30 @@ const fadeIn: Variants = {
 
 type BayDiagramProps = {
   active: ViolationId | null
+  /** Hover/tıklamada nabız animasyonunu yeniden tetikler. */
+  pulseKey: number
   /** Görünüme girince çizim başlar. */
   play: boolean
   reduce: boolean
   label: string
+  /** Rozete tıklanınca seçim. Aynı seçim listede de var; plan onun ikinci, isteğe bağlı yüzü. */
+  onSelect: (id: ViolationId) => void
+  onPreview: (id: ViolationId | null) => void
   className?: string
 }
 
 const marked = scenarios.find((s) => s.id === 'marked')?.zone ?? { x: 582, y: 24, w: 78, h: 128 }
 const slotCenter = (k: number) => SLOT.x0 + k * SLOT.w + SLOT.w / 2
 const bottomBack = SLOT.bottomY + SLOT.depth
+/** Rozet numarası listedeki sıradan gelir; iki taraf tek kaynağı paylaşsın diye burada da o sıra okunur. */
+const numberOf = (id: ViolationId) => violationsCopy.violations.findIndex((v) => v.id === id) + 1
 
 /**
  * Özgün park alanı planı (üstten): slot çizgileri çizilir, zemin işaretleri belirir, araçlar slotlarına girer.
- * `active` ihlal bölgesini köşe parantezleriyle çerçeveler, aracını lacivertle vurgular, diğerlerini soldurur.
+ * Her ihlal bölgesi numaralı bir rozet taşır; `active` o bölgeyi köşe parantezleriyle çerçeveler, rozetini
+ * ve aracını lacivertle doldurur, diğer araçları soldurur.
  */
-export default function BayDiagram({ active, play, reduce, label, className = '' }: BayDiagramProps) {
+export default function BayDiagram({ active, pulseKey, play, reduce, label, onSelect, onPreview, className = '' }: BayDiagramProps) {
   const clipId = `${useId().replace(/:/g, '')}-hatch`
   const state: Transition = reduce ? { duration: 0 } : { duration: 0.55, ease: revealEase }
   const lines = slotLines()
@@ -101,7 +110,18 @@ export default function BayDiagram({ active, play, reduce, label, className = ''
         <BayCar key={`parked-${pose.cx}`} pose={pose} order={i + 3} kind="parked" active={false} dim={active !== null} reduce={reduce} />
       ))}
       {scenarios.map((s, i) => (
-        <BayCar key={`car-${s.id}`} pose={s.car} order={i} kind="violation" active={active === s.id} dim={active !== null && active !== s.id} reduce={reduce} />
+        <BayCar
+          key={`car-${s.id}`}
+          pose={s.car}
+          order={i}
+          kind="violation"
+          active={active === s.id}
+          dim={active !== null && active !== s.id}
+          reduce={reduce}
+          pulseKey={pulseKey}
+          onSelect={() => onSelect(s.id)}
+          onPreview={(on) => onPreview(on ? s.id : null)}
+        />
       ))}
 
       {scenarios.map((s) =>
@@ -116,9 +136,40 @@ export default function BayDiagram({ active, play, reduce, label, className = ''
           />
         )),
       )}
-      {scenarios.map((s) => (
-        <BayMarker key={`marker-${s.id}`} pose={s.car} active={active === s.id} reduce={reduce} />
-      ))}
+      {/*
+        Numara rozetleri her zaman görünür: plan tek başına "burada sekiz işaretli durum var" der.
+        Tıklanabilirler, ama aynı sekiz seçim listede gerçek buton olarak da var; bu yüzden rozetler
+        sekme sırasına girmez (svg role="img") ve klavye kullanıcısı aynı işi listeden yapar.
+      */}
+      {scenarios.map((s) => {
+        const pin = pinPoint(s)
+        const live = active === s.id
+        return (
+          <motion.g key={`pin-${s.id}`} variants={reduce ? undefined : fadeIn} custom={1}>
+            <g transform={`translate(${pin.x} ${pin.y})`}>
+              <motion.g
+                key={live ? `${s.id}-${pulseKey}` : s.id}
+                className={styles.pin}
+                data-active={live}
+                initial={{ scale: 1 }}
+                animate={reduce || !live ? { scale: 1 } : { scale: [1, 1.16, 1] }}
+                transition={reduce ? { duration: 0 } : { duration: 0.55, ease: revealEase }}
+                onClick={() => onSelect(s.id)}
+                onPointerEnter={(event) => {
+                  if (event.pointerType === 'mouse') onPreview(s.id)
+                }}
+                onPointerLeave={() => onPreview(null)}
+              >
+                <circle className={styles.pinHit} cx={0} cy={0} r={28} />
+                <circle className={styles.pinDot} cx={0} cy={0} r={16} />
+                <text x={0} y={0}>
+                  {numberOf(s.id)}
+                </text>
+              </motion.g>
+            </g>
+          </motion.g>
+        )
+      })}
     </motion.svg>
   )
 }

@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Button from '../../components/Button/index.ts'
 import FeatureGrid, { CloudIcon, KioskIcon, MapIcon, SupportIcon } from '../../components/FeatureGrid/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import ParkingFlow from '../../components/ParkingFlow/index.ts'
 import Reveal from '../../components/Reveal/index.ts'
@@ -62,11 +61,9 @@ export default function NotFoundPage() {
         }
         actions={
           <>
-            <Magnetic>
-              <Button to={path('home')} size="lg" arrow>
-                {copy.home}
-              </Button>
-            </Magnetic>
+            <Button to={path('home')} size="lg" arrow>
+              {copy.home}
+            </Button>
             <Button to={path('contact')} variant="secondary" size="lg">
               {copy.contact}
             </Button>

@@ -19,7 +19,6 @@ export const onStreetCopy = {
   },
   scene: {
     alt: 'Yol kenarında sıralanmış park hâlindeki araçlar, P levhası ve direğe monte dome kamera çizimi',
-    caption: 'Temsilî çizim',
     detect: 'Plaka tespiti',
     charge: 'HGS ile ücretlendirme',
     camera: 'PTS kamera',
@@ -71,10 +70,5 @@ export const onStreetCopy = {
         description: 'El terminalleri sayesinde personel, HGS dışındaki ödemeleri sahada alabilir.',
       },
     ] satisfies IconText[],
-  },
-  cta: {
-    eyebrow: 'Yol üstü parklandırma',
-    title: 'Cadde parkı için bilgi alın.',
-    description: 'Sahanıza uygun kamera yerleşimini ve tahsilat modelini birlikte değerlendirelim.',
   },
 } as const

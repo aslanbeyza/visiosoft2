@@ -3,7 +3,6 @@ import CheckList from '../../components/CheckList/index.ts'
 import CtaBand from '../../components/CtaBand/index.ts'
 import Faq from '../../components/Faq/index.ts'
 import FeatureGrid, { FeatureIcon } from '../../components/FeatureGrid/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Reveal from '../../components/Reveal/index.ts'
 import Section from '../../components/Section/index.ts'
@@ -39,11 +38,9 @@ export default function ParkingSoftwarePage() {
         spacing="compact"
         actions={
           <>
-            <Magnetic>
-              <Button to={path('quote.index')} size="lg" arrow>
-                {copy.hero.primary}
-              </Button>
-            </Magnetic>
+            <Button to={path('quote.index')} size="lg" arrow>
+              {copy.hero.primary}
+            </Button>
             <Button href="#sss" variant="secondary" size="lg">
               {copy.hero.secondary}
             </Button>

@@ -1,5 +1,4 @@
 import Button from '../../components/Button/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import PricingStage from './PricingStage.tsx'
@@ -22,11 +21,9 @@ export default function PricingHero() {
       mediaNote={pricingCopy.diagram.note}
       actions={
         <>
-          <Magnetic>
-            <Button to={path('quote.index')} size="lg" arrow>
-              {copy.primary}
-            </Button>
-          </Magnetic>
+          <Button to={path('quote.index')} size="lg" arrow>
+            {copy.primary}
+          </Button>
           <Button href={`#${pricingCopy.subNav[0].id}`} variant="secondary" size="lg">
             {copy.secondary}
           </Button>

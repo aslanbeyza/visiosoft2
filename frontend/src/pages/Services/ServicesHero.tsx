@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import Button from '../../components/Button/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import { revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
@@ -44,11 +43,9 @@ export default function ServicesHero() {
               {copy.lead}
             </motion.p>
             <motion.div className={styles.actions} {...rise(0.6)}>
-              <Magnetic>
-                <Button to={path('discovery.show')} size="lg" arrow>
-                  {copy.primary}
-                </Button>
-              </Magnetic>
+              <Button to={path('discovery.show')} size="lg" arrow>
+                {copy.primary}
+              </Button>
               <Button to={path('quote.index')} variant="secondary" size="lg">
                 {copy.secondary}
               </Button>

@@ -2,7 +2,6 @@ import Button from '../../components/Button/index.ts'
 import ComparisonTable from '../../components/ComparisonTable/index.ts'
 import CtaBand from '../../components/CtaBand/index.ts'
 import FeatureGrid, { FeatureIcon } from '../../components/FeatureGrid/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
@@ -36,11 +35,9 @@ export default function ComparisonPage() {
         mediaNote={copy.scene.note}
         actions={
           <>
-            <Magnetic>
-              <Button to={path('discovery.show')} size="lg" arrow>
-                {copy.hero.primary}
-              </Button>
-            </Magnetic>
+            <Button to={path('discovery.show')} size="lg" arrow>
+              {copy.hero.primary}
+            </Button>
             <Button href="#karsilastirma" variant="secondary" size="lg">
               {copy.hero.secondary}
             </Button>

@@ -1,7 +1,6 @@
 import { useId, useRef } from 'react'
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Button from '../../components/Button/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import Picture from '../../components/Picture/index.ts'
 import Reveal, { revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
@@ -122,11 +121,9 @@ export default function HgsParkHero() {
           {hero.lead}
         </Reveal>
         <Reveal className={styles.actions} delay={0.7} y={16} amount={0.1}>
-          <Magnetic>
-            <Button href={`#${future.id}`} size="lg" arrow>
-              {hero.primary}
-            </Button>
-          </Magnetic>
+          <Button href={`#${future.id}`} size="lg" arrow>
+            {hero.primary}
+          </Button>
           <Button to={path('contact')} variant="secondary" size="lg">
             {hero.secondary}
           </Button>

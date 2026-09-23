@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react'
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
+import DeviceFrame from '../DeviceFrame/index.ts'
+import type { DeviceKind } from '../DeviceFrame/index.ts'
 import { revealEase } from '../Reveal/index.ts'
-import { deviceFrames } from './deviceFrames.ts'
-import type { DeviceKind } from './deviceFrames.ts'
 import ZoneMini from './ZoneMini.tsx'
 import { useZoneMini } from './useZoneMini.ts'
 import { homeSoftwareCopy as text } from './homeSoftwareCopy.ts'
@@ -58,27 +58,18 @@ function DeviceChrome({
   onboard?: boolean
   children: ReactNode
 }) {
-  const frame = deviceFrames[kind]
-  const screenStyle = {
-    '--screen-top': frame.screen.top,
-    '--screen-right': frame.screen.right,
-    '--screen-bottom': frame.screen.bottom,
-    '--screen-left': frame.screen.left,
-  } as CSSProperties
-
   return (
     <motion.figure
       className={styles.device}
       data-kind={kind}
       aria-label={title}
-      style={{ aspectRatio: `${frame.width} / ${frame.height}`, ...screenStyle }}
       initial={reduce ? false : { clipPath: 'inset(0% 0% 100% 0%)' }}
       animate={visible || reduce ? { clipPath: 'inset(0% 0% 0% 0%)' } : undefined}
       transition={{ duration: 1.2, ease: revealEase }}
     >
-      <div className={styles.screen}>{children}</div>
-      <img className={styles.frame} src={frame.src} width={frame.width} height={frame.height} alt="" />
-      <AnimatePresence>{onboard && !reduce ? <OnboardCursor /> : null}</AnimatePresence>
+      <DeviceFrame kind={kind} overlay={<AnimatePresence>{onboard && !reduce ? <OnboardCursor /> : null}</AnimatePresence>}>
+        {children}
+      </DeviceFrame>
     </motion.figure>
   )
 }

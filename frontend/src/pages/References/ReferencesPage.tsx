@@ -1,6 +1,5 @@
 import Button from '../../components/Button/index.ts'
 import CtaBand from '../../components/CtaBand/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Seo from '../../components/Seo/index.ts'
 import StatRow from '../../components/StatRow/index.ts'
@@ -40,11 +39,9 @@ export default function ReferencesPage() {
           </div>
         }
         actions={
-          <Magnetic>
-            <Button href={`#${copy.list.id}`} size="lg" arrow>
-              {copy.jump}
-            </Button>
-          </Magnetic>
+          <Button href={`#${copy.list.id}`} size="lg" arrow>
+            {copy.jump}
+          </Button>
         }
         media={<LogoDrift logos={referenceItems} toggleLabel={copy.drift.toggle} />}
       />

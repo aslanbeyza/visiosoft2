@@ -32,7 +32,7 @@ export default function CategoriesSection({ onSelect }: CategoriesSectionProps) 
   return (
     <Section id="kategoriler" tone="paper" labelledBy={HEADING_ID}>
       <div className={styles.layout}>
-        <SectionHeading id={HEADING_ID} eyebrow={categoriesCopy.eyebrow} title={categoriesCopy.title} lead={categoriesCopy.description} className={styles.heading} />
+        <SectionHeading id={HEADING_ID} eyebrow={categoriesCopy.eyebrow} title={categoriesCopy.title} lead={categoriesCopy.description} />
 
         <ol className={styles.list}>
           {categories.map((category, index) => {

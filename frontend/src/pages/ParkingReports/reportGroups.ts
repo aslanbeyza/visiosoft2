@@ -27,6 +27,10 @@ export const reportGroups: ReportGroup[] = [
       { title: 'Kamera Bazlı Geçiş Kayıtları', description: 'Kamera tespit kayıtlarını zaman bilgisiyle gösterir.' },
       { title: 'Beyaz Liste / Kara Liste Geçiş Raporu', description: 'Beyaz ve kara liste geçişlerini ayrı raporlar.' },
       { title: 'HGS İşlem Raporu', description: 'HGS işlemlerini ve hatalı kayıtları raporlar.' },
+      {
+        title: 'Ortalama Oturum Süresi Raporu',
+        description: 'Araçların otoparkta ortalama ne kadar kaldığını gösterir; tarife ve kapasite planlamasında kullanılır.',
+      },
     ],
   },
   {

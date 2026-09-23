@@ -72,14 +72,14 @@ function TrendChart({ snapshot, reduce }: { snapshot: FinanceSnapshot; reduce: b
 }
 
 /** Zone finansal özet paneli: dönem sekmeleri, sayaçlar ve ciro trendi. */
-export default function FinanceSummaryDemo() {
+export default function FinanceSummaryDemo({ className = '' }: { className?: string }) {
   const reduce = Boolean(useReducedMotion())
   const baseId = useId()
   const [period, setPeriod] = useState<FinancePeriod>('daily')
   const snapshot = financeSnapshots[period]
 
   return (
-    <figure className={styles.root}>
+    <figure className={`${styles.root} ${className}`.trim()}>
       <figcaption className={styles.chrome}>
         <span className={styles.dots} aria-hidden="true">
           <span />

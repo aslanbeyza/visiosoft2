@@ -6,16 +6,15 @@ export const reportsCopy = {
       'Visiosoft otopark yazılımı; operasyonel, finansal ve abonelik raporlarını tek panelde sunar. Her rapor tipi detaylı analiz ve yeni rapor ekleme esnekliği sağlar.',
   },
   hero: {
-    eyebrow: 'Raporlama Mimarisi',
+    eyebrow: 'Raporlama',
     title: 'Otopark Yazılımında Raporlar',
-    lead: 'Operasyon, finans ve abonelik verilerini tek panelde sade ve hızlı şekilde sunar.',
-    highlightsLabel: 'Raporlama katmanının özellikleri',
-    highlights: ['Anlık Akış', 'Esnek Filtre', 'Tek Tık Dışa Aktarım', 'Yeni Raporlara Açık'],
+    lead: 'Giriş-çıkış, ciro ve abonelik raporları aynı panelde. Tarih, kapı ya da ödeme tipine göre filtreleyip Excel veya PDF indirirsiniz.',
+    highlightsLabel: 'Rapor özellikleri',
+    highlights: ['Anlık doluluk', 'Tarih ve kapı filtresi', 'Excel ve PDF'],
     primary: 'Teklif Al',
-    secondary: 'Rapor gruplarını inceleyin',
+    secondary: 'Raporları inceleyin',
     reportUnit: 'rapor',
   },
-  subNavLabel: 'Rapor kategorileri',
   newReportsNav: 'Yeni Rapor',
   newReports: {
     anchor: 'yeni-raporlar',
@@ -41,14 +40,16 @@ export const reportsCopy = {
         answer:
           'Mümkün olan rapor talepleri ücretsiz hazırlanabilir. Sadece size özel geliştirme gerektiren raporlar veya özellikler ayrıca ücretlendirilir.',
       },
+      {
+        question: 'Raporları dışa aktarabilir miyim?',
+        answer:
+          'Evet. Her rapor Excel veya PDF olarak indirilebilir. İndirmeden önce tarih aralığı, kapı, bariyer ve ödeme tipi gibi filtreleri uygulayabilirsiniz; çıktı seçtiğiniz filtrelerle oluşur.',
+      },
+      {
+        question: 'Veri büyüdükçe raporlar yavaşlar mı?',
+        answer:
+          'Veri yapısı artan kayıt hacmine göre ölçeklenecek şekilde kurgulanmıştır; geçmiş veri biriktikçe rapor süreleri aynı seviyede kalır. Çok geniş tarih aralıklarında raporu daraltarak ya da dışa aktararak almanızı öneririz.',
+      },
     ],
-  },
-  cta: {
-    eyebrow: 'Demo',
-    title: 'Raporları canlı ortamda görmek ister misiniz?',
-    description: 'Demo’da tüm raporları gerçek senaryolarla birlikte hızlıca inceleyebilirsiniz.',
-    primary: 'Teklif Al',
-    secondary: 'WhatsApp ile Ulaş',
-    whatsappMessage: 'Merhaba, otopark raporlama modülü hakkında bilgi almak istiyorum.',
   },
 }

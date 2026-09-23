@@ -1,5 +1,3 @@
-import { useId } from 'react'
-import { LayoutGroup, motion, useReducedMotion } from 'framer-motion'
 import { categories } from './data.ts'
 import type { CategoryKey } from './data.ts'
 import { productsCopy } from './listingCopy.ts'
@@ -14,10 +12,8 @@ type CategoryFilterProps = {
   visibleCount: number
 }
 
-/** Kategori çipleri: basılı durum aria-pressed ile, etkin zemin layoutId ile kayar. */
+/** Kategori sekmeleri — statik alt çizgi; animasyonlu pill yok. */
 export default function CategoryFilter({ active, onChange, counts, visibleCount }: CategoryFilterProps) {
-  const reduce = useReducedMotion()
-  const groupId = useId()
   const options: { key: FilterKey; label: string }[] = [
     { key: 'all', label: productsCopy.all },
     ...categories.map((category) => ({ key: category.key, label: category.label })),
@@ -25,36 +21,31 @@ export default function CategoryFilter({ active, onChange, counts, visibleCount 
 
   return (
     <div className={styles.wrap}>
-      <LayoutGroup id={groupId}>
+      <nav className={styles.nav} aria-label={productsCopy.filterLabel}>
         <div className={styles.scroller}>
-          <div className={styles.chips} role="group" aria-label={productsCopy.filterLabel}>
+          <div className={styles.list}>
             {options.map((option) => {
               const pressed = option.key === active
+              const count = counts[option.key]
               return (
                 <button
                   key={option.key}
                   type="button"
-                  className={styles.chip}
+                  className={styles.tab}
                   aria-pressed={pressed}
                   data-filter-key={option.key}
                   onClick={() => onChange(option.key)}
                 >
-                  {pressed ? (
-                    <motion.span
-                      layoutId="hardware-filter-active"
-                      className={styles.pill}
-                      aria-hidden="true"
-                      transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 480, damping: 42 }}
-                    />
-                  ) : null}
-                  <span className={styles.chipLabel}>{option.label}</span>
-                  <span className={styles.count}>{counts[option.key]}</span>
+                  {option.label}
+                  <span className={styles.count} aria-hidden="true">
+                    ({count})
+                  </span>
                 </button>
               )
             })}
           </div>
         </div>
-      </LayoutGroup>
+      </nav>
 
       <p className={styles.result} aria-live="polite">
         <span className={styles.resultNumber}>{visibleCount}</span> {productsCopy.resultSuffix}

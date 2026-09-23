@@ -2,7 +2,6 @@ import type { MouseEvent } from 'react'
 import { motion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import Button from '../Button/index.ts'
-import Magnetic from '../Magnetic/index.ts'
 import TextReveal from '../TextReveal/index.ts'
 import { revealEase } from '../Reveal/motion.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
@@ -51,11 +50,9 @@ export default function HeroIntro({ reduce }: { reduce: boolean }) {
         </motion.p>
 
         <motion.div className={styles.actions} variants={rise}>
-          <Magnetic className={styles.cta}>
-            <Button to={path('quote.index')} variant="light" size="lg" arrow className={styles.button}>
-              {text.primary}
-            </Button>
-          </Magnetic>
+          <Button to={path('quote.index')} variant="light" size="lg" arrow className={`${styles.button} ${styles.cta}`}>
+            {text.primary}
+          </Button>
           <Button
             href={`#${text.systemTarget.section}`}
             variant="outlineLight"

@@ -2,7 +2,6 @@ import { useId } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import Breadcrumbs from '../../components/Breadcrumbs/index.ts'
 import Button from '../../components/Button/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import { RevealGroup, RevealItem, revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
@@ -70,11 +69,9 @@ export default function DetailHero({ data }: DetailHeroProps) {
             ) : null}
 
             <RevealItem className={styles.actions}>
-              <Magnetic>
-                <Button to={path('discovery.show')} size="lg" arrow>
-                  {detailCopy.actions.discovery}
-                </Button>
-              </Magnetic>
+              <Button to={path('discovery.show')} size="lg" arrow>
+                {detailCopy.actions.discovery}
+              </Button>
               <Button to={path('quote.index')} variant="secondary" size="lg">
                 {detailCopy.actions.quote}
               </Button>

@@ -103,6 +103,11 @@
   stroke: #aeb4c8;
 }
 
+.carHit {
+  fill: transparent;
+  cursor: pointer;
+}
+
 .bracket {
   fill: none;
   stroke: var(--color-navy-600);
@@ -111,15 +116,65 @@
   stroke-linejoin: round;
 }
 
-.marker circle {
+/*
+ * Plandaki numara rozeti, listedeki rozetle birebir aynı görünür. Kullanıcının "bu satır planda neresi"
+ * sorusunu cevaplayan tek ipucu bu eşleşme olduğu için rozetler seçim olmasa da hep görünür durur.
+ * Yarıçaplar CSS'ten gelir: plan dar ekranda küçüldüğü için rozetin viewBox içindeki payı büyümeli,
+ * yoksa rakam okunmaz. SVG özniteliği de yazılı, CSS `r` desteklenmezse ölçü yine de makul kalır.
+ */
+.pin {
+  cursor: pointer;
+}
+
+.pinHit {
+  fill: transparent;
+}
+
+.pinDot {
   fill: #fff;
   stroke: var(--color-navy-600);
   stroke-width: 1.6;
+  transition: fill 0.35s var(--ease-apple);
 }
 
-.marker path {
-  fill: none;
-  stroke: var(--color-navy-600);
-  stroke-width: 2.4;
-  stroke-linecap: round;
+.pin text {
+  fill: var(--color-navy-600);
+  font-size: 17px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+  transition: fill 0.35s var(--ease-apple);
+}
+
+.pin[data-active='true'] .pinDot {
+  fill: var(--color-navy-600);
+}
+
+.pin[data-active='true'] text {
+  fill: #fff;
+}
+
+@media (hover: hover) {
+  .pin:not([data-active='true']):hover .pinDot {
+    fill: var(--color-navy-50);
+  }
+}
+
+/*
+ * 1024px altında plan ya tam genişliğe ya da tablette 25rem'lik sütuna sığar; iki durumda da ölçek 0.5
+ * civarına düşer. Rozet ve rakam viewBox içinde büyütülerek ekranda okunur boyutta kalır.
+ */
+@media (max-width: 1023px) {
+  .pin text {
+    font-size: 19px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pinDot,
+  .pin text {
+    transition: none;
+  }
 }

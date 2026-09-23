@@ -18,16 +18,29 @@ type BayCarProps = {
   active: boolean
   dim: boolean
   reduce: boolean
+  pulseKey?: number
+  onSelect?: () => void
+  onPreview?: (active: boolean) => void
 }
 
 /** Üstten görünüm araç sembolü; ön tarafı yerel -y yönünde. Vurgu katmanı opaklıkla açılır. */
-export default function BayCar({ pose, order, kind, active, dim, reduce }: BayCarProps) {
+export default function BayCar({ pose, order, kind, active, dim, reduce, pulseKey = 0, onSelect, onPreview }: BayCarProps) {
   const state: Transition = reduce ? { duration: 0 } : { duration: 0.45, ease: revealEase }
+  const pulse = reduce || !active ? { scale: 1 } : { scale: [1, 1.04, 1] }
+  const pulseTransition: Transition = reduce ? { duration: 0 } : { duration: 0.55, ease: revealEase }
 
   return (
     <g transform={`translate(${pose.cx} ${pose.cy}) rotate(${pose.rot})`}>
       <motion.g variants={reduce ? undefined : driveIn} custom={order}>
-        <motion.g className={styles.car} data-kind={kind} initial={false} animate={{ opacity: dim ? 0.38 : 1 }} transition={state}>
+        <motion.g
+          key={active ? `${order}-${pulseKey}` : order}
+          className={styles.car}
+          data-kind={kind}
+          data-active={active}
+          initial={{ scale: 1 }}
+          animate={{ opacity: dim ? 0.38 : 1, ...pulse }}
+          transition={{ opacity: state, scale: pulseTransition }}
+        >
           <rect className={styles.carShadow} x="-17" y="-31" width="38" height="70" rx="10" />
           <rect className={styles.carBody} x="-19" y="-35" width="38" height="70" rx="10" />
           <motion.rect
@@ -44,26 +57,21 @@ export default function BayCar({ pose, order, kind, active, dim, reduce }: BayCa
           <path className={styles.carGlass} d="M-14-16q14-7 28 0l-2.5 10h-23z" />
           <path className={styles.carGlass} d="M-12 19h24l1.5 8q-13.5 5-27 0z" />
           <path className={styles.carTrim} d="M-19-11h-3.5M19-11h3.5M-9-31h18" />
+          {kind === 'violation' && onSelect ? (
+            <rect
+              className={styles.carHit}
+              x="-24"
+              y="-40"
+              width="48"
+              height="82"
+              onClick={onSelect}
+              onPointerEnter={(event) => {
+                if (event.pointerType === 'mouse') onPreview?.(true)
+              }}
+              onPointerLeave={() => onPreview?.(false)}
+            />
+          ) : null}
         </motion.g>
-      </motion.g>
-    </g>
-  )
-}
-
-type MarkerProps = { pose: CarPose; active: boolean; reduce: boolean }
-
-/** Aktif ihlal aracının tavanında beliren uyarı işareti (dönmez, dünyada dik durur). */
-export function BayMarker({ pose, active, reduce }: MarkerProps) {
-  return (
-    <g transform={`translate(${pose.cx} ${pose.cy})`}>
-      <motion.g
-        className={styles.marker}
-        initial={false}
-        animate={{ opacity: active ? 1 : 0, scale: active ? 1 : 0.4 }}
-        transition={reduce ? { duration: 0 } : { duration: 0.5, delay: active ? 0.15 : 0, ease: revealEase }}
-      >
-        <circle r="11" />
-        <path d="M0-5.5v6.5M0 4.6v.4" />
       </motion.g>
     </g>
   )

@@ -165,11 +165,4 @@ export const hgsPageCopy = {
       { icon: 'truck', title: 'Ticari otopark işletmeleri', description: 'Yoğun giriş-çıkışlarda HGS, POS ve QR tahsilatını tek panelden izleyin.' },
     ] satisfies { icon: SectorIconName; title: string; description: string }[],
   },
-  cta: {
-    eyebrow: 'HGS merkezli otopark',
-    title: 'Otoparkınızı HGS merkezli insansız sisteme dönüştürmeye hazır mısınız?',
-    description: 'HGS, POS, QR, kiosk, bariyer ve raporlama katmanlarını trafik modelinize göre birlikte kurgulayalım.',
-    primary: 'Teklif Al',
-    secondary: 'İletişim',
-  },
 }

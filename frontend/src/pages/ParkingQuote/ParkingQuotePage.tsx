@@ -1,6 +1,5 @@
 import Button from '../../components/Button/index.ts'
 import ChipList from '../../components/ChipList/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import Section from '../../components/Section/index.ts'
 import Seo from '../../components/Seo/index.ts'
@@ -24,11 +23,9 @@ export default function ParkingQuotePage() {
         lead={hero.lead}
         aside={<ChipList items={[...hero.chips]} label={hero.rulesLabel} />}
         actions={
-          <Magnetic>
-            <Button href={`#${WIZARD_ID}`} size="lg" arrow>
-              {hero.start}
-            </Button>
-          </Magnetic>
+          <Button href={`#${WIZARD_ID}`} size="lg" arrow>
+            {hero.start}
+          </Button>
         }
         media={<HeroRules />}
         mediaOrder="last"

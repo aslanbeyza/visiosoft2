@@ -3,7 +3,6 @@ import { useId, useRef, useState } from 'react'
 import type { FocusEvent, PointerEvent } from 'react'
 import Button from '../../components/Button/index.ts'
 import CardGrid, { LinkCard } from '../../components/CardGrid/index.ts'
-import Magnetic from '../../components/Magnetic/index.ts'
 import Reveal, { revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
@@ -55,11 +54,9 @@ export default function AlprHero() {
               {copy.subtitle}
             </Reveal>
             <Reveal className={styles.actions} delay={0.6} y={16}>
-              <Magnetic>
-                <Button to={path('quote.index')} size="lg" arrow>
-                  {copy.quote}
-                </Button>
-              </Magnetic>
+              <Button to={path('quote.index')} size="lg" arrow>
+                {copy.quote}
+              </Button>
               <Button to={path('discovery.show')} size="lg" variant="secondary">
                 {copy.discovery}
               </Button>

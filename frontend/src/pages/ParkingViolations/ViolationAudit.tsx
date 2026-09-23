@@ -15,13 +15,7 @@ export default function ViolationAudit() {
         <SectionHeading id={titleIds.audit} eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} />
         <CheckList items={copy.checks} className={styles.checks} />
       </div>
-      <MediaFrame
-        className={styles.media}
-        ratio="3 / 2"
-        parallax={5}
-        chips={[{ label: copy.chip, tone: 'neutral' }]}
-        caption={copy.caption}
-      >
+      <MediaFrame className={styles.media} ratio="3 / 2" parallax={5} chips={[{ label: copy.chip, tone: 'neutral' }]}>
         <Picture
           src="/img/pages/otopark-960.webp"
           webp="/img/pages/otopark-960.webp 960w, /img/pages/otopark-1600.webp 1600w"
