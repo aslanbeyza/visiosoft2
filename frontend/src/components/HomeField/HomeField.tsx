@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
@@ -60,17 +60,6 @@ function CatalogLink({ to, label }: { to: string; label: string }) {
   )
 }
 
-function StepMark({ slug }: { slug: Flagship['slug'] }) {
-  return (
-    <svg viewBox="0 0 24 24" className={styles.mark} fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      {slug === 'kiosk' ? <><rect x="8" y="3" width="8" height="18" rx="1.5" /><path d="M10 7h4" /></> : null}
-      {slug === 'kamera-muhafaza' ? <><circle cx="12" cy="12" r="7" /><circle cx="12" cy="12" r="2.5" /></> : null}
-      {slug === 'visiobox' ? <><rect x="5" y="7" width="14" height="10" rx="1.5" /><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h3A2.5 2.5 0 0 1 16 5.5V7" /></> : null}
-      {slug === 'ledli-reklam-paneli' ? <><rect x="7" y="4" width="10" height="14" rx="1.5" /><path d="M10 21h4" /></> : null}
-    </svg>
-  )
-}
-
 function scrollToStep(story: HTMLElement, index: number, progress: number) {
   const top = story.getBoundingClientRect().top + window.scrollY
   const distance = story.offsetHeight - window.innerHeight
@@ -89,6 +78,8 @@ export default function HomeField() {
   const desktopRef = useRef(isDesktop)
   desktopRef.current = isDesktop
   const storyRef = useRef<HTMLDivElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const hintRef = useRef<HTMLParagraphElement>(null)
   const slotRefs = useRef<(HTMLDivElement | null)[]>([])
   const progressRef = useRef(0)
   const { scrollYProgress } = useScroll({ target: storyRef, offset: ['start start', 'end end'] })
@@ -96,10 +87,12 @@ export default function HomeField() {
   const fly = useSpring(raw, SPRING)
   const [active, setActive] = useState(0)
   const [stepLocal, setStepLocal] = useState(0)
+  const [hasScrolled, setHasScrolled] = useState(false)
 
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
     if (!desktopRef.current) return
     progressRef.current = value
+    setHasScrolled(value > 0.02)
   })
 
   useMotionValueEvent(fly, 'change', (value) => {
@@ -112,6 +105,24 @@ export default function HomeField() {
     setActive((prev) => (prev === next ? prev : next))
     setStepLocal(Math.max(0, Math.min(1, wrapped - next)))
   })
+
+  useLayoutEffect(() => {
+    const stage = stageRef.current
+    const hint = hintRef.current
+    if (!stage || !hint || !isDesktop) return
+    const align = () => {
+      const label = stage.querySelector<HTMLElement>(`[data-state="active"] .${styles.label}`)
+      if (!label) return
+      const stageBox = stage.getBoundingClientRect()
+      const labelBox = label.getBoundingClientRect()
+      const top = labelBox.top - stageBox.top + (labelBox.height - hint.offsetHeight) / 2
+      hint.style.top = `${top}px`
+    }
+    align()
+    const observer = new ResizeObserver(align)
+    observer.observe(stage)
+    return () => observer.disconnect()
+  }, [active, isDesktop])
 
   const prevIndex = (active - 1 + COUNT) % COUNT
   const tickFill = Math.max(stepLocal, 0.08)
@@ -154,10 +165,19 @@ export default function HomeField() {
           style={{ '--story': STORY } as CSSProperties}
         >
           <div className={styles.sticky}>
-            <div className={styles.stage}>
+            <div ref={stageRef} className={styles.stage}>
               <p className={styles.kicker}>{text.eyebrow}</p>
               <h2 id={text.titleId} className={styles.headline}>{text.title}</h2>
-              <p className={styles.hint}>{text.hint}</p>
+              <p ref={hintRef} className={styles.hint} data-hidden={hasScrolled ? 'true' : 'false'}>
+                <span className={styles.chevrons} aria-hidden="true">
+                  {[0, 1, 2].map((index) => (
+                    <svg key={index} className={styles.chevron} viewBox="0 0 16 8">
+                      <path d="M1.6 1.4 L8 6.1 L14.4 1.4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  ))}
+                </span>
+                <span className="sr-only">{text.hint}. {text.hintDetail}</span>
+              </p>
               <CatalogLink to={catalogHref} label={text.all} />
               <div className={styles.floor} aria-hidden="true" />
               {ITEMS.map((item, index) => (
@@ -190,9 +210,6 @@ export default function HomeField() {
                             <strong>{String(index + 1).padStart(2, '0')}</strong> / {String(COUNT).padStart(2, '0')}
                           </span>
                         </p>
-                        <span className={styles.markWrap}>
-                          <StepMark slug={item.slug} />
-                        </span>
                       </div>
                       <h3 className={styles.name}>{info.name}</h3>
                       <p className={styles.summary}>{info.summary}</p>

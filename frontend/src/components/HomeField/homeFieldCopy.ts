@@ -7,6 +7,7 @@ export const homeFieldCopy = {
   galleryLabel: 'Donanım vitrini',
   all: 'Tüm donanımlar',
   inspect: 'Ürünü incele',
-  hint: 'Kaydırın — ürünler uçar.',
+  hint: 'Aşağı kaydırın',
+  hintDetail: 'Kaydırdıkça sıradaki donanım iner.',
   stackHint: 'Kartı yana kaydırın.',
 } as const
