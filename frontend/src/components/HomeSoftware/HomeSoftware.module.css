@@ -28,7 +28,7 @@
 
 .device[data-kind='laptop'] {
   width: 100%;
-  max-width: 52rem;
+  max-width: 50rem;
 }
 
 .onboard {
@@ -78,15 +78,27 @@
   text-align: center;
 }
 
+/* Desktop: one product shot. Laptop behind, phone in front of its left edge; sizes are percentages of the stage,
+   so the phone stays about a quarter of the laptop's width at every screen size. */
 @media (min-width: 1024px) {
   .stage {
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: end;
-    column-gap: clamp(0.75rem, 2vw, 1.75rem);
+    display: block;
+    width: 100%;
+    max-width: 70rem;
+    margin-inline: auto;
+  }
+
+  .device[data-kind='laptop'] {
+    width: 84%;
+    max-width: none;
+    margin-left: auto;
   }
 
   .device[data-kind='phone'] {
-    justify-self: end;
-    width: min(18.75rem, 28vw);
+    position: absolute;
+    bottom: 0;
+    left: 3%;
+    z-index: 2;
+    width: 21%;
   }
 }

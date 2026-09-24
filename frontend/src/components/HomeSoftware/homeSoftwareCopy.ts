@@ -1,10 +1,10 @@
 export const homeSoftwareCopy = {
   eyebrow: 'Yazılım',
-  title: 'Zone ile tüm sahalar tek panelde',
-  lead: 'Oturumlar, tahsilat, abonelik ve cihazlar merkezi panelden yönetilir; sahadaki durum anlık izlenir.',
-  note: 'Telefon ve bilgisayarda aynı Partner paneli. Veriler demo; gerçek Zone’a yazılmaz.',
-  laptopLabel: 'MacBook üzerinde Zone',
-  phoneLabel: 'Telefonda Zone',
-  devicesLabel: 'Zone partner paneli, telefon ve bilgisayar',
+  title: 'Otopark yazılım çözümlerimiz',
+  lead: 'Otoparkınızı Partner panelinden yönetin. Aboneleriniz ParkBiz uygulamasından plaka ekler, abonelik başlatır ve borcunu öder.',
+  note: 'Bilgisayarda Partner yönetim paneli, telefonda ParkBiz mobil uygulaması. Veriler örnektir.',
+  laptopLabel: 'Bilgisayarda Partner yönetim paneli',
+  phoneLabel: 'Telefonda ParkBiz mobil uygulaması',
+  devicesLabel: 'Partner yönetim paneli ve ParkBiz mobil uygulaması',
   cta: 'Yazılım ürünlerini inceleyin',
 }

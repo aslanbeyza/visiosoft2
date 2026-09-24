@@ -24,6 +24,7 @@ export default function DeviceFrame({ kind, children, overlay, className = '' }:
   return (
     <div className={`${styles.device} ${className}`.trim()} data-kind={kind} style={style}>
       <div className={styles.screen}>{children}</div>
+      <div className={styles.screenGlare} aria-hidden="true" />
       <img className={styles.frame} src={frame.src} width={frame.width} height={frame.height} alt="" />
       {overlay}
     </div>

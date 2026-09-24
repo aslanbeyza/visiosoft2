@@ -439,12 +439,11 @@ function StatusClock() {
   return <span className="mono text-[13px] font-bold text-ink">{t}</span>;
 }
 
-function StatusBar() {
+function StatusBar({ notch = true }: { notch?: boolean }) {
   return (
-    <div className="relative flex h-[44px] shrink-0 items-end justify-between px-6 pb-1.5">
+    <div className={`relative flex h-[44px] shrink-0 justify-between px-6 ${notch ? 'items-end pb-1.5' : 'items-center'}`}>
       <StatusClock />
-      {}
-      <span aria-hidden className="absolute top-0 left-1/2 h-[26px] w-[38%] -translate-x-1/2 rounded-b-[14px] bg-ink" />
+      {notch ? <span aria-hidden className="absolute top-0 left-1/2 h-[26px] w-[38%] -translate-x-1/2 rounded-b-[14px] bg-ink" /> : null}
       <span className="flex items-center gap-1.5 text-ink">
         <MIcon name="bars" size={14} />
         <MIcon name="wifi" size={14} />
@@ -3508,7 +3507,8 @@ function ScreenBody({ c, route }: { c: Ctx; route: MobileRoute }) {
   }
 }
 
-function Phone({ c }: { c: Ctx }) {
+/** `bare` draws only the screen (no bezel, side buttons or notch) so a device mockup can supply the frame. */
+function Phone({ c, bare = false }: { c: Ctx; bare?: boolean }) {
   const state = usePanelState();
   const dispatch = usePanelDispatch();
   const m = state.mobile;
@@ -3531,16 +3531,19 @@ function Phone({ c }: { c: Ctx }) {
   return (
 
     <div
-      className="app-phone relative shrink-0 rounded-[2.6rem] border border-steel/60 bg-ink p-[13px] shadow-2xl"
-      style={{ width: 416, height: 870 }}
+      className={bare ? 'app-phone relative h-full w-full' : 'app-phone relative shrink-0 rounded-[2.6rem] border border-steel/60 bg-ink p-[13px] shadow-2xl'}
+      style={bare ? undefined : { width: 416, height: 870 }}
     >
-      {}
-      <span aria-hidden className="absolute top-[150px] -left-[3px] h-[52px] w-[3px] rounded-l bg-ink" />
-      <span aria-hidden className="absolute top-[215px] -left-[3px] h-[52px] w-[3px] rounded-l bg-ink" />
-      <span aria-hidden className="absolute top-[180px] -right-[3px] h-[74px] w-[3px] rounded-r bg-ink" />
+      {bare ? null : (
+        <>
+          <span aria-hidden className="absolute top-[150px] -left-[3px] h-[52px] w-[3px] rounded-l bg-ink" />
+          <span aria-hidden className="absolute top-[215px] -left-[3px] h-[52px] w-[3px] rounded-l bg-ink" />
+          <span aria-hidden className="absolute top-[180px] -right-[3px] h-[74px] w-[3px] rounded-r bg-ink" />
+        </>
+      )}
 
-      <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[2.05rem] bg-carbon">
-        <StatusBar />
+      <div className={`relative flex h-full w-full flex-col overflow-hidden bg-carbon ${bare ? '' : 'rounded-[2.05rem]'}`}>
+        <StatusBar notch={!bare} />
 
         {m.authed && !isRoot ? (
           <StackHeader
@@ -3816,6 +3819,12 @@ function useMobileRuntime() {
   );
 
   return { state, dispatch, nav, m, c };
+}
+
+/** The app screen only (390×844), for placing inside a device mockup. */
+export function MobileScreen() {
+  const { c } = useMobileRuntime();
+  return <Phone c={c} bare />;
 }
 
 export function MobilePhone({ scale = 1 }: { scale?: number }) {

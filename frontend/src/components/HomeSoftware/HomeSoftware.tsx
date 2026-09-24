@@ -1,12 +1,15 @@
-import { useRef, useState } from 'react'
+import { lazy, Suspense, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
 import DeviceFrame from '../DeviceFrame/index.ts'
 import type { DeviceKind } from '../DeviceFrame/index.ts'
 import { revealEase } from '../Reveal/index.ts'
-import PanelTour from './PanelTour.tsx'
+import PartnerPanelTour from './PartnerPanelTour.tsx'
 import { homeSoftwareCopy as text } from './homeSoftwareCopy.ts'
 import styles from './HomeSoftware.module.css'
+
+// The ParkBiz app is large (~160 KB); load it only when the section renders.
+const ParkBizPhoneApp = lazy(() => import('./ParkBizPhoneApp.tsx'))
 
 export default function ZoneStage() {
   const reduce = useReducedMotion()
@@ -23,7 +26,9 @@ export default function ZoneStage() {
         onPointerDown={() => setOnboard(false)}
       >
         <DeviceChrome kind="phone" title={text.phoneLabel} visible={mediaInView} reduce={Boolean(reduce)}>
-          <PanelTour layout="phone" />
+          <Suspense fallback={null}>
+            <ParkBizPhoneApp />
+          </Suspense>
         </DeviceChrome>
         <DeviceChrome
           kind="laptop"
@@ -32,7 +37,7 @@ export default function ZoneStage() {
           reduce={Boolean(reduce)}
           onboard={onboard && mediaInView}
         >
-          <PanelTour layout="desktop" />
+          <PartnerPanelTour />
         </DeviceChrome>
       </div>
       <p className={styles.caption}>{text.note}</p>

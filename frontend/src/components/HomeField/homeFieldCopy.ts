@@ -2,7 +2,7 @@
 export const homeFieldCopy = {
   titleId: 'saha-title',
   eyebrow: 'Vitrin',
-  title: 'Sahada duran donanım.',
+  title: 'Sahadaki donanımlarımız.',
   lead: 'Kameradan kioska, yakından. Showroomda duran ürünler.',
   galleryLabel: 'Donanım vitrini',
   all: 'Tüm donanımlar',
