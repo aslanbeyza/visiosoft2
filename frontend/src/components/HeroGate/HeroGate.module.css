@@ -120,6 +120,61 @@
   color: #b8bbcc;
 }
 
+:global(.gateControls) {
+  position: absolute;
+  left: clamp(20px, 4vw, 64px);
+  bottom: max(14px, calc(100% - 100svh + env(safe-area-inset-bottom, 0px) + 16px));
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 999px;
+  background: rgb(18 20 28 / 0.38);
+  color: #f4f6fa;
+  backdrop-filter: blur(18px) saturate(1.35);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+  box-shadow:
+    0 16px 40px rgb(0 0 0 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.16);
+}
+
+:global(.gateControl) {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  line-height: 0;
+  cursor: pointer;
+}
+
+:global(.gateControl:hover) {
+  background: rgb(255 255 255 / 0.1);
+}
+
+:global(.gateControl:focus-visible) {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+
+:global(.gateControl[hidden]),
+:global(.gateSep[hidden]) {
+  display: none;
+}
+
+:global(.gateSep) {
+  width: 1px;
+  height: 16px;
+  background: rgb(255 255 255 / 0.22);
+  flex: none;
+}
+
 @media (min-width: 761px) {
   .hero {
     display: block;

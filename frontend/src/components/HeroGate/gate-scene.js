@@ -29,17 +29,21 @@ import { HDRLoader } from 'three/examples/jsm/loaders/HDRLoader.js';
       const c = document.createElement('canvas');
       c.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.4s ease';
       this.appendChild(c); this.canvas = c;
-      // Play/pause control: centred SVG glyphs (the global button reset left-aligns text), sits above the hero overlays.
-      // visiosoft2: when the scene reaches the bottom of the viewport (full-screen hero) the controls clear the fixed WhatsApp button
-      // (--fab-*, index.css); when the scene is shorter than the viewport (phones) max() falls back to 14px. No media query needed.
-      const pause=document.createElement('button');pause.type='button';pause.style.cssText='position:absolute;right:18px;bottom:max(14px,calc(100% - 100svh + var(--fab-inset,0px) + var(--fab-size,0px) + env(safe-area-inset-bottom,0px) + 16px));z-index:20;display:grid;place-items:center;padding:0;border:1px solid #ffffff35;border-radius:6px;background:#11172699;color:#d4dbe7;width:36px;height:32px;cursor:pointer;line-height:0';
-      const pauseIcon=p=>p?'<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M3.5 1.5v11l9-5.5z"/></svg>':'<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><rect x="2.5" y="1.5" width="3.2" height="11" rx=".6"/><rect x="8.3" y="1.5" width="3.2" height="11" rx=".6"/></svg>';
+      // One frosted capsule, aligned with the hero copy on the left.
+      const glyph=(body,filled)=>`<svg width="18" height="18" viewBox="0 0 18 18" ${filled?'fill="currentColor"':'fill="none" stroke="currentColor" stroke-width="2.55" stroke-linecap="round" stroke-linejoin="round"'} aria-hidden="true">${body}</svg>`;
+      const controls=document.createElement('div');controls.className='gateControls';controls.setAttribute('role','group');controls.setAttribute('aria-label','Sahne kontrolleri');
+      const control=(label,svg)=>{const b=document.createElement('button');b.type='button';b.className='gateControl';b.setAttribute('aria-label',label);b.innerHTML=svg;return b;};
+      const sep=()=>{const s=document.createElement('span');s.className='gateSep';s.setAttribute('aria-hidden','true');return s;};
+      const zoomOut=control('Uzaklaştır',glyph('<path d="M4.25 9h9.5"/>'));zoomOut.onclick=()=>this.zoomBy(1.25);
+      const zoomIn=control('Yakınlaştır',glyph('<path d="M9 4.25v9.5M4.25 9h9.5"/>'));zoomIn.onclick=()=>this.zoomBy(.8);
+      const pause=control('Animasyonu durdur','');
+      const pauseSep=sep();
+      const pauseIcon=p=>p?glyph('<path d="M6.2 3.6v10.8l8.1-5.4z"/>',true):glyph('<rect x="3.9" y="3.4" width="3.45" height="11.2" rx="1.15"/><rect x="10.65" y="3.4" width="3.45" height="11.2" rx="1.15"/>',true);
       const syncPause=()=>{pause.innerHTML=pauseIcon(this.userPaused);pause.setAttribute('aria-label',this.userPaused?'Animasyonu oynat':'Animasyonu durdur');pause.setAttribute('aria-pressed',String(!!this.userPaused));};
-      syncPause();pause.onclick=()=>{this.userPaused=!this.userPaused;syncPause();this.syncPlayback?.();};this.appendChild(pause);
-      const zoomBtn=(label,dir,right)=>{const b=document.createElement('button');b.type='button';b.style.cssText=pause.style.cssText;b.style.right=right+'px';b.setAttribute('aria-label',label);b.innerHTML=dir>0?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 2.5v9M2.5 7h9"/></svg>':'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2.5 7h9"/></svg>';b.onclick=()=>this.zoomBy(dir>0?.8:1.25);this.appendChild(b);return b;};
-      zoomBtn('Yakınlaştır',1,62);zoomBtn('Uzaklaştır',-1,106);
+      syncPause();pause.onclick=()=>{this.userPaused=!this.userPaused;syncPause();this.syncPlayback?.();};
+      controls.append(zoomOut,sep(),zoomIn,pauseSep,pause);this.appendChild(controls);
       this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      pause.hidden=this.reduced;this.visible = true; this.phase = null;
+      pause.hidden=this.reduced;pauseSep.hidden=this.reduced;this.visible = true; this.phase = null;
       // Click-and-drag on the hero orbits the camera; plain mouse movement does nothing. The sweep resumes 3 s after release (see applyFrame).
       this.pointerHost = this.closest('[data-hero]') || this; c.style.cursor = 'grab';
       this.dragStart = (e) => { if (e.button !== 0 || e.target.closest('a,button,input,select,textarea')) return; if (e.pointerType === 'touch') { this.touches.set(e.pointerId, { x: e.clientX, y: e.clientY }); if (this.touches.size === 2) { const [a, b] = [...this.touches.values()]; this.pinch = { d0: Math.hypot(a.x - b.x, a.y - b.y) || 1, z0: this.zoomTarget }; this.drag = null; if (this.steer) { this.steer.active = false; this.steer.at = this.sceneTime || 0; } return; } if (this.touches.size > 2 || e.target !== c) return; } if (e.pointerType !== 'touch') e.preventDefault(); this.drag = { id: e.pointerId, x: e.clientX, y: e.clientY, yaw: this.cam ? this.cam.yaw : 0, pitch: this.cam ? this.cam.pitch : 0 }; this.pointerHost.style.userSelect = 'none'; c.style.cursor = 'grabbing'; try { this.pointerHost.setPointerCapture(e.pointerId); } catch (_) {} };
