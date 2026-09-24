@@ -94,10 +94,6 @@
   }
 }
 
-/*
- * İçindekiler olan yazılarda gövde 64rem'lik iki sütundur (metin + 15rem içindekiler; Prose ile aynı ölçüler).
- * Başlık da aynı ızgarayı kurar ve metin sütununa oturur; böylece geri bağlantı, h1 ve paragraflar tek sol kenarda hizalanır.
- */
 @media (min-width: 1024px) {
   .header[data-layout='toc'] .inner {
     display: grid;

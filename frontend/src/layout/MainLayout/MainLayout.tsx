@@ -9,17 +9,10 @@ import { routeNameFromPath } from '../../lib/index.ts'
 import { preloadRoute } from '../../pages/registry.ts'
 import styles from './MainLayout.module.css'
 
-/**
- * Site iskeleti: açılış perdesi, navbar, rota perdesiyle değişen sayfa içeriği, footer ve WhatsApp düğmesi.
- * Sayfa değişiminde başa dönme / #bağlantıya gitme PageTransition içinde, perde sayfayı örterken yapılır.
- * `?pdf=1` (arka uç PDF çıktısı): açılış perdesi, navbar (gizlenme davranışıyla birlikte) ve WhatsApp düğmesi çizilmez;
- * rota perdesini PageTransition kendisi atlar.
- */
 export default function MainLayout() {
   const { search } = useLocation()
   const pdf = isPdfSearch(search)
 
-  // Niyet anında ön yükleme: iç bağlantının üzerine gelince, odaklanınca ya da dokununca parçası indirilir.
   useEffect(() => {
     const requested = new Set<string>()
 
@@ -40,7 +33,7 @@ export default function MainLayout() {
 
       const normalized = url.pathname.replace(/\/+$/, '') || '/'
       const name = routeNameFromPath(normalized)
-      // routeNameFromPath bilinmeyen yollar için 'home' döner; gerçek ana sayfa değilse 404 parçası için yükleme yapılmaz.
+
       if (name === 'home' && normalized !== '/') return
       if (requested.has(name)) return
       requested.add(name)

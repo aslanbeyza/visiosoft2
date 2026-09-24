@@ -10,7 +10,6 @@ import TriadDiagram from './TriadDiagram.tsx'
 import { alprCopy as copy } from './alprCopy.ts'
 import styles from './AlprHero.module.css'
 
-// Olayın geldiği kartın listedeki sırası
 function cardIndex(target: EventTarget | null, root: HTMLElement | null): number | null {
   if (!root || !(target instanceof Element)) return null
   const item = target.closest('li')
@@ -18,7 +17,6 @@ function cardIndex(target: EventTarget | null, root: HTMLElement | null): number
   return Array.prototype.indexOf.call(item.parentElement.children, item)
 }
 
-/** Satış sayfası hero'su: başlık + üç bileşen şeması, altında şemayla eşleşen üç kart. */
 export default function AlprHero() {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())

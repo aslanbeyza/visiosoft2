@@ -118,7 +118,6 @@
   transform: rotate(180deg);
 }
 
-/* Akordeon: kapalıyken inert + görünmez, açılırken satırlar yumuşakça genişler. */
 .group {
   display: grid;
   grid-template-rows: 0fr;
@@ -136,7 +135,6 @@
     visibility 0s linear 0s;
 }
 
-/* Alt bağlantıların negatif kenar boşluğu (hover zemini, odak halkası) kırpılmasın. */
 .groupClip {
   min-height: 0;
   margin-inline: -0.5rem;
@@ -265,7 +263,6 @@
   line-height: 1.45;
 }
 
-/* Alt blok: CTA ve iletişim, içerik kısaysa ekranın dibine oturur. */
 .foot {
   margin-top: auto;
   padding-top: 2rem;

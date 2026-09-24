@@ -8,7 +8,7 @@ const BASE = 96
 const BEAT_X = [150, 450, 750, 1050]
 const WIDTH = 1200
 const DURATION = 5.6
-/** İz çizgisinin sağ kenara ulaştığı an (döngünün oranı); CSS'teki %72 ile aynı. */
+
 const TRACE_END = 0.72
 
 const beat = (cx: number) =>
@@ -34,10 +34,6 @@ function Trace({ className }: { className: string }) {
   )
 }
 
-/**
- * Hero anı (M3): EKG çizgisi soldan sağa çizilir, tarama çizgisi her hizmetin atımından geçerken
- * altındaki bağlantıyı vurgular. Yalnızca görünürken ve sekme açıkken döner; duraklatılabilir.
- */
 export default function EkgStrip({ beats, label, pauseLabel, playLabel }: Props) {
   const reduce = Boolean(useReducedMotion())
   const visible = usePageVisible()

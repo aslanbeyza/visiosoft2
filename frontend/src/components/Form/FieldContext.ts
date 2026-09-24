@@ -1,6 +1,5 @@
 import { createContext, useContext, useId } from 'react'
 
-/** Field'ın içine yerleştirilen kontrolün otomatik aldığı bağlam. */
 export type FieldControlContextValue = {
   id: string
   describedBy?: string
@@ -18,10 +17,6 @@ type OwnControlProps = {
   required?: boolean
 }
 
-/**
- * Kontrolün kendi prop'ları önceliklidir; verilmeyenler en yakın Field'dan gelir.
- * Field dışında kullanıldığında kimlik useId ile üretilir.
- */
 export function useFieldControl(own: OwnControlProps) {
   const context = useContext(FieldContext)
   const fallbackId = useId()

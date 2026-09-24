@@ -20,7 +20,7 @@ export default function ServicesPage() {
     title: step.title,
     description: step.description,
   }))
-  // İlk destek kartı bento vurgusu: lacivert, iki satır boyu, "7/24" büyük gösterge rakamı.
+
   const support = copy.support.items.map((item, index) => ({
     icon: <FeatureIcon name={item.icon} />,
     title: item.title,

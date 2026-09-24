@@ -10,7 +10,6 @@ import SectorIcon from './SectorIcon.tsx'
 import { homeSectorsCopy as text } from './homeSectorsCopy.ts'
 import styles from './HomeSectors.module.css'
 
-/** Hücre beyaz kalır (çizgi zemini görünmesin); yalnızca içerik yükselir, ikon çizgileri ardından çizilir. */
 const cell: Variants = { hidden: {}, show: {} }
 
 const content: Variants = {
@@ -22,7 +21,6 @@ const content: Variants = {
   }),
 }
 
-/** Ana sayfa 4.5 — Kullanım alanları: saç çizgisi ızgarada altı sektör; çizgi ikonlar bir kez çizilir. */
 export default function HomeSectors() {
   const path = usePath()
   const reduce = useReducedMotion()

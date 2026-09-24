@@ -11,7 +11,6 @@ type LedBoardProps = {
   reduce: boolean | null
 }
 
-/** Saha LED tarife panosu — üstte nokta matris ekran, altta ücret tarifesi. */
 export default function LedBoard({ lines, title, colTime, colPrice, rows, highlight, stand = false, reduce }: LedBoardProps) {
   return (
     <div className={stand ? 'flex flex-col' : 'contents'}>

@@ -18,7 +18,6 @@ import styles from './PrsSections.module.css'
 
 const stepIcons: FeatureIconName[] = ['camera', 'plate', 'settings', 'barrier']
 
-/** /plaka-tanima-sistemi — eğitici çözüm sayfası. */
 export default function PlateRecognitionSystem() {
   const path = usePath()
 

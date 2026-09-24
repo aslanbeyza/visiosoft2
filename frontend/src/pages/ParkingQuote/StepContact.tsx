@@ -19,7 +19,6 @@ type StepContactProps = {
 const { contact } = quoteCopy
 const text = (data: FormData, key: string) => String(data.get(key) ?? '').trim()
 
-/** 3. adım: iletişim bilgileri; seçimler ve önerilen ürünler mevcut sözleşmeyle gönderilir. */
 export default function StepContact({ choices, items, onBack, onSuccess, autoFocus, total }: StepContactProps) {
   const { config } = useLocale()
   const siteKey = config?.turnstile_site_key || undefined

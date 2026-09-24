@@ -20,10 +20,8 @@ import styles from './ParkingReportsPage.module.css'
 
 const tones = ['paper', 'surface', 'paper'] as const
 
-// Rozetteki sayı metinden değil gruplardan gelir; rapor eklenince metin eskimez.
 const totalReports = reportGroups.reduce((sum, group) => sum + group.items.length, 0)
 
-// Arkadan öne: yeni rapor kartı en arkada, operasyonel raporlar en önde.
 const deckCards: DeckCard[] = [
   {
     key: copy.newReports.anchor,

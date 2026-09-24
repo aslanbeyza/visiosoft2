@@ -7,16 +7,11 @@
   min-height: 60svh;
 }
 
-/*
- * Parça beklenirken yer tutucu (RouteFallback). lvh, mobilde adres çubuğu açıkken görünen alandan (svh) büyüktür;
- * footer'ın üst kenarı ilk karede görünür alanın altında kalır. Bağlanan kısa sayfalar (404) bundan etkilenmez.
- */
 .hold {
   min-height: 100vh;
   min-height: 100lvh;
 }
 
-/* Rota perdesi: navbar dahil her şeyin üstünde, diyalogların altında. */
 .curtain {
   position: fixed;
   inset: 0;
@@ -60,7 +55,6 @@
   stroke-linejoin: round;
 }
 
-/* Parça beklenirken markanın altında kısa bir çizgi gidip gelir; yalnızca "covered" evresinde. */
 .markLine {
   display: block;
   width: 3.25rem;
@@ -89,7 +83,6 @@
   animation: markSweep 1.1s ease-in-out infinite;
 }
 
-/* Tembel parça ilerleme çizgisi (body'ye portallanır). */
 .progress {
   position: fixed;
   top: 0;
@@ -120,7 +113,6 @@
   white-space: nowrap;
 }
 
-/* Parça indirilemedi: düz hata görünümü. */
 .error {
   padding: clamp(8rem, 16vw, 11rem) 0 clamp(4rem, 8vw, 6rem);
   background: #fff;

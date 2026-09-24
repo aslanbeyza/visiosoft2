@@ -95,7 +95,6 @@
   }
 }
 
-/* Kısa masaüstü: başlık biraz küçülür, dizi ilk ekranda kalır. */
 @media (min-width: 1024px) and (max-height: 860px) {
   .title {
     font-size: clamp(2.75rem, 4vw + 0.75rem, 4.75rem);

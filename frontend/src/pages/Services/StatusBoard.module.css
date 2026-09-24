@@ -107,7 +107,6 @@
   fill: rgb(255 255 255 / 0.85);
 }
 
-/* Kamera karesinde yukarıdan aşağı inen ince tarama çizgisi. */
 .scan {
   position: absolute;
   inset: 0;
@@ -156,7 +155,6 @@
   font-size: 0.9rem;
 }
 
-/* M12: satır belirirken üst kenarda süpüren çizgi. */
 .sweep {
   position: absolute;
   top: -1px;

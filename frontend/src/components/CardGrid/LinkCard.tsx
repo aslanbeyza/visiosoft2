@@ -1,17 +1,4 @@
-/**
- * Kullanım (CardGrid içinde):
- * <LinkCard
- *   to={path('hardware-products.kiosk')}
- *   eyebrow="Otopark Kiosk Sistemleri"
- *   title="İnsansız Çıkış Ödeme Kiosk"
- *   description="Plaka girişi olmadan çıkışta ödeme."
- *   image={{ src: '/img/products/cards/kiosk.webp', avif: '/img/products/cards/kiosk.avif', width: 238, height: 900, alt: '', fit: 'contain' }}
- *   index={1}
- *   meta="300 × 1800 mm"
- *   action="İncele"
- * />
- * Görsel sahnesi kırpılmamış kapsayıcıdan (li) tetiklenen clip-path ile açılır; kartın tamamı bağlantıdır.
- */
+
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
@@ -30,7 +17,7 @@ export type LinkCardImage = {
   width: number
   height: number
   alt: string
-  /** contain: ürün görseli sahnede boşlukla · cover: fotoğraf tüm sahneyi doldurur. */
+
   fit?: 'contain' | 'cover'
 }
 
@@ -40,15 +27,15 @@ export type LinkCardProps = {
   title: string
   description?: string
   image?: LinkCardImage
-  /** Görünen sıra numarası (01, 02…). */
+
   index?: number
-  /** Küçük gri ek bilgi (tarih, ölçü, okuma süresi). */
+
   meta?: string
   external?: boolean
-  /** Ok yanındaki eylem etiketi (ör. "İncele"). */
+
   action?: string
   tone?: 'light' | 'dark'
-  /** Başlık düzeyi; bölüm başlığı h2 ise h3 (varsayılan). */
+
   headingAs?: 'h3' | 'h4'
   className?: string
 }
@@ -103,7 +90,7 @@ export default function LinkCard({
   const reduce = useReducedMotion()
   const { columns, position, animateLayout } = useCardGrid()
   const ref = useRef<HTMLLIElement>(null)
-  // Kırpılmış sahne kendi görünürlüğünü bildiremez; açılış kırpılmamış li üzerinden tetiklenir.
+
   const inView = useInView(ref, { once: true, amount: 0.25 })
   const delay = (position % columns) * 0.08
   const isExternal = external ?? isExternalHref(to)

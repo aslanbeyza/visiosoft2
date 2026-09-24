@@ -1,8 +1,8 @@
-/** Ana sayfa 4.2 Kurumsal bölümünün metinleri (HOME3.md §4.2, müşteri onaylı). */
+
 export const homeTrustCopy = {
   eyebrow: 'Kurumsal',
   title: 'Tek işimiz otopark otomasyonu.',
-  // "Kurulumdan desteğe" ifadesi 2. ilkede tekrarlandığı için kısaltıldı (tekrar önleme).
+
   lead: 'Donanımdan yazılıma tüm süreç aynı ekipte.',
   pillars: [
     {
@@ -13,13 +13,13 @@ export const homeTrustCopy = {
     {
       icon: 'support',
       title: 'Kurulumdan desteğe tek muhatap',
-      // Müdahale süresi cümlesi Güvence bölümünde geçtiği için burada kısaltıldı (entegrasyon, tekrar önleme).
+
       text: 'Keşif, kurulum ve destek aynı ekipten.',
     },
     {
       icon: 'records',
       title: 'Her işlem kayıtlı ve raporlanabilir',
-      // e-fatura/e-arşiv, Sistem akışının 6. adımında anlatılıyor; burada kısaltıldı.
+
       text: 'Giriş, çıkış, ödeme ve bariyer komutları zaman damgalı loglanır ve raporlara aktarılır.',
     },
   ],

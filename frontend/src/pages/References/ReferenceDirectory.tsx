@@ -17,7 +17,6 @@ const options: { key: Filter; label: string; count: number }[] = [
   ...sectorOrder.map((key) => ({ key, label: sectorLabels[key], count: sectorCounts[key] })),
 ]
 
-/** Tüm referanslar: sektör süzgeci (aria-pressed düğmeler) ve adlarıyla logo ızgarası. */
 export default function ReferenceDirectory() {
   const [filter, setFilter] = useState<Filter>('all')
   const [announcement, setAnnouncement] = useState('')
@@ -26,7 +25,7 @@ export default function ReferenceDirectory() {
 
   const select = (key: Filter, count: number) => {
     setFilter(key)
-    // Yalnızca kullanıcı seçim yaptığında duyurulur
+
     setAnnouncement(copy.status(count))
   }
 

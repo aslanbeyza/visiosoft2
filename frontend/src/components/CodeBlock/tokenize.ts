@@ -1,4 +1,3 @@
-/** Bağımlılıksız, küçük sözcük ayırıcı: dize, sayı, yorum, anahtar sözcük, HTTP yöntemi, adres ve noktalama. */
 
 export type TokenType = 'text' | 'string' | 'key' | 'number' | 'comment' | 'keyword' | 'method' | 'url' | 'punct'
 
@@ -38,7 +37,6 @@ const METHODS = new Set(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIO
 
 const HASH_COMMENT_LANGUAGES = new Set(['bash', 'sh', 'shell', 'zsh', 'yaml', 'yml', 'python', 'py', 'toml', 'ini'])
 
-/* Sıra önemli: dize → yorum → adres → sayı → sözcük → noktalama. Yorumdaki // adreslerin "://" kısmıyla karışmaz. */
 const SLASH_PATTERN = /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|((?<![:\w])\/\/.*)|(\bhttps?:\/\/\S+|\bwss?:\/\/\S+)|(\b\d+(?:\.\d+)?\b)|([A-Za-z_$][\w$]*)|([{}[\]():,;=<>+\-*/%!&|?.])/g
 const HASH_PATTERN = /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(#.*)|(\bhttps?:\/\/\S+|\bwss?:\/\/\S+)|(\b\d+(?:\.\d+)?\b)|([A-Za-z_$][\w$-]*)|([{}[\]():,;=<>+\-*/%!&|?.])/g
 

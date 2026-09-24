@@ -67,18 +67,4 @@ export const rackKabinDetail: ProductDetailData = {
     device: 'controlBox',
     deviceLabel: name,
   },
-  drawing: {
-    image: drawingImage(
-      'rack-kabin',
-      1228,
-      860,
-      `${name} teknik çizimi: 485 mm genişlik, 385 mm yükseklik ve 350 mm derinlik ölçüleriyle yan, ön ve açık kapaklı görünüşler`,
-    ),
-    text: 'Yan, ön ve açık kapaklı görünüşler ile izometrik görünüm tek paftada yer alır. Çizimi büyütüp ölçüleri yakından inceleyebilirsiniz.',
-    dimensions: [
-      { label: 'Genişlik', value: '485 mm' },
-      { label: 'Yükseklik', value: '385 mm' },
-      { label: 'Derinlik', value: '350 mm' },
-    ],
-  },
 }

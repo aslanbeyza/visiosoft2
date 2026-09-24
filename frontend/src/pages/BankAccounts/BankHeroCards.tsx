@@ -4,11 +4,6 @@ import { revealEase } from '../../components/Reveal/index.ts'
 import type { BankAccount } from './bankAccountsCopy.ts'
 import styles from './BankHeroCards.module.css'
 
-/**
- * Banka Hesapları kahraman sahnesi: iki hesap kartı (gerçek banka adı, hesap sahibi ve para birimleri)
- * aşağıdan dağıtılır gibi gelip hafif açıyla üst üste oturur; alt çizgi ve para birimi etiketleri sırayla belirir.
- * Dekoratiftir (değerler aşağıdaki kartlarda); hareket azaltmada son hâl doğrudan görünür.
- */
 const POSES = [
   { rotate: -5, from: 90 },
   { rotate: 4, from: 130 },

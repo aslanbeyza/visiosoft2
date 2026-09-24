@@ -3,7 +3,6 @@ import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
 
 type InfraItem = { icon: FeatureIconName; title: string; description: string }
 
-/** Karşılaştırma sayfası metinleri; mevcut sayfa metninden alınmış, mutlak ifadeler yumuşatılmıştır. */
 export const comparisonCopy = {
   seoTitle: 'Visiosoft ve Geleneksel Sistemler - Karşılaştırma',
   seoDescription:
@@ -41,7 +40,7 @@ export const comparisonCopy = {
 
   contrast: {
     eyebrow: 'İki yaklaşım',
-    // "ya da" bölünmesin diye aradaki boşluk bölünmez boşluktur (TextReveal yalnızca normal boşlukta böler).
+
     title: 'Kör noktalar ya da tam kontrol.',
     versus: 'ya da',
     traditional: {

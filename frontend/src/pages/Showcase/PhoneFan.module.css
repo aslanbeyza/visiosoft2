@@ -42,7 +42,6 @@
   width: clamp(8rem, 26vw, 16.5rem);
 }
 
-/* Paralaks sarmalayıcısı: grid'in justify-items: center'ı onu içerik genişliğine (0) daraltmasın */
 .lift {
   justify-self: stretch;
   width: 100%;
@@ -55,7 +54,6 @@
   transform-origin: 50% 100%;
 }
 
-/* Ekran görüntüsü çerçevenin saydam açıklığının altında durur */
 .screen {
   position: absolute;
   left: 6.9%;

@@ -5,10 +5,6 @@ import { spotlightLeave, spotlightMove } from '../../components/FeatureGrid/spot
 import { revealEase } from '../../components/Reveal/index.ts'
 import styles from './ChannelTiles.module.css'
 
-/**
- * İletişim kanalları: üç büyük kutucuk (WhatsApp, bayi kanal yöneticisi, e-posta).
- * Liste görünüme girince kutucuklar sırayla yükselir, ikon çizgileri çizilir; fare ışığı kartı izler (M10).
- */
 export type ChannelTile = {
   key: string
   eyebrow: string

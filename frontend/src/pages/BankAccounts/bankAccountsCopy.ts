@@ -1,8 +1,8 @@
 export type BankField = {
   label: string
-  /** Panoya kopyalanan değer (boşluksuz). */
+
   value: string
-  /** Ekranda gösterilen biçim. */
+
   display?: string
   mono?: boolean
 }
@@ -12,9 +12,9 @@ export type BankAccount = {
   name: string
   holder: string
   ibans: BankField[]
-  /** Kopyalanabilir ek bilgiler (hesap no, SWIFT). */
+
   codes: BankField[]
-  /** Yalnızca okunur ek bilgiler (şube). */
+
   details: { label: string; value: string }[]
 }
 

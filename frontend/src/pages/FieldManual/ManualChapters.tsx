@@ -8,10 +8,10 @@ import styles from './ManualChapters.module.css'
 export type ManualChapter = { id: string; title: string }
 
 type ManualChaptersProps = {
-  /** null: veri bekleniyor; boş dizi: gösterilecek bölüm yok. */
+
   chapters: ManualChapter[] | null
   title?: string
-  /** PDF modunda hareket kapatılır. */
+
   static?: boolean
 }
 
@@ -25,10 +25,6 @@ function Arrow() {
   )
 }
 
-/**
- * Hero sahnesi: kılavuzun cilt sırtı. Sol kenardaki lacivert sırt çizgisi yukarıdan aşağı çizilir, her bölüm satırı
- * altındaki çizgiyle birlikte soldan süpürülerek belirir (M3 + M12). Satırlar ilgili başlığa atlayan bağlantılardır.
- */
 export default function ManualChapters({ chapters, title = copy.chaptersTitle, static: isStatic = false }: ManualChaptersProps) {
   const reduce = Boolean(useReducedMotion()) || isStatic
   const ref = useRef<HTMLElement>(null)

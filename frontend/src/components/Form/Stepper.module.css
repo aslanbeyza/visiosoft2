@@ -43,7 +43,6 @@ button.trigger:focus-visible {
   outline-offset: 4px;
 }
 
-/* İşaretçi: numara ve çizilen onay işareti üst üste durur. */
 .marker {
   position: relative;
   z-index: 1;
@@ -94,7 +93,6 @@ button.trigger:focus-visible {
   transition: color 0.3s var(--ease-apple);
 }
 
-/* Bağlantı çizgisi: bu işaretçinin sağ kenarından sonrakinin sol kenarına. */
 .line {
   position: absolute;
   top: calc(1.125rem - 1px);
@@ -113,8 +111,6 @@ button.trigger:focus-visible {
   transform-origin: left center;
   transition: transform 0.6s var(--ease-apple);
 }
-
-/* Durumlar */
 
 .step[data-state='current'] .marker {
   border-color: var(--color-navy-600);

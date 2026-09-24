@@ -1,4 +1,4 @@
-/* Kamera görüntüsü çizimi (PlateSvg + PlateOverlays) */
+
 .svg {
   display: block;
   width: 100%;
@@ -116,7 +116,6 @@
   stroke-linejoin: round;
 }
 
-/* Yağış yalnızca görünürken ve otomatik geçiş açıkken akar. */
 .svg[data-live='true'] .fall[data-kind='rain'] {
   animation: rain 0.7s linear infinite;
 }
@@ -137,7 +136,6 @@
   }
 }
 
-/* Bölüm yerleşimi */
 .layout {
   display: grid;
   gap: clamp(2.5rem, 5vw, 4rem);
@@ -377,7 +375,6 @@
   white-space: nowrap;
 }
 
-/* Dar ekranda beş koşul tek satırda eşit hücreler; "Çamur" alt satırda yalnız kalmaz. */
 @media (max-width: 519px) {
   .options {
     display: grid;

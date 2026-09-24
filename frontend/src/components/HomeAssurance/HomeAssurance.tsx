@@ -7,7 +7,6 @@ import { homeAssuranceCopy as text } from './homeAssuranceCopy.ts'
 import { arrowPath } from './icons.ts'
 import styles from './HomeAssurance.module.css'
 
-/** Ana sayfa güvence: solda iddia, sağda destek / güvenlik / entegrasyon kartları. */
 export default function HomeAssurance() {
   const path = usePath()
 

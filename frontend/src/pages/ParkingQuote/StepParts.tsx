@@ -12,14 +12,14 @@ type StepHeaderProps = {
   total: number
   title: string
   lead?: string
-  /** Kullanıcı adım değiştirdiyse başlık odak alır (klavye/ekran okuyucu yeni adımdan devam eder). */
+
   autoFocus: boolean
   children?: ReactNode
 }
 
 export function StepHeader({ index, total, title, lead, autoFocus, children }: StepHeaderProps) {
   const titleRef = useRef<HTMLHeadingElement>(null)
-  // Yalnızca adım ilk açıldığında odaklanır; sonraki render'lar seçim yapan kullanıcının odağını çalmaz.
+
   const focusOnMount = useRef(autoFocus)
 
   useEffect(() => {
@@ -45,7 +45,6 @@ export function StepHeader({ index, total, title, lead, autoFocus, children }: S
   )
 }
 
-/** `visuallyHidden`: mesaj zaten alanın altında görünüyorsa yalnızca ekran okuyucuya duyurulur (çift metin olmaz). */
 export function StepAlert({ message, visuallyHidden = false }: { message: string; visuallyHidden?: boolean }) {
   const reduce = Boolean(useReducedMotion())
   if (visuallyHidden) {

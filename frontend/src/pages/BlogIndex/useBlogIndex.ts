@@ -6,10 +6,6 @@ export type BlogIndexState = { status: 'loading' } | { status: 'error' } | { sta
 
 type Result = { attempt: number; posts: BlogPost[] | null }
 
-/**
- * Blog listesini getirir. Yükleniyor durumu, sonucun ait olduğu deneme numarasından türetilir;
- * efekt içinde eşzamanlı setState yapılmaz. `retry` yeni bir deneme başlatır.
- */
 export function useBlogIndex() {
   const [attempt, setAttempt] = useState(0)
   const [result, setResult] = useState<Result | null>(null)

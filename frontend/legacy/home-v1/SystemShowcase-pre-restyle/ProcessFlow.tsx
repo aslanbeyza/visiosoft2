@@ -4,7 +4,7 @@ import styles from './SystemShowcase.module.css'
 type ProcessFlowProps = {
   label: string
   steps: FlowStep[]
-  /** Tamamlanan adım sayısı; aynı zamanda aktif adımın sırası. -1 iken hiçbir adım başlamamıştır. */
+
   progress: number
 }
 

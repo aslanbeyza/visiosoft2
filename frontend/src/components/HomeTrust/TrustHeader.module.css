@@ -111,7 +111,6 @@
     gap: clamp(3rem, 5vw, 6rem);
   }
 
-  /* Başlık, ilkeler boyunca görünür kalır; sağ sütun uzadıkça sol boşluk okunur bir hizaya dönüşür. */
   .headingCol {
     position: sticky;
     top: 7rem;

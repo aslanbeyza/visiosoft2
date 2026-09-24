@@ -15,7 +15,6 @@
   text-wrap: pretty;
 }
 
-/* Hero CTA: parlak “ürün” primary yerine koyu lacivert, ok/magnetic yok. */
 .heroPrimary {
   border-color: var(--color-navy-900);
   border-radius: 0.375rem;

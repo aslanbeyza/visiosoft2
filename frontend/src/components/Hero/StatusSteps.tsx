@@ -4,12 +4,11 @@ import styles from './StatusParts.module.css'
 
 type StatusStepsProps = {
   labels: string[]
-  /** Ulaşılan son adım (0 algılama, 1 doğrulama, 2 bariyer). */
+
   reached: number
   reduce: boolean
 }
 
-/** Üç parçalı ilerleme: ulaşılan adımların çizgisi dolar, onay işareti yeşil çizilir. */
 export default function StatusSteps({ labels, reached, reduce }: StatusStepsProps) {
   const fill = { duration: reduce ? 0 : 0.7, ease: revealEase }
   const draw = { duration: reduce ? 0 : 0.45, ease: revealEase, delay: reduce ? 0 : 0.15 }

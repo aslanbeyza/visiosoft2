@@ -12,7 +12,6 @@ type FeatureDetailsProps = {
   href: string
 }
 
-/** Özellik kartının içeriği; masaüstünde bilgi noktası kartında, mobilde listede kullanılır. */
 export function FeatureDetails({ feature, index, href }: FeatureDetailsProps) {
   return (
     <>
@@ -29,7 +28,7 @@ export function FeatureDetails({ feature, index, href }: FeatureDetailsProps) {
 
 type FeatureHotspotProps = FeatureDetailsProps & {
   open: boolean
-  /** İşlem akışında bu noktaya ait adım yürütülüyor. */
+
   current: boolean
   revealed: boolean
   onToggle: () => void

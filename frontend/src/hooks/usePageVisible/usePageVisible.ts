@@ -7,10 +7,6 @@ const subscribe = (onChange: () => void) => {
 
 const getSnapshot = () => document.visibilityState === 'visible'
 
-/**
- * Kullanım: `const visible = usePageVisible()`
- * Sekme görünürken true; arka plandaki sekmede döngü/zamanlayıcıları durdurmak için kullanılır.
- */
 export function usePageVisible(): boolean {
   return useSyncExternalStore(subscribe, getSnapshot, () => true)
 }

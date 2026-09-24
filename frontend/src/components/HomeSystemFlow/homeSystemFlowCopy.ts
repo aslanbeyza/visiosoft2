@@ -1,14 +1,13 @@
 import type { ParkingFlowStepId } from '../ParkingFlow/index.ts'
 
 export type SystemFlowStep = {
-  /** Sahnedeki poz; kayıt adımı sahnenin son (bariyer açık) pozunda kalır. */
+
   scene: ParkingFlowStepId
   title: string
   description: string
   chips?: string[]
 }
 
-/** Ana sayfa 4.3 "Sistem nasıl çalışır?" metinleri. */
 export const homeSystemFlowCopy = {
   titleId: 'sistem-title',
   eyebrow: 'Sistem nasıl çalışır?',
@@ -53,7 +52,7 @@ export const homeSystemFlowCopy = {
     {
       scene: 'open',
       title: 'Kayıt ve rapor',
-      // ASCII kısa çizgi (sayfa içi arama ile eşleşir); satır bölünmesini FlowSteps engeller.
+
       description: "Geçiş, ödeme ve kamera kaydı Zone'a işlenir; e-fatura, e-arşiv ve gelir raporları hazır olur.",
     },
   ] satisfies SystemFlowStep[],

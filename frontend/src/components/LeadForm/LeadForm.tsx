@@ -18,9 +18,9 @@ export type LeadFormProps = {
   submitLabel?: string
   successTitle?: string
   successBody?: string
-  /** Ek mesaj alanında gösterilen örnek metin. */
+
   messageExample?: string
-  /** Formun erişilebilir adı (ör. kart başlığı metni). */
+
   label?: string
   id?: string
   className?: string
@@ -40,7 +40,6 @@ function Row({ children }: { children: ReactNode }) {
   )
 }
 
-/** Teklif / keşif talep formu: Form kiti + Turnstile; alanlar görünüme girince sırayla yükselir. */
 export default function LeadForm({ kind, extraFields, submitLabel, successTitle, successBody, messageExample, label, id, className }: LeadFormProps) {
   const reduce = Boolean(useReducedMotion())
   const { config } = useLocale()

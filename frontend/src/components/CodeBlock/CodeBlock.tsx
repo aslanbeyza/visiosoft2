@@ -1,10 +1,4 @@
-/**
- * Kullanım:
- * <CodeBlock title="WebSocket olayı" language="json" typing code={'{"event":"device.status","state":"online"}'} />
- * Koyu kod bloğu: satır numaraları, kopyala düğmesi (aria-live "Kopyalandı"), görünüme girince bir kez
- * imleçle yazılan metin (M14). Yazım sırasında tam kod DOM'dadır; yalnızca clip-path ile karakter karakter açılır,
- * ekran okuyucu baştan tamamını okur. Hareket azaltmada sabit görünür.
- */
+
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties, RefObject } from 'react'
 import { animate, useInView, useReducedMotion } from 'framer-motion'
@@ -17,20 +11,17 @@ export type CodeBlockProps = {
   code: string
   language?: string
   title?: string
-  /** Görünüme girince kod bir kez yazılarak belirir. */
+
   typing?: boolean
   lineNumbers?: boolean
-  /** Basit renklendirme (dize, sayı, yorum, anahtar sözcük). */
+
   highlight?: boolean
   copyLabel?: string
   copiedLabel?: string
   className?: string
-  /** typing: görünüme girdikten sonra yazımın başlamasından önceki bekleme (s). */
+
   delay?: number
-  /**
-   * Kod tamamen göründüğünde bir kez çağrılır: yazım bitince; yazım yoksa ya da hareket azaltılmışsa blok
-   * görünüme girince. İki bloğu art arda yazdırmak için: `onComplete={() => setSecond(true)}` + ikincide `typing={second}`.
-   */
+
   onComplete?: () => void
 }
 
@@ -39,7 +30,6 @@ type Span = Token & { index: number; start: number; end: number; line: number }
 const CLIPPED = 'inset(0 100% 0 0)'
 const clipFor = (chars: number) => (chars <= 0 ? CLIPPED : `inset(0 calc(100% - ${chars}ch) 0 0)`)
 
-/** Satırlar ve karakter aralıkları; yazım animasyonu bu düz listede ilerler. */
 function buildSpans(lines: string[], language: string, highlight: boolean) {
   const spans: Span[] = []
   let offset = 0
@@ -50,7 +40,7 @@ function buildSpans(lines: string[], language: string, highlight: boolean) {
       spans.push({ ...token, index: spans.length, line: lineIndex, start: offset, end: offset + token.value.length })
       offset += token.value.length
     }
-    // Boş satır da bir "karakter" tutar; imleç orada bir an durur.
+
     offset += 1
   })
   return { spans, total: offset }
@@ -65,7 +55,6 @@ type LinesProps = {
   lineRefs: RefObject<(HTMLElement | null)[]>
 }
 
-/* Kopyalama durumu gibi dış state değişimlerinde satırlar yeniden çizilmesin diye ayrı ve memo. */
 const Lines = memo(function Lines({ lines, spans, lineNumbers, typingActive, spanRefs, lineRefs }: LinesProps) {
   const digits = String(lines.length).length
   const clipped: CSSProperties | undefined = typingActive ? { clipPath: CLIPPED } : undefined
@@ -124,7 +113,7 @@ export default function CodeBlock({
   onComplete,
 }: CodeBlockProps) {
   const reduce = useReducedMotion()
-  // Geri çağrı ref'te tutulur: ebeveyn her render'da yeni işlev verse de yazım yeniden başlamaz; yalnızca bir kez çağrılır.
+
   const onCompleteRef = useRef(onComplete)
   const completedRef = useRef(false)
   useEffect(() => {
@@ -144,7 +133,6 @@ export default function CodeBlock({
 
   const typingActive = typing && !reduce && !done
 
-  // Yazım: tek bir motion değeri karakter sayısını sürer; DOM yalnızca değişen parçalarda güncellenir.
   useEffect(() => {
     if (!typingActive || !inView) return
     const duration = Math.min(4.5, 0.4 + total * 0.02)
@@ -184,7 +172,6 @@ export default function CodeBlock({
     return () => controls.stop()
   }, [typingActive, inView, spans, total, lines.length, delay])
 
-  // Yazım yoksa (typing=false ya da hareket azaltma) kod baştan görünür; görünüme girince tamamlandı sayılır.
   const staticReveal = !typing || Boolean(reduce)
   useEffect(() => {
     if (!staticReveal || !inView || completedRef.current) return

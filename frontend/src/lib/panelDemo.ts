@@ -1,60 +1,12 @@
-/**
- * ============================================================================
- * DEMO PANEL — VERİ ÇEKİRDEĞİ
- * ============================================================================
- *
- * Bu dosya /panel rotasındaki demo yönetim panelinin TEK veri kaynağıdır.
- * Backend yoktur: bütün kayıtlar `buildWorld()` içinde tohumlu (seed'li)
- * sözde-rastgele üreteçle oluşturulur. `buildWorld()` saf bir fonksiyondur,
- * argüman almaz ve HER ZAMAN aynı çıktıyı verir — böylece sunucu tarafı
- * render ile istemcinin ilk render'ı birebir aynıdır, hydration uyuşmazlığı
- * oluşmaz ve tablolar JavaScript çalışmadan da dolu gelir.
- *
- * KULLANIM (modül yazarları için):
- *
- *   import { useWorld, usePark } from '@/components/panel/PanelProvider';
- *   const world = useWorld();
- *   const rows = selectSessions(world, parkId, { tab: 'inside' });
- *
- * ZAMAN MODELİ — hydration'ın en riskli yeri, özel çözüm:
- *   Hiçbir kayıtta mutlak tarih YOKTUR. Bütün zamanlar `BASE_EPOCH`
- *   sabitine göre DAKİKA OFSETİ olarak tutulur (`entryMin`, `createdAtMin`…);
- *   geçmiş kayıtlar negatif değer alır. Provider state'inde tek bir `epochMs`
- *   alanı vardır, başlangıçta BASE_EPOCH'tur (deterministik ilk render),
- *   mount'tan sonra bir kez `Date.now()`a çekilir. Biçimleyiciler
- *   (`formatDate`, `formatRelative`) yalnızca bu tek alanı okur.
- *
- *   Takvim hesabı UTC üzerinden + sabit +03:00 ile yapılır (Türkiye yaz saati
- *   uygulamıyor). `new Date().getHours()` gibi yerel-saat okumaları KULLANILMAZ;
- *   sunucu ile istemcinin saat dilimi farklı olabilir.
- *
- * SAYI BİÇİMİ: `Intl.NumberFormat` KULLANILMAZ (SSR/locale tutarsızlığı).
- *   Türkçe biçimleme elle yazılmış saf fonksiyonlarla yapılır.
- *
- * KVKK: Buradaki hiçbir plaka, kişi, kurum, IP veya seri numarası gerçek
- *   değildir. Plakalar ve kapı adları site içeriğindeki `opsSection`
- *   değerlerinden gelir (zaten uydurma); kişi/şirket adları jeneriktir.
- *
- * SABİT RENK YOKTUR: Bu dosya yalnızca semantik `Tone` döndürür
- *   ('success' | 'danger' | 'warning' | 'info' | 'accent' | 'neutral').
- *   Renk eşlemesi ui.tsx'te tema tokenlarıyla yapılır.
- */
 
 import { seeded, seededInt, pick, pad } from '@/lib/deterministic';
 import { opsSection } from '@/lib/content';
 import { GROSS_BRACKETS } from '@/lib/tariff';
 
-/* ==========================================================================
-   0 · TEMEL YARDIMCILAR
-   ========================================================================== */
-
-/** SVG koordinatlarını 2 basamağa yuvarlar — hydration güvenliği. */
 export const r2 = (n: number): number => Math.round(n * 100) / 100;
 
-/** Para hesaplarında kuruş yuvarlaması. */
 export const money2 = (n: number): number => Math.round(n * 100) / 100;
 
-/** Ağırlıklı deterministik seçim. */
 export function weighted<T>(seed: number, table: readonly (readonly [T, number])[]): T {
   const total = table.reduce((s, [, w]) => s + w, 0);
   let r = seeded(seed) * total;
@@ -65,21 +17,10 @@ export function weighted<T>(seed: number, table: readonly (readonly [T, number])
   return table[table.length - 1][0];
 }
 
-/** Deterministik 0..1 gürültü — simülasyon tick'lerinde kullanılır. */
 export const noise = (seed: number): number => seeded(seed * 7919 + 13);
 
-/* ==========================================================================
-   1 · ZAMAN
-   ========================================================================== */
-
-/**
- * Demo dünyasının sıfır noktası: 11 Eylül 2026, 14:36 (İstanbul).
- * paymentFlow.ts'teki örnek oturum saatleriyle uyumludur.
- * UTC olarak 11:36 — Türkiye sabit UTC+3.
- */
 export const BASE_EPOCH = Date.UTC(2026, 8, 11, 11, 36, 0);
 
-/** Türkiye sabit saat farkı (yaz saati uygulaması yok). */
 const TZ_OFFSET_MS = 3 * 60 * 60 * 1000;
 
 const MONTHS_TR = [
@@ -100,7 +41,6 @@ export interface CalendarParts {
   dayName: string;
 }
 
-/** Mutlak ms → İstanbul takvim parçaları (UTC matematiği, sabit +3). */
 export function calendar(ms: number): CalendarParts {
   const d = new Date(ms + TZ_OFFSET_MS);
   return {
@@ -116,7 +56,6 @@ export function calendar(ms: number): CalendarParts {
   };
 }
 
-/** Dakika ofsetini mutlak ms'ye çevirir. */
 export const msOf = (epochMs: number, min: number): number => epochMs + min * 60_000;
 
 /** '11.09.2026 14:36' */
@@ -147,10 +86,6 @@ export function formatDateTimeSec(epochMs: number, min: number | null | undefine
   return `${pad(c.day)}.${pad(c.month)}.${c.year} ${pad(c.hour)}:${pad(c.minute)}:${pad(c.second)}`;
 }
 
-/**
- * Aynı gün ise yalnız saat, değilse tam tarih — gerçek panelin çıkış
- * sütunundaki davranış.
- */
 export function formatSmartTime(epochMs: number, min: number | null, refMin: number): string {
   if (min === null) return '—';
   const a = calendar(msOf(epochMs, min));
@@ -161,7 +96,6 @@ export function formatSmartTime(epochMs: number, min: number | null, refMin: num
   return formatDateTime(epochMs, min);
 }
 
-/** '3 saat önce' · '2 gün önce' · 'az önce' */
 export function formatRelative(nowMin: number, min: number): string {
   const diff = Math.round(nowMin - min);
   if (diff < 1) return 'az önce';
@@ -173,13 +107,6 @@ export function formatRelative(nowMin: number, min: number): string {
   return `${Math.floor(d / 30)} ay önce`;
 }
 
-/**
- * 134 → '2 saat 14 dk' · 17 → '17 dk' · 1500 → '1 gün 1 saat'
- *
- * Gerçek Partner panelinin SÜRE biçimi budur (`zone-panel-tam-envanter.md`
- * §Oturumlar: `2 saat 8 dk` / `17 dk`). POS'un kendi kısaltılmış biçimi
- * (`19 sa 20 dk`) ayrıdır ve `PosPanel.posDuration` içinde durur.
- */
 export function formatDuration(min: number | null | undefined): string {
   if (min === null || min === undefined) return '—';
   const m = Math.max(0, Math.round(min));
@@ -190,10 +117,6 @@ export function formatDuration(min: number | null | undefined): string {
   if (h > 0) return `${h} saat ${mm} dk`;
   return `${mm} dk`;
 }
-
-/* ==========================================================================
-   2 · SAYI / PARA BİÇİMİ (Intl yok)
-   ========================================================================== */
 
 /** 184320 → '184.320' */
 export function formatInt(n: number): string {
@@ -207,7 +130,6 @@ export function formatInt(n: number): string {
   return neg ? `-${out}` : out;
 }
 
-/** Para parçaları — kuruş kısmı tabloda küçük ve soluk yazılsın diye ayrı. */
 export function formatTLParts(n: number): { major: string; minor: string; neg: boolean } {
   const neg = n < 0;
   const v = Math.abs(money2(n));
@@ -222,7 +144,6 @@ export function formatTL(n: number): string {
   return `${p.neg ? '-' : ''}${p.major},${p.minor} ₺`;
 }
 
-/** 0.983 → '%98' (ondalık istenirse digits) */
 export function formatPercent(ratio: number, digits = 0): string {
   const v = ratio * 100;
   if (digits === 0) return `%${Math.round(v)}`;
@@ -230,21 +151,14 @@ export function formatPercent(ratio: number, digits = 0): string {
   return `%${f}`;
 }
 
-/** +0.118 → '+%11,8' · -0.031 → '-%3,1' (trend rozetleri için işaretli) */
 export function formatSignedPercent(ratio: number, digits = 1): string {
   const sign = ratio >= 0 ? '+' : '-';
   const body = formatPercent(Math.abs(ratio), digits); // '%11,8'
   return `${sign}${body}`;
 }
 
-/* ==========================================================================
-   3 · SEMANTİK TON + ENUM SÖZLÜKLERİ
-   ========================================================================== */
-
-/** ui.tsx bu tonu tema tokenlarına çevirir. Burada sabit renk YOKTUR. */
 export type Tone = 'neutral' | 'info' | 'success' | 'warning' | 'danger' | 'accent';
 
-/** ui.tsx `Icon` bileşeninin tanıdığı anahtarlar. */
 export type IconKey =
   | 'check' | 'clock' | 'x' | 'star' | 'shield' | 'ban' | 'alert' | 'gift'
   | 'edit' | 'money' | 'car' | 'camera' | 'barrier' | 'device' | 'user'
@@ -268,7 +182,6 @@ const metaMap = (rows: EnumMeta[]) => {
   return m;
 };
 
-/** ParkSessionStatusEnum — 14 değerin tamamı (gerçek panelle birebir). */
 export const SESSION_STATUS: EnumMeta[] = [
   { id: 1, label: 'Normal', tone: 'neutral', icon: 'check' },
   { id: 2, label: 'Beyaz Liste', tone: 'info', icon: 'list' },
@@ -289,7 +202,6 @@ const SESSION_STATUS_MAP = metaMap(SESSION_STATUS);
 export const sessionStatus = (id: number): EnumMeta =>
   SESSION_STATUS_MAP.get(id) ?? SESSION_STATUS[0];
 
-/** PaymentStatusEnum — 5 değer. */
 export const PAYMENT_STATUS: EnumMeta[] = [
   { id: 2, label: 'Ödendi', tone: 'success', icon: 'check' },
   { id: 3, label: 'Ödenmemiş', tone: 'warning', icon: 'clock' },
@@ -301,7 +213,6 @@ const PAYMENT_STATUS_MAP = metaMap(PAYMENT_STATUS);
 export const paymentStatus = (id: number): EnumMeta =>
   PAYMENT_STATUS_MAP.get(id) ?? PAYMENT_STATUS[1];
 
-/** VehicleClassEnum — 8 değer. */
 export const VEHICLE_CLASS: EnumMeta[] = [
   { id: 1, label: 'Otomobil', tone: 'neutral', icon: 'car' },
   { id: 2, label: 'Minibüs', tone: 'neutral', icon: 'car' },
@@ -316,12 +227,10 @@ const VEHICLE_CLASS_MAP = metaMap(VEHICLE_CLASS);
 export const vehicleClass = (id: number): EnumMeta =>
   VEHICLE_CLASS_MAP.get(id) ?? VEHICLE_CLASS[0];
 
-/** Araç sınıfı ücret çarpanı — tarife satırı yoksa temel satır bununla ölçeklenir. */
 export const VEHICLE_MULTIPLIER: Record<number, number> = {
   1: 1, 2: 1.25, 3: 1.8, 4: 1.3, 5: 1.8, 6: 2.2, 7: 0.5, 8: 1.15,
 };
 
-/** PaymentMethodEnum — gerçek panelde tanımlı yöntemler. */
 export const PAYMENT_METHOD: EnumMeta[] = [
   { id: 1, label: 'HGS', tone: 'info', icon: 'bolt' },
   { id: 2, label: 'POS', tone: 'accent', icon: 'wallet' },
@@ -344,7 +253,6 @@ const PAYMENT_METHOD_MAP = metaMap(PAYMENT_METHOD);
 export const paymentMethod = (id: number): EnumMeta =>
   PAYMENT_METHOD_MAP.get(id) ?? PAYMENT_METHOD[0];
 
-/** Mobil uygulamadan gelen ödemeler bu yöntemle kaydedilir. */
 export const MOBILE_PAYMENT_METHOD_ID = 14;
 
 /** DeviceTypeEnum — 0..8 */
@@ -362,7 +270,6 @@ export const DEVICE_TYPE: EnumMeta[] = [
 const DEVICE_TYPE_MAP = metaMap(DEVICE_TYPE);
 export const deviceType = (id: number): EnumMeta => DEVICE_TYPE_MAP.get(id) ?? DEVICE_TYPE[0];
 
-/** UsageTypeEnum — otoparkın kullanım tipi. */
 export const USAGE_TYPE: EnumMeta[] = [
   { id: 1, label: 'Abonelik', tone: 'info', icon: 'star' },
   { id: 2, label: 'Anlık Ödeme', tone: 'accent', icon: 'money' },
@@ -372,7 +279,6 @@ export const USAGE_TYPE: EnumMeta[] = [
 const USAGE_TYPE_MAP = metaMap(USAGE_TYPE);
 export const usageType = (id: number): EnumMeta => USAGE_TYPE_MAP.get(id) ?? USAGE_TYPE[2];
 
-/** PMSP log seviyeleri. */
 export const PMSP_LEVEL: EnumMeta[] = [
   { id: 1, label: 'SUCCESS', tone: 'success', icon: 'check' },
   { id: 2, label: 'WARNING', tone: 'warning', icon: 'alert' },
@@ -407,7 +313,6 @@ export const PMSP_MESSAGE_TYPES = [
 ] as const;
 export type PmspMessageType = (typeof PMSP_MESSAGE_TYPES)[number];
 
-/** Destek talebi durumları. */
 export const TICKET_STATUS = [
   { id: 'open', label: 'Açık', tone: 'info' as Tone },
   { id: 'in_progress', label: 'İşlemde', tone: 'accent' as Tone },
@@ -438,7 +343,6 @@ export const TICKET_CATEGORY = [
 ] as const;
 export type TicketCategoryId = (typeof TICKET_CATEGORY)[number]['id'];
 
-/** Abonelik durumları. */
 export const MEMBERSHIP_STATUS = [
   { id: 'active', label: 'Aktif', tone: 'success' as Tone },
   { id: 'expired', label: 'Süresi Doldu', tone: 'warning' as Tone },
@@ -451,7 +355,6 @@ export type MembershipStatusId = (typeof MEMBERSHIP_STATUS)[number]['id'];
 export const membershipStatus = (id: string) =>
   MEMBERSHIP_STATUS.find((s) => s.id === id) ?? MEMBERSHIP_STATUS[0];
 
-/** Canlı olay akışı tipleri (Watch modülünün karşılığı). */
 export const EVENT_KIND = {
   entry: { label: 'Giriş', tone: 'success' as Tone, icon: 'arrow-right' as IconKey },
   exit: { label: 'Çıkış', tone: 'danger' as Tone, icon: 'arrow-left' as IconKey },
@@ -464,10 +367,6 @@ export const EVENT_KIND = {
 } as const;
 export type EventKind = keyof typeof EVENT_KIND;
 
-/* ==========================================================================
-   4 · VARLIK TİPLERİ
-   ========================================================================== */
-
 export interface DemoPark {
   id: number;
   name: string;
@@ -477,7 +376,7 @@ export interface DemoPark {
   capacityTotal: number;
   capacityMembership: number;
   membershipUsed: number;
-  /** Şu anki doluluk — panelin resmî doluluk kaynağı (content.ts ile uyumlu). */
+
   occupiedNow: number;
   address: string;
   latitude: number;
@@ -489,11 +388,11 @@ export interface DemoPark {
   gapBetweenSession: number;
   idleSessionLimit: number;
   autoApproveSession: boolean;
-  /** Mobil uygulamadaki mesafe çipi için (km). */
+
   distanceKm: number;
-  /** Bugünkü ciro — content.ts opsSection KPI'ı ile uyumlu. */
+
   dailyRevenue: number;
-  /** Ortalama oturum süresi (dk). */
+
   avgDurationMin: number;
 }
 
@@ -541,7 +440,7 @@ export interface Payment {
   amount: number;
   taxPercent: number;
   statusId: number;
-  /** 5 = Park Ücreti, 6 = Abonelik */
+
   categoryId: 5 | 6;
   channel: PaymentChannel;
   intentId: string;
@@ -569,7 +468,7 @@ export interface Device {
   barrierCount: number;
   kioskCount: number;
   ledCount: number;
-  /** Simülasyon/komut sonucu geçici durum. */
+
   serviceState: 'ok' | 'restarting' | 'warning' | 'critical';
 }
 
@@ -579,7 +478,7 @@ export interface Camera {
   parkId: number;
   barrierId: string | null;
   name: string;
-  /** 1 = Giriş, 2 = Çıkış */
+
   type: 1 | 2;
   purpose: 'Oturum' | 'Veri Toplama' | 'Güvenlik';
   rtspMasked: string;
@@ -599,7 +498,7 @@ export interface Barrier {
   barrierIp: string;
   barrierPort: number;
   relayNumber: number;
-  /** Kasıtlı olarak biri true — 'bariyer açık tutuluyor'. */
+
   relayHeld: boolean;
 }
 
@@ -692,7 +591,7 @@ export interface Membership {
   terminatedAtMin: number | null;
   extensions: MembershipExtension[];
   activities: MembershipActivity[];
-  /** Mobil uygulamadan satın alındıysa true. */
+
   fromMobile: boolean;
 }
 
@@ -765,7 +664,7 @@ export interface TicketReply {
   attachments: TicketAttachment[];
   createdAtMin: number;
   isInternalNote: boolean;
-  /** 'AI Yanıt Önerisi' ile üretilen metinler dürüstçe işaretlenir. */
+
   isTemplate?: boolean;
 }
 
@@ -824,7 +723,7 @@ export interface ParkPricing {
   name: string;
   fromMinute: number;
   toMinute: number;
-  /** KDV hariç net tutar. */
+
   amount: number;
   taxPercent: number;
   vehicleClassId: number;
@@ -841,7 +740,7 @@ export interface ParkPricingPeriod {
 
 export interface DailyPoint {
   parkId: number;
-  /** 0 = bugün, -1 = dün … */
+
   dayOffset: number;
   revenue: number;
   collected: number;
@@ -859,7 +758,7 @@ export interface DailyPoint {
 
 export interface MonthlyRevenue {
   parkId: number;
-  monthOffset: number; // 0 = bu ay, -1 = geçen ay
+  monthOffset: number;
   label: string;
   totalRevenue: number;
   collected: number;
@@ -905,8 +804,6 @@ export interface LiveEvent {
   read: boolean;
 }
 
-/* --- Mobil uygulama dünyası ------------------------------------------- */
-
 export interface MobileUser {
   name: string;
   email: string;
@@ -920,10 +817,6 @@ export interface Vehicle {
   isDefault: boolean;
 }
 
-/**
- * GÜVENLİK: Tam kart numarası HİÇBİR YERDE saklanmaz — yalnızca marka,
- * son 3 hane ve kart sahibi adı tutulur. Form alanları maskelidir.
- */
 export interface SavedCard {
   id: string;
   brand: string;
@@ -944,8 +837,6 @@ export interface BridgeRecord {
   targetId: string | null;
 }
 
-/* --- Türetilmiş: Dikkat Kuyruğu --------------------------------------- */
-
 export type AttentionKind =
   | 'radar' | 'high_amount' | 'pending_verify' | 'hgs_approval'
   | 'offline_camera' | 'unpaid_debt' | 'idle_session' | 'doc_approval';
@@ -963,8 +854,6 @@ export interface AttentionItem {
   targetFilter?: Record<string, string>;
 }
 
-/* --- Bildirim / toast -------------------------------------------------- */
-
 export interface PanelNotification {
   id: string;
   title: string;
@@ -981,18 +870,10 @@ export interface Toast {
   title: string;
   body?: string;
   tone: Tone;
-  /** ms; 0 = kalıcı (elle kapatılır) */
+
   duration: number;
 }
 
-/* --- Muhasebe düzeltmeleri -------------------------------------------- */
-
-/**
- * Kullanıcı etkileşimlerinin (iade, borç tahsili, mobil ödeme, abonelik
- * satışı) finansal özete yansıması için tutulan delta. Raporlar bu deltayı
- * günlük seriye EKLER — böylece "iade edilince ciro düşer" kuralı
- * ek kod olmadan çalışır.
- */
 export interface LedgerDelta {
   revenue: number;
   collected: number;
@@ -1007,8 +888,6 @@ export const EMPTY_LEDGER: LedgerDelta = {
   revenue: 0, collected: 0, uncollected: 0, pending: 0,
   membership: 0, refunded: 0, passes: 0,
 };
-
-/* --- Dünya ------------------------------------------------------------- */
 
 export interface DemoWorld {
   parks: DemoPark[];
@@ -1040,20 +919,16 @@ export interface DemoWorld {
   vehicles: Vehicle[];
   cards: SavedCard[];
   ledger: Record<number, LedgerDelta>;
-  /** Artan sayaç — yeni kayıt id'leri buradan üretilir (deterministik). */
+
   seq: number;
 }
-
-/* ==========================================================================
-   5 · MODÜL META
-   ========================================================================== */
 
 export type ModuleId =
   | 'welcome' | 'sessions' | 'barriers' | 'finance' | 'reports'
   | 'payments' | 'memberships' | 'devices' | 'lists' | 'support' | 'mobile'
-  /* Gerçek panelde ayrı rotası olan, sonradan yazılan ekranlar */
+
   | 'hgs-approvals' | 'park-settings' | 'plate-photos' | 'period-comparison'
-  /* Partner menüsündeki "Paneli Değiştir > POS Panel" */
+
   | 'pos';
 
 export type PanelRole = 'admin' | 'shift' | 'accounting';
@@ -1061,18 +936,18 @@ export type PanelRole = 'admin' | 'shift' | 'accounting';
 export interface ModuleMeta {
   id: ModuleId;
   title: string;
-  /** Sol menüdeki grup başlığı; null ise grupsuz. */
+
   group: string | null;
   icon: IconKey;
-  /** Tek cümlelik açıklama — launchpad kartlarında kullanılır. */
+
   desc: string;
-  /** Gerçek Zone panelindeki karşılığı. */
+
   mirrors: string;
-  /** Bu modül hangi rollerde görünür. */
+
   roles: PanelRole[];
-  /** Ücretsiz (Site Otopark) tesiste gizlenir mi? */
+
   hiddenForFreePark?: boolean;
-  /** Gerçek panelde karşılığı olmayan demo eki. */
+
   demoExtra?: boolean;
 }
 
@@ -1171,77 +1046,53 @@ export const MODULE_MAP: Record<ModuleId, ModuleMeta> = MODULES.reduce(
   {} as Record<ModuleId, ModuleMeta>
 );
 
-/**
- * Sol menüdeki grup sırası — gerçek panelin sırasıyla aynı
- * (`zone-panel-tam-envanter.md` §1.6). Gerçekte araya giren
- * `Kullanıcılar`, `Mutabakat` ve `Pool` grupları demo kapsamında
- * ayrı ekran olarak yazılmadı; Pool içeriği `Expert` sekmesinde durur.
- * Kalan grupların SIRASI gerçeğiyle birebirdir: Listeler → Expert → Radar → Sistem.
- */
 export const MENU_GROUPS = [
   'Park Yönetimi', 'Finansal', 'Abonelik', 'Kamera & Bariyer', 'Listeler',
   'Expert', 'Radar', 'Sistem',
 ] as const;
 
-/* --------------------------------------------------------------------------
-   5.1 · SOL MENÜ — gerçek panelin bağlantı bağlantı karşılığı
-   --------------------------------------------------------------------------
-   Gerçek Zone'da menünün her satırı AYRI BİR ROTADIR; demoda bu rotaların bir
-   kısmı tek modülün sekmeleridir (ör. Ödeme Al / Fiyat Tarifesi / Borç Listesi
-   / Ödemeler hepsi `payments` modülünün sekmeleri). Menü bu yüzden modül
-   listesinden DEĞİL, aşağıdaki `MENU` tablosundan çizilir: satır sırası,
-   grupları ve etiketleri gerçeğin `zone-panel-tam-envanter.md §1.6` listesiyle
-   birebirdir; her satır bir (modül, sekme) çiftine bağlanır.
-   -------------------------------------------------------------------------- */
-
 export interface MenuEntry {
-  /** Menü satırının benzersiz kimliği — sabitleme (pin) anahtarı da budur. */
+
   id: string;
   label: string;
   module: ModuleId;
-  /** Modül içindeki sekme; verilirse satıra basınca o sekme açılır. */
+
   tab?: string;
   group: string | null;
   icon: IconKey;
-  /** Gerçek paneldeki rota. */
+
   mirrors: string;
-  /** Gerçekte olduğu gibi yalnızca TEK otopark seçiliyken görünür. */
+
   parkOnly?: boolean;
-  /** Modülün rollerini daraltır; verilmezse modülün rolleri geçerlidir. */
+
   roles?: PanelRole[];
-  /** Gerçek panelde karşılığı olmayan demo eki. */
+
   demoExtra?: boolean;
 }
 
 export const MENU: MenuEntry[] = [
-  /* ---- grupsuz (üst) ---- */
+
   { id: 'welcome', label: 'Ana Ekran', module: 'welcome', group: null, icon: 'home', mirrors: '/partner/{t}/welcome' },
   { id: 'odeme-al', label: 'Ödeme Al', module: 'payments', tab: 'receive', group: null, icon: 'wallet', mirrors: '/partner/{t}/odeme-al', parkOnly: true },
   { id: 'supports', label: 'Destek', module: 'support', group: null, icon: 'ticket', mirrors: '/partner/{t}/supports' },
 
-  /* ---- Park Yönetimi ---- */
   { id: 'hgs-approvals', label: 'HGS Onayı', module: 'hgs-approvals', group: 'Park Yönetimi', icon: 'shield', mirrors: '/partner/{t}/hgs-approvals', parkOnly: true },
-  /* Gerçekte `Ayarlar` Tüm Otoparklar'da da menüdedir; tıklanınca ekran
-     "Otopark Seçimi Gerekli" der. parkOnly YAPILMAZ (envanter §1.6: yalnız
-     odeme-al, hgs-approvals, payment-methods ve topology otopark bağımlıdır). */
+
   { id: 'profile', label: 'Ayarlar', module: 'park-settings', group: 'Park Yönetimi', icon: 'cog', mirrors: '/partner/{t}/profile' },
   { id: 'park-sessions', label: 'Oturumlar', module: 'sessions', group: 'Park Yönetimi', icon: 'car', mirrors: '/partner/{t}/park-sessions' },
   { id: 'park-pricings', label: 'Fiyat Tarifesi', module: 'payments', tab: 'pricing', group: 'Park Yönetimi', icon: 'money', mirrors: '/partner/{t}/park-pricings' },
   { id: 'debt-list', label: 'Borç Listesi', module: 'payments', tab: 'debts', group: 'Park Yönetimi', icon: 'alert', mirrors: '/partner/{t}/debt-list' },
   { id: 'plate-photos', label: 'Plaka Fotoğrafları', module: 'plate-photos', group: 'Park Yönetimi', icon: 'camera', mirrors: '/partner/{t}/plate-photos' },
 
-  /* ---- Finansal ---- */
   { id: 'multi-parks-dashboard', label: 'Finansal Özet', module: 'finance', group: 'Finansal', icon: 'chart', mirrors: '/partner/{t}/multi-parks-dashboard' },
   { id: 'park-performance-report', label: 'Detaylı Raporlar', module: 'reports', group: 'Finansal', icon: 'grid', mirrors: '/partner/{t}/park-performance-report' },
   { id: 'period-comparison', label: 'Dönem Karşılaştırması', module: 'period-comparison', group: 'Finansal', icon: 'calendar', mirrors: '/partner/{t}/period-comparison' },
   { id: 'payments', label: 'Ödemeler', module: 'payments', tab: 'payments', group: 'Finansal', icon: 'money', mirrors: '/partner/{t}/payments' },
 
-  /* ---- Abonelik ---- */
   { id: 'member-ship-packages', label: 'Abonelik Paketleri', module: 'memberships', tab: 'packages', group: 'Abonelik', icon: 'gift', mirrors: '/partner/{t}/member-ship-packages' },
   { id: 'member-ships', label: 'Abonelikler', module: 'memberships', tab: 'list', group: 'Abonelik', icon: 'star', mirrors: '/partner/{t}/member-ships' },
   { id: 'membership-waitlists', label: 'Abonelik Sıraları', module: 'memberships', tab: 'approvals', group: 'Abonelik', icon: 'clock', mirrors: '/partner/{t}/membership-waitlists' },
 
-  /* ---- Kamera & Bariyer ---- */
   { id: 'barrier-logs', label: 'Bariyer Kayıtları', module: 'devices', tab: 'barrier-logs', group: 'Kamera & Bariyer', icon: 'doc', mirrors: '/partner/{t}/barrier-logs' },
   { id: 'cameras', label: 'Kameralar', module: 'devices', tab: 'cameras', group: 'Kamera & Bariyer', icon: 'camera', mirrors: '/partner/{t}/cameras' },
   { id: 'devices', label: 'Cihazlar', module: 'devices', tab: 'devices', group: 'Kamera & Bariyer', icon: 'device', mirrors: '/partner/{t}/devices' },
@@ -1249,43 +1100,35 @@ export const MENU: MenuEntry[] = [
   { id: 'barriers', label: 'Kamera & Bariyer', module: 'barriers', group: 'Kamera & Bariyer', icon: 'barrier', mirrors: '/partner/{t}/barriers' },
   { id: 'topology', label: 'Topoloji', module: 'devices', tab: 'topology', group: 'Kamera & Bariyer', icon: 'map', mirrors: '/partner/{t}/topology', parkOnly: true },
 
-  /* ---- Listeler ---- */
   { id: 'white-lists', label: 'Beyaz Listeler', module: 'lists', tab: 'white', group: 'Listeler', icon: 'shield', mirrors: '/partner/{t}/white-lists' },
   { id: 'black-lists', label: 'Kara Listeler', module: 'lists', tab: 'black', group: 'Listeler', icon: 'ban', mirrors: '/partner/{t}/black-lists' },
 
-  /* ---- Radar ---- */
   { id: 'radar', label: 'Radar', module: 'devices', tab: 'radar', group: 'Radar', icon: 'signal', mirrors: '/partner/{t}/radar' },
   { id: 'radar-alerts', label: 'Radar Uyarıları', module: 'devices', tab: 'radar-alerts', group: 'Radar', icon: 'alert', mirrors: '/partner/{t}/radar-alerts' },
   { id: 'radar-alert-notifications', label: 'Radar Uyarı Logları', module: 'devices', tab: 'radar-alert-logs', group: 'Radar', icon: 'bell', mirrors: '/partner/{t}/radar-alert-notifications' },
 
-  /* ---- Expert ---- */
   { id: 'tablet-devices', label: 'Tabletler', module: 'devices', tab: 'expert', group: 'Expert', icon: 'device', mirrors: '/partner/{t}/tablet-devices' },
 
-  /* ---- Sistem ---- */
   { id: 'pmsp-logs', label: 'PMSP Logları', module: 'devices', tab: 'pmsp-logs', group: 'Sistem', icon: 'doc', mirrors: '/partner/{t}/pmsp-logs' },
 
-  /* ---- grupsuz (alt) ---- */
   { id: 'pos', label: 'POS Paneli', module: 'pos', group: null, icon: 'wallet', mirrors: '/pos' },
   { id: 'mobile', label: 'Mobil Uygulama', module: 'mobile', group: null, icon: 'mobile', mirrors: '— (mobil uygulama)', demoExtra: true },
 ];
 
-/** Menü satırı bu rol + tesis bağlamında görünür mü? */
 export function menuVisible(entry: MenuEntry, role: PanelRole, park: DemoPark | null): boolean {
   const meta = MODULE_MAP[entry.module];
   if (!meta || !moduleVisible(meta, role, park)) return false;
   if (entry.roles && !entry.roles.includes(role)) return false;
-  // Gerçekte "yalnız otopark seçiliyken" görünen satırlar Tüm Otoparklar'da yok.
+
   if (entry.parkOnly && park === null) return false;
   return true;
 }
 
-/** Bir modülün menüdeki BİRİNCİL satır kimliği (sabitleme anahtarı). */
 export function menuIdForModule(module: ModuleId): string {
   const ofModule = MENU.filter((e) => e.module === module);
   return (ofModule.find((e) => e.tab === undefined) ?? ofModule[0])?.id ?? module;
 }
 
-/** Seçili (modül, sekme) çiftine karşılık gelen menü satırı. */
 export function activeMenuEntry(module: ModuleId, tab: string | undefined): MenuEntry | null {
   const ofModule = MENU.filter((e) => e.module === module);
   if (ofModule.length === 0) return null;
@@ -1302,7 +1145,6 @@ export const ROLES: { id: PanelRole; label: string; desc: string }[] = [
   { id: 'accounting', label: 'Muhasebe', desc: 'Finansal modüller; teknik grup kapalı.' },
 ];
 
-/** Üst bardaki otomatik yenileme çipleri. */
 export const REFRESH_OPTIONS: { value: number | null; label: string }[] = [
   { value: 2000, label: '2 sn' },
   { value: 5000, label: '5 sn' },
@@ -1312,7 +1154,6 @@ export const REFRESH_OPTIONS: { value: number | null; label: string }[] = [
   { value: null, label: 'Kapalı' },
 ];
 
-/** Rol maskesi — gerçek panelin partner_menu_access davranışını taklit eder. */
 export function moduleVisible(meta: ModuleMeta, role: PanelRole, park: DemoPark | null): boolean {
   if (!meta.roles.includes(role)) return false;
   if (meta.hiddenForFreePark && park && park.usageTypeId === 4) return false;
@@ -1323,14 +1164,9 @@ export function visibleModules(role: PanelRole, park: DemoPark | null): ModuleMe
   return MODULES.filter((m) => moduleVisible(m, role, park));
 }
 
-/* ==========================================================================
-   6 · SABİT DEMO SÖZLÜKLERİ (KVKK-temiz, tamamen uydurma)
-   ========================================================================== */
-
 const PLATES = opsSection.plates;
 const GATES = opsSection.gates;
 
-/** Havuz dışında plaka gerekirse buradan türetilir. */
 const PLATE_CITIES = ['34', '06', '35', '16', '07', '01', '41', '55', '38', '27'];
 const PLATE_LETTERS = ['VSF', 'ABC', 'KLM', 'TGR', 'PRK', 'NDR', 'BLT', 'ZYN', 'DNZ', 'KYS'];
 
@@ -1341,7 +1177,6 @@ export function makePlate(seed: number): string {
   return `${c} ${l} ${n}`;
 }
 
-/** Jenerik, tamamen uydurma kişi/şirket adları. */
 const DEMO_FIRST = ['Deniz', 'Ekin', 'Bora', 'Yağmur', 'Aras', 'Selin', 'Kaan', 'Elif', 'Umut', 'Derya', 'Tuna', 'Ceren'];
 const DEMO_LAST = ['Demir', 'Aydın', 'Yılmaz', 'Koç', 'Çelik', 'Şahin', 'Aslan', 'Kaya', 'Doğan', 'Erden'];
 const DEMO_COMPANY = [
@@ -1366,20 +1201,8 @@ export function demoEmail(seed: number, name: string): string {
   return `${slug}${seededInt(seed, 10, 99)}@ornek-demo.test`;
 }
 
-/** Demo kullanıcı adları (panelde işlem yapan personel). */
 export const DEMO_USERS = ['Vardiya Görevlisi 01', 'Vardiya Görevlisi 02', 'Tesis Yöneticisi', 'Muhasebe Uzmanı'];
 export const DEMO_AGENTS = ['Visiosoft Destek', 'Visiosoft Teknik Ekip'];
-
-/* ==========================================================================
-   7 · TARİFE MOTORU
-   ========================================================================== */
-
-/*
- * Brüt (KDV dahil) tarife basamakları artık lib/tariff.ts içindedir.
- * Sahnedeki ledli panelin tarife panosu da aynı basamakları okuduğu için
- * tek adrese taşındı; paymentFlow.ts'teki örnek oturumlarla uyum notu da
- * orada duruyor. Pricing satırında saklanan `amount` bunun KDV'siz karşılığıdır.
- */
 
 export interface FeeBreakdownRow {
   label: string;
@@ -1402,17 +1225,6 @@ export interface FeeBreakdown {
   vehicleMultiplier: number;
 }
 
-/**
- * Ücret hesabı — gerçek şemayı izler ve GERÇEKTEN `world.pricings`
- * satırlarından okur:
- *   park_pricings satırlarından süre dilimine düşen satır bulunur →
- *   araç sınıfına ait satır yoksa temel satır sınıf çarpanıyla ölçeklenir →
- *   tarife dönemi katsayısı uygulanır → tax_percent eklenir →
- *   parks.max_price tavanı uygulanır.
- *
- * Bu yüzden "Ücreti Yeniden Hesapla" aksiyonu tutarı gerçekten tarife
- * tablosundan yeniden türetir; sabit bir sayı döndürmez.
- */
 export function computeFee(
   world: DemoWorld,
   parkId: number,
@@ -1431,14 +1243,12 @@ export function computeFee(
 
   if (park.usageTypeId === 4) return free('Ücretsiz Tesis');
 
-  // Araç sınıfına ait satırlar yoksa temel (Otomobil) satırlar çarpanla kullanılır
   const parkRows = world.pricings.filter((p) => p.parkId === parkId);
   const own = parkRows.filter((p) => p.vehicleClassId === vehicleClassId);
   const base = own.length > 0 ? own : parkRows.filter((p) => p.vehicleClassId === 1);
   if (base.length === 0) return free('Tarife tanımlanmamış');
   const mult = own.length > 0 ? 1 : (VEHICLE_MULTIPLIER[vehicleClassId] ?? 1);
 
-  // Giriş saatine göre tarife dönemi
   const hour = calendar(msOf(BASE_EPOCH, entryMin)).hour;
   const periods = world.pricingPeriods.filter((p) => p.parkId === parkId);
   const period =
@@ -1489,13 +1299,6 @@ export function computeFee(
   };
 }
 
-/* ==========================================================================
-   8 · DÜNYA ÜRETİMİ
-   ========================================================================== */
-
-/* --- 8.1 Tesisler ------------------------------------------------------ */
-
-/** parkId = 0 sanal kiracısı: "Tüm Otoparklar". */
 export const ALL_PARKS_ID = 0;
 export const ALL_PARKS_NAME = 'Tüm Otoparklar';
 
@@ -1576,15 +1379,13 @@ function buildParks(): DemoPark[] {
   ];
 }
 
-/* --- 8.2 Tarife -------------------------------------------------------- */
-
 function buildPricingPeriods(): ParkPricingPeriod[] {
   const out: ParkPricingPeriod[] = [];
   [1, 2].forEach((parkId) => {
     out.push({ id: `PP-${parkId}-1`, parkId, name: 'Gündüz Tarifesi', timeFrom: 6, timeTo: 20, factor: 1 });
     out.push({ id: `PP-${parkId}-2`, parkId, name: 'Gece Tarifesi', timeFrom: 20, timeTo: 6, factor: 0.8 });
   });
-  // Üçüncü tesis ücretsiz; yine de şemaya sadık kalınsın diye tanımlı dönem bırakılır.
+
   out.push({ id: 'PP-3-1', parkId: 3, name: 'Site Tarifesi (Ücretsiz)', timeFrom: 0, timeTo: 24, factor: 0 });
   out.push({ id: 'PP-3-2', parkId: 3, name: 'Misafir Tarifesi (Ücretsiz)', timeFrom: 0, timeTo: 24, factor: 0 });
   return out;
@@ -1593,10 +1394,7 @@ function buildPricingPeriods(): ParkPricingPeriod[] {
 function buildPricings(periods: ParkPricingPeriod[]): ParkPricing[] {
   const out: ParkPricing[] = [];
   let i = 0;
-  // Merkez tesiste Otomobil ve Motosiklet için ayrı satırlar, Sahil'de yalnızca
-  // temel (Otomobil) satırlar tanımlıdır. Diğer sınıflar computeFee içinde
-  // VEHICLE_MULTIPLIER ile temel satırdan türetilir — gerçek panelde de her
-  // sınıf için satır tanımlamak zorunlu değildir. Toplam 42 satır.
+
   const plan: [number, number[]][] = [[1, [1, 7]], [2, [1]]];
   plan.forEach(([parkId, classes]) => {
     const period = periods.find((p) => p.parkId === parkId && p.factor === 1)!;
@@ -1620,24 +1418,12 @@ function buildPricings(periods: ParkPricingPeriod[]): ParkPricing[] {
   return out;
 }
 
-/* --- 8.3 Cihaz / kamera / bariyer -------------------------------------- */
-
-/** content.ts opsSection.devices'taki 12 çekirdek kayıt birebir korunur. */
 const CORE_DEVICES = opsSection.devices;
 
 const DEVICE_TYPE_BY_PREFIX: Record<string, number> = {
   PTS: 1, BAR: 7, KIOSK: 4, LED: 8, VBOX: 3, RACK: 6,
 };
 
-/**
- * Cihaz envanteri.
- *
- * ANA TESİS (Örnek Tesis · Merkez) TAM 38 CİHAZ taşır ve hepsi çevrimiçidir —
- * content.ts opsSection.kpis'teki "Çevrimiçi cihaz 38 / 38 · %100" değeri
- * birebir buradan gelir. Diğer iki tesis kendi küçük filolarına sahiptir
- * (8 ve 5), böylece Topoloji/Radar ekranları onlarda da boş kalmaz;
- * "Tüm Otoparklar" görünümü bu üçünün toplamını gösterir.
- */
 function buildDevices(): Device[] {
   const out: Device[] = [];
   const seedBase = 50_000;
@@ -1647,7 +1433,7 @@ function buildDevices(): Device[] {
   ): Device => {
     const prefix = id.split('-')[0];
     const typeId = DEVICE_TYPE_BY_PREFIX[prefix] ?? 0;
-    // Ana tesisin tüm cihazları çevrimiçi (KPI 38/38 · %100)
+
     const online = parkId === 1 ? true : seeded(seedBase + i * 3) > 0.08;
     return {
       id,
@@ -1669,12 +1455,10 @@ function buildDevices(): Device[] {
     };
   };
 
-  // 12 çekirdek kayıt (content.ts opsSection.devices) — birebir korunur
   CORE_DEVICES.forEach((d, i) => {
     out.push(mk(d.id, d.name, 1, i, d.status === 'warn' ? 'warning' : 'ok'));
   });
 
-  // Ana tesisin kalan 26 cihazı — aynı adlandırma şemasıyla türetilir (12 + 26 = 38)
   const centre: [string, string][] = [
     ['PTS-06', 'Giriş Kamerası C'], ['PTS-07', 'Çıkış Kamerası B'],
     ['PTS-08', 'TIR Kapısı Kamerası'], ['PTS-09', 'Kat 2 Rampa'],
@@ -1692,7 +1476,6 @@ function buildDevices(): Device[] {
   ];
   centre.forEach(([id, name], i) => out.push(mk(id, name, 1, 12 + i)));
 
-  // Sahil tesisi (8) ve Site otoparkı (5)
   const others: [string, string, number][] = [
     ['PTS-20', 'Sahil Giriş Kamerası', 2], ['PTS-21', 'Sahil Çıkış Kamerası', 2],
     ['PTS-22', 'Sahil Yan Giriş Kamerası', 2], ['BAR-07', 'Bariyer · Sahil Giriş', 2],
@@ -1738,7 +1521,6 @@ function buildCamerasAndBarriers(devices: Device[]): { cameras: Camera[]; barrie
     });
   });
 
-  // Her bariyer cihazı bir kameraya bağlanır
   barDevices.forEach((d, i) => {
     const cam = cameras.find((c) => c.parkId === d.parkId && c.barrierId === null &&
       (d.name.includes('Çıkış') ? c.type === 2 : c.type === 1));
@@ -1750,13 +1532,12 @@ function buildCamerasAndBarriers(devices: Device[]): { cameras: Camera[]; barrie
       barrierIp: d.ipAddress,
       barrierPort: 8899,
       relayNumber: 1 + (i % 2),
-      // BAR-02 (Çıkış) kasıtlı olarak "açık tutuluyor" modunda bırakıldı.
+
       relayHeld: d.id === 'BAR-02',
     });
     if (cam) cam.barrierId = barId;
   });
 
-  // Kameralardan bazıları sahipsiz bırakılır ("Bağlanmamış" bölümü için)
   const extraCams = 24 - cameras.length;
   for (let i = 0; i < Math.max(0, extraCams); i++) {
     const parkId = (i % 3) + 1;
@@ -1782,9 +1563,6 @@ function buildCamerasAndBarriers(devices: Device[]): { cameras: Camera[]; barrie
   return { cameras, barriers };
 }
 
-/* --- 8.4 Oturumlar ----------------------------------------------------- */
-
-/** Günün yoğunluk eğrisi — 08-10 ve 17-19 tepe. */
 const HOUR_WEIGHTS = [
   0.6, 0.4, 0.3, 0.3, 0.4, 0.8, 1.6, 3.2, 6.4, 6.0, 4.6, 4.2,
   4.4, 4.0, 3.8, 4.0, 4.8, 6.6, 6.2, 4.4, 3.0, 2.2, 1.6, 1.0,
@@ -1821,27 +1599,23 @@ function buildSessions(world: Pick<DemoWorld, 'parks' | 'pricings' | 'pricingPer
     const parkId = weighted(s, parkMix);
     const park = world.parks.find((p) => p.id === parkId)!;
 
-    // Son 30 gün; son günler daha yoğun
     const dayBias = seeded(s + 1);
     const dayOffset = -Math.floor(dayBias * dayBias * 30);
     const hour = pickHour(s + 2);
     const minute = seededInt(s + 3, 0, 59);
 
-    // Bugünün 00:00'ına göre dakika ofseti
     const todayMidnight = -(calendar(BASE_EPOCH).hour * 60 + calendar(BASE_EPOCH).minute);
     const entryMin = todayMidnight + dayOffset * 1440 + hour * 60 + minute;
 
     const [dMin, dMax] = weighted<readonly [number, number]>(s + 4, DURATION_MIX);
     const duration = seededInt(s + 5, dMin, dMax);
 
-    // ~%18 hâlâ içeride (yalnızca son 2 günden)
     const stillInside = dayOffset > -2 && seeded(s + 6) < 0.42;
     const exitMin = stillInside ? null : entryMin + duration;
 
     let sessionStatusId = weighted(s + 7, SESSION_STATUS_MIX);
     let paymentStatusId = stillInside ? 3 : weighted(s + 8, PAYMENT_STATUS_MIX);
 
-    // Ücretsiz tesiste her şey ücretsiz
     if (park.usageTypeId === 4) {
       sessionStatusId = seeded(s + 9) > 0.25 ? 3 : 8;
       paymentStatusId = 5;
@@ -1858,7 +1632,7 @@ function buildSessions(world: Pick<DemoWorld, 'parks' | 'pricings' | 'pricingPer
       : computeFee(world as DemoWorld, parkId, entryMin, exitMin, vehicleClassId);
 
     let amount = paymentStatusId === 5 ? 0 : fee.gross;
-    if (sessionStatusId === 100) amount = money2(amount * 3.4); // yüksek tutar
+    if (sessionStatusId === 100) amount = money2(amount * 3.4);
     if (sessionStatusId === 7) amount = 0;
 
     const parkCams = world.cameras.filter((c) => c.parkId === parkId);
@@ -1901,16 +1675,11 @@ function buildSessions(world: Pick<DemoWorld, 'parks' | 'pricings' | 'pricingPer
   return out.sort((a, b) => b.entryMin - a.entryMin);
 }
 
-/* --- 8.5 Ödemeler ------------------------------------------------------ */
-
 function buildPayments(sessions: ParkSession[], memberships: Membership[]): Payment[] {
   const out: Payment[] = [];
   const seedBase = 20_000;
   let n = 0;
 
-  // Ödendi / Başarısız / İade edilmiş oturumların yanı sıra, çıkış yapmış ama
-  // tahsil edilememiş oturumlar da "Bekliyor" durumunda birer Payment satırı
-  // üretir — gerçek sistemde de tahsilat denemesi kayıt bırakır.
   sessions
     .filter(
       (s) =>
@@ -1946,7 +1715,6 @@ function buildPayments(sessions: ParkSession[], memberships: Membership[]): Paym
       });
     });
 
-  // Abonelik ödemeleri
   memberships.forEach((m, i) => {
     const seed = seedBase + 9000 + i * 7;
     out.push({
@@ -1973,8 +1741,6 @@ function buildPayments(sessions: ParkSession[], memberships: Membership[]): Paym
 
   return out.sort((a, b) => b.createdAtMin - a.createdAtMin);
 }
-
-/* --- 8.6 Abonelikler --------------------------------------------------- */
 
 function buildPackages(): MembershipPackage[] {
   const rows: Omit<MembershipPackage, 'id'>[] = [
@@ -2104,8 +1870,6 @@ function buildApprovals(packages: MembershipPackage[]): MembershipApproval[] {
   return out;
 }
 
-/* --- 8.7 Listeler ------------------------------------------------------ */
-
 function buildLists(): ListEntry[] {
   const out: ListEntry[] = [];
   const seedBase = 90_000;
@@ -2143,8 +1907,6 @@ function buildLists(): ListEntry[] {
   }
   return out;
 }
-
-/* --- 8.8 Destek -------------------------------------------------------- */
 
 const TICKET_SUBJECTS = [
   'Kiosk fiş yazıcısı kâğıt hatası veriyor',
@@ -2213,13 +1975,11 @@ function buildTickets(): SupportTicket[] {
   return out.sort((a, b) => b.updatedAtMin - a.updatedAtMin);
 }
 
-/* --- 8.9 Radar / loglar ------------------------------------------------ */
-
 function buildRadar(devices: Device[]): RadarMetric[] {
   const seedBase = 60_000;
   return devices.map((d, i) => {
     const s = seedBase + i * 19;
-    // RACK-01 kasıtlı olarak eşik aşar (alarm tetikler, Dikkat Kuyruğu'nda görünür)
+
     const critical = d.id === 'RACK-01';
     return {
       deviceId: d.id,
@@ -2333,8 +2093,6 @@ function buildPmspLogs(devices: Device[], cameras: Camera[], barriers: Barrier[]
   return out.sort((a, b) => b.recordedAtMin - a.recordedAtMin);
 }
 
-/* --- 8.10 Doluluk şeması ---------------------------------------------- */
-
 function buildSlots(sessions: ParkSession[]): ParkSlot[] {
   const out: ParkSlot[] = [];
   const seedBase = 65_000;
@@ -2362,9 +2120,6 @@ function buildSlots(sessions: ParkSession[]): ParkSlot[] {
   return out;
 }
 
-/* --- 8.11 Finansal seriler -------------------------------------------- */
-
-/** Haftanın gününe göre ciro katsayısı (0 = Pazar). */
 const WEEKDAY_FACTOR = [0.72, 1.04, 1.06, 1.05, 1.08, 1.16, 0.89];
 
 function buildDaily(parks: DemoPark[]): DailyPoint[] {
@@ -2428,7 +2183,7 @@ function buildMonthly(parks: DemoPark[], daily: DailyPoint[]): MonthlyRevenue[] 
       });
     }
   });
-  // `daily` parametresi ileride gün bazlı düzeltme için tutuluyor
+
   void daily;
   return out;
 }
@@ -2480,8 +2235,6 @@ function buildInvoices(payments: Payment[]): InvoiceOrder[] {
   return out;
 }
 
-/* --- 8.12 Mobil kullanıcı dünyası -------------------------------------- */
-
 function buildMobile(): { user: MobileUser; vehicles: Vehicle[]; cards: SavedCard[] } {
   return {
     user: {
@@ -2496,7 +2249,7 @@ function buildMobile(): { user: MobileUser; vehicles: Vehicle[]; cards: SavedCar
       { id: 'VHC-3', plateTxt: PLATES[8], isDefault: false },
       { id: 'VHC-4', plateTxt: PLATES[12], isDefault: false },
     ],
-    // GÜVENLİK: tam kart numarası hiçbir yerde tutulmaz.
+
     cards: [
       { id: 'CRD-1', brand: 'Visa', last3: '123', holderName: 'DEMO KULLANICI', expireMonth: 11, expireYear: 29, isDefault: true, isExpired: false },
       { id: 'CRD-2', brand: 'Mastercard', last3: '456', holderName: 'DEMO KULLANICI', expireMonth: 4, expireYear: 27, isDefault: false, isExpired: false },
@@ -2504,8 +2257,6 @@ function buildMobile(): { user: MobileUser; vehicles: Vehicle[]; cards: SavedCar
     ],
   };
 }
-
-/* --- 8.13 Olay akışı çekirdeği ---------------------------------------- */
 
 function buildEvents(sessions: ParkSession[]): LiveEvent[] {
   const recent = sessions.slice(0, 26);
@@ -2531,10 +2282,6 @@ function buildEvents(sessions: ParkSession[]): LiveEvent[] {
 
 /* --- 8.14 buildWorld --------------------------------------------------- */
 
-/**
- * Tüm demo dünyasını üretir. SAF FONKSİYON: argüman almaz, yan etkisi
- * yoktur ve her çağrıda aynı çıktıyı verir.
- */
 export function buildWorld(): DemoWorld {
   const parks = buildParks();
   const pricingPeriods = buildPricingPeriods();
@@ -2587,11 +2334,6 @@ export function buildWorld(): DemoWorld {
   };
 }
 
-/* ==========================================================================
-   9 · SELECTOR'LAR — modül yazarları bunları kullanır
-   ========================================================================== */
-
-/** parkId = 0 ise filtre uygulanmaz ("Tüm Otoparklar"). */
 export const inPark = <T extends { parkId: number }>(rows: T[], parkId: number): T[] =>
   parkId === ALL_PARKS_ID ? rows : rows.filter((r) => r.parkId === parkId);
 
@@ -2611,11 +2353,6 @@ export interface HeadlineKpis {
   devicesTotal: number;
 }
 
-/**
- * Panelin RESMÎ KPI kaynağı. Tek tesis seçiliyken 1. tesis için
- * content.ts opsSection.kpis ile birebir aynı sayıları verir
- * (847/1.200 · 184.320 ₺ · 2s 14dk · 38/38).
- */
 export function selectHeadlineKpis(world: DemoWorld, parkId: number): HeadlineKpis {
   const parks = parkId === ALL_PARKS_ID ? world.parks : world.parks.filter((p) => p.id === parkId);
   const devices = inPark(world.devices, parkId);
@@ -2653,7 +2390,6 @@ export const PERIODS: { key: PeriodKey; label: string; group: 'calendar' | 'roll
   { key: 'custom', label: 'Özel', group: 'other' },
 ];
 
-/** Dönem → gün ofset aralığı [from, 0]. */
 export function periodRange(key: PeriodKey, epochMs: number): { from: number; to: number; days: number } {
   const cal = calendar(epochMs);
   switch (key) {
@@ -2686,11 +2422,6 @@ export interface FinanceSummary {
   days: number;
 }
 
-/**
- * Dönem finansal özeti — günlük seriden toplanır ve kullanıcı
- * etkileşimlerinin deltası (`world.ledger`) eklenir. Bu yüzden bir iade
- * yapıldığında ciro rakamı EK KOD OLMADAN düşer.
- */
 export function selectFinanceSummary(
   world: DemoWorld,
   parkId: number,
@@ -2746,7 +2477,6 @@ export function selectFinanceSummary(
   };
 }
 
-/** Ödeme yöntemi kırılımı — dönem toplamı sabit bir karışım oranına dağıtılır. */
 export interface MethodBreakdownRow {
   serviceId: number;
   label: string;
@@ -2771,8 +2501,6 @@ export function selectMethodBreakdown(total: number, passes: number): MethodBrea
     share,
   }));
 }
-
-/* --- Oturum filtreleri ------------------------------------------------- */
 
 export interface SessionFilter {
   /** 'all' | 'inside' | 'exited' | 'paid' | 'unpaid' */
@@ -2830,7 +2558,6 @@ export function selectSessions(
   return rows;
 }
 
-/** Genel amaçlı sıralama — Table bileşeniyle birlikte kullanılır. */
 export function sortRows<T>(
   rows: T[],
   key: string | null,
@@ -2851,7 +2578,6 @@ export function sortRows<T>(
   return out;
 }
 
-/** Sayfa dilimi — 462 satır hiçbir zaman tek seferde DOM'a basılmaz. */
 export function paginate<T>(rows: T[], page: number, pageSize: number): T[] {
   const start = (page - 1) * pageSize;
   return rows.slice(start, start + pageSize);
@@ -2859,8 +2585,6 @@ export function paginate<T>(rows: T[], page: number, pageSize: number): T[] {
 
 export const pageCount = (total: number, pageSize: number): number =>
   Math.max(1, Math.ceil(total / pageSize));
-
-/* --- Borç listesi ------------------------------------------------------ */
 
 export function selectDebts(world: DemoWorld, parkId: number): ParkSession[] {
   const parks = parkId === ALL_PARKS_ID ? world.parks : world.parks.filter((p) => p.id === parkId);
@@ -2871,12 +2595,6 @@ export function selectDebts(world: DemoWorld, parkId: number): ParkSession[] {
   );
 }
 
-/* --- Dikkat Kuyruğu ---------------------------------------------------- */
-
-/**
- * Gerçek Zone panelinde "ihlal" diye bir varlık yoktur. Bu kuyruk,
- * gerçek enum değerlerine dayanan kalemleri tek yerde toplar.
- */
 export function selectAttentionItems(world: DemoWorld, parkId: number): AttentionItem[] {
   const out: AttentionItem[] = [];
   const alert = world.radarAlerts[0]?.thresholds ?? DEFAULT_THRESHOLDS;
@@ -2961,19 +2679,6 @@ export function selectAttentionItems(world: DemoWorld, parkId: number): Attentio
   return out;
 }
 
-/* ==========================================================================
-   10 · SAF MUTASYON YARDIMCILARI
-   ==========================================================================
-   Hem panel aksiyonları hem de MOBİL aksiyonlar bu yardımcıları kullanır —
-   köprü kuralının can alıcı noktası budur: mobil ödeme, paneldeki tahsilat
-   ile AYNI kodu çalıştırır, dolayısıyla panelde birebir görünür.
-   ========================================================================== */
-
-/**
- * Çalışma sırasında üretilen kayıt id'si. 'U' (kullanıcı/çalışma zamanı)
- * ön eki, tohumlu kayıtlarla (PAY-05012, SES-01314 …) karışmasını ve
- * id çakışmasını imkânsız kılar.
- */
 export const nextId = (world: DemoWorld, prefix: string): string =>
   `${prefix}-U${pad(world.seq, 5)}`;
 
@@ -3034,7 +2739,6 @@ export function pushSessionAction(s: ParkSession, action: SessionAction): ParkSe
   return { ...s, actions: [...s.actions, action] };
 }
 
-/** Bir oturumu ödenmiş hâle getirir; panel ve mobil aynı yolu kullanır. */
 export function markSessionPaid(s: ParkSession, by: string, atMin: number): ParkSession {
   return pushSessionAction(
     { ...s, paymentStatusId: 2, paymentBy: by, paymentTransactionId: `TX-${pad(Math.abs(Math.round(atMin * 977)) % 10_000_000, 7)}` },
@@ -3070,11 +2774,6 @@ export function makeEvent(
   };
 }
 
-/* ==========================================================================
-   11 · SİMÜLASYON
-   ========================================================================== */
-
-/** Liste tavanları — bellek ve render maliyeti sabit kalsın diye. */
 export const CAPS = { sessions: 600, events: 120, pmspLogs: 300, barrierLogs: 200, payments: 520 };
 
 export interface TickResult {
@@ -3082,13 +2781,6 @@ export interface TickResult {
   notifications: PanelNotification[];
 }
 
-/**
- * Tek bir simülasyon adımı — TAMAMEN DETERMİNİSTİK.
- * `Math.random` ve `Date.now` kullanılmaz; her şey `tick` tohumundan türer.
- *
- * Üretilenler: yeni araç girişi, çıkış + ücret + ödeme/borç, bariyer
- * olayı, kara liste reddi, radar dalgalanması ve PMSP log satırı.
- */
 export function simulateTick(world: DemoWorld, tick: number, nowMin: number): TickResult {
   const s = tick * 7919;
   const notifications: PanelNotification[] = [];
@@ -3108,7 +2800,6 @@ export function simulateTick(world: DemoWorld, tick: number, nowMin: number): Ti
   const hour = calendar(msOf(BASE_EPOCH, nowMin)).hour;
   const intensity = HOUR_WEIGHTS[hour] / 6.6; // 0..1
 
-  /* --- 1) Yeni giriş(ler) --------------------------------------------- */
   const entryCount = seeded(s + 1) < intensity * 0.85 ? (seeded(s + 2) > 0.75 ? 2 : 1) : 0;
   for (let i = 0; i < entryCount; i++) {
     const seed = s + 10 + i * 3;
@@ -3117,7 +2808,6 @@ export function simulateTick(world: DemoWorld, tick: number, nowMin: number): Ti
     const cams = world.cameras.filter((c) => c.parkId === park.id && c.type === 1);
     const cam = cams[Math.floor(seeded(seed + 4) * Math.max(1, cams.length)) % Math.max(1, cams.length)];
 
-    // Kara liste kontrolü — liste modülüne eklenen plaka burada gerçekten iş yapar
     const black = world.lists.find(
       (l) => l.kind === 'black' && !l.deleted && l.plateTxt === plate &&
         (l.parkId === park.id || l.parkId === ALL_PARKS_ID)
@@ -3165,7 +2855,6 @@ export function simulateTick(world: DemoWorld, tick: number, nowMin: number): Ti
     bump();
   }
 
-  /* --- 2) Çıkış + tahsilat -------------------------------------------- */
   if (seeded(s + 40) < intensity * 0.7) {
     const active = sessions.filter((x) => x.exitMin === null && x.sessionStatusId !== 7);
     if (active.length) {
@@ -3179,7 +2868,6 @@ export function simulateTick(world: DemoWorld, tick: number, nowMin: number): Ti
       const fee = free ? null : computeFee(world, park.id, target.entryMin, target.entryMin + duration, target.vehicleClassId);
       const amount = fee ? fee.gross : 0;
 
-      // Ödeme yolu — paymentFlow.ts'teki RouteId kümesiyle aynı mantık
       const routeSeed = seeded(s + 43);
       const paid = free || routeSeed > 0.22;
       const serviceId = free ? 9 : weighted(s + 44, [[1, 46], [2, 20], [13, 12], [14, 12], [15, 10]] as const);
@@ -3215,7 +2903,6 @@ export function simulateTick(world: DemoWorld, tick: number, nowMin: number): Ti
         bump();
       }
 
-      // Çıkış bariyeri
       const barrier = world.barriers.find((b) => b.cameraId === outCam?.id);
       if (barrier) {
         events = [makeEvent(next, 'barrier', park.id, `${barrier.id} · çıkış bariyeri açıldı`, { atMin: nowMin, barrierId: barrier.id }), ...events];
@@ -3224,7 +2911,6 @@ export function simulateTick(world: DemoWorld, tick: number, nowMin: number): Ti
     }
   }
 
-  /* --- 3) PMSP log satırı --------------------------------------------- */
   if (seeded(s + 60) > 0.35) {
     const device = world.devices[Math.floor(seeded(s + 61) * world.devices.length) % world.devices.length];
     const messageType = weighted<PmspMessageType>(s + 62, [
@@ -3249,7 +2935,6 @@ export function simulateTick(world: DemoWorld, tick: number, nowMin: number): Ti
     }, ...pmspLogs];
   }
 
-  /* --- 4) Radar dalgalanması ------------------------------------------ */
   const radar = world.radar.map((m, i) => {
     const d = (seeded(s + 200 + i) - 0.5) * 0.06;
     const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, Math.round(v)));
@@ -3265,12 +2950,10 @@ export function simulateTick(world: DemoWorld, tick: number, nowMin: number): Ti
     };
   });
 
-  /* --- 5) Kamera son yakalama zamanı ---------------------------------- */
   const cameras = world.cameras.map((c, i) =>
     c.online && seeded(s + 300 + i) > 0.55 ? { ...c, lastCaptureMin: nowMin } : c
   );
 
-  /* --- 6) Ara sıra bildirim ------------------------------------------- */
   if (tick > 0 && tick % 12 === 0) {
     bump();
     const kinds = [
@@ -3307,7 +2990,6 @@ export function simulateTick(world: DemoWorld, tick: number, nowMin: number): Ti
    12 · CSV
    ========================================================================== */
 
-/** Basit, güvenli CSV üretimi (Excel Türkçe uyumu için ; ayırıcı). */
 export function toCsv(headers: string[], rows: (string | number | null)[][]): string {
   const esc = (v: string | number | null) => {
     const s = v === null || v === undefined ? '' : String(v);
@@ -3316,14 +2998,6 @@ export function toCsv(headers: string[], rows: (string | number | null)[][]): st
   return [headers.map(esc).join(';'), ...rows.map((r) => r.map(esc).join(';'))].join('\n');
 }
 
-/**
- * CSV metnini satır dizisine çevirir (içe aktarma için).
- *
- * Ayırıcı ilk satırdan tespit edilir: `;` varsa `;`, yoksa sekme, yoksa `,`.
- * Bu ÖNEMLİDİR — Türkçe tutarlarda ondalık ayırıcı virgüldür ('148,00'),
- * körü körüne virgülden bölmek tutarı ikiye ayırır.
- * Tırnak içindeki ayırıcılar yok sayılır.
- */
 export function parseCsv(text: string): string[][] {
   const lines = text.split(/\r?\n/).filter((l) => l.trim().length > 0);
   if (lines.length === 0) return [];
@@ -3351,6 +3025,5 @@ export function parseCsv(text: string): string[][] {
     return cells;
   };
 
-  // BOM temizliği (downloadCsv başa ﻿ ekler)
   return lines.map((l, i) => splitLine(i === 0 ? l.replace(/^﻿/, '') : l));
 }

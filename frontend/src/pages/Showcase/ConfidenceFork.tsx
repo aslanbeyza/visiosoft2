@@ -5,7 +5,6 @@ import { revealEase } from '../../components/Reveal/index.ts'
 import { forkCopy } from './lowConfidenceCopy.ts'
 import styles from './ConfidenceFork.module.css'
 
-// Zamanlama (s): okuma → bağlantı → kontrol → çatal → iki sonuç → insan onayı işareti
 const rise: Variants = {
   hidden: { opacity: 0, y: 28 },
   show: (delay: number) => ({ opacity: 1, y: 0, transition: { duration: 0.8, delay, ease: revealEase } }),
@@ -40,7 +39,6 @@ function Wire({ delay, className }: { delay: number; className: string }) {
   )
 }
 
-/** Şansa Bırakmayız hero anı: PTS okuması güven kontrolünden geçer, düşük güvenli yol operatör onayına ayrılır. */
 export default function ConfidenceFork() {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)
@@ -77,7 +75,7 @@ export default function ConfidenceFork() {
       <motion.article className={`${styles.card} ${styles.check}`} custom={0.9} variants={rise}>
         <svg className={styles.gauge} viewBox="0 0 120 68" aria-hidden="true" focusable="false">
           <path className={styles.gaugeTrack} d="M10 62 A50 50 0 0 1 110 62" />
-          {/* Değer yayı, ibrenin durduğu 58°'de biter */}
+          {}
           <motion.path className={styles.gaugeValue} d="M10 62 A50 50 0 0 1 102.4 35.5" custom={1.1} variants={ink} />
           <motion.line className={styles.gaugeNeedle} x1="60" y1="62" x2="60" y2="22" style={{ originX: 0.5, originY: 1 }} custom={1.1} variants={needle} />
           <circle className={styles.gaugeHub} cx="60" cy="62" r="4" />

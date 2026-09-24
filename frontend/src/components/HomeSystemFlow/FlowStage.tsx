@@ -11,21 +11,20 @@ import styles from './FlowStage.module.css'
 
 type FlowStageProps = {
   active: number
-  /** Adım cinsinden sürekli ilerleme (0 … adım sayısı). */
+
   fill: MotionValue<number>
-  /** Değiştiğinde sahne baştan kurulur (döngü başa sardığında araç yeniden girer). */
+
   cycle?: number
-  /** Zone oturumlar ekranı 02. adımdan itibaren köşede küçük hâliyle bekler (masaüstü sabit sahne). */
+
   dock?: boolean
   footer?: ReactNode
   className?: string
 }
 
-/** Sağ sütun: başlık satırı, şerit sahnesi ve Zone oturumlar ekranı (köşede küçük → 6. adımda tam boy). */
 export default function FlowStage({ active, fill, cycle = 0, dock = false, footer, className = '' }: FlowStageProps) {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)
-  // Sahne görünüme yaklaşınca kurulur; böylece araç ziyaretçi gelince şeride girer.
+
   const near = useInView(rootRef, { once: true, amount: 0.35 })
   const record = active >= RECORD_INDEX
   const sessionsState = record ? 'full' : dock && active >= DOCK_INDEX ? 'mini' : 'hidden'
@@ -87,7 +86,7 @@ export default function FlowStage({ active, fill, cycle = 0, dock = false, foote
           ) : null}
         </motion.div>
 
-        {/* Tek öğe: köşedeki küçük pencere transform ile tam boya büyür (yalnızca transform/opaklık). */}
+        {}
         <div className={styles.sessions} data-state={sessionsState}>
           <SessionsFrame />
         </div>

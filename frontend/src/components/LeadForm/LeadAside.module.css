@@ -34,7 +34,6 @@
   font-size: clamp(0.98rem, 0.25vw + 0.9rem, 1.1rem);
 }
 
-/* StepList: form kartı içinde daha sıkı tipografi ve işaret. */
 .block .steps {
   --marker: 2.1rem;
   --step-title: 0.95rem;
@@ -88,7 +87,6 @@
     transform 0.45s var(--ease-apple);
 }
 
-/* M10: işaretçiyi izleyen yumuşak ışık */
 .tile::before {
   position: absolute;
   inset: 0;

@@ -1,4 +1,4 @@
-/* Dar ekranda dikey akış; ≥1024 px'te soldan sağa, sonda iki kola ayrılan çatal */
+
 .fork {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -83,7 +83,6 @@
   color: #fff;
 }
 
-/* Plaka ve okuma köşeliği */
 .plateStage {
   position: relative;
   justify-self: start;
@@ -132,7 +131,6 @@
   stroke-linecap: round;
 }
 
-/* Güven göstergesi */
 .gauge {
   width: 7.5rem;
   height: auto;
@@ -189,7 +187,6 @@
   stroke: var(--color-navy-300);
 }
 
-/* Bağlantı çizgileri */
 .wire,
 .split {
   position: relative;
@@ -231,7 +228,6 @@
   display: none;
 }
 
-/* Tablet: iki sonuç yan yana; kontrolden inen çizgi ortada ikiye ayrılır, kartların üstüne birer bağlantı iner */
 @media (min-width: 640px) and (max-width: 1023px) {
   .fork {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -251,7 +247,6 @@
     bottom: 50%;
   }
 
-  /* Yatay çubuk iki kartın merkezleri arasında: sütun boşluğu (1.25rem) payı düşülür */
   .splitIn {
     display: block;
     top: 50%;

@@ -6,7 +6,6 @@
   color: var(--color-corp-ink);
 }
 
-/* İnce çizim kâğıdı ızgarası: ortada görünür, kenarlara doğru söner (statik) */
 .hero::before {
   position: absolute;
   inset: 0;

@@ -10,7 +10,6 @@ import styles from './HgsParkHero.module.css'
 
 const { hero, future } = hgsParkPageCopy
 
-/* Kadran geometrisi (viewBox 400): 60 çentik, her beşincisi uzun; halka tepeden saat yönünde çizilir. */
 const C = 200
 const point = (i: number, r: number) => {
   const a = (i / 60) * Math.PI * 2 - Math.PI / 2
@@ -26,13 +25,12 @@ const MAJOR = ticks(true)
 const RING = 'M200 20a180 180 0 1 1 0 360a180 180 0 1 1 0-360'
 const ARC = 0.25
 
-/** İmza anı: zaman kadranı çizilir, lacivert yay çeyrek tur ilerler, HGS Park logosu soldan sağa açılır. */
 function Emblem() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)
-  // Kırpılan logo kendi görünürlüğünü bildiremez; tetik kırpılmamış kapsayıcıdan gelir.
+
   const inView = useInView(ref, { once: true, amount: 0.35 })
-  // Dönüş kullanıcı kaydırınca başlar; ilk yüklemede çentikler yayın başladığı tepe noktasıyla hizalı kalır.
+
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const turn = useTransform(scrollYProgress, [0, 1], [0, 30])
   const go = reduce || inView

@@ -1,12 +1,4 @@
-/**
- * Kullanım:
- *   <CountUp value={1800} suffix=" mm" />          → "1800 mm"
- *   <CountUp value={297.5} decimals={1} suffix=" mm" /> → "297,5 mm"
- *   <CountUp value={6500000} suffix="+" />        → "6.500.000+"
- * Görünüme girince bir kez sayar (tr-TR biçimi, tabular rakamlar); değer React state'i yerine motion value ile
- * güncellenir. Son değer ekran okuyucu için ayrı basılır; hareket azaltmada doğrudan son değer görünür.
- * Binlik ayırıcı varsayılan olarak 10.000 ve üzeri sayılarda kullanılır (yıl ve mm ölçüleri "2018", "1800" kalır).
- */
+
 import { useEffect, useRef } from 'react'
 import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from 'framer-motion'
 import { revealEase } from '../Reveal/index.ts'
@@ -18,14 +10,14 @@ export type CountUpProps = {
   decimals?: number
   prefix?: string
   suffix?: string
-  /** Süre (s). */
+
   duration?: number
   className?: string
-  /** Sayacın başladığı değer. */
+
   from?: number
-  /** Binlik ayırıcı; varsayılan |value| ≥ 10.000 için açık. */
+
   grouping?: boolean
-  /** Gecikme (s). */
+
   delay?: number
 }
 

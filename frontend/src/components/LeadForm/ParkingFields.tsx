@@ -4,7 +4,6 @@ import styles from './LeadForm.module.css'
 
 const copy = leadFormCopy.parking
 
-/** Otopark teklif motoru için ek alanlar; alan adları backend sözleşmesiyle aynıdır. */
 export default function ParkingFields() {
   return (
     <div className={styles.extra}>

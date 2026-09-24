@@ -24,7 +24,7 @@ function useMediaQuery(query: string) {
 type FieldSceneProps = {
   features: SceneFeature[]
   statusLabel: string
-  /** İşlem akışında o an yürütülen adımın bilgi noktası. */
+
   highlightId: FeatureId | null
   revealed: boolean
 }
@@ -36,15 +36,13 @@ export default function FieldScene({ features, statusLabel, highlightId, reveale
   const frameRef = useRef<HTMLDivElement>(null)
   const buttonRefs = useRef(new Map<FeatureId, HTMLButtonElement>())
   const [openId, setOpenId] = useState<FeatureId | null>(null)
-  // Mobilde kartlar sahnenin altında listelenir; bilgi noktası kartı yalnızca masaüstünde açılır.
+
   const activeId = wide ? openId : null
 
-  // Sahne kaydırılırken fotoğraf ve kiosk birlikte çok az kayar; ürün zeminden kopmaz.
   const { scrollYProgress } = useScroll({ target: frameRef, offset: ['start end', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['1.5%', '-1.5%'])
   const parallax = wide && !reduce
 
-  // Açık kart Esc ile veya bilgi noktaları dışına tıklanınca kapanır.
   useEffect(() => {
     if (!activeId) return
 

@@ -14,7 +14,7 @@ import { useMediaQuery } from './useMediaQuery.ts'
 import styles from './Footer.module.css'
 
 const LOGO_SRC = '/img/visiosoft_logo.svg'
-/** Bu genişliğin altında bağlantı grupları akordeon olur. */
+
 const COLUMNS_QUERY = '(min-width: 640px)'
 
 const iconPaths = {
@@ -46,7 +46,6 @@ function Icon({ name, className }: { name: IconName; className?: string }) {
   )
 }
 
-/** Satırları ayıran ince çizgi; görünüme girince soldan sağa çizilir. */
 function Rule({ reduce }: { reduce: boolean }) {
   return (
     <motion.span
@@ -83,7 +82,6 @@ export default function Footer() {
   const columns = useMediaQuery(COLUMNS_QUERY)
   const footerRef = useRef<HTMLElement>(null)
 
-  // Dev logo, alt bilgi görünür olduğu andan sayfa sonuna kadar alt kenardan yükselir.
   const { scrollYProgress } = useScroll({ target: footerRef, offset: ['start end', 'end end'] })
   const wordmarkY = useTransform(scrollYProgress, [0, 1], ['30%', '0%'])
 
@@ -91,7 +89,6 @@ export default function Footer() {
   const waDisplay = config?.whatsapp_display || company.whatsapp.display
   const year = new Date().getFullYear()
 
-  // Odak ana içeriğe taşınır; klavye kullanıcısı sayfanın başından devam eder.
   const scrollToTop = () => {
     document.getElementById('main-content')?.focus({ preventScroll: true })
     window.scrollTo({ top: 0, left: 0, behavior: reduce ? 'instant' : 'smooth' })

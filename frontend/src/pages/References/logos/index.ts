@@ -1,5 +1,4 @@
-// Üretilmiş dosya (kırpma betiği): public/referanslar/logolar kaynaklarının zemini saydam, kırpılmış ve
-// optik alanı eşitlenmiş 1,6:1 kopyaları. Anahtar: references.ts içindeki özgün dosya adı (NFC).
+
 import logo0 from './arnavutlukkoy-belediyesi.webp'
 import logo1 from './bakirkoy-kaymakamligi.webp'
 import logo2 from './bakiroy-belediyesi.webp'

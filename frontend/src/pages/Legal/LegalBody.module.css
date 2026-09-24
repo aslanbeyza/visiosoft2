@@ -7,7 +7,6 @@
   position: relative;
 }
 
-/* Ayraç çizgisi iki bölümün tam ortasında durur: başlığın kendi üst boşluğu sıfırlanır, aralık bölümden gelir. */
 .chunk + .chunk {
   margin-top: clamp(3rem, 4vw, 3.75rem);
 }

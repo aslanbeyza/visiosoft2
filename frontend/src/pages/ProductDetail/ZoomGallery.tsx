@@ -10,7 +10,6 @@ type ZoomGalleryProps = {
   zoom: Extract<DetailZoom, { kind: 'gallery' }>
 }
 
-/** Ürün görselleri galerisi: ilk kare büyük, diğerleri yanında; her kare kırpma açılışı ve hafif paralaksla gelir. */
 export default function ZoomGallery({ zoom }: ZoomGalleryProps) {
   const titleId = useId()
 
@@ -20,7 +19,7 @@ export default function ZoomGallery({ zoom }: ZoomGalleryProps) {
       <ul className={styles.grid}>
         {zoom.items.map((item, index) => (
           <li key={item.id} className={styles.item} data-index={index}>
-            {/* Üç kare aynı oranda: sütunlar ve başlıklar hizalı kalır. */}
+            {}
             <MediaFrame
               ratio="4 / 3"
               fit={item.fit}

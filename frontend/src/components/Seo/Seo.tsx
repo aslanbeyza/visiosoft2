@@ -1,18 +1,13 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
-/**
- * Kullanım: `<Seo title="Kiosk | Visiosoft" description="…" canonicalPath="/donanim-urunleri/kiosk" />`
- * Sayfa başlığını, açıklamayı, canonical bağlantıyı, robots ve Open Graph / Twitter etiketlerini günceller.
- * `canonicalPath` verilmezse geçerli yol kullanılır; `noindex` arama motorlarını dışarıda bırakır.
- */
 export type SeoProps = {
   title: string
   description?: string
-  /** Site köküne göre yol (ör. "/iletisim"); varsayılan geçerli yol. */
+
   canonicalPath?: string
   noindex?: boolean
-  /** Mutlak URL ya da site köküne göre yol. */
+
   ogImage?: string
 }
 
@@ -26,7 +21,6 @@ function absoluteUrl(pathOrUrl: string) {
   return `${SITE_URL}${clean}`
 }
 
-/** Sondaki eğik çizgiyi kaldırır; ana sayfa "/" kalır. */
 function normalizePath(pathname: string) {
   const trimmed = pathname.replace(/\/+$/, '')
   return trimmed || '/'

@@ -7,7 +7,6 @@ import { revealEase } from '../../components/Reveal/index.ts'
 import { onStreetCopy } from './onStreetCopy.ts'
 import styles from './StreetScan.module.css'
 
-// Çizimdeki plakaların konumları (%; 1024 × 765 görsel üzerinde ölçüldü, küçük pay bırakıldı)
 const plates = [
   { left: 25.6, top: 82.1, width: 8.8, height: 4.4, at: 0.3 },
   { left: 49.4, top: 74.8, width: 6.4, height: 3.2, at: 0.52 },
@@ -15,11 +14,9 @@ const plates = [
 
 const corners = ['M0 30V0h24', 'M76 0h24v30', 'M100 70v30H76', 'M24 100H0V70']
 
-// Tarama çizgisinin başlangıcı ve süresi (sn); plakalar çizgi üzerlerinden geçerken kilitlenir
 const SCAN_DELAY = 1.05
 const SCAN_TIME = 1.7
 
-/** Hero anı: çizim açıldıktan sonra ince bir tarama çizgisi caddeyi soldan sağa geçer, plakalara çerçeve kilitlenir. */
 export default function StreetScan() {
   const { scene } = onStreetCopy
   const reduce = Boolean(useReducedMotion())
@@ -30,7 +27,7 @@ export default function StreetScan() {
 
   return (
     <div ref={ref} className={styles.root}>
-      {/* Çizimin sağ üstündeki kamera kutusu kenara yakın; screenshot kipi onu kırpmaz, plaka katmanları görselle birlikte kayar. */}
+      {}
       <MediaFrame mode="screenshot" amount={0.2}>
         <div className={styles.stage}>
           <Picture

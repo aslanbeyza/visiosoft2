@@ -7,10 +7,6 @@ import BlogMasthead from './BlogMasthead.tsx'
 import { blogCopy as copy } from './blogCopy.ts'
 import { useBlogIndex } from './useBlogIndex.ts'
 
-/**
- * /blog — ortalanmış hero (başlık satırları + çizilen gazete künyesi, gerçek yazı sayısı) →
- * öne çıkan son yazı (görsel açılır) + kart ızgarası; iskelet / hata / boş durumları → CtaBand.
- */
 export default function BlogIndexPage() {
   const path = usePath()
   const { state, retry } = useBlogIndex()

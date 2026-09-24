@@ -1,4 +1,4 @@
-/* Başlık solda, açıklama sağda (≥1024); dar ekranda alt alta. */
+
 .headSplit {
   display: grid;
   gap: 1.25rem;
@@ -22,7 +22,6 @@
   color: rgb(255 255 255 / 0.72);
 }
 
-/* Ortalanmış başlık: SectionHeading'in max-width kutusu da sayfa ortasına alınır. */
 .headCenter {
   display: grid;
   justify-items: center;

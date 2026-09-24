@@ -1,8 +1,6 @@
-// Park planı zemin işaretleri (dekoratif SVG parçaları).
 
 type GlyphProps = { x: number; y: number; className?: string }
 
-/** Zemin işaretleri: şarj şimşeği, engelli sembolü, kiralık anahtarı, tarama. */
 export function BoltMark({ x, y, className }: GlyphProps) {
   return <path className={className} d={`M${x + 3} ${y - 11}l-8 12h7l-4 11 9-13h-7z`} />
 }

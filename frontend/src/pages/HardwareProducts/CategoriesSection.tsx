@@ -25,7 +25,6 @@ const stats = [
   { value: company.foundedYear, from: 2000, label: categoriesCopy.stats.founded },
 ]
 
-/** Kategori satırları (M12 süpürme çizgisi) ürün filtresini ayarlar; altında gerçek sayılar. */
 export default function CategoriesSection({ onSelect }: CategoriesSectionProps) {
   const reduce = useReducedMotion()
 
@@ -63,7 +62,7 @@ export default function CategoriesSection({ onSelect }: CategoriesSectionProps) 
                   </span>
                   <span className={styles.thumbs} aria-hidden="true">
                     {members.map((item) => {
-                      // Kenar boşluğu kırpılmış kesimler küçük boyda daha okunaklıdır; yoksa kart görseli.
+
                       const thumb = lineupItems.find((entry) => entry.slug === item.slug) ?? item.image
                       return (
                         <Picture

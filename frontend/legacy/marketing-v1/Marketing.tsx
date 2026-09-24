@@ -67,7 +67,7 @@ const legalRoutes = [
 ]
 
 export default function Marketing({ routeName }: { routeName: string }) {
-  // Kiosk yeni ürün detay şablonunu kullanır; diğer donanımlar şimdilik eski sayfada kalır.
+
   if (routeName === 'hardware-products.kiosk') {
     return <ProductDetail slug="kiosk" />
   }

@@ -1,6 +1,6 @@
 .stage {
   position: relative;
-  /* Kartlar çapraz dizilir; öndeki kart arkadakinin yalnızca sağ alt kenarına biner, banka adı ve para birimleri açık kalır. */
+
   aspect-ratio: 50 / 43;
   width: 100%;
   max-width: 34rem;

@@ -25,7 +25,6 @@
   pointer-events: none;
 }
 
-/* Tek gölge seti: genişlikte yan, her yerde alt/üst — ayrı breakpoint’le aç-kapa yok. */
 .shadeStack {
   background:
     linear-gradient(90deg, rgb(6 7 11 / 0.92) 0%, rgb(6 7 11 / 0.55) 28%, rgb(6 7 11 / 0.12) 55%, rgb(6 7 11 / 0) 78%),
@@ -64,7 +63,6 @@
     clamp(1.5rem, 3svh + 1.25rem, 5.5rem);
 }
 
-/* İki sütunda metin dikey ortada, kart altta; tek sütunda blok ortalanır. */
 .grid {
   display: grid;
   flex: 1;

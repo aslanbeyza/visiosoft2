@@ -1,4 +1,4 @@
-/* Rota: üç panel aynı hücrede üst üste durur; yükseklik sabit kalır, seçim değişince düzen kaymaz. */
+
 .routes {
   display: grid;
   padding: 0 0.25rem;
@@ -39,7 +39,6 @@
   list-style: none;
 }
 
-/* Bağlantı çizgisi: dar ekranda noktaların solundan aşağı iner. */
 .list::before {
   position: absolute;
   inset: 0.5rem auto 0.5rem 0.32rem;
@@ -91,7 +90,6 @@
   background: var(--color-navy-300);
 }
 
-/* ≥768px: sahnenin altında yatay şerit. Sütun aralığı yok; çizgi ilk noktanın ortasından son noktanın ortasına uzanır. */
 @media (min-width: 768px) {
   .routes {
     padding: 0;

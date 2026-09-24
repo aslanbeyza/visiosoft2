@@ -10,10 +10,6 @@ import styles from './CompanyFacts.module.css'
 
 const copy = contactCopy.corporate
 
-/**
- * Şirket bilgileri: resmi değerler birebir, <dl> satırları olarak. Liste görünüme girince
- * her satırın üstünde ince lacivert çizgi soldan sağa süpürür (M12), satırlar sırayla belirir.
- */
 export default function CompanyFacts({ id }: { id: string }) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())

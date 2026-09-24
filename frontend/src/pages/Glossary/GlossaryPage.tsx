@@ -6,10 +6,6 @@ import { glossaryCopy as copy } from './glossaryCopy.ts'
 import { glossaryTerms } from './terms.ts'
 import styles from './GlossaryPage.module.css'
 
-/**
- * /otopark-terimleri — saha ve otopark dilinin kısa sözlüğü.
- * Destek ailesinde durur (kılavuz, blog); ana menüye girmez.
- */
 export default function GlossaryPage() {
   return (
     <>

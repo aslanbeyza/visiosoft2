@@ -10,7 +10,6 @@ import { referencesCopy as copy } from './referencesCopy.ts'
 import { referenceItems, sectorCounts } from './sectors.ts'
 import styles from './ReferencesPage.module.css'
 
-/** /referanslarimiz — hero anı: zıt yönlere akan logo sütunları; sayılar referans dizisinden türetilir. */
 export default function ReferencesPage() {
   const path = usePath()
 

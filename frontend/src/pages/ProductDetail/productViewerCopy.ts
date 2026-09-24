@@ -1,4 +1,4 @@
-/** Canlı ürün sayfasındaki 3B kart metinleri. */
+
 export const productViewerCopy = {
   kicker: '3D inceleme',
   title: 'Modeli döndürün, detaylara yakınlaşın.',

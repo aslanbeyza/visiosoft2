@@ -5,16 +5,12 @@ import { CHIP, FIELD, HUB_CENTER, HUB_VIEWBOX, spokeEnds, spokes } from './hubGe
 import styles from './HubSpoke.module.css'
 
 type HubSpokeArtProps = {
-  /** Kırpılmamış kök görünüme girdi mi (bir kez). */
+
   drawn: boolean
   reduce: boolean
   active: number
 }
 
-/**
- * Ağ katmanı: CPU çerçevesi, sinaps noktaları ve kartlardan merkeze giden ışınlar
- * (21st.dev Animated Beam / CPU Architecture). Tamamen dekoratif.
- */
 export default function HubSpokeArt({ drawn, reduce, active }: HubSpokeArtProps) {
   const uid = `hub${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`
   const { x, y, ring } = HUB_CENTER

@@ -24,7 +24,6 @@ const rule: Variants = {
   show: { scaleX: 1, transition: { duration: 0.8, ease: revealEase } },
 }
 
-/** Hero metin sütunu: üst etiket, h1, açıklama, iki eylem ve kanıt listesi. */
 export default function HeroIntro({ reduce }: { reduce: boolean }) {
   const path = usePath()
   const text = heroCopy
@@ -64,7 +63,7 @@ export default function HeroIntro({ reduce }: { reduce: boolean }) {
           </Button>
         </motion.div>
 
-        {/* Her öğenin başında nokta var; satır başına düşen nokta sarmalayıcının kırpmasıyla gizlenir. */}
+        {}
         <motion.div className={styles.proofWrap} variants={rise}>
           <ul className={styles.proof}>
             {text.proof.map((item) => (

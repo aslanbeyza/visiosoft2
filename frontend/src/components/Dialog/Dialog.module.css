@@ -47,7 +47,6 @@
   border-bottom: 1px solid var(--color-corp-line);
 }
 
-/* Başlık gizliyken kapat düğmesi içeriğin üstünde köşede durur. */
 .header[data-hidden='true'] {
   position: absolute;
   top: 0.75rem;

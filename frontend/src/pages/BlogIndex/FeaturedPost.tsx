@@ -18,10 +18,6 @@ function Arrow() {
   )
 }
 
-/**
- * Listenin başındaki "son yazı" kartı: görsel üstten aşağı açılır (MediaFrame), başlık satır satır yükselir,
- * etiket çizgisi çizilir. Kartın tamamı yazıya bağlantıdır.
- */
 export default function FeaturedPost({ post }: { post: BlogPost }) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())

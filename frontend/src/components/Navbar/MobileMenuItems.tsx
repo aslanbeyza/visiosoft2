@@ -6,14 +6,13 @@ import styles from './MobileMenu.module.css'
 
 type SubLinkProps = {
   link: NavMenuLink
-  /** product: küçük ürün görseli, icon: yazılım ikon karosu, plain: yalnızca metin (aksesuar). */
+
   media: 'product' | 'icon' | 'plain'
   to: string
   active: boolean
   onNavigate: () => void
 }
 
-/** Mobil akordeon satırı: ad + kısa açıklama, isteğe bağlı küçük görsel ya da ikon. */
 export function SubLink({ link, media, to, active, onNavigate }: SubLinkProps) {
   const { image } = link
 
@@ -51,7 +50,6 @@ export function SubLink({ link, media, to, active, onNavigate }: SubLinkProps) {
 
 export type GroupLink = { to: string; label: string; active: boolean }
 
-/** Grubun altındaki düz bağlantılar: "tümünü görüntüle" ve yönlendirme (CTA kartı yerine sade bağlantı). */
 export function GroupLinks({ links, onNavigate }: { links: GroupLink[]; onNavigate: () => void }) {
   return (
     <ul className={styles.groupLinks}>

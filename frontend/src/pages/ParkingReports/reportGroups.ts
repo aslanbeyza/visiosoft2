@@ -10,7 +10,6 @@ export type ReportGroup = {
   items: { title: string; description: string }[]
 }
 
-// Mevcut Raporlar sayfasındaki rapor grupları (metinler birebir).
 export const reportGroups: ReportGroup[] = [
   {
     anchor: 'operasyonel',

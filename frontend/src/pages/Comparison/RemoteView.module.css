@@ -67,7 +67,6 @@
   stroke-linecap: round;
 }
 
-/* Bağlantı üzerinde akan kısa paket; iki tur sonra durur. */
 .packet {
   stroke: var(--color-navy-900);
   stroke-width: 4;

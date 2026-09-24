@@ -7,7 +7,6 @@ import styles from './PricingInfo.module.css'
 const copy = pricingCopy.info
 const pad = (n: number) => String(n).padStart(2, '0')
 
-/** "Sistem nedir?" bilgi bölümü: gece tonunda iki sütunlu Prose; her blokta çizgi çizilir, metin yükselir. */
 export default function PricingInfo() {
   const reduce = Boolean(useReducedMotion())
 

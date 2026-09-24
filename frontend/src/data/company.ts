@@ -1,7 +1,4 @@
-/**
- * Şirket ve iletişim bilgileri; mevcut İletişim sayfasındaki değerlerle birebir aynıdır.
- * WhatsApp numarası backend config'ten gelir, burada yalnızca yedek değer tutulur.
- */
+
 export const company = {
   legalName: 'Visiosoft Teknoloji A.Ş.',
   foundedYear: 2018,

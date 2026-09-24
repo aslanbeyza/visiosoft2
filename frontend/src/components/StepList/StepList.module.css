@@ -94,7 +94,6 @@
   color: var(--marker-on-fg);
 }
 
-/* Dikey: işaretin altından bir sonraki adıma inen çizgi. */
 .segment {
   position: absolute;
   top: calc(var(--marker) + 0.5rem);
@@ -163,7 +162,6 @@
   text-wrap: pretty;
 }
 
-/* Yatay: tablette 2 sütunlu ızgara, masaüstünde adımlar yan yana; çizgi işaretin sağından sonraki işarete uzanır. */
 @media (min-width: 768px) {
   .list[data-direction='horizontal'] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -171,7 +169,6 @@
     row-gap: 2.75rem;
   }
 
-  /* Üç adım tablette de tek satırda sığar; 2×2'de sonuncusu yalnız kalırdı. */
   .list[data-direction='horizontal'][data-tablet='row'] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -202,7 +199,6 @@
   }
 }
 
-/* Tablet 2 sütun: satır sonundaki adımın çizgisi boşluğa uzanmasın. */
 @media (min-width: 768px) and (max-width: 1023.98px) {
   .list[data-direction='horizontal'][data-tablet='pairs'] .step:nth-child(2n) .segment {
     display: none;

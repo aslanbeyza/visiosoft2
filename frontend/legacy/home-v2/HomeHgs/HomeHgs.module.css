@@ -44,8 +44,6 @@
   margin-top: 2.25rem;
 }
 
-/* Akış paneli */
-
 .panel {
   min-width: 0;
   padding: clamp(1.4rem, 3vw, 2.25rem);
@@ -119,7 +117,6 @@
     color 0.45s var(--ease-apple);
 }
 
-/* Yanan düğümün çevresindeki ince halka; yalnızca opaklık ve ölçek değişir. */
 .node::after {
   content: '';
   position: absolute;
@@ -149,7 +146,6 @@
   height: 1.25rem;
 }
 
-/* SVG, viewBox genişliğiyle (2) aynı piksel genişlikte; yalnızca dikeyde ölçeklenir, çizgi kalınlığı bozulmaz. */
 .connector {
   position: absolute;
   top: calc(var(--node) + 0.4rem);

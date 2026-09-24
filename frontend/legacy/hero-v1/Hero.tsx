@@ -78,10 +78,6 @@ type HeroCopy = {
   scene: SceneCopy
 }
 
-/**
- * İstatistik rakamları demo değerleridir; gerçek kurumsal verilerle güncellenmelidir.
- * Tarife satırları saha LED panosundaki tarife ile birebir aynıdır.
- */
 const copy: Record<Locale, HeroCopy> = {
   tr: {
     badge: 'Yapay zekâ destekli plaka tanıma',
@@ -411,7 +407,6 @@ function Counter({ value, decimals, suffix, locale }: { value: number; decimals:
   )
 }
 
-/** Kamera OSD saati: 2026-08-24 16:30:36 */
 function useCameraClock() {
   const [now, setNow] = useState(() => new Date())
 

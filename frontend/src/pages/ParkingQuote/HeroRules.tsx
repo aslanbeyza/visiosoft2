@@ -43,7 +43,6 @@ const fill: Variants = {
   on: { scaleX: 1, transition: { duration: 2, delay: 0.6, ease } },
 }
 
-/** Hero kompozisyonu: seçim → bileşen kuralları; bağlantılar çizilir, bileşenler pakete kayar (dekoratif). */
 export default function HeroRules() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

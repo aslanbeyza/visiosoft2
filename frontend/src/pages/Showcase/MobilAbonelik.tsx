@@ -10,7 +10,6 @@ import styles from './ShowcaseLayout.module.css'
 
 const icons = { abonelik: <CardIcon />, arac: <PlateIcon />, yardim: <PhoneIcon /> }
 
-/** /mobil-uygulama-ile-park-aboneligi — ParkBiz (parkbiz-port) abonelik akışının canlı telefon demosu. */
 export default function MobilAbonelik() {
   return (
     <ShowcaseLayout route="mobil-abonelik" relatedTone="paper">

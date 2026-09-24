@@ -3,8 +3,6 @@ import type { ParkingFlowDevice } from '../../components/ParkingFlow/index.ts'
 import type { ProductZoomDetail } from '../../components/ProductZoom/index.ts'
 import type { HardwareSlug, ProductCopy } from '../HardwareProduct/products.ts'
 
-/** Ürün detay şablonunun veri tipleri. Metinler products.ts'teki Türkçe kopyadan gelir. */
-
 export type DetailImage = {
   src: string
   avif?: string
@@ -13,13 +11,8 @@ export type DetailImage = {
   alt: string
 }
 
-/** Görsel kutusu içindeki yüzde konum (0-100). */
 export type DimensionSpan = { from: number; to: number }
 
-/**
- * span: ölçü çizgisinin görsel kutusundaki başlangıç/bitişi (yüzde).
- * edges: uzatma çizgilerinin ürün kenarına değdiği nokta; yükseklikte x, genişlikte y (yüzde).
- */
 export type HeroDimension = { label: string; span: DimensionSpan; edges: [number, number] }
 
 export type HeroDimensions = {
@@ -30,11 +23,11 @@ export type HeroDimensions = {
 export type KeyFigure = {
   id: string
   label: string
-  /** Sayısal değer; sayaçla gösterilir. */
+
   value?: number
   decimals?: number
   unit?: string
-  /** Sayısal olmayan statik değer. */
+
   text?: string
   srText?: string
 }
@@ -45,17 +38,17 @@ export type DetailHero =
       image: DetailImage
       dimensions?: HeroDimensions
       note?: string
-      /** Ürün tabanının görsel kutusunun altından yüksekliği (yüzde); zemin çizgisi tabana oturur. */
+
       baseGap?: number
     }
-  /** Temiz ürün fotoğrafı olmayan LED panel: teknik çizim oranlarıyla çizilmiş vektör görünüş. */
+
   | { kind: 'ledPanel'; alt: string; note?: string }
 
 export type ZoomCallout = {
   id: string
   title: string
   description: string
-  /** Görsel kutusundaki hedef nokta (yüzde). */
+
   x: number
   y: number
 }
@@ -124,10 +117,10 @@ export type ProductDetailData = {
   seo: { title: string; description: string }
   hero: DetailHero
   figures: { label: string; items: KeyFigure[] }
-  /** Ölçü içermeyen ürünlerde künye satırları kahramanda değil ölçü bandında gösterilir. */
+
   heroMeta: boolean
   zoom?: DetailZoom
-  /** Kiosk / TIR kiosk: kahramanda kaydırmalı 3B patlatma. */
+
   explode?: boolean
   process?: DetailProcess
   placement?: DetailPlacement

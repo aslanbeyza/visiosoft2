@@ -13,7 +13,6 @@ type HeroTerminalProps = {
   webhook: Snippet
 }
 
-/** Hero anı: olay akışı çizgisi çizilir, WebSocket olayı ve webhook isteği imleçle yazılır. */
 export default function HeroTerminal({ label, flow, socket, webhook }: HeroTerminalProps) {
   const reduce = Boolean(useReducedMotion())
   const railRef = useRef<HTMLOListElement>(null)
@@ -49,7 +48,7 @@ export default function HeroTerminal({ label, flow, socket, webhook }: HeroTermi
           <CodeBlock title={socket.title} language={socket.language} code={socket.code} typing />
         </div>
         <div className={styles.block} data-index="1">
-          {/* İlk blok ~1,4 sn'de yazılır; webhook isteği onun ardından başlar. */}
+          {}
           <CodeBlock title={webhook.title} language={webhook.language} code={webhook.code} typing delay={1.5} />
         </div>
       </div>

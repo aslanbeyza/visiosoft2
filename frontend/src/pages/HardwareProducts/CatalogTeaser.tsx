@@ -43,7 +43,6 @@ function Sheet({ item }: { item: HardwareItem }) {
   )
 }
 
-/** Katalog tanıtımı: gerçek katalog sayfalarından üçü kaydırdıkça yelpaze gibi açılır. */
 export default function CatalogTeaser() {
   const reduce = useReducedMotion()
   const path = usePath()

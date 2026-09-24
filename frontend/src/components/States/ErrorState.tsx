@@ -1,7 +1,4 @@
-/**
- * Kullanım: <ErrorState title="İçerik yüklenemedi." description="Sunucuya ulaşılamadı." retry={reload} />
- * role="alert" ile duyurulur; `retry` verilirse "Tekrar dene" düğmesi çıkar.
- */
+
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
@@ -15,9 +12,9 @@ export type ErrorStateProps = {
   description?: string
   retry?: () => void
   retryLabel?: string
-  /** Ek: özel simge (SVG). */
+
   icon?: ReactNode
-  /** Ek: koyu zeminde kullanım. */
+
   tone?: 'light' | 'dark'
   className?: string
 }

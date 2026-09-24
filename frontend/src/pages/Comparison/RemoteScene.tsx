@@ -32,7 +32,6 @@ const carVariants: Variants = {
 
 type Props = { mode: RemoteMode; reduce: boolean; running: boolean }
 
-/** Üstten görünüş: solda uzaktaki kullanıcı, sağda otopark; bağlantı ve kamera konisi moda göre değişir. */
 export default function RemoteScene({ mode, reduce, running }: Props) {
   const hatchId = `hatch-${useId().replace(/:/g, '')}`
   const initial = reduce ? false : 'traditional'
@@ -45,7 +44,7 @@ export default function RemoteScene({ mode, reduce, running }: Props) {
         </pattern>
       </defs>
 
-      {/* Dizüstü bilgisayar */}
+      {}
       <rect x="52" y="150" width="120" height="78" rx="6" className={styles.device} />
       <path d="M40 234h144l-10 12H50z" className={styles.device} />
       <motion.g initial={initial} animate={mode} variants={fadeOn}>
@@ -55,7 +54,7 @@ export default function RemoteScene({ mode, reduce, running }: Props) {
       </motion.g>
       <motion.path d="M84 189h40" className={styles.screenOff} initial={initial} animate={mode} variants={fadeOff} />
 
-      {/* Bağlantı: geleneksel = kopuk, Visiosoft = çizilen hat + akan paket */}
+      {}
       <motion.g initial={initial} animate={mode} variants={fadeOff}>
         <path d={LINK} className={styles.linkBroken} />
         <path d="M250 164l14 14M264 164l-14 14" className={styles.linkCross} />
@@ -65,7 +64,7 @@ export default function RemoteScene({ mode, reduce, running }: Props) {
         <path d={LINK} pathLength={1} className={styles.packet} data-running={running} />
       ) : null}
 
-      {/* Otopark planı */}
+      {}
       <rect x="330" y="48" width="270" height="324" rx="14" className={styles.lot} />
       <path d={`${TOP_BAYS.map((x) => `M${x} 60V132`).join('')}M350 132H590`} className={styles.bay} />
       <path d={`${LOW_BAYS.map((x) => `M${x} 236V308`).join('')}M350 236H430M510 236H590`} className={styles.bay} />
@@ -93,7 +92,7 @@ export default function RemoteScene({ mode, reduce, running }: Props) {
         />
       ))}
 
-      {/* Kör nokta taraması */}
+      {}
       <motion.rect
         x="330"
         y="48"

@@ -31,7 +31,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Üç A4 sayfası üst üste; kenar sayfalar kaydırmayla yana açılır. */
 .stack {
   position: relative;
   display: grid;
@@ -46,7 +45,7 @@
   flex-direction: column;
   width: clamp(9.5rem, 30vw, 15rem);
   aspect-ratio: 210 / 297;
-  /* overflow: hidden, uzun görsellerin (kiosk) A4 oranını bozup komşu bölümlere taşmasını engeller. */
+
   overflow: hidden;
   padding: clamp(0.7rem, 1.6vw, 1.1rem);
   border: 1px solid var(--color-corp-line);
@@ -75,7 +74,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Görsel mutlak konumlu: sahne yüksekliğini görselin doğal boyu değil, sayfada kalan alan belirler. */
 .sheetStage {
   position: relative;
   display: block;

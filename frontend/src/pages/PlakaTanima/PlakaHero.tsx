@@ -11,10 +11,6 @@ import styles from './PlakaHero.module.css'
 const copy = plakaCopy.hero
 export const PLAKA_TITLE_ID = 'plaka-tanima-baslik'
 
-/**
- * "Okuma" anı: masaüstünde sol metin sabitlenir, sağda kaydırmayla ilerleyen ParkingFlow sahnesi
- * aracı şeride sokar, kamera plakayı okur ve bariyeri açar. Mobilde ve hareket azaltmada alt alta, sabitlemesiz.
- */
 export default function PlakaHero() {
   const reduce = Boolean(useReducedMotion())
   const wide = useMediaQuery('(min-width: 1024px)')

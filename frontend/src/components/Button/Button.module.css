@@ -23,7 +23,6 @@
     transform 0.12s ease;
 }
 
-/* Tıklamanın tek geri bildirimi: basılıyken hafif çöker, bırakınca yerine döner. */
 .button:not(:disabled):active {
   transform: scale(0.97);
 }

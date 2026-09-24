@@ -52,11 +52,6 @@ const methods: PaymentMethod[] = [
   },
 ]
 
-/*
- * Sahne adımları yöntemlerle bire bir eşleşir (verify → HGS, pay → POS, open → QR). Adım etiketleri sahnede gizlidir
- * (showLabels=false, yalnızca ekran okuyucu); seçim yöntem kutucuklarından yapılır. Cihaz etiketleri kısa tutulur ki
- * 390px sahnede de cihazların üstünü kapatmasın.
- */
 const flowSteps: ParkingFlowStep[] = methods.map((method) => ({
   id: method.step,
   title: method.title,

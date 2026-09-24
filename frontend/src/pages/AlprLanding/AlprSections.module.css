@@ -10,7 +10,6 @@
   align-items: end;
 }
 
-/* Süreç düğmeleri: mobilde satırı doldurur, ≥768px her düğme kendi adımının sütununda durur. */
 .actions {
   display: flex;
   flex-wrap: wrap;

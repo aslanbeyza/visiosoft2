@@ -1,4 +1,4 @@
-import Hero from '../../components/Hero/index.ts'
+import Hero from '../../components/HeroGate/index.ts'
 import HomeAssurance from '../../components/HomeAssurance/index.ts'
 import HomeCta from '../../components/HomeCta/index.ts'
 import HomeField from '../../components/HomeField/index.ts'
@@ -8,14 +8,9 @@ import HomeZone from '../../components/HomeZone/index.ts'
 import Seo from '../../components/Seo/index.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
 
-/**
- * Arama ve paylaşım açıklaması yalnızca sayfadaki onaylı metinlerden kurulur
- * (Hero başlığı + açıklaması). tr.json tek dil olduğu için literal tutulur.
- */
 const HOME_DESCRIPTION =
   "Otoparkınızı tek merkezden yönetin: plaka tanıma, temassız ödeme, HGS, bariyer kontrolü ve raporlama tek sistemde. 2018'den beri, 7/24 uzaktan destek."
 
-/** Geçiş videosu, referanslar, donanım vitrini, Zone paneli. */
 export default function Home() {
   const { t } = useLocale()
 

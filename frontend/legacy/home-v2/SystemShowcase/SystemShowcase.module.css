@@ -16,8 +16,6 @@
   margin: 0 auto;
 }
 
-/* Metin */
-
 .copy {
   grid-area: copy;
   max-width: 36rem;
@@ -74,8 +72,6 @@
   outline-offset: 3px;
 }
 
-/* Sahne */
-
 .sceneColumn {
   grid-area: scene;
   width: 100%;
@@ -97,10 +93,6 @@
   container-type: size;
 }
 
-/*
- * Sahne katmanı sabit orana sahiptir (fotoğrafla aynı); kutuyu "cover" mantığıyla doldurur.
- * Böylece kiosk, gölge ve bilgi noktaları her ekran oranında fotoğraftaki yerinde kalır.
- */
 .stage {
   --stage-ratio: calc(1280 / 1016);
   --focus-x: 0;
@@ -123,7 +115,6 @@
   object-fit: cover;
 }
 
-/* Fotoğraf ~1,8 m yükseklikten çekildi: 1,8 m'lik kioskun üst kenarı ufuk çizgisine denk gelir. */
 .kiosk {
   position: absolute;
   top: 22.24%;
@@ -133,7 +124,6 @@
   height: 64.37%;
 }
 
-/* Kapalı havada yumuşak temas gölgesi. */
 .kioskShadow {
   position: absolute;
   top: 82.6%;
@@ -143,8 +133,6 @@
   border-radius: 50%;
   background: radial-gradient(closest-side, rgb(18 22 30 / 0.52), rgb(18 22 30 / 0.24) 55%, rgb(18 22 30 / 0) 100%);
 }
-
-/* Bilgi noktaları (masaüstü) */
 
 .hotspot {
   position: absolute;
@@ -196,7 +184,6 @@
   transition: background-color 0.35s var(--ease-apple);
 }
 
-/* İşlem akışında sırası gelen nokta: sakin bir halka. */
 .hotspotDot::before {
   content: '';
   position: absolute;
@@ -251,8 +238,6 @@
   translate: -50% 0;
 }
 
-/* Bilgi noktaları (mobil): listedeki kartlarla aynı numara */
-
 .marker {
   position: absolute;
   z-index: 2;
@@ -285,8 +270,6 @@
   background: var(--color-navy-600);
   color: #fff;
 }
-
-/* Kart içeriği (bilgi noktası kartı ve mobil liste) */
 
 .cardIndex {
   color: var(--color-navy-600);
@@ -327,8 +310,6 @@
   text-underline-offset: 3px;
 }
 
-/* İşlem akışı */
-
 .flow {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -350,7 +331,6 @@
   padding-top: 0.8rem;
 }
 
-/* Adım çizgisi: aktif adımda lacivert dolar (scaleX), tamamlanınca yeşile döner. */
 .flowStep::before,
 .flowStep::after {
   content: '';
@@ -371,7 +351,6 @@
   transform-origin: left center;
 }
 
-/* Geçiş yerine animasyon: akış durunca çizgi kaldığı yerde bekleyebilsin. */
 .flowStep[data-state='active']::after {
   animation: flowFill var(--flow-step, 1.8s) linear both;
 }
@@ -455,8 +434,6 @@
   font-weight: 600;
 }
 
-/* Sahne notu ve akış duraklatma */
-
 .sceneFooter {
   display: flex;
   align-items: center;
@@ -512,8 +489,6 @@
 .toggleText {
   display: none;
 }
-
-/* Mobil özellik listesi */
 
 .featureList {
   display: grid;
@@ -597,7 +572,6 @@
     max-width: none;
   }
 
-  /* Fotoğraf oranı: sahne dikeyde kırpılmaz, üstteki plaka tanıma noktası çerçevede kalır. */
   .scene {
     aspect-ratio: 1280 / 1016;
     height: auto;

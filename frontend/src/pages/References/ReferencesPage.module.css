@@ -1,9 +1,8 @@
-/* Hero sayıları (PageHero aside) */
+
 .stats {
   max-width: 34rem;
 }
 
-/* Üç kısa sayı dar ekranda da tek satırda kalır (2 + 1 yetim satır yerine) */
 .stats dl {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   column-gap: 1.25rem;

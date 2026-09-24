@@ -1,4 +1,4 @@
-// Vitrin sayfalarının ortak metinleri (yalnızca TR). EN/RU sürümleri legacy/pages-v1/Showcase altında.
+
 export type ShowcaseRoute = 'kus-bakisi' | 'mobil-abonelik' | 'designer-tool' | 'low-confidence'
 
 export type ShowcaseCopy = {
@@ -9,7 +9,7 @@ export type ShowcaseCopy = {
   images: { src: string; alt: string }[]
   cta: string
   ctaRoute: string
-  /** Hero'daki ikincil bağlantının hedef bölümü. */
+
   jump: { id: string; label: string }
   ctaBand: { eyebrow: string; title: string; description: string; secondary: { label: string; route: string } }
   seoTitle: string

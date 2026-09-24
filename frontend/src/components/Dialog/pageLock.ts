@@ -1,7 +1,3 @@
-/**
- * Sayfa kilidi: body kaydırması kapanır, kaybolan kaydırma çubuğu kadar sağ boşluk eklenir ve
- * uygulama kökü (#root) `inert` yapılır. İç içe/ardışık pencereler için sayaçlıdır; son kilit kalkınca eski değerler döner.
- */
 
 let depth = 0
 let saved: { overflow: string; paddingRight: string } | null = null

@@ -11,12 +11,6 @@ import styles from './PaymentMatrix.module.css'
 const { matrix } = hgsPageCopy
 const headingId = `${matrix.id}-baslik`
 
-/**
- * Sayfanın imza anı: HGS / POS / QR yöntem kutucukları. Üzerine gelinen, odaklanılan ya da seçilen yöntemin
- * akıştaki yeri ParkingFlow sahnesinde (manual) vurgulanır: HGS → kontrol kutusunda eşleşme, POS → kioskta ödeme,
- * QR → telefondan ödeme sonrası bariyer. Sahnenin hemen altında seçili yöntemin üç adımlık rotası durur;
- * ≥1024px'te kutucuk sütunu ile sahne + rota sütunu üstten ve alttan hizalıdır.
- */
 export default function PaymentMatrix() {
   const [selected, setSelected] = useState<MethodKey>('hgs')
   const index = Math.max(0, matrix.methods.findIndex((item) => item.key === selected))

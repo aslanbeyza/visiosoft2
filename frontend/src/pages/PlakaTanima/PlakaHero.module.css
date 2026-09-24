@@ -79,7 +79,6 @@
     column-gap: clamp(2.5rem, 4vw, 4.5rem);
   }
 
-  /* Sabitlenen okuma anı: sol metin sahne boyunca ekranın ortasında kalır. */
   .hero[data-pin='true'] {
     padding-block: 0 clamp(1.5rem, 3vw, 2.5rem);
   }
@@ -104,7 +103,6 @@
   }
 }
 
-/* Kısa masaüstü (ör. 1280×720): başlık ve aralıklar sıkılaşır. */
 @media (min-width: 1024px) and (max-height: 760px) {
   .title {
     font-size: clamp(2.6rem, 3.4vw + 1rem, 4rem);

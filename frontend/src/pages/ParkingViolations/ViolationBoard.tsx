@@ -10,14 +10,13 @@ import styles from './ViolationBoard.module.css'
 const copy = violationsCopy.board
 const list = violationsCopy.violations
 
-/** Plan (numaralı rozetler) + aynı numaralı liste; seçim planda slotu vurgular. */
 export default function ViolationBoard() {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)
   const played = useInView(rootRef, { once: true, amount: 0.2 })
   const [hovered, setHovered] = useState<ViolationId | null>(null)
   const [selected, setSelected] = useState<ViolationId>(list[0].id)
-  /** Hover veya tıklamada rozet nabzını yeniden oynatmak için. */
+
   const [pulseKey, setPulseKey] = useState(0)
 
   const activeId = hovered ?? selected

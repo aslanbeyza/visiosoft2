@@ -13,15 +13,10 @@ type RoiValues = Record<RoiFieldId, number>
 
 const initialValues = Object.fromEntries(roiCopy.fields.map((field) => [field.id, field.initial])) as RoiValues
 
-/** Kaydırıcı değerinin kutucukta ve ekran okuyucuda görünen hâli. */
 function display(id: RoiFieldId, value: number) {
   return `${plain.format(value)} ${roiCopy.units[id]}`
 }
 
-/**
- * Amortisman simülatörü: üç kaydırıcı, yıllık tasarruf dökümü, sabit paket yatırımıyla geri dönüş süresi ve CTA.
- * Hesap tamamen istemcide yapılır; sabitler roiCopy.ts'tedir.
- */
 export default function RoiCalculator() {
   const baseId = useId()
   const path = usePath()

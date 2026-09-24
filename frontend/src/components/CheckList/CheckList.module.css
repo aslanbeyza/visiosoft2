@@ -64,7 +64,6 @@
     column-gap: 2.5rem;
   }
 
-  /* İki sütunda ilk satırdaki her iki öğe de çizgisizdir. */
   .root[data-columns='2'] .item:nth-child(2) {
     border-top: 0;
   }

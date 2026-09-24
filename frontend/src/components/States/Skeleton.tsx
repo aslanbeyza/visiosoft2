@@ -1,7 +1,4 @@
-/**
- * Kullanım: <Skeleton variant="card" count={3} /> · <Skeleton variant="text" count={4} /> · <Skeleton variant="article" />
- * role="status" ile "Yükleniyor" duyurulur; parıltı yalnızca görünürken ve hareket azaltılmamışken çalışır.
- */
+
 import { useRef } from 'react'
 import { useInView, useReducedMotion } from 'framer-motion'
 import { statesCopy } from './statesCopy.ts'
@@ -9,11 +6,11 @@ import styles from './States.module.css'
 
 export type SkeletonProps = {
   variant: 'text' | 'card' | 'article'
-  /** text: satır sayısı · card: kart sayısı · article: paragraf sayısı. */
+
   count?: number
-  /** Ek: ekran okuyucuya okunan metin. */
+
   label?: string
-  /** Ek: koyu zeminde kullanım. */
+
   tone?: 'light' | 'dark'
   className?: string
 }

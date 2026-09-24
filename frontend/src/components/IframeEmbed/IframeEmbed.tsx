@@ -1,9 +1,4 @@
-/**
- * Kullanım:
- * <IframeEmbed src={config.calendly_url} title="Online görüşme planlayın" height="44rem" fallbackHref={config.calendly_url} />
- * <IframeEmbed src={osmUrl} title="Lokasyon haritası" ratio="16 / 9" loadOn="click" description="Harita OpenStreetMap'ten yüklenir." fallbackHref={osmUrl} />
- * `loadOn='view'` (varsayılan) görünüme yaklaşınca, `'click'` "Yükle" düğmesiyle yükler; yüklenene kadar statik kart görünür.
- */
+
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
@@ -15,18 +10,18 @@ import styles from './IframeEmbed.module.css'
 export type IframeEmbedProps = {
   src: string
   title: string
-  /** CSS aspect-ratio (varsayılan 16 / 9). `height` verilirse yok sayılır. */
+
   ratio?: string
   fallbackHref?: string
   fallbackLabel?: string
   loadOn?: 'view' | 'click'
-  /** Ek: yer tutucu karttaki açıklama. */
+
   description?: string
-  /** Ek: "Yükle" düğmesinin metni. */
+
   loadLabel?: string
-  /** Ek: sabit yükseklik (ör. "44rem"); takvim gibi uzun içerikler için. */
+
   height?: string
-  /** Ek: iframe izinleri / sandbox. */
+
   allow?: string
   sandbox?: string
   className?: string
@@ -73,7 +68,6 @@ export default function IframeEmbed({
 
   const mounted = loadOn === 'view' ? nearby : requested
 
-  // "Yükle" düğmesi kaybolunca odak boşa düşmesin; çerçeve kabına taşınır.
   useEffect(() => {
     if (requested) boxRef.current?.focus({ preventScroll: true })
   }, [requested])

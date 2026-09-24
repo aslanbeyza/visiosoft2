@@ -1,4 +1,4 @@
-/** Navbar, mega menü ve mobil menüdeki Türkçe arayüz metinleri. */
+
 export const navbarCopy = {
   skipLink: 'İçeriğe geç',
   navLabel: 'Ana menü',
@@ -15,7 +15,7 @@ export type MenuIntro = {
   eyebrow: string
   title: string
   text: string
-  /** Sol sütundaki "tümünü gör" bağlantısı (sonuna ok ikonu eklenir). */
+
   linkLabel: string
 }
 
@@ -41,7 +41,6 @@ export type MenuCta = {
   route: string
 }
 
-/** Mega menünün sağ sütunundaki küçük yönlendirme; navbar CTA'larını tekrar etmez. */
 export const menuCtas: Record<'hardware' | 'software', MenuCta> = {
   hardware: {
     title: 'Hangi donanım size uygun?',

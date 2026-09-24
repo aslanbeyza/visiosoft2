@@ -1,4 +1,3 @@
-/* Boş ve hata durumları */
 
 .state {
   display: grid;
@@ -82,8 +81,6 @@
   margin-top: 1rem;
 }
 
-/* İskelet */
-
 .skeleton {
   display: grid;
   gap: 0.7rem;
@@ -106,7 +103,6 @@
   background: rgb(255 255 255 / 0.1);
 }
 
-/* Parıltı: yalnızca transform animasyonu; görünürken ve hareket azaltılmamışken. */
 .block::after {
   content: '';
   position: absolute;

@@ -22,8 +22,6 @@
   --fade: transparent;
 }
 
-/* Ortak kutu */
-
 .tile {
   position: relative;
   display: flex;
@@ -47,7 +45,6 @@
   transition: border-color 0.35s var(--ease-apple);
 }
 
-/* Çizilen çerçeve: gerçek CSS kenarlığı; açılışı clip-path ile, kutunun kendi kenarlığı saydam. */
 .tile[data-drawn='true'] .logoBox {
   border-color: transparent;
 }
@@ -82,7 +79,6 @@ a.tile:focus-visible {
   outline-offset: 3px;
 }
 
-/* Logo katmanı: ölçülene kadar ortada güvenli bir kutu; ölçülünce fitLogo.ts optik alana göre konumlar. */
 .art {
   position: absolute;
   inset: 22% 14%;
@@ -99,13 +95,11 @@ a.tile:focus-visible {
   object-fit: contain;
 }
 
-/* --logo-ink: açık renkli logolar için fitLogo.ts'nin seçtiği gama süzgeci (beyazı korur); yoksa yalnızca gri. */
 .grey {
   filter: grayscale(1) var(--logo-ink, );
   opacity: 0.85;
 }
 
-/* Renkli katman üstte; yalnızca opaklığı değişir, filtre canlandırılmaz. */
 .colour {
   opacity: 0;
   transition: opacity 0.35s var(--ease-apple);
@@ -125,10 +119,6 @@ a.tile:focus-visible {
   text-wrap: balance;
 }
 
-/* Izgara */
-
-/* Karo genişliği kapsayıcı genişliğine göre sabit sütun sayısından (--cap) gelir; logolar ortalanır.
-   round() destekleniyorsa satırlar dengelenir: 6 logo 4'lük alanda 3 + 3 olur, 2 logo tek satırda ortada durur. */
 .root[data-variant='grid'] {
   container-type: inline-size;
 }
@@ -186,8 +176,6 @@ a.tile:focus-visible {
   }
 }
 
-/* Kayan satırlar */
-
 .marquee {
   display: grid;
   gap: 1rem;
@@ -207,7 +195,6 @@ a.tile:focus-visible {
   animation-direction: reverse;
 }
 
-/* Yalnızca görünürken kayar. */
 .marqueeRoot[data-running='true'] .track {
   animation-play-state: running;
   will-change: transform;
@@ -218,7 +205,6 @@ a.tile:focus-visible {
   animation-play-state: paused;
 }
 
-/* Liste genişliği sondaki boşluğu da içerir; -%50 kayma kesintisiz döngü verir. */
 .list {
   display: flex;
   gap: 1rem;

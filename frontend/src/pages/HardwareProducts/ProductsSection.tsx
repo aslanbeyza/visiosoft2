@@ -21,11 +21,10 @@ const counts = Object.fromEntries([
   ...categories.map((category) => [category.key, hardwareItems.filter((item) => item.category === category.key).length]),
 ]) as Record<FilterKey, number>
 
-/** Ürün kartları + kategori filtresi; filtre değişiminde kartlar layout animasyonuyla yer değiştirir. */
 export default function ProductsSection({ active, onChange }: ProductsSectionProps) {
   const path = usePath()
   const visible = active === 'all' ? hardwareItems : hardwareItems.filter((item) => item.category === active)
-  // Kutucuk son satırı tamamlar: 3 ve 2 sütunlu ızgarada boş kalan hücre sayısı kadar genişler.
+
   const rest3 = visible.length % 3
   const span3 = (rest3 === 0 ? 3 : 3 - rest3) as 1 | 2 | 3
   const span2 = (visible.length % 2 === 0 ? 2 : 1) as 1 | 2

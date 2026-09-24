@@ -116,12 +116,6 @@
   stroke-linejoin: round;
 }
 
-/*
- * Plandaki numara rozeti, listedeki rozetle birebir aynı görünür. Kullanıcının "bu satır planda neresi"
- * sorusunu cevaplayan tek ipucu bu eşleşme olduğu için rozetler seçim olmasa da hep görünür durur.
- * Yarıçaplar CSS'ten gelir: plan dar ekranda küçüldüğü için rozetin viewBox içindeki payı büyümeli,
- * yoksa rakam okunmaz. SVG özniteliği de yazılı, CSS `r` desteklenmezse ölçü yine de makul kalır.
- */
 .pin {
   cursor: pointer;
 }
@@ -162,10 +156,6 @@
   }
 }
 
-/*
- * 1024px altında plan ya tam genişliğe ya da tablette 25rem'lik sütuna sığar; iki durumda da ölçek 0.5
- * civarına düşer. Rozet ve rakam viewBox içinde büyütülerek ekranda okunur boyutta kalır.
- */
 @media (max-width: 1023px) {
   .pin text {
     font-size: 19px;

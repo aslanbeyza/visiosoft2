@@ -1,4 +1,4 @@
-// Geliştiriciler sayfası metinleri — mevcut sayfadan; İngilizce notlar Türkçeleştirildi.
+
 export const developersCopy = {
   seo: {
     title: 'Geliştiriciler | GATE SDK ve ZONE API | Visiosoft',

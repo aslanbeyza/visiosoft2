@@ -42,7 +42,6 @@
   min-width: 0;
 }
 
-/* Kartın kendisi etiket: tıklama, odak ve seçili durum tek yerde. */
 .card {
   position: relative;
   display: flex;
@@ -135,7 +134,6 @@
   line-height: 1.5;
 }
 
-/* Seçim işareti: radyo için daire, onay kutusu için köşeli. */
 .mark {
   position: absolute;
   top: 1rem;

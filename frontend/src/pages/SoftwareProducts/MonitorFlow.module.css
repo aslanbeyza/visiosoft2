@@ -27,7 +27,6 @@
   padding-bottom: 0;
 }
 
-/* Dar ekranda düğümleri dikey bir hat bağlar. */
 .node:not(:last-child)::before {
   content: '';
   position: absolute;
@@ -152,7 +151,7 @@
 }
 
 @media (min-width: 768px) {
-  /* Dört eşit sütunun ilk ve son merkezleri: %12,5 ile %87,5. */
+
   .line {
     position: absolute;
     top: calc(1.5rem - 0.75px);

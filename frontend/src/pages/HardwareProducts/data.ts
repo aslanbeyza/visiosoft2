@@ -1,7 +1,4 @@
-/**
- * Donanım listesi ve kataloğu için türetilmiş ürün verisi.
- * Metinlerin kaynağı `HardwareProduct/products.ts`; burada yalnızca kategori, görsel ve sıra eklenir.
- */
+
 import { products } from '../HardwareProduct/products.ts'
 import type { HardwareSlug } from '../HardwareProduct/products.ts'
 import kioskCardAvif from './img/kiosk-card.avif'
@@ -50,7 +47,7 @@ const card = (name: string, width: number, height: number): HardwareImage => ({
 })
 
 const entries: { slug: HardwareSlug; category: CategoryKey; image: HardwareImage }[] = [
-  // Kiosk ve rack kabin: ParkBiz markalı lens görsellerinin ./img kopyaları (kart ve lineup ile aynı piksel ölçüsü).
+
   { slug: 'kiosk', category: 'kiosk', image: { ...card('kiosk', 672, 900), src: kioskCardWebp, avif: kioskCardAvif } },
   { slug: 'tir-kiosk', category: 'kiosk', image: card('tir-kiosk', 675, 900) },
   { slug: 'visiobox', category: 'control', image: card('visiobox', 900, 507) },
@@ -60,7 +57,7 @@ const entries: { slug: HardwareSlug; category: CategoryKey; image: HardwareImage
   {
     slug: 'ledli-reklam-paneli',
     category: 'panel',
-    // Fotoğraf örnek plaka/ücret içerdiği için teknik resmin ön görünüşü kullanılır.
+
     image: {
       src: '/img/products/lineup/led-panel.webp',
       avif: '/img/products/lineup/led-panel.avif',
@@ -90,6 +87,5 @@ export const hardwareItems: HardwareItem[] = entries.map(({ slug, category, imag
 
 export const categoryLabel = (key: CategoryKey) => categories.find((item) => item.key === key)?.label ?? ''
 
-/** "300mm × 1800mm × 297,50mm" → "300 × 1800 × 297,50 mm" (birim bölünmez boşlukla son değere bağlı; satır sonunda tek başına kalmaz). */
 export const formatDimensions = (value?: string) =>
   value ? `${value.replace(/mm/g, '').replace(/\s*×\s*/g, ' × ').trim()} mm` : undefined

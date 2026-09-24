@@ -10,7 +10,6 @@ import styles from './PlakaSaha.module.css'
 
 const copy = plakaCopy.saha
 
-// Arka planı temizlenmiş ürün kartı görselleri (açık zemin için).
 const productCards: { route: string; image: LinkCardImage }[] = [
   {
     route: 'hardware-products.kamera-muhafaza',
@@ -37,7 +36,6 @@ const productCards: { route: string; image: LinkCardImage }[] = [
 ]
 const guideRoutes = ['plate-recognition-system', 'alpr.landing']
 
-/** Saha bölümü: plaka tanıma kamerasını taşıyan donanım kartları ve ilgili rehber sayfalar. */
 export default function PlakaSaha() {
   const path = usePath()
   const guides: FeatureItem[] = copy.guides.map((guide, index) => ({

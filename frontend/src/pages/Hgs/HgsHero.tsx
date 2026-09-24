@@ -23,7 +23,6 @@ const link: Variants = {
   show: (i: number) => ({ scaleX: 1, transition: { duration: 0.9, delay: 0.35 + i * 0.18, ease: revealEase } }),
 }
 
-/** Sağ sütun: HGS → POS → QR yedek zinciri ve üç öne çıkan bilgi; çizgiler görünüme girince çizilir. */
 function HeroFacts() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

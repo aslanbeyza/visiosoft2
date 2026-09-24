@@ -85,7 +85,6 @@
   margin-top: 0.625rem;
 }
 
-/* Her yuva tüm evrelerin katmanlarını aynı hücrede üst üste tutar; kart yüksekliği hiç değişmez. */
 .slot {
   display: grid;
   align-items: end;

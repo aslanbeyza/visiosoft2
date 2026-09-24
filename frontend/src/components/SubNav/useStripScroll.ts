@@ -3,17 +3,6 @@ import type { RefObject } from 'react'
 
 const SEPARATOR = ' '
 
-/**
- * Yatay kaydırılan bağlantı şeridinin davranışları:
- * - `updateEdges`: kenar geçişleri React state'i yerine data öznitelikleriyle güncellenir (liste, öğeler ve yazı tipi
- *   yüklenince yeniden ölçülür; yalnızca liste boyutuna bakmak yazı tipi gecikince son sekmeyi ipuçsuz bırakırdı).
- * - `reveal(active)`: etkin bağlantıyı ortalar, ama yalnızca kullanıcı sayfayı kaydırdıktan (ya da bir #hedefle
- *   geldikten) sonra; ilk yüklemede şerit kendiliğinden kaymaz. Etkin bölüm yoksa şerit başa döner.
- *   Şerit ilk kullanıcı girdisiyle etkinleşince o anki etkin bağlantı bir kez ortalanır (kaydırma geri yüklemesi ya da
- *   betikle atlama sonrası etkin bağlantı ekran dışında kalmasın).
- * - `reveal(null, link)`: odaklanan bağlantıyı scroll-padding-inline payıyla en yakın kenara getirir.
- * - `page(yön)`: şeridi görünür genişliğin %80'i kadar ileri/geri kaydırır (kenardaki ok düğmeleri).
- */
 export function useStripScroll(
   listRef: RefObject<HTMLUListElement | null>,
   wrapRef: RefObject<HTMLDivElement | null>,
@@ -81,7 +70,6 @@ export function useStripScroll(
         return
       }
 
-      // Klavye odağı şeritteyken odaklı bağlantı yerinden oynatılmaz.
       if (!armed.current || list.querySelector(':focus-visible')) return
       const left = list.scrollLeft + start - (list.clientWidth - rect.width) / 2
       list.scrollTo({ left: Math.max(0, left), behavior })
@@ -89,7 +77,6 @@ export function useStripScroll(
     [listRef, reduce],
   )
 
-  // Kullanıcı girdisi (tekerlek, dokunma, tuş, işaretçi) ya da bir bölüme bağlantıyla gelmek şeridi etkinleştirir.
   useEffect(() => {
     if (armed.current) return
     const hash = decodeURIComponent(window.location.hash.slice(1))
@@ -101,7 +88,7 @@ export function useStripScroll(
     const arm = (event: Event) => {
       armed.current = true
       for (const name of events) window.removeEventListener(name, arm)
-      // Girdi şeridin kendisindeyse (parmakla kaydırma, bağlantıya ya da oka basma) şerit kullanıcının altından kaymaz.
+
       const wrap = wrapRef.current
       if (event.target instanceof Node && wrap?.contains(event.target)) return
       if (latest.current !== null) reveal(latest.current)

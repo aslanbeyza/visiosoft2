@@ -12,13 +12,8 @@ import PaymentRail from './PaymentRail.tsx'
 import { paymentCopy as copy } from './paymentCopy.ts'
 import styles from './PaymentPage.module.css'
 
-/** Site ayarları gelmezse (backend kapalı) bu süreden sonra boş durum gösterilir. */
 const CONFIG_WAIT_MS = 4000
 
-/**
- * /odeme — ortalanmış hero + ödeme yolu çizimi (Visiosoft → kilit → PayTR) → PayTR iframe'i (görününce yüklenir)
- * ya da ödeme bağlantısı yoksa boş durum; altında havale/EFT ve iletişim bağlantıları. noindex.
- */
 export default function PaymentPage() {
   const path = usePath()
   const { config } = useLocale()

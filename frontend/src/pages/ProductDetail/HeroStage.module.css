@@ -2,7 +2,6 @@
   min-width: 0;
 }
 
-/* Teknik pafta sahnesi */
 .stage {
   position: relative;
   isolation: isolate;
@@ -10,7 +9,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  /* Alt boşluk antet (köşe işaretlerinin içinde) ile zemin çizgisinin çakışmaması için. */
+
   padding: 3rem 1.25rem 6.75rem;
   border-radius: 0.75rem;
   background:
@@ -26,7 +25,6 @@
   padding: 4.25rem 1.25rem 6.75rem 4.5rem;
 }
 
-/* Geniş ürünler sahneyi kenardan kenara doldurmaz; köşe işaretleriyle arasında nefes payı kalır. */
 .stage[data-shape='wide'] .box {
   width: min(84%, calc(var(--box-h) * var(--ratio)), 30rem);
 }
@@ -107,7 +105,6 @@
   width: 100%;
 }
 
-/* Kutu görselin oranını taşır; yükseklik --box-h ile, genişlik sahne ile sınırlanır. */
 .box {
   --box-h: 21rem;
   position: relative;
@@ -134,11 +131,6 @@
   user-select: none;
 }
 
-/* Zemin: ince çizgi ve taban altındaki yumuşak elips. */
-/* Zemin genişliği kutuya göre ölçeklenir ama sınırlıdır; geniş ürünlerde sahneyi boydan boya kesen bant oluşmaz.
-   --base-gap: ürün tabanının görsel kutusunun altından yüksekliği (yüzde). */
-/* Genişlik sahneye bağlıdır (100cqi = sahnenin içerik genişliği): en dar yan dolgu 1.25rem olduğundan
-   100cqi - 2rem, çizginin köşe işaretlerinin içinde (kenardan 2.25rem) kalmasını garanti eder. */
 .floor {
   position: absolute;
   left: 50%;
@@ -164,7 +156,6 @@
   transform-origin: center;
 }
 
-/* Ölçü çizgileri */
 .dims {
   position: absolute;
   inset: 0;
@@ -202,7 +193,6 @@
   pointer-events: none;
 }
 
-/* Yükseklik etiketi dikey çizginin solunda, aşağıdan yukarı okunur. */
 .labelHeight {
   right: calc(100% + 26px + 0.6rem);
   translate: 0 -50%;
@@ -215,7 +205,6 @@
   translate: -50% 0;
 }
 
-/* Antet: köşe işaretlerinin içinde durur, sol alt işareti örtmez. */
 .plate {
   position: absolute;
   left: 2.25rem;
@@ -258,7 +247,6 @@
   white-space: nowrap;
 }
 
-/* Dar ekranda uzun standart ürün adı (ör. LED Bilgilendirme Paneli) kesilmez, iki satıra iner. */
 @media (max-width: 639px) {
   .plate dd {
     white-space: normal;

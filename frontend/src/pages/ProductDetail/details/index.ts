@@ -8,7 +8,6 @@ import { rackKabinDetail } from './rackKabin.ts'
 import { tirKioskDetail } from './tirKiosk.ts'
 import { togerboxDetail, visioboxDetail } from './visiobox.ts'
 
-/** Sekiz donanım ürününün detay verisi. */
 export const productDetails: Record<HardwareSlug, ProductDetailData> = {
   kiosk: kioskDetail,
   'tir-kiosk': tirKioskDetail,

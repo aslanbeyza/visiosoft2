@@ -171,7 +171,6 @@
   display: none;
 }
 
-/* Dar ekran: ön kart sahnenin ~%86'sı genişliğinde; arkadaki kartların yalnızca başlık şeridi görünür. */
 @media (max-width: 639px) {
   .stage {
     aspect-ratio: 7 / 8;
@@ -194,7 +193,6 @@
     visibility: hidden;
   }
 
-  /* Uzun rapor adları kesilmek yerine en fazla iki satıra sarılır. */
   .line {
     display: -webkit-box;
     white-space: normal;

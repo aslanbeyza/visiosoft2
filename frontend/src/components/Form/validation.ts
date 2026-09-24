@@ -9,21 +9,18 @@ function isControl(element: Element): element is Control {
   return element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement || element instanceof HTMLSelectElement
 }
 
-/** Kontrolü saran Field'ın etiketi (Field kökü `data-field-label` taşır); Field dışındaysa boş. */
 function fieldLabelOf(control: Control): string {
   return control.closest<HTMLElement>('[data-field-label]')?.dataset.fieldLabel?.trim() ?? ''
 }
 
 const TEXT_TYPES = new Set(['text', 'email', 'tel', 'url', 'search', 'password'])
 
-/** Metin kutusu yalnızca boşluk içeriyorsa tarayıcı onu dolu sayar; zorunlu alanda boş kabul edilir. */
 function isBlankText(control: Control): boolean {
   if (!control.required || control instanceof HTMLSelectElement) return false
   if (control instanceof HTMLInputElement && !TEXT_TYPES.has(control.type)) return false
   return control.value.length > 0 && control.value.trim() === ''
 }
 
-/** Tarayıcı doğrulamasını (required, type, pattern, minlength…) Türkçe mesajlara çevirir. */
 function describeValidity(control: Control): string {
   const custom = control.dataset.errorMessage
   if (custom) return custom
@@ -45,7 +42,6 @@ function describeValidity(control: Control): string {
   return control.validationMessage || formCopy.invalidError
 }
 
-/** Formdaki tüm geçersiz kontrolleri alan adına göre toplar (aynı ada sahip radyo grubu tek kayıt olur). */
 export function collectNativeErrors(form: HTMLFormElement): FieldErrors {
   const errors: FieldErrors = {}
 
@@ -62,7 +58,6 @@ export function collectNativeErrors(form: HTMLFormElement): FieldErrors {
   return errors
 }
 
-/** Verilen alan adının formdaki ilk kontrolünün kimliğini bulur (hata özeti bağlantısı için). */
 export function controlIdFor(form: HTMLFormElement | null, name: string): string | undefined {
   if (!form) return undefined
   const item = form.elements.namedItem(name)
@@ -73,7 +68,6 @@ export function controlIdFor(form: HTMLFormElement | null, name: string): string
   return item instanceof Element && item.id ? item.id : undefined
 }
 
-/** `validate` sonucunu veya sunucudan gelen `{ alan: mesaj | mesaj[] }` yapısını hata kayıtlarına çevirir. */
 export function toFieldErrors(source: unknown, form: HTMLFormElement | null): FieldErrors {
   const errors: FieldErrors = {}
   if (!source || typeof source !== 'object') return errors

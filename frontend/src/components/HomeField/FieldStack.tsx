@@ -16,7 +16,6 @@ const STACK_SCALE = 0.045
 const STACK_Y = 10
 const FLING = 120
 
-/** Mobil vitrin: framer-motion ile yığılmış ürün kartları. */
 export default function FieldStack({ items, catalogHref }: FieldStackProps) {
   const count = items.length
   const reduce = Boolean(useReducedMotion())

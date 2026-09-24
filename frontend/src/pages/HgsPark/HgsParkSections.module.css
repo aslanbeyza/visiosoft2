@@ -1,4 +1,4 @@
-/* Geleceğin teknolojisi: başlık | şema (≥1024), altında kartlar. */
+
 .split {
   display: grid;
   gap: clamp(2.5rem, 5vw, 3.5rem);
@@ -13,7 +13,6 @@
   margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
-/* Ortalanmış başlık: SectionHeading'in max-width kutusu da sayfa ortasına alınır. */
 .headCenter {
   display: grid;
   justify-items: center;

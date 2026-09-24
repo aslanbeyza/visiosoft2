@@ -13,7 +13,6 @@
   pointer-events: none;
 }
 
-/* Tarama çizgisi: kutu genişliği kadar sağa kayar */
 .scan {
   position: absolute;
   inset: 0;
@@ -28,7 +27,6 @@
   background: linear-gradient(to bottom, transparent, var(--color-navy-600) 18%, var(--color-navy-600) 82%, transparent);
 }
 
-/* Çizginin arkasında bıraktığı ince taranmış şerit */
 .scanLine::before {
   position: absolute;
   top: 0;
@@ -39,7 +37,6 @@
   content: '';
 }
 
-/* Kamera merceği çevresindeki halka */
 .lens {
   position: absolute;
   top: 43.1%;
@@ -58,7 +55,6 @@
   border-radius: 50%;
 }
 
-/* Plaka kilidi */
 .plate {
   position: absolute;
 }

@@ -4,7 +4,6 @@ import { revealEase } from '../../components/Reveal/index.ts'
 import type { CarPose } from './bayGeometry.ts'
 import styles from './BayDiagram.module.css'
 
-// Araç, kendi ekseni boyunca manevra alanı tarafından slota "girer".
 const driveIn: Variants = {
   hidden: { opacity: 0, y: -52 },
   show: (i: number = 0) => ({ opacity: 1, y: 0, transition: { duration: 1, delay: 0.75 + i * 0.09, ease: revealEase } }),
@@ -13,7 +12,7 @@ const driveIn: Variants = {
 type BayCarProps = {
   pose: CarPose
   order: number
-  /** violation: vurgulanabilir ihlal aracı · parked: kurala uygun araç */
+
   kind: 'violation' | 'parked'
   active: boolean
   dim: boolean
@@ -23,7 +22,6 @@ type BayCarProps = {
   onPreview?: (active: boolean) => void
 }
 
-/** Üstten görünüm araç sembolü; ön tarafı yerel -y yönünde. Vurgu katmanı opaklıkla açılır. */
 export default function BayCar({ pose, order, kind, active, dim, reduce, pulseKey = 0, onSelect, onPreview }: BayCarProps) {
   const state: Transition = reduce ? { duration: 0 } : { duration: 0.45, ease: revealEase }
   const pulse = reduce || !active ? { scale: 1 } : { scale: [1, 1.04, 1] }

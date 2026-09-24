@@ -28,10 +28,6 @@ const zoneItems = zoneCopy.items.map((item) => ({
   ),
 }))
 
-/**
- * /yazilim-urunleri — Park Yazılım merkezi.
- * Hikâye: ne sunuyoruz (hero) → sahadan kanıt → Zone ekranları → izleme → çözüm sayfaları.
- */
 export default function SoftwareHub() {
   const path = usePath()
 

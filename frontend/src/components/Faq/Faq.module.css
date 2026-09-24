@@ -24,7 +24,6 @@
   position: relative;
 }
 
-/* Sorular arasındaki çizgi görünüme girince soldan sağa çizilir; son sorunun altı sabit çizgi. */
 .hairline {
   position: absolute;
   top: 0;
@@ -112,7 +111,6 @@
   transition: transform 0.35s var(--ease-apple);
 }
 
-/* Açıkken artı işareti döner, yatay çizgi kaybolur: geriye eksi kalır. */
 .trigger[aria-expanded='true'] .icon {
   border-color: var(--icon-on-bg);
   background: var(--icon-on-bg);

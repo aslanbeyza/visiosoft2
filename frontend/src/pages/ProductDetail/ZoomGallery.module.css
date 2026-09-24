@@ -10,14 +10,12 @@
   min-width: 0;
 }
 
-/* Arka planı ayrılmış görseller beyaz sahnede, kenarlardan nefes alarak durur (başlık zemini boyanmaz). */
 .contain {
   box-sizing: border-box;
   padding: 7%;
   background: #fff;
 }
 
-/* Üç kare aynı oranda yan yana; alt kenarlar ve başlıklar hizalı kalır. */
 @media (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));

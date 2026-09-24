@@ -4,11 +4,6 @@ import { revealEase } from '../Reveal/index.ts'
 import { finishSplash, useSplashActive } from './splashState.ts'
 import styles from './Splash.module.css'
 
-/**
- * Kullanım: `<Splash />` (MainLayout içinde, Navbar'dan önce)
- * İlk ziyarette lacivert açılış perdesi: logo belirir, altındaki çizgi çizilir, perde yukarı doğru sıyrılır.
- * Oturum başına bir kez gösterilir (splashState.ts); hareket azaltma tercihinde hiç görünmez.
- */
 const HOLD_MS = 1100
 
 export default function Splash() {

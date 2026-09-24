@@ -3,12 +3,6 @@ import { RevealGroup, RevealItem, revealEase } from '../Reveal/index.ts'
 import TextReveal from '../TextReveal/index.ts'
 import styles from './SectionHeading.module.css'
 
-/**
- * Kullanım: `<SectionHeading id="neden-baslik" eyebrow="Neden Visiosoft" title="…" lead="…" />`
- * Kurumsal bölüm başlığı: çizgili üst etiket yükselir, başlık TextReveal ile satır satır maskeden çıkar (M2),
- * açıklama ardından belirir. `reveal="none"` başlığı yalnızca yumuşak yükselişle gösterir.
- * Hareket azaltmada her şey sabittir; başlık aynı etiket, id ve sınıfla düz metin olarak basılır.
- */
 type SectionHeadingProps = {
   eyebrow?: string
   title: string
@@ -18,7 +12,7 @@ type SectionHeadingProps = {
   align?: 'start' | 'center'
   tone?: 'light' | 'dark'
   className?: string
-  /** Başlık hareketi: 'lines' (varsayılan, satır maskesi) · 'none' (blok hâlinde yükselir). */
+
   reveal?: 'lines' | 'none'
 }
 
@@ -52,7 +46,7 @@ export default function SectionHeading({
           </RevealItem>
         ) : null}
         {reveal === 'lines' ? (
-          // Tetik başlığın kendisinde (kırpılmamış kök); kırpma yalnızca kelime kutularında.
+
           <TextReveal as={Heading} id={id} className={styles.title} text={title} delay={eyebrow ? 0.1 : 0} />
         ) : (
           <RevealItem y={32}>

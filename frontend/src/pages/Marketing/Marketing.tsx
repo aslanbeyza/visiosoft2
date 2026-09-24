@@ -4,10 +4,6 @@ import type { ProductDetailSlug } from '../ProductDetail/index.ts'
 import { pages } from '../registry.ts'
 import { copyFor } from './pageCopy.ts'
 
-/*
- * Pazarlama rotalarını sayfa şablonlarına dağıtır. Sayfalar registry'den tembel yüklenir;
- * Suspense sınırı MainLayout içindeki PageTransition'dadır. Tüm donanım ürünleri ProductDetail şablonunu kullanır.
- */
 const ContentPage = lazy(pages.contentPage)
 const About = lazy(pages.about)
 const AlprLanding = lazy(pages.alprLanding)

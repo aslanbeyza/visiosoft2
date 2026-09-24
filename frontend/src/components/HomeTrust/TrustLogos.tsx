@@ -29,11 +29,6 @@ const usePageVisible = () =>
     () => true,
   )
 
-/**
- * Logo, gri (sabit filtreli) ve renkli iki katman olarak üst üste çizilir; aynı dosya olduğu için tek indirme yapılır.
- * Üzerine gelince yalnızca opaklık değişir, filtre hiç canlandırılmaz. Renkli katman ekran okuyuculardan gizlenir.
- * `colour` tek katmanlı renkli çizim (kayan şerit).
- */
 function LogoMark({ logo, interactive, colour, alt }: { logo: TrustLogo; interactive: boolean; colour?: boolean; alt: string }) {
   const shared = {
     src: logo.src,
@@ -178,7 +173,6 @@ function Grid() {
   )
 }
 
-/** Seçili 12 referans. `marquee`: tek satır, renkli, sürekli kayar. */
 export default function TrustLogos({ variant = 'grid' }: { variant?: 'grid' | 'marquee' } = {}) {
   const reduce = Boolean(useReducedMotion())
   if (variant === 'marquee') return reduce ? <StaticStrip /> : <Marquee />

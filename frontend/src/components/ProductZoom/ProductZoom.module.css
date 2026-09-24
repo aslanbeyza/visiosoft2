@@ -6,7 +6,7 @@
   --pz-body: var(--color-corp-body);
   --pz-muted: var(--color-corp-muted);
   --pz-line: var(--color-corp-line);
-  /* Adım çubukları: zeminde en az 3:1 kontrast. */
+
   --pz-line-strong: #80879c;
   --pz-accent: var(--color-navy-600);
   --pz-focus: var(--color-navy-600);
@@ -23,7 +23,7 @@
   --pz-stage: #0d1033;
   --pz-ink: #fff;
   --pz-body: rgb(255 255 255 / 0.7);
-  /* Küçük sayaç metni için AA: navy-950 zeminde 0,5 beyaz ≈ 5,2:1. */
+
   --pz-muted: rgb(255 255 255 / 0.5);
   --pz-line: rgb(255 255 255 / 0.12);
   --pz-line-strong: rgb(255 255 255 / 0.4);
@@ -32,7 +32,6 @@
   --pz-caption: rgb(255 255 255 / 0.6);
 }
 
-/* Her kare yaklaşık bir ekran boyu kaydırma alır. */
 .section {
   height: calc(var(--frames) * var(--frame-length, 85svh) + 15svh);
 }
@@ -54,7 +53,6 @@
   overflow: hidden;
 }
 
-/* Dar ekran: başlık → sahne → sayaç/metin. */
 .layout {
   display: grid;
   grid-template-areas:
@@ -68,7 +66,6 @@
   margin: 0 auto;
 }
 
-/* Sağdaki pay, sabit WhatsApp düğmesinin metnin üzerine binmesini önler. */
 .head {
   grid-area: head;
   min-width: 0;
@@ -109,7 +106,6 @@
   text-wrap: balance;
 }
 
-/* Kısa dar ekranda sahneye yer kalsın: başlık görsel olarak gizlenir, başlık gezinmesinde bulunmaya devam eder. */
 @media (max-width: 1023px) and (max-height: 739px) {
   .section .title {
     position: absolute;
@@ -121,7 +117,6 @@
   }
 }
 
-/* Etkin kare ve görünmez ölçü kopyaları aynı hücrede; yükseklik en uzun kareden gelir, kareler arasında düzen kaymaz. */
 .callout {
   display: grid;
   min-height: 7.5rem;
@@ -163,7 +158,6 @@
   text-wrap: pretty;
 }
 
-/* Dokunma alanı 44x44, alanlar arası 8px; çubuk alanın ortasında. Sol pay, çubuğu metin hizasına çeker. */
 .steps {
   display: flex;
   flex-wrap: wrap;
@@ -186,7 +180,6 @@
   cursor: pointer;
 }
 
-/* Sabit genişlikli çubuk; etkin adımda iç dolgu yalnızca transform (scaleX) ile açılır. */
 .stepBar {
   position: relative;
   display: block;
@@ -232,12 +225,6 @@
   outline-offset: 0;
 }
 
-/*
- * Sahne alanı ızgaradan boyut alır (içerik boyutu katkısı yok); görünür kutu (.viewport) bu alanın içinde ortalanır.
- * data-fit='fill': kutu alanı doldurur (dikey ürün görselleri, ör. kiosk).
- * data-fit='image': kutu görsel oranından boyutlanır; tuvalin %5/%6 iç payı düşülünce genel bakışta görsel kutuyu doldurur.
- * Çok geniş görsellerde kutu en az genişliğin %56'sı yüksekliğinde kalır; yakınlaşmada kaydırma görseli kutuda tutar (TS).
- */
 .layout {
   --caption-space: 0rem;
   --view-min: 56cqw;
@@ -292,10 +279,6 @@
   height: clamp(min(var(--avail-h), var(--view-min)), 100cqw / var(--stage-ratio), var(--avail-h));
 }
 
-/*
- * Dar düzen, yatay görsel: sahne satırı görsel oranından (en az genişliğin %72'si) yüksekliğe kadar büyür; artan boşluk
- * başlık–sahne–metin grubunun üstüne ve altına eşit dağılır (sahne ile metin arasında boş alan kalmaz).
- */
 @media (max-width: 1023px) {
   .layout[data-fit='image'] {
     --view-min: 72cqw;
@@ -315,7 +298,6 @@
   }
 }
 
-/* MediaFrame altyazısıyla aynı ölçü ve ton. */
 .caption {
   margin: 0.8rem 0 0;
   color: var(--pz-caption);
@@ -330,7 +312,6 @@
   text-overflow: ellipsis;
 }
 
-/* will-change bilerek yok: yakınlaşan DOM katmanları her ölçekte yeniden çizilip net kalır. */
 .canvas {
   position: absolute;
   inset: 5% 6%;
@@ -353,10 +334,6 @@
   position: absolute;
 }
 
-/*
- * Etkin parçanın işaretçisi: tuvalin içinde kamerayla gezer, ters ölçekle ekranda sabit boyutta kalır.
- * Opaklık köşe işaretleriyle aynı değeri izler; genel bakışta ve geçişlerin ortasında görünmez.
- */
 .marker {
   --marker-size: 2rem;
 
@@ -381,7 +358,6 @@
     inset 0 0 0 1.5px rgb(255 255 255 / 0.85);
 }
 
-/* Yalnızca bir detay karesinde beklerken iki kez nabız atar; geçişte durur. */
 .marker[data-holding='true'] .markerRing {
   animation: pz-marker-pulse 1.4s ease-in-out 0.2s 2 both;
 }
@@ -419,7 +395,6 @@
   }
 }
 
-/* Yakınlaşılan detayın köşe işaretleri: sahne merkezinde sabit boyutlu köşeler, yalnızca transform ile açılır. */
 .focus {
   --len: 1.1rem;
   --weight: 2px;
@@ -478,7 +453,6 @@
     padding: 6.5rem 0 2.5rem;
   }
 
-  /* Başlık ve metin sol sütunda dikeyde ortalanır; sahne sağda tüm yüksekliği kaplar. */
   .layout {
     grid-template-areas:
       '. stage'
@@ -526,7 +500,6 @@
     margin-top: 1.75rem;
   }
 
-  /* Satır en az 44px (dokunmatik tabletler); numara ve etiket taban çizgisinde hizalı, satır dikeyde ortalı. */
   .step {
     grid-template-columns: auto minmax(0, 1fr);
     place-items: baseline start;
@@ -544,7 +517,6 @@
     transition: color 0.3s ease;
   }
 
-  /* Geniş ekranda adımlar numara ve etiketle listelenir; çubuk yalnızca dar ekranda görünür. */
   .stepBar {
     display: none;
   }
@@ -589,7 +561,6 @@
   }
 }
 
-/* Kısa masaüstü ekranlarında sabit sütun taşmasın. */
 @media (min-width: 1024px) and (max-height: 820px) {
   .sticky {
     padding: 5.75rem 0 1.5rem;
@@ -633,8 +604,6 @@
   }
 }
 
-/* Hareket azaltma: statik detay listesi */
-
 .staticSection {
   padding: 5rem 0;
 }
@@ -653,7 +622,6 @@
   white-space: normal;
 }
 
-/* Sütunlar içerikten genişlemez: yatay görseller dar ekranda taşmaz. */
 .staticGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -661,13 +629,11 @@
   margin-top: 2.5rem;
 }
 
-/* Yatay görsel: çerçeve tam genişlikte, yüksekliği görsel oranından gelir (sabit yükseklikte kutu boş kalmaz). */
 .staticOverview[data-orientation='wide'] {
   grid-template-rows: auto;
   height: auto;
 }
 
-/* Tek sütunda çok büyümesin: yükseklik ~30rem / 60svh ile sınırlı, genişlik orandan gelir. */
 .staticOverview[data-orientation='wide'] .staticFrame {
   width: min(100%, min(30rem, 60svh) * var(--image-ratio));
   height: auto;
@@ -692,7 +658,7 @@
 .staticOverview {
   position: relative;
   display: grid;
-  /* Satır kesin yükseklikte olmalı; aksi hâlde çerçevenin height:100% değeri çözülmez ve görsel kutudan taşar. */
+
   grid-template-rows: 100%;
   place-items: center;
   height: min(40rem, 80svh);
@@ -752,17 +718,12 @@
   min-width: 0;
 }
 
-/*
- * Netlik sınırı açıkken (data-sharp): bir görsel pikseli en fazla 1,5 cihaz pikseline yayılır. Karo bu sınırı aşacaksa karo ve
- * metni birlikte daralır ve sütunda ortalanır (yüksek piksel oranlı ekranlarda bulanık yerine küçük, hizalı karo).
- */
 .tiles[data-sharp='true'] .tile {
   justify-self: center;
   width: 100%;
   max-width: calc(var(--cover-window) * 1.5px / var(--dpr));
 }
 
-/* Tüm karolar aynı oranda (--tile-ratio) ve sütun genişliğinde. */
 .crop {
   position: relative;
   container-type: inline-size;
@@ -775,10 +736,6 @@
   background: var(--pz-stage);
 }
 
-/*
- * Görsel çerçevesi: genişlik detayı sığdıran yakınlaşmadır (--zoom); netlik sınırı açıkken bu değer karoyu kaplayan en küçük
- * hâl (--cover) ile sınır arasında seçilir. Odak noktası karo merkezine gelir; görsel kenarları karonun dışına düşmez (cover).
- */
 .tiles[data-sharp='true'] .cropFrame {
   --iw: clamp(
     calc(100cqw * var(--cover)),
@@ -813,14 +770,12 @@
   }
 }
 
-/* Yatay görsel: tablet genişliğinde genel bakış üstte tam genişlikte, karolar altında iki sütun. */
 @media (min-width: 768px) and (max-width: 1023px) {
   .staticGrid[data-orientation='wide'] {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-/* Geniş ekranda yatay genel bakış, karolar kaydırılırken sol sütunda (menü ve alt menünün altında) yerinde kalır. */
 @media (min-width: 1024px) {
   .staticGrid[data-orientation='wide'] > :first-child {
     position: sticky;

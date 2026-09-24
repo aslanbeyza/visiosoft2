@@ -15,17 +15,13 @@ type DrawingDialogProps = {
   zoomOutLabel: string
   closeLabel: string
   dimensions: { label: string; value: string }[]
-  /** Kararlı (useCallback) bir fonksiyon olmalı. */
+
   onClose: () => void
 }
 
 const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
 const clamp = (value: number) => Math.min(100, Math.max(0, value))
 
-/**
- * Teknik çizim penceresi: odak pencere içinde döner, Esc ve arka plan tıklaması kapatır,
- * kapanınca odak açan düğmeye döner ve sayfa kaydırması kilitlenir. Tıklanan noktaya 2 kat yakınlaşır.
- */
 export default function DrawingDialog({
   image,
   title,
@@ -47,7 +43,6 @@ export default function DrawingDialog({
   const pressedOnBackdrop = useRef(false)
   const [zoomed, setZoomed] = useState(false)
 
-  // Kaydırma kilidi, ilk odak ve kapanışta odağın geri dönmesi.
   useEffect(() => {
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null
     const { body, documentElement } = document
@@ -66,7 +61,6 @@ export default function DrawingDialog({
     }
   }, [])
 
-  // Esc ile kapanış, Tab ile odak tuzağı; odak bir şekilde dışarı çıkarsa pencereye geri alınır.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -121,14 +115,13 @@ export default function DrawingDialog({
   }
 
   const onViewportClick = (event: ReactMouseEvent<HTMLButtonElement>) => {
-    // detail 0: klavye ile tetiklendi; mevcut odak noktası korunur.
+
     if (!zoomed && event.detail > 0) {
       pointToOrigin(event.currentTarget, event.clientX, event.clientY)
     }
     setZoomed((value) => !value)
   }
 
-  // Yakınken fareyle gezinme; React state yerine doğrudan stil güncellenir.
   const onViewportPointerMove = (event: ReactPointerEvent<HTMLButtonElement>) => {
     if (!zoomed || event.pointerType !== 'mouse') return
     pointToOrigin(event.currentTarget, event.clientX, event.clientY)

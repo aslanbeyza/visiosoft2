@@ -11,7 +11,6 @@ type SpecListsProps = {
   useCases: string[]
 }
 
-/** Teknik özet ve kullanım alanları: onay işaretleri çizilerek sırayla beliren iki liste. */
 export default function SpecLists({ summaryTitle, summary, useCasesTitle, useCases }: SpecListsProps) {
   return (
     <Section tone="paper" spacing="lg" label={`${summaryTitle} ve ${useCasesTitle.toLocaleLowerCase('tr-TR')}`}>

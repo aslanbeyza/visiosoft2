@@ -6,7 +6,6 @@ import { pricingCopy } from './pricingCopy.ts'
 
 const copy = pricingCopy.hero
 
-/** Bölünmüş açılış: solda başlık ve eylemler, sağda site kesiti + fiyat kartı (dar ekranda metnin altında). */
 export default function PricingHero() {
   const path = usePath()
 

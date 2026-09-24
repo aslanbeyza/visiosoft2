@@ -16,7 +16,6 @@
   cursor: not-allowed;
 }
 
-/* Gerçek kutu görünmez ama odak ve klavye davranışı ondadır. */
 .input {
   position: absolute;
   width: 1px;

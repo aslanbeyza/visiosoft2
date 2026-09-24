@@ -1,6 +1,5 @@
 import { useCallback, useSyncExternalStore } from 'react'
 
-/** Medya sorgusunun güncel sonucunu döndürür; eşleşme değiştiğinde bileşeni yeniden çizer. */
 export function useMediaQuery(query: string) {
   const subscribe = useCallback(
     (onChange: () => void) => {

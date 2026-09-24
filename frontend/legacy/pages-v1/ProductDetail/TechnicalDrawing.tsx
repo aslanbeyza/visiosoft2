@@ -13,13 +13,12 @@ type TechnicalDrawingProps = {
   drawing: NonNullable<ProductDetailData['drawing']>
 }
 
-/** Teknik çizim önizlemesi; tıklanınca yakınlaştırılabilir erişilebilir pencerede açılır. */
 export default function TechnicalDrawing({ drawing }: TechnicalDrawingProps) {
   const reduce = Boolean(useReducedMotion())
   const titleId = useId()
   const describeId = useId()
   const figureRef = useRef<HTMLElement>(null)
-  // Kırpılmış çerçeve kendi görünürlüğünü algılayamaz; açılış kırpılmamış figure'dan tetiklenir.
+
   const figureInView = useInView(figureRef, { once: true, amount: 0.3 })
   const [open, setOpen] = useState(false)
   const openDialog = useCallback(() => setOpen(true), [])

@@ -20,7 +20,7 @@ export type FinanceSnapshot = {
   debt: number
   debtVehicles: number
   debtShare: number
-  /** 0–1 arası trend noktaları (grafik). */
+
   trend: number[]
   trendLabels: string[]
 }

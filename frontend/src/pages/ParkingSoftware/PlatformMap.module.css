@@ -3,7 +3,6 @@
   gap: 1rem;
 }
 
-/* Dar ekran: ekran üstte, altı modül tek bir 2×3 ızgarada (sütun ve liste kapları düzleştirilir). */
 .stage {
   position: relative;
   display: grid;
@@ -110,7 +109,6 @@
   }
 }
 
-/* Masaüstü: 1200×380 ızgaralı sahne; ekran ortada, modüller iki yanda (boş üst/alt bant yok). */
 @media (min-width: 1024px) {
   .stage {
     display: block;

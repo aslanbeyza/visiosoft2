@@ -68,13 +68,4 @@ export const ledPanelDetail: ProductDetailData = {
     device: 'ledPanel',
     deviceLabel: name,
   },
-  drawing: {
-    image: drawingImage('ledli-reklam-paneli', 987, 695, drawingAlt),
-    text: 'Yan, ön ve arka görünüşler ile açık kapaklı perspektif tek paftada yer alır. Çizimi büyütüp ölçüleri ve montaj notlarını yakından inceleyebilirsiniz.',
-    dimensions: [
-      { label: 'Genişlik', value: '715 mm' },
-      { label: 'Yükseklik', value: '1900 mm' },
-      { label: 'Derinlik', value: '100 mm' },
-    ],
-  },
 }

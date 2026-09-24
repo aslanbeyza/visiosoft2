@@ -28,7 +28,6 @@ const sweepVariants: Variants = {
   show: { scaleX: [0, 1, 1], opacity: [1, 1, 0], transition: { duration: 1.1, times: [0, 0.6, 1], ease: 'easeOut' } },
 }
 
-/** Tek banka kartı: başlık, hesap sahibi, kopyalanabilir IBAN/kod alanları ve salt okunur ayrıntılar. Satırlar süpürme çizgisiyle belirir (M12). */
 export default function BankCard({ bank, index }: { bank: BankAccount; index: number }) {
   const reduce = Boolean(useReducedMotion())
   const titleId = useId()

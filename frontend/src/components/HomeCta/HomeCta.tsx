@@ -8,10 +8,6 @@ const VIDEO = {
   poster: '/img/home/cta/intro.jpg',
 }
 
-/**
- * Ana sayfa tanıtım bandı: durağan kare, üçgen oynatıcı açar.
- * Dönüşüm düğmeleri burada yok — Hero, Navbar ve Footer'da durur.
- */
 export default function HomeCta() {
   const [open, setOpen] = useState(false)
   const close = useCallback(() => setOpen(false), [])

@@ -11,8 +11,6 @@ import { menuKind, splitHardware } from './navData.ts'
 import type { PanelCustom } from './navData.ts'
 import styles from './MegaMenu.module.css'
 
-// Panel yalnızca opaklık + 8px dikey kayma ile açılır/kapanır; öğe bazlı uçuş yok.
-// Paneller arası geçişte ve azaltılmış harekette kayma uygulanmaz.
 const OFFSET = 8
 
 const panelVariants: Variants = {
@@ -36,7 +34,6 @@ type MegaMenuProps = {
   onNavigate: () => void
 }
 
-/** Masaüstü mega menü: dar tanıtım sütunu, ürün kartları ya da yazılım bağlantıları ve küçük yönlendirme. */
 export default function MegaMenu({ id, item, current, custom, onNavigate }: MegaMenuProps) {
   const path = usePath()
   const kind = menuKind(item)
@@ -108,7 +105,7 @@ export default function MegaMenu({ id, item, current, custom, onNavigate }: Mega
           </ul>
         )}
 
-        {/* Kartın tamamı tıklanır; erişilebilir ad yalnızca bağlantı metnidir. */}
+        {}
         <div className={styles.cta}>
           <p className={styles.ctaTitle}>{cta.title}</p>
           <p className={styles.ctaText}>{cta.text}</p>

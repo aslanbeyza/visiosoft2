@@ -1,4 +1,4 @@
-/* Hero: masaüstünde metin biraz daha dar, sahne biraz daha geniş. */
+
 @media (min-width: 1024px) {
   .hero.hero[data-media='true'] > div {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);

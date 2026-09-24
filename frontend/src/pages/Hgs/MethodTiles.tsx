@@ -15,11 +15,9 @@ type MethodTilesProps = {
 const icons: Record<MethodKey, MethodIconName> = { hgs: 'hgs', pos: 'card', qr: 'qr' }
 const pad = (value: number) => String(value).padStart(2, '0')
 
-/** Yöntem kutucukları (aria-pressed düğmeler). ≥1024px'te sütun, yanındaki sahne + rota sütununun yüksekliğine uzar. */
 export default function MethodTiles({ methods, selected, onSelect, label }: MethodTilesProps) {
   const baseId = useId()
 
-  // Fareyle üzerine gelmek seçer; dokunmatikte seçim dokunarak yapılır.
   const hover = (key: MethodKey) => (event: ReactPointerEvent) => {
     if (event.pointerType === 'mouse' && key !== selected) onSelect(key)
   }

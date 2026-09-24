@@ -14,7 +14,6 @@ type MeetingSectionProps = {
   calendlyUrl: string
 }
 
-/** Online görüşme: ajanda + markalı takvim kabuğu (Calendly). */
 export default function MeetingSection({ id, calendlyUrl }: MeetingSectionProps) {
   const reduce = Boolean(useReducedMotion())
   const listRef = useRef<HTMLUListElement>(null)

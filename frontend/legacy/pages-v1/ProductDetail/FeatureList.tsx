@@ -13,7 +13,6 @@ type FeatureListProps = {
 
 const pad = (value: number) => String(value).padStart(2, '0')
 
-/** Solda yapışkan başlık, sağda çizgisi çizilerek beliren numaralı özellik satırları. */
 export default function FeatureList({ eyebrow, title, features }: FeatureListProps) {
   const titleId = useId()
 

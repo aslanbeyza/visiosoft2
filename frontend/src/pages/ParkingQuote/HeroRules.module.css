@@ -90,7 +90,6 @@
   color: var(--color-navy-300);
 }
 
-/* Satırlar tek ızgarayı paylaşır: seçim, bağlantı ve ürün sütunları her satırda aynı hizada başlar. */
 .rules {
   display: grid;
   grid-template-columns: max-content minmax(1.5rem, 1fr) minmax(0, 1.55fr);

@@ -1,4 +1,4 @@
-/** visiosoft-3d `onStreet` — saha kaydı bölümü (video senkron adımları). */
+
 export const hubOnStreetCopy = {
   eyebrow: 'Yol üstü parklandırma · Saha kaydı',
   title: 'Cadde ve sokakta',

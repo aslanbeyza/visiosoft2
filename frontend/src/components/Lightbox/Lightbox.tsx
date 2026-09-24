@@ -1,10 +1,4 @@
-/**
- * Kullanım:
- * <Lightbox open={open} onClose={close} image={{ src: '/parking-product-3d/kiosk/kiosk.png', width: 1233, height: 860, alt: 'Kiosk teknik çizimi' }}
- *   caption="Ölçüler mm cinsindendir." dimensions={[{ label: 'Genişlik', value: '300 mm' }]} />
- * Dialog üzerine kuruludur: tıklama/Enter işaretçi konumunda 2× yakınlaştırır, yakınken ok tuşları ve dokunarak sürükleme kaydırır.
- * `onPrev`/`onNext` verilirse yan düğmeler ve (yakın değilken) sol/sağ ok tuşları görseller arasında geçer.
- */
+
 import { useRef, useState } from 'react'
 import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, CSSProperties } from 'react'
 import Dialog from '../Dialog/index.ts'
@@ -30,14 +24,14 @@ export type LightboxProps = {
   image: LightboxImage
   caption?: string
   dimensions?: LightboxDimension[]
-  /** Ek: pencere başlığı; verilmezse caption, o da yoksa alt metni. */
+
   title?: string
-  /** Ek: yakınlaştırma çarpanı. */
+
   zoom?: number
-  /** Ek: galeri gezinmesi. */
+
   onPrev?: () => void
   onNext?: () => void
-  /** Ek: "2 / 5" gibi konum metni. */
+
   counter?: string
   labels?: Partial<LightboxLabels>
 }
@@ -80,12 +74,11 @@ function LightboxStage({ image, zoom, labels, onPrev, onNext, counter }: StagePr
       suppressClick.current = false
       return
     }
-    // detail 0: klavye ile tetiklendi; mevcut odak noktası korunur.
+
     if (!zoomed && event.detail > 0) pointToOrigin(event.currentTarget, event.clientX, event.clientY)
     setZoomed((value) => !value)
   }
 
-  // Fare: yakınken imleci izler. Dokunmatik/kalem: yakınken sürükleyerek kaydırır (React state yok, doğrudan stil).
   const onPointerDown = (event: ReactPointerEvent<HTMLButtonElement>) => {
     if (!zoomed || event.pointerType === 'mouse') return
     drag.current = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false }
@@ -248,7 +241,7 @@ export default function Lightbox({
         ) : undefined
       }
     >
-      {/* Görsel değişince yakınlaştırma durumu sıfırlanır. */}
+      {}
       <LightboxStage key={image.src} image={image} zoom={zoom} labels={labels} onPrev={onPrev} onNext={onNext} counter={counter} />
     </Dialog>
   )

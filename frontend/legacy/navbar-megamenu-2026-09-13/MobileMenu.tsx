@@ -43,12 +43,11 @@ type MobileMenuProps = {
   onNavigate: () => void
 }
 
-/** 1024px altındaki tam yükseklik menü: akordeon gruplar, düz bağlantılar, CTA ve iletişim. */
 export default function MobileMenu({ id, items, current, reduce, sheetRef, onNavigate }: MobileMenuProps) {
   const path = usePath()
   const { config } = useLocale()
   const baseId = useId()
-  // Açılışta etkin sayfanın grubu açık gelir.
+
   const [expanded, setExpanded] = useState<string | null>(
     () => items.find((item) => item.menu?.some((link) => link.route === current))?.key ?? null,
   )

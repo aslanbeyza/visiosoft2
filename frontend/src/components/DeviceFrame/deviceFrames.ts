@@ -4,7 +4,7 @@ export type DeviceFrame = {
   src: string
   width: number
   height: number
-  /** Ekran deliğinin çerçeveye oranı — görselin üstünde kalır. */
+
   screen: { top: string; right: string; bottom: string; left: string }
 }
 

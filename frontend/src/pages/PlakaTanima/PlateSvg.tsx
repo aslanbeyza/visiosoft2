@@ -15,14 +15,13 @@ type PlateSvgProps = {
   plateText: string
 }
 
-// Ayraç köşeleri (plaka çevresi 106–534 × 132–246) ve yayılma yönleri.
 const corners = [
   { d: 'M106 154V132h22', sx: -1, sy: -1 },
   { d: 'M512 132h22v22', sx: 1, sy: -1 },
   { d: 'M534 224v22h-22', sx: 1, sy: 1 },
   { d: 'M128 246h-22v-22', sx: -1, sy: 1 },
 ]
-// Karakter grupları: "34", "•••", "••"
+
 const groups = [
   { x: 186, w: 72, cx: 222 },
   { x: 290, w: 100, cx: 340 },
@@ -34,7 +33,6 @@ const poses = [
   { spread: 0, ox: 0, oy: 0, opacity: 1 },
 ]
 
-/** Kamera görüntüsü çizimi: aracın arka yüzü, TR plakası, koşul katmanları ve okuma ayracı. */
 export default function PlateSvg({ condition, phase, reduce, live, uid, plateText }: PlateSvgProps) {
   const pose = poses[phase]
   const [p1, p2, p3] = plateText.split(' ')

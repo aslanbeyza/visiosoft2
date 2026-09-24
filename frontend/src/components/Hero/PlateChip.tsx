@@ -6,13 +6,12 @@ import styles from './StatusParts.module.css'
 type PlateChipProps = {
   plate: string
   band: string
-  /** Doğrulandı evresinde plaka oluşur; diğer evrelerde anında gizlenir. */
+
   active: boolean
-  /** Hareket azaltma: son hâl doğrudan gösterilir. */
+
   reduce: boolean
 }
 
-/** Gizlenme, çevreleyen katmanın 0,35 sn'lik solmasından sonra anında olur. */
 const off = { duration: 0, delay: 0.35 }
 
 const root: Variants = {
@@ -30,7 +29,6 @@ const char: Variants = {
   on: { opacity: 1, y: 0, transition: { duration: 0.35, ease: revealEase } },
 }
 
-/** Türk plakası: mavi TR şeridi soldan açılır, karakterler 35 ms arayla belirir. */
 export default function PlateChip({ plate, band: bandLabel, active, reduce }: PlateChipProps) {
   const state = active ? 'on' : 'off'
 

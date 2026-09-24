@@ -7,7 +7,6 @@ import styles from './ViolationAudit.module.css'
 
 const copy = violationsCopy.audit
 
-/** Denetim bölümü: başlık ve kazanımlar (çizilen onay işaretleri) + açılan, kayan kapalı otopark fotoğrafı. */
 export default function ViolationAudit() {
   return (
     <div className={styles.grid}>

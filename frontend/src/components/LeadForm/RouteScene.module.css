@@ -121,7 +121,6 @@
   text-wrap: balance;
 }
 
-/* Küçük ekranda sahne küçüldüğü için çizgiler kalınlaştırılır */
 @media (max-width: 639px) {
   .scene {
     --rs-stroke: 3.6;

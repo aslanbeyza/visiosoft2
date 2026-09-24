@@ -16,22 +16,18 @@ function BackArrow() {
   )
 }
 
-/**
- * Yazı başlığı: "Blog'a Dön" bağlantısı, tarih ve okuma süresi, satır satır yükselen h1, özet;
- * öne çıkan görsel varsa üstten aşağı açılır ve hafif paralaksla oturur.
- */
 type ArticleHeaderProps = {
   post: BlogPostDetail
-  /** Çözümlenmiş kapak (postCover); plakalı kapaklar yerine plakasız görsel. */
+
   cover?: string
-  /** "toc": başlık metni gövdenin metin sütunuyla aynı sol kenardan başlar; "single": ikisi de ortalanmış tek sütun. */
+
   layout: 'toc' | 'single'
 }
 
 export default function ArticleHeader({ post, cover, layout }: ArticleHeaderProps) {
   const path = usePath()
   const hasMeta = Boolean(post.formatted_date || post.reading_minutes)
-  // Sunucu özeti gövdenin ilk satırlarından kesilmişse giriş paragrafı olarak tekrarlanmaz.
+
   const excerpt = excerptRepeatsContent(post.excerpt, post.content) ? '' : readableExcerpt(post.excerpt)
 
   return (

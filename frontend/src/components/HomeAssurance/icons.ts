@@ -1,17 +1,16 @@
 import type { AssuranceColumnId, WorkStepId } from './homeAssuranceCopy.ts'
 
-/** 24×24 çizgi ikonların yolları; her yol ayrı ayrı pathLength ile çizilir. */
 export const columnIcons: Record<AssuranceColumnId, string[]> = {
-  // Kulaklıklı destek
+
   support: [
     'M4.5 13.5v-2a7.5 7.5 0 0 1 15 0v2',
     'M4.5 13.5a1.5 1.5 0 0 1 1.5-1.5h1a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1H6a1.5 1.5 0 0 1-1.5-1.5Z',
     'M19.5 13.5a1.5 1.5 0 0 0-1.5-1.5h-1a1 1 0 0 0-1 1v3.5a1 1 0 0 0 1 1h1',
     'M19.5 13.5V16a4 4 0 0 1-4 4H13',
   ],
-  // Onay işaretli kalkan
+
   security: ['M12 3.2 5 5.8v5.4c0 4.4 2.9 8.1 7 9.6 4.1-1.5 7-5.2 7-9.6V5.8Z', 'm8.9 12 2.2 2.2 4-4.3'],
-  // Birbirine bağlı düğümler
+
   integration: [
     'M9 6.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z',
     'M20 6.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z',

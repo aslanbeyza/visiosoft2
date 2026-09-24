@@ -5,10 +5,6 @@ import LegalIndex from './LegalIndex.tsx'
 import { legalPages } from './legalCopy.ts'
 import { legalPageCopy as copy } from './legalPageCopy.ts'
 
-/**
- * Altı yasal metin (gizlilik, kullanım şartları, satış ve iadeler, mesafeli satış, iade politikası, yasal bilgiler).
- * Ortalanmış hero + belge dizini (çizilen cetvel) → içindekiler tablolu metin → iletişim satırı. Tarih satırı yoktur.
- */
 export default function LegalPage({ routeName }: { routeName: string }) {
   const page = legalPages[routeName]
   if (!page) return null

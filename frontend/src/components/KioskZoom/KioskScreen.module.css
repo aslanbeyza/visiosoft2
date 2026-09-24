@@ -1,15 +1,9 @@
-/*
- * Ekran camı kesitte 157x308 px görünür. Kioskun ön yüzü izleyiciye ~%80 kısalmış göründüğü için arayüz gerçek
- * oranında (~0,615, 16:10 dikey tablet) tasarlanır, sonra 2B matrisle yatayda sıkıştırılır ve camın eğimine uyacak
- * kadar Y ekseninde kaydırılır. 3B dönüşüm (perspective/rotateY) kullanılmaz: Chrome 3B katmanı ölçeksiz boyutunda
- * rasterleştirip üst öğenin yakınlaşma ölçeğiyle büyütür, yazılar bloklaşır. 2B matriste metin her ölçekte yeniden çizilir.
- * Tüm ölçüler kabın yüksekliğine göre (cqh); yakınlaşmada orantılı büyür ve net kalır.
- */
+
 .screen {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  /* Camın fotoğraftaki dörtgeni (kutuya göre yüzde): sağ kenar uzakta olduğu için üst kenar sağa doğru iner. */
+
   clip-path: polygon(0% 0.3%, 98.6% 5.6%, 98.6% 99.2%, 0.4% 96.6%);
   background: #0b0c10;
   container-type: size;
@@ -32,7 +26,7 @@
   font-family: var(--font-sans);
   line-height: 1.15;
   filter: saturate(0.92) brightness(0.97);
-  /* scaleX 0,81 + skewY ≈3,9°: camın sağ kenarı sola göre ≈4 cqh aşağıda. */
+
   transform: matrix(0.81, 0.068, 0, 1, 0, 0);
   transform-origin: 0 0;
 }
@@ -141,7 +135,6 @@
   animation-play-state: paused;
 }
 
-/* Döngü yalnızca ekran görünürken çalışır. */
 .screen[data-running='true'] .dots span {
   animation-play-state: running;
 }
@@ -174,7 +167,6 @@
   letter-spacing: 0.08em;
 }
 
-/* Camdaki yansıma; ürün görselindeki parlak yüzeyle aynı yönde. */
 .gloss {
   position: absolute;
   inset: 0;

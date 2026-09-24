@@ -18,11 +18,6 @@ function HomeIcon() {
   )
 }
 
-/**
- * Hero sahnesi: sitenin ağacı. Ana sayfa kökünden gövde aşağı iner, yatay dağıtım çizgisi ortadan iki yana açılır,
- * her gruba bir dal düşer ve düğüm (grup adı + gerçek sayfa sayısı) belirir. Düğümler ilgili listeye atlar.
- * Dar ekranda çizgiler gizlenir, düğümler ızgaraya dizilir.
- */
 export default function SitemapTree({ groups, homeTo }: SitemapTreeProps) {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLElement>(null)

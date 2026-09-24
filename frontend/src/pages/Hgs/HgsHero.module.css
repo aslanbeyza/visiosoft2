@@ -77,7 +77,6 @@
   padding: 1.1rem 0;
 }
 
-/* Satır çizgisi CSS geçişiyle çizilir; dl içinde ek öğe gerekmez. */
 .fact::before {
   position: absolute;
   inset: 0 0 auto;

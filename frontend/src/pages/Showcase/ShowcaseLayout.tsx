@@ -10,12 +10,11 @@ import type { ShowcaseRoute } from './showcaseCopy.ts'
 
 type ShowcaseLayoutProps = {
   route: ShowcaseRoute
-  /** CtaBand'dan önceki "diğer vitrinler" bölümünün zemini; bir önceki bölümle ton ritmini korur. */
+
   relatedTone: 'paper' | 'surface'
   children: ReactNode
 }
 
-/** Vitrin sayfalarının ortak iskeleti: SEO, ortalanmış hero, sayfaya özel bölümler, diğer vitrinler ve dönüşüm bandı. */
 export default function ShowcaseLayout({ route, relatedTone, children }: ShowcaseLayoutProps) {
   const path = usePath()
   const copy = showcaseCopy[route]

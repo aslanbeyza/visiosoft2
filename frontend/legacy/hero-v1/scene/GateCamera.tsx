@@ -16,19 +16,13 @@ type GateCameraProps = {
   children?: ReactNode
 }
 
-/**
- * Gerçek saha fotoğrafı üzerine kurulu canlı kamera görüntüsü.
- * Plaka ve LED pano konumları /img/hero/exit-gate-cam.jpg (1600x900) kadrajına göre yüzdelenmiştir.
- * Yeni bir kamera karesi konursa yalnızca bu dört sabiti güncellemek yeterli.
- */
 const PLATE_BOX = { left: '14.44%', top: '78.33%', width: '9.81%', height: '5.11%' }
 const PLATE_BOX_OUTER = { left: '13.19%', top: '75.84%', width: '12.30%', height: '10.20%' }
 const LED_BOX = { left: '59.69%', top: '42.56%', width: '11.06%', height: '17.33%' }
-/** Ödeme kolonunun ekranı — faza göre yanan küçük gösterge. */
-const KIOSK_SCREEN_BOX = { left: '76.19%', top: '53.44%', width: '2.63%', height: '3.78%' }
-/** Direkteki ALPR kamerasının kafası. */
-const CAMERA_HEAD = { left: '44.6%', top: '33.0%' }
 
+const KIOSK_SCREEN_BOX = { left: '76.19%', top: '53.44%', width: '2.63%', height: '3.78%' }
+
+const CAMERA_HEAD = { left: '44.6%', top: '33.0%' }
 
 function PlateOverlay({ plate }: { plate: string }) {
   return (

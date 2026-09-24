@@ -1,9 +1,5 @@
 import type { PointerEvent } from 'react'
 
-/**
- * M10 — İşaretçiyi izleyen ışık: kartın --mx/--my değişkenleri doğrudan stil üzerinden güncellenir,
- * React state kullanılmaz. Yalnızca fare için; dokunmatik ve kalemde değişken yazılmaz.
- */
 export function spotlightMove(event: PointerEvent<HTMLElement>) {
   if (event.pointerType !== 'mouse') return
   const target = event.currentTarget

@@ -28,7 +28,6 @@
   white-space: nowrap;
 }
 
-/* Dar ekranda dört kaynak 3+1 kırılmasın: 2×2 ızgara. */
 .list[data-side='inputs'] {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -82,10 +81,6 @@
   font-size: 0.75rem;
 }
 
-/*
- * Açık zemin: beyaz-alfa renkler görünmez olurdu. Merkez kutusu iki zeminde de lacivert kalır, şema
- * böylece aynı okunuyor; çevresindeki çizgi ve kutular sadece kontrast için ton değiştirir.
- */
 .root[data-tone='light'] {
   border-color: var(--color-corp-line);
   background: #fff;

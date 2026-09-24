@@ -1,4 +1,4 @@
-/** Talep sayfalarının (teklif, keşif) ortak yan panel metinleri; İletişim sayfasındaki ifadelerle aynıdır. */
+
 export const leadPageCopy = {
   formEyebrow: 'Talep formu',
   nextSteps: {

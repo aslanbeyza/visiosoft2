@@ -17,7 +17,6 @@ function termHaystack(term: GlossaryTerm) {
   return [term.term, term.definition, topicLabels[term.topic], ...(term.also ?? [])].map(fold).join(' ')
 }
 
-/** Arama, konu süzgeci ve harf atlamalı terim dizini. */
 export default function GlossaryDirectory() {
   const path = usePath()
   const { hash } = useLocation()

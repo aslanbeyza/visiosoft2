@@ -8,7 +8,6 @@ import styles from './WhatsAppButton.module.css'
 const LABEL = 'WhatsApp ile yazın'
 const NEW_TAB = '(yeni sekmede açılır)'
 
-/** Sağ altta sabit WhatsApp bağlantısı; numara backend config'ten, yoksa şirket bilgisinden gelir. */
 export default function WhatsAppButton() {
   const { config } = useLocale()
   const reduce = useReducedMotion()

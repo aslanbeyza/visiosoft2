@@ -1,7 +1,4 @@
-/**
- * Kullanım: <FormRow columns={2}><Field …/><Field …/></FormRow>
- * Alanları geniş ekranda yan yana, dar ekranda alt alta dizer.
- */
+
 import type { ReactNode } from 'react'
 import styles from './FormRow.module.css'
 

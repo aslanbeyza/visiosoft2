@@ -1,7 +1,4 @@
-/**
- * Kullanım: <EmptyState title="Henüz yazı yok." description="Yeni içerikler yayınlandığında burada görünecek." action={<Button to={path('home')}>Ana sayfa</Button>} />
- * Boş liste/sonuç kartı; simge görünüme girince çizilir, hareket azaltılmışsa hazır gelir.
- */
+
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
@@ -12,9 +9,9 @@ export type EmptyStateProps = {
   title: string
   description?: string
   action?: ReactNode
-  /** Ek: özel simge (SVG). */
+
   icon?: ReactNode
-  /** Ek: koyu zeminde kullanım. */
+
   tone?: 'light' | 'dark'
   className?: string
 }

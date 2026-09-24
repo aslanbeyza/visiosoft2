@@ -1,13 +1,4 @@
-/**
- * Kullanım:
- * <CardGrid columns={3} label="Donanım ürünleri">
- *   {items.map((item, index) => (
- *     <LinkCard key={item.slug} to={path(item.route)} eyebrow={item.tag} title={item.name} description={item.lead} image={...} index={index + 1} />
- *   ))}
- * </CardGrid>
- * Eşit yükseklikte kart ızgarası. `animateLayout` ile (filtreleme gibi) çocuk değişimleri layout animasyonuyla izlenir;
- * bu durumda çocukların anahtarları (key) kararlı olmalıdır.
- */
+
 import { Children, isValidElement } from 'react'
 import type { ReactNode } from 'react'
 import { AnimatePresence } from 'framer-motion'
@@ -17,9 +8,9 @@ import styles from './CardGrid.module.css'
 export type CardGridProps = {
   children: ReactNode
   columns?: 2 | 3 | 4
-  /** Listenin erişilebilir adı. */
+
   label?: string
-  /** Çocuk kartlar eklenip çıkarıldığında konumlar animasyonla güncellenir. */
+
   animateLayout?: boolean
   className?: string
 }

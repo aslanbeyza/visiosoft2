@@ -1,15 +1,15 @@
 import type { CSSProperties } from 'react'
 
 type PictureProps = {
-  /** WebP/PNG/JPEG yedek kaynak. */
+
   src: string
-  /** AVIF srcset (ör. "/img/a-720.avif 720w, /img/a-1280.avif 1280w" veya tek dosya). */
+
   avif?: string
-  /** WebP srcset; src zaten tek WebP ise gerekmez. */
+
   webp?: string
   sizes?: string
   alt: string
-  /** CLS oluşmaması için gerçek piksel ölçüleri. */
+
   width: number
   height: number
   className?: string
@@ -19,7 +19,6 @@ type PictureProps = {
   style?: CSSProperties
 }
 
-/** AVIF + WebP kaynaklı, ölçüleri tanımlı görsel. Varsayılan olarak lazy yüklenir. */
 export default function Picture({
   src,
   avif,

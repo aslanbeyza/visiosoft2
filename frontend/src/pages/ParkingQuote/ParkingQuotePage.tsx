@@ -9,7 +9,6 @@ import QuoteWizard from './QuoteWizard.tsx'
 
 const WIZARD_ID = 'teklif-sihirbazi'
 
-/** /otopark-teklif-motoru — kural kompozisyonlu hero + 3 adımlı sihirbaz ve canlı paket paneli. */
 export default function ParkingQuotePage() {
   const { meta, hero } = quoteCopy
 

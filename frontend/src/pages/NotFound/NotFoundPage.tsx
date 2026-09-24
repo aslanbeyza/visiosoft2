@@ -19,7 +19,6 @@ const icons: Record<string, ReactNode> = {
   contact: <SupportIcon />,
 }
 
-/** Kodlanmış adresi okunur gösterir; bozuk kodlamada ham hâlini döndürür. */
 function readablePath(pathname: string) {
   try {
     return decodeURIComponent(pathname)
@@ -30,10 +29,6 @@ function readablePath(pathname: string) {
 
 const LINKS_HEADING_ID = 'devam-baglantilari'
 
-/**
- * 404 — bölünmüş hero: resmî başlık, istenen adres, eylemler; sahnede bariyeri kapalı ParkingFlow döngüsü
- * (araç gelir, plaka okunur, kayıt bulunamaz, kol kalkmaz) → devam bağlantıları (FeatureGrid) + site haritası. noindex.
- */
 export default function NotFoundPage() {
   const path = usePath()
   const { pathname } = useLocation()

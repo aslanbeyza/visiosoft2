@@ -2,7 +2,6 @@
   scroll-margin-top: 0;
 }
 
-/* Sayfanın ilk bölümü: navbar altından hemen form görünür. */
 .first {
   padding-top: clamp(5.5rem, 4vw + 4rem, 7rem);
 }

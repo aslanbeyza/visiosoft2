@@ -9,7 +9,6 @@ type WebGlGateState = {
   hasFailed: boolean
 }
 
-/** WebGL kurulumu patlarsa sahne yerine yedek UI kalır. */
 export default class WebGlGate extends Component<WebGlGateProps, WebGlGateState> {
   state: WebGlGateState = { hasFailed: false }
 

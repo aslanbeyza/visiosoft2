@@ -1,12 +1,4 @@
-/**
- * Kullanım:
- * const [open, setOpen] = useState(false)
- * const close = useCallback(() => setOpen(false), [])
- * <Dialog open={open} onClose={close} title="Teknik çizim" description="Yakınlaştırmak için tıklayın." size="lg">…</Dialog>
- *
- * body'ye portallanır; role="dialog" aria-modal, odak tuzağı (Tab/Shift+Tab), Esc, arka plan tıklaması,
- * kapanınca odağın geri dönmesi ve sayfa kilidi (#root inert + body overflow) hazırdır. Hareket azaltılmışsa anında açılır.
- */
+
 import { useEffect, useId, useRef } from 'react'
 import type { ReactNode, RefObject } from 'react'
 import { createPortal } from 'react-dom'
@@ -23,20 +15,20 @@ export type DialogProps = {
   onClose: () => void
   title: string
   description?: string
-  /** md: 36rem · lg: 56rem · full: 80rem ve tam yükseklik. */
+
   size?: DialogSize
   children: ReactNode
-  /** Ek: kapat düğmesinin erişilebilir adı. */
+
   closeLabel?: string
-  /** Ek: başlık ve açıklama yalnızca ekran okuyucuya kalır; kapat düğmesi köşede durur. */
+
   hideHeader?: boolean
-  /** Ek: alt şerit (ölçüler, düğmeler). */
+
   footer?: ReactNode
-  /** Ek: açılışta odaklanacak öğe; yoksa gövdedeki ilk odaklanabilir, o da yoksa kapat düğmesi. */
+
   initialFocusRef?: RefObject<HTMLElement | null>
-  /** Ek: 'close' açılışta kapat düğmesine odaklanır. */
+
   initialFocus?: 'body' | 'close'
-  /** Ek: gövde iç boşluğunu kaldırır (görsel, harita, iframe). */
+
   flush?: boolean
   className?: string
   bodyClassName?: string
@@ -70,7 +62,6 @@ function DialogPanel({
   const closeRef = useRef<HTMLButtonElement>(null)
   const pressedOnBackdrop = useRef(false)
 
-  // Sayfa kilidi, ilk odak ve kapanışta odağın açan öğeye dönmesi.
   useEffect(() => {
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null
     const unlock = lockPage()
@@ -88,7 +79,6 @@ function DialogPanel({
     }
   }, [initialFocusRef, initialFocus])
 
-  // Esc kapatır; Tab pencere içinde döner; odak dışarı kaçarsa geri alınır.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {

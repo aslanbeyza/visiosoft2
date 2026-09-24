@@ -15,19 +15,17 @@ type HowItWorksProps = {
 
 const pad = (value: number) => String(value).padStart(2, '0')
 
-// Fotoğrafta gerçekten görünen parçalar: direkteki kamera (1. adım) ve bariyer kolu (4. adım).
 const markers = [
   { step: 0, x: 20, y: 15 },
   { step: 3, x: 57, y: 42 },
 ]
 
-/** Sahadaki çıkış akışı: kaydırdıkça ilerleyen adım çizgisi ve yavaş kayan saha fotoğrafı. */
 export default function HowItWorks({ process }: HowItWorksProps) {
   const reduce = Boolean(useReducedMotion())
   const titleId = useId()
   const listRef = useRef<HTMLOListElement>(null)
   const mediaRef = useRef<HTMLElement>(null)
-  // Kırpılmış çerçeve kendi görünürlüğünü algılayamaz; açılış kırpılmamış figure'dan tetiklenir.
+
   const mediaInView = useInView(mediaRef, { once: true, amount: 0.3 })
   const activeRef = useRef(-1)
   const [active, setActive] = useState(-1)
@@ -122,7 +120,7 @@ type StepProps = {
 }
 
 function Step({ step, index, count, progress, state, reduce }: StepProps) {
-  // Bu adımdan bir sonrakine uzanan çizgi parçasının dolumu.
+
   const fill = useTransform(progress, (latest) => Math.min(1, Math.max(0, latest * count - index)))
   const isLast = index === count - 1
 

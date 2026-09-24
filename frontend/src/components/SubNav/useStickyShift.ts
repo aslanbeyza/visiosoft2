@@ -2,16 +2,8 @@ import { useEffect } from 'react'
 import type { RefObject } from 'react'
 import { cancelFrame, frame } from 'framer-motion'
 
-/** Navbar'ın 0,45 sn'lik geçişi + pay; transitionend gelmezse kare kare izleme bu sürede kendiliğinden biter. */
 const FOLLOW_MS = 700
 
-/**
- * Navbar gizlenince yapışmış çubuğu onun bıraktığı boşluğa kaydırır; akıştaki (henüz yapışmamış) çubuk yerinde kalır.
- * Hedef üst konum: max(doğal konum, min(yapışma üstü, navbar'ın canlı alt kenarı)). Navbar geçişi sürerken her karede
- * navbar'ın o anki alt kenarı okunur; çubuk ayrı bir animasyon çalıştırmadığı için aynı karede izler ve arada boşluk
- * kalmaz. Hareketi azaltma tercihinde navbar'ın geçişi yoktur, çubuk da aynı karede atlar.
- * Doğal konum çubuğun hemen önündeki sıfır yükseklikli işaretçiden okunur; yalnızca transform yazılır.
- */
 export function useStickyShift(
   sentinelRef: RefObject<HTMLElement | null>,
   stickyRef: RefObject<HTMLElement | null>,
@@ -30,7 +22,6 @@ export function useStickyShift(
     let pending = false
     let followUntil = 0
 
-    // Navbar'ın canlı alt kenarı; navbar yoksa (ör. PDF kipi) html[data-navbar] durumuna göre davranılır.
     const navbarBottom = () => {
       if (!header) return root.dataset.navbar === 'hidden' ? 0 : stick
       return Math.max(0, header.getBoundingClientRect().bottom)
@@ -39,7 +30,7 @@ export function useStickyShift(
     const measure = () => {
       if (Number.isNaN(stick)) stick = Number.parseFloat(getComputedStyle(sticky).top) || 0
       const natural = sentinel.getBoundingClientRect().top
-      // Uygulanmış kayma çıkarılınca çubuğun yapışkan konumu (akışta: doğal konum; yapışmışken: stick) kalır.
+
       const current = sticky.getBoundingClientRect().top - applied
       const desired = Math.max(natural, Math.min(stick, navbarBottom()))
       target = Math.round(Math.min(0, desired - current) * 100) / 100
@@ -61,13 +52,11 @@ export function useStickyShift(
       frame.update(write)
     }
 
-    // Navbar durumu değişince ya da geçişi başlayınca çubuk birkaç yüz milisaniye boyunca her karede izler.
     const follow = () => {
       if (!reduce) followUntil = performance.now() + FOLLOW_MS
       schedule()
     }
 
-    // Yalnızca navbar'ın kendi transform geçişi sayılır (tema/gölge katmanlarının opaklık geçişleri değil).
     const isShift = (event: TransitionEvent) =>
       event.target === header && !event.pseudoElement && event.propertyName === 'transform'
 
@@ -86,7 +75,6 @@ export function useStickyShift(
       follow()
     })
 
-    // Navbar sonradan takılır ya da yeniden oluşturulursa dinleyiciler yeni öğeye taşınır.
     function bindHeader() {
       const next = document.querySelector<HTMLElement>('header[data-hidden]')
       if (next === header) return

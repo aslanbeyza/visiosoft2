@@ -18,7 +18,6 @@ function Arrow() {
   )
 }
 
-/** Tek grup: üst çizgi çizilir, satırlar sırayla belirirken ince lacivert çizgi soldan sağa süpürür (M12). */
 function GroupCard({ group, index }: { group: SitemapGroup; index: number }) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())

@@ -8,10 +8,6 @@ import styles from './ViolationHero.module.css'
 
 const copy = violationsCopy.hero
 
-/**
- * Açılış: sol blokta etiket ve iki satırlık başlık, sağda açıklama ve eylemler; altta ince bir çizgi
- * soldan sağa çizilerek hemen ardından gelen ihlal panosuna bağlanır.
- */
 export default function ViolationHero() {
   const reduce = Boolean(useReducedMotion())
   const path = usePath()

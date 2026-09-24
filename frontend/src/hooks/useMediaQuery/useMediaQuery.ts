@@ -1,10 +1,5 @@
 import { useCallback, useSyncExternalStore } from 'react'
 
-/**
- * Kullanım: `const wide = useMediaQuery('(min-width: 1024px)')`
- * Medya sorgusunun eşleşme durumunu döndürür; değişimleri useSyncExternalStore ile izler (effect içinde setState yok).
- * Sunucu/ilk anlık görüntüde false döner.
- */
 export function useMediaQuery(query: string): boolean {
   const subscribe = useCallback(
     (onChange: () => void) => {

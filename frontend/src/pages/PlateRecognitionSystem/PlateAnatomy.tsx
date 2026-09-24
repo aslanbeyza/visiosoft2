@@ -5,7 +5,6 @@ import type { AnatomyValues } from './PlateAnatomySvg.tsx'
 import { prsCopy } from './prsCopy.ts'
 import styles from './PlateAnatomy.module.css'
 
-// Aşama eşikleri: tespit (çerçeve kilidi), tanıma (hücreler), kayıt (son)
 const STAGE_AT = [0.4, 0.68, 0.9]
 
 const finalValues: AnatomyValues = {
@@ -19,7 +18,6 @@ const finalValues: AnatomyValues = {
   cellX: [-10, 0, 10],
 }
 
-/** Kaydırmaya bağlı şema: araç görülür, plaka tespit edilir, karakterler ayrışır; alttaki üç aşama sırayla etkinleşir. */
 export default function PlateAnatomy() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLElement>(null)

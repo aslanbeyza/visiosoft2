@@ -10,7 +10,6 @@ export const kusBakisiZoom = {
   caption: 'Zone canlı harita ekranı · demo verisi',
 }
 
-// Kaynak: gercek_otopark_isvev_kus_bakisi başlıksız kırpımı (2400 × 1142)
 export const kusBakisiImage: ProductZoomImage = {
   src: '/img/pages/canli-harita-crop.webp',
   avif: '/img/pages/canli-harita-crop.avif',
@@ -36,7 +35,7 @@ export const kusBakisiDetails: ProductZoomDetail[] = [
     id: 'doluluk',
     title: 'Doluluk paneli',
     description: 'Boş, dolu, kullanım dışı ve engelli park yerlerinin sayısı ile doluluk oranı anlık izlenir.',
-    // Kutu görselin içinde kalır: kenara (y:0) dayanınca yakınlaşma sahnenin üstünde boş şerit bırakıyordu.
+
     box: { x: 82, y: 4, w: 17, h: 44 },
   },
 ]

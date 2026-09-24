@@ -8,9 +8,6 @@ import ViolationHero from './ViolationHero.tsx'
 import { titleIds, violationsCopy as copy } from './violationsCopy.ts'
 import styles from './ParkingViolationsPage.module.css'
 
-/**
- * /isgaliye-ve-park-ceza — Açılış → ihlal panosu → denetim → süreç.
- */
 export default function ParkingViolationsPage() {
   return (
     <>

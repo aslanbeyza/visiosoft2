@@ -12,10 +12,6 @@ export type BlogPostState =
 
 type Result = { key: string; post: BlogPostDetail | null; missing: boolean }
 
-/**
- * Tek yazıyı getirir. Durum, sonucun ait olduğu "slug#deneme" anahtarından türetilir (efekt içinde eşzamanlı
- * setState yok). Sunucu 404 dönerse "missing", ağ/sunucu hatasında "error" olur; `retry` yeniden dener.
- */
 export function useBlogPost(slug: string) {
   const [attempt, setAttempt] = useState(0)
   const [result, setResult] = useState<Result | null>(null)

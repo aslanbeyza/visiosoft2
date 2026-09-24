@@ -12,7 +12,6 @@ type DetailProcessProps = {
   process: DetailProcessData
 }
 
-/** Sahada nasıl çalışır: kaydırdıkça ilerleyen adım çizgisi; fotoğraf varsa kırpma açılışıyla yanında durur. */
 export default function DetailProcess({ process }: DetailProcessProps) {
   const titleId = useId()
   const steps = process.steps.map((step) => ({

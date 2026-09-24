@@ -1,12 +1,4 @@
-/**
- * Kullanım:
- * <StepList
- *   direction="horizontal"   // 1024 px'ten itibaren yan yana; tablette 2 sütunlu ızgara (3 adım tek satır), mobilde alt alta · "vertical": her zaman alt alta
- *   progress="scroll"        // ilerleme çizgisi kaydırmayla dolar, çizgi ulaştıkça adım etkinleşir · "static": hepsi etkin
- *   steps={[{ title: 'Keşif', description: 'Giriş-çıkış, tarife ve entegrasyon yerinde netleşir.', icon: <MapIcon /> }]}
- * />
- * Hareket azaltmada tüm adımlar etkin ve çizgiler dolu görünür.
- */
+
 import { useRef, useState } from 'react'
 import type { CSSProperties, ReactNode } from 'react'
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion'
@@ -25,11 +17,11 @@ export type StepListProps = {
   direction?: 'horizontal' | 'vertical'
   progress?: 'scroll' | 'static'
   tone?: 'light' | 'dark'
-  /** Form kartı gibi dar panellerde daha küçük tipografi. */
+
   compact?: boolean
-  /** Başlık düzeyi; bölüm başlığı h2 ise h3 (varsayılan). */
+
   headingAs?: 'h3' | 'h4'
-  /** Listenin erişilebilir adı. */
+
   label?: string
   className?: string
 }
@@ -53,7 +45,6 @@ type SegmentProps = {
   filled: boolean
 }
 
-/** Adımlar arası ilerleme çizgisi: yatayda scaleX, dikeyde scaleY ile dolar. */
 function Segment({ progress, index, count, filled }: SegmentProps) {
   const scale = useTransform(progress, [index / (count - 1), (index + 1) / (count - 1)], [0, 1])
 
@@ -83,7 +74,6 @@ export default function StepList({
   const { scrollYProgress } = useScroll({ target: listRef, offset: ['start 0.8', 'end 0.55'] })
   const [reached, setReached] = useState(0)
 
-  // Çizgi bir adıma ulaştığında o adım etkinleşir; state yalnızca sayı değişince güncellenir.
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
     if (!scrollLinked) return
     const next = value <= 0.001 ? 0 : Math.min(count, Math.floor(value * (count - 1) + 0.001) + 1)

@@ -1,7 +1,5 @@
-import CtaBand from '../../components/CtaBand/index.ts'
 import Seo from '../../components/Seo/index.ts'
 import { explodeVariantFor } from '../../components/KioskExplode/explodeVariants.ts'
-import { usePath } from '../../hooks/usePath/index.ts'
 import DetailDrawing from './DetailDrawing.tsx'
 import DetailFeatures from './DetailFeatures.tsx'
 import DetailHero from './DetailHero.tsx'
@@ -20,9 +18,7 @@ export type ProductDetailProps = {
   slug: ProductDetailSlug
 }
 
-/** Donanım ürün detay sayfası; sekiz ürünün tamamı aynı şablonla, ürün verisine göre çizilir. */
 export default function ProductDetail({ slug }: ProductDetailProps) {
-  const path = usePath()
   const product = productDetails[slug]
   const { copy } = product
   const hasExplode = Boolean(explodeVariantFor(slug) ?? product.explode)
@@ -55,12 +51,6 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
         <DetailSpecs copy={copy} />
         <RelatedProducts current={slug} />
       </div>
-      <CtaBand
-        title={copy.cta_title}
-        description={copy.cta_desc}
-        primary={{ label: copy.get_quote, to: path('quote.index') }}
-        secondary={{ label: copy.request_discovery, to: path('discovery.show') }}
-      />
     </>
   )
 }

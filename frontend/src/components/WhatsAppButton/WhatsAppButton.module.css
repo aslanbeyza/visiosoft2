@@ -1,19 +1,18 @@
-/* Sabit WhatsApp düğmesi: marka yeşili daire, masaüstünde üzerine gelince soldan açılan etiket. */
+
 .button {
   position: fixed;
-  right: calc(1.25rem + env(safe-area-inset-right, 0px));
-  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  right: calc(var(--fab-inset) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--fab-inset) + env(safe-area-inset-bottom, 0px));
   z-index: 40;
   display: block;
-  width: 3.25rem;
-  height: 3.25rem;
+  width: var(--fab-size);
+  height: var(--fab-size);
   border-radius: 50%;
   color: #fff;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Saydam dış çizgi normalde görünmez; zorunlu renk modunda sistem rengiyle odak göstergesine dönüşür. */
 .button:focus-visible {
   outline: 2px solid transparent;
   outline-offset: 3px;
@@ -35,7 +34,6 @@
     background-color 0.35s var(--ease-apple);
 }
 
-/* Düğme belirdikten sonra tek seferlik dikkat halkası. */
 .circle::after {
   content: '';
   position: absolute;
@@ -69,7 +67,6 @@
     0 16px 32px -14px rgb(15 20 48 / 0.5);
 }
 
-/* Etiket kapalıyken sıfır genişlikte kırpılır; tıklamayı engellemez. Sağ iç boşluk daireyle arasında köprü olur. */
 .labelWrap {
   position: absolute;
   top: 0;

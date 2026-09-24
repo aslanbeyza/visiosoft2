@@ -21,7 +21,7 @@ export const tirKioskDetail: ProductDetailData = {
       'tir-kiosk',
       'İnsansız Çıkış Ödeme Kiosk TIR Versiyonu: beyaz kolon üzerinde güneşlikli üst panel ve alt panel, her panelde ekran ve kart okuyucu',
     ),
-    // Ürün, görsel kutusunda dikeyde %0,4 ile %96,4 arasında; ölçü çizgisi yalnızca toplam yüksekliği gösterir.
+
     dimensions: {
       height: { label: '2455 mm', span: { from: 0.4, to: 96.4 }, edges: [41, 43] },
     },

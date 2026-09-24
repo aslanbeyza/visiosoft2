@@ -20,14 +20,12 @@ export type ProductDetailProps = {
   slug: ProductDetailSlug
 }
 
-/** Kurumsal ürün detay sayfası. Bölümler ürün verisine göre çizilir; faz 2'de diğer donanımlar da buraya taşınır. */
 export default function ProductDetail({ slug }: ProductDetailProps) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
   const data = productDetails[slug]
   const { copy } = data
 
-  // Sabitlenmiş yakınlaşma bölümü ekranın üst kısmını kaplarken ürün çubuğu gizlenir (üst üste binmesin).
   const zoomRef = useRef<HTMLDivElement>(null)
   const zoomActiveRef = useRef(false)
   const [zoomActive, setZoomActive] = useState(false)

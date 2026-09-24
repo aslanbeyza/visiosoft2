@@ -35,7 +35,6 @@ export default function SystemShowcase() {
   const [progress, setProgress] = useState(-1)
   const running = !reduce && inView && pageVisible
 
-  // Adımlar sırayla tamamlanır, kısa bir bekleyişten sonra akış baştan başlar. Sahne görünmezken durur.
   useEffect(() => {
     if (!running) return
     const delay = progress >= stepCount ? flowTiming.hold : progress < 0 ? flowTiming.start : flowTiming.step
@@ -43,7 +42,6 @@ export default function SystemShowcase() {
     return () => window.clearTimeout(id)
   }, [progress, running, stepCount])
 
-  // Hareket azaltma tercihinde akış animasyonsuz, tamamlanmış hâliyle gösterilir.
   const shownProgress = reduce ? stepCount : progress
   const highlightId = shownProgress >= 0 && shownProgress < stepCount ? text.steps[shownProgress].featureId : null
 

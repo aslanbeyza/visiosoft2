@@ -87,7 +87,6 @@
   }
 }
 
-/* İlerleme çizgisi: işaret merkezinden bir sonraki işaret merkezine */
 .segment {
   position: absolute;
   top: calc(var(--marker) / 2);

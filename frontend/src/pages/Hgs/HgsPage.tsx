@@ -4,10 +4,6 @@ import { HgsAdvantages, HgsFlow, HgsMethods, HgsSectors } from './HgsSections.ts
 import PaymentMatrix from './PaymentMatrix.tsx'
 import { hgsPageCopy as copy } from './hgsPageCopy.ts'
 
-/**
- * /hgs-odeme — çözüm sayfası.
- * Hero (HGS → POS → QR zinciri) → Ödeme matrisi → Yöntemler → Avantajlar → Nasıl çalışır → Sektörler.
- */
 export default function HgsPage() {
   return (
     <>

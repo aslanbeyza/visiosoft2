@@ -11,7 +11,6 @@ const { future, scope, advantages } = hgsParkPageCopy
 const headingId = (id: string) => `${id}-baslik`
 const pad = (value: number) => String(value).padStart(2, '0')
 
-/** Geleceğin teknolojisi: solda başlık, sağda dönüşüm şeması; altında iki özellik kartı. */
 export function HgsParkFuture() {
   return (
     <Section id={future.id} tone="surface" labelledBy={headingId(future.id)}>
@@ -29,7 +28,6 @@ export function HgsParkFuture() {
   )
 }
 
-/** Hizmet kapsamı: lacivert bant, iki onay listesi paneli (faaliyet alanları / işletme türleri). */
 export function HgsParkScope() {
   const panels = [scope.activity, scope.business]
 
@@ -62,7 +60,6 @@ export function HgsParkScope() {
   )
 }
 
-/** Avantajlar: numaralı dört madde. */
 export function HgsParkAdvantages() {
   return (
     <Section id={advantages.id} tone="paper" labelledBy={headingId(advantages.id)}>

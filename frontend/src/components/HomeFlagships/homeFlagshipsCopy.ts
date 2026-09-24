@@ -1,4 +1,4 @@
-/** Ana sayfa donanım vitrini metinleri. */
+
 export const homeFlagshipsCopy = {
   eyebrow: 'Donanım çözümleri',
   title: 'Sahada çalışan, yazılımımızla birlikte geliştirilen ürünler.',
@@ -21,7 +21,6 @@ export type FlagshipShowcase = {
   tags: readonly [string, string, string]
 }
 
-/** Vitrin kartı: kısa B2B özet ve üç etiket. Rota flagships.ts üzerinden gelir. */
 export const flagshipShowcase: Record<'kiosk' | 'kamera-muhafaza' | 'visiobox' | 'ledli-reklam-paneli', FlagshipShowcase> = {
   kiosk: {
     category: 'Çıkışta ödeme',

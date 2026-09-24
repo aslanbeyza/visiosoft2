@@ -14,7 +14,6 @@ import noteStyles from './CoverNote.module.css'
 
 type BlogListProps = { state: BlogIndexState; retry: () => void }
 
-/** Yazı listesi: yükleniyor iskeleti, hata (tekrar dene), boş durum ya da öne çıkan yazı + kart ızgarası. */
 export default function BlogList({ state, retry }: BlogListProps) {
   const path = usePath()
   let content: ReactNode

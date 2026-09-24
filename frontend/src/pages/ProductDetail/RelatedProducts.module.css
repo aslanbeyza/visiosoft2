@@ -69,7 +69,6 @@
   transition: transform 0.35s var(--ease-apple);
 }
 
-/* Şerit, başlıkla aynı hizadan başlar ve ekranın sağ kenarına kadar taşar. */
 .rail {
   margin-top: clamp(2rem, 4vw, 3rem);
   overflow-x: auto;
@@ -129,7 +128,7 @@
   position: absolute;
   inset: 0;
   display: grid;
-  /* Kesin satır/sütun: görselin %100 yüksekliği çözülür, uzun ürünler kartı taşırmaz. */
+
   grid-template: minmax(0, 1fr) / minmax(0, 1fr);
   place-items: center;
   padding: 1.25rem;

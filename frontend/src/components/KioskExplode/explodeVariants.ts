@@ -44,21 +44,30 @@ export type ExplodeCopy = {
 export type ExplodeVariant = {
   id: ExplodeVariantId
   modelSrc: string
-  /** Gölge atmayan gövde mesh adları. */
+
   bodyNames: ReadonlySet<string>
   screens: ReadonlySet<string>
-  /** Ayrılma yönleri; değerler model yüksekliğinin oranıdır. */
+
   explode: Record<string, [number, number, number]>
-  /** Ölçek: height = dikey ürün (kiosk); max = yatay/kompakt (kamera). */
+
   fit?: 'height' | 'max'
-  /** Hedef boyut (fit birimine göre). */
+
   modelSize?: number
-  /** tall: kiosk/TIR; compact: kamera gibi alçak ürün — yakın çekim + düşük etiketler. */
+
   framing?: 'tall' | 'compact'
-  /**
-   * Ön yüz grafiği (ör. navbar LED fotoğrafı).
-   * faceGroups içindeki düğüm veya alt mesh’lere map olarak basılır.
-   */
+
+  compactCameraScale?: number
+
+  labelFrame?: {
+    columnX?: number
+    slotY?: number[]
+    endRadius?: number
+    endAzim?: number
+    endHeight?: number
+    endLookY?: number
+    endFov?: number
+  }
+
   faceMapSrc?: string
   faceGroups?: ReadonlySet<string>
   copy: ExplodeCopy
@@ -77,7 +86,6 @@ const KIOSK_EXPLODE: Record<string, [number, number, number]> = {
   kiosk: [0, 0, -0.14],
 }
 
-/** TIR kiosk: üst/alt panel çiftleri; .001 alt paneli. */
 const TIR_KIOSK_EXPLODE: Record<string, [number, number, number]> = {
   tabletsc: [0, 0.22, 0.55],
   'tabletsc.001': [0, -0.28, 0.55],
@@ -94,7 +102,6 @@ const TIR_KIOSK_EXPLODE: Record<string, [number, number, number]> = {
   kiosktruck: [0, 0, -0.16],
 }
 
-/** Visio Kamera muhafaza: gövde + optik birim — kiosk gibi belirgin ayrılma. */
 const KAMERA_EXPLODE: Record<string, [number, number, number]> = {
   camera: [0.15, 0.35, 0.95],
   'body174672.002': [-0.2, -0.12, -0.55],
@@ -199,7 +206,7 @@ const kameraCopy: ExplodeCopy = {
     {
       at: 0.52,
       title: 'Gövde açılıyor',
-      desc: 'Ön yüz ve optik birim servis için erişilebilir; montaj ayağı açı ayarı verir.',
+      desc: 'Plaka okuma modülü ve koruma kılıfı servis için ayrılır; montaj ayağı açı ayarı verir.',
     },
     {
       at: 0.72,
@@ -211,24 +218,20 @@ const kameraCopy: ExplodeCopy = {
     {
       partId: 'camera',
       code: 'K-01',
-      title: 'Optik birim',
-      desc: 'Plaka tanıma için net görüş; ön cam ve lens muhafaza içinde.',
-      side: 'right',
+      title: 'Plaka okuma modülü',
+      desc: 'Lens ve ön cam; şeritteki plakayı net okur.',
+      side: 'left',
     },
     {
       partId: 'body174672.002',
       code: 'K-02',
-      title: 'Güneşlikli muhafaza',
-      desc: 'Kırmızı güneşlik ve gövde; dış ortam koşullarına karşı koruma.',
+      title: 'Muhafaza kılıfı',
+      desc: 'Kırmızı güneşlikli gövde; plaka okuma modülünü yağmur, toz ve darbeye karşı korur.',
       side: 'left',
     },
   ],
 }
 
-/**
- * Visiobox / Togerbox GLB: Lite + Pro yan yana.
- * İsimler meshopt export’taki underscore biçimidir (boşluk değil).
- */
 const VISIOBOX_EXPLODE: Record<string, [number, number, number]> = {
   // Pro
   'KAPI_3040(Varsayılan)Görüntü_Durumu_1': [0.28, 0.06, 0.78],
@@ -321,21 +324,16 @@ const visioboxCopy: ExplodeCopy = {
   ],
 }
 
-/**
- * LED bilgilendirme paneli: ekran, plexi, gövde, arka kapı ve ayak.
- * İsimler meshopt export’taki underscore biçimidir.
- */
 const LED_PANEL_EXPLODE: Record<string, [number, number, number]> = {
   LED_MONTAJ: [0, 0.42, 0.12],
   'PLEXI(Varsayılan)Görüntü_Durumu_1': [0, 0.04, 0.62],
   'REKLAM_SACI_KAPIDA(Varsayılan)Görüntü_Durumu_1': [0, 0.02, 0.48],
   'REKLAM_PANELİ_ÖN_GÖVDE(Varsayılan)Görüntü_Durumu_1': [0, 0.08, -0.1],
   'RP_ARKA_KAPI,(Varsayılan)Görüntü_Durumu_1': [0, 0.06, -0.58],
-  // Aşağı itme zemin altına kaçırıyor; ayak zeminde kalıp yana/arkaya ayrılsın.
+
   ALT_AYAK_SETİ: [0.42, 0.02, -0.35],
 }
 
-/** Navbar menü görseli — kart görseli yok; reduced-motion ve fallback aynı kaynaktan. */
 const ledPanelImage = {
   src: '/img/nav/led-panel.webp',
   avif: '/img/nav/led-panel.avif',
@@ -412,10 +410,6 @@ const ledPanelCopy: ExplodeCopy = {
   ],
 }
 
-/**
- * Rack kabin / saha panosu: kapı, gövde, raf, PC, switch ve ayak.
- * İsimler meshopt export’taki underscore biçimidir.
- */
 const RACK_KABIN_EXPLODE: Record<string, [number, number, number]> = {
   'ÖN_KAPI(Varsayılan)Görüntü_Durumu_1': [0, 0.04, 0.72],
   'EKRAN_TS-111(Varsayılan)Görüntü_Durumu_1': [0.12, 0.28, 0.45],
@@ -533,8 +527,15 @@ export const explodeVariants: Record<ExplodeVariantId, ExplodeVariant> = {
     screens: new Set(),
     explode: KAMERA_EXPLODE,
     fit: 'max',
-    modelSize: 2.35,
+    modelSize: 1.65,
     framing: 'compact',
+    compactCameraScale: 1.22,
+    labelFrame: {
+      columnX: 1.7,
+      slotY: [0.78, 0.22],
+      endHeight: 0.92,
+      endLookY: 0.52,
+    },
     copy: kameraCopy,
   },
   visiobox: {
@@ -582,7 +583,6 @@ export const explodeVariants: Record<ExplodeVariantId, ExplodeVariant> = {
   },
 }
 
-/** Donanım slug’ı için patlatma yapılandırması; yoksa undefined. */
 export function explodeVariantFor(slug: HardwareSlug): ExplodeVariant | undefined {
   if (slug === 'togerbox') return explodeVariants.visiobox
   if (

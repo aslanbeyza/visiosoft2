@@ -1,19 +1,14 @@
-/**
- * Kullanım:
- *   <ChipList items={['Temassız giriş ve çıkış', 'HGS + POS + QR ödeme akışı']} />
- *   <ChipList items={[…]} tone="dark" icon="none" />
- * Kısa sonuç/kapsam etiketleri; görünüme girince sırayla belirir. Yalnızca gerçek özellikleri listeleyin.
- */
+
 import { RevealGroup, RevealItem } from '../Reveal/index.ts'
 import styles from './ChipList.module.css'
 
 export type ChipListProps = {
   items: string[]
   tone?: 'light' | 'dark'
-  /** check: onay işareti · dot: küçük nokta · none: yalnızca metin. */
+
   icon?: 'check' | 'dot' | 'none'
   className?: string
-  /** Liste için erişilebilir etiket (grup adı). */
+
   label?: string
 }
 

@@ -10,7 +10,6 @@ import styles from './ServicesHero.module.css'
 const copy = servicesCopy.hero
 const TITLE_ID = 'hizmetlerimiz-baslik'
 
-/** "Yanınızda 7/24." — başlık satır satır belirir, altında hizmetlerin ritmini gösteren EKG şeridi çizilir. */
 export default function ServicesHero() {
   const reduce = Boolean(useReducedMotion())
   const path = usePath()

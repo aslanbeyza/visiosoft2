@@ -1,4 +1,4 @@
-/* Lacivert kutucuk: metin üstte, zemin çizgisi üzerinde dört ürün, altta bağlantı. Dar kutuda roller gizlenir. */
+
 .tile {
   position: relative;
   display: flex;
@@ -65,7 +65,6 @@
   text-wrap: pretty;
 }
 
-/* --scene-h: en uzun ürünün yüksekliği; zemin çizgisi tam bu yükseklikte durur. */
 .scene {
   --scene-h: 7.5rem;
   position: relative;
@@ -90,7 +89,6 @@
   min-width: 0;
 }
 
-/* Yalnız alt kenarı kırpan pencere: ürün zemin çizgisinden yükselir. */
 .window {
   display: flex;
   align-self: end;
@@ -199,7 +197,6 @@
   transform: translateX(3px);
 }
 
-/* Geniş kutu: ürünler büyür, roller görünür. */
 @container (min-width: 36rem) {
   .scene {
     --scene-h: 11rem;

@@ -1,17 +1,4 @@
-/**
- * Kullanım:
- *   <StatRow
- *     items={[
- *       { value: 2018, label: 'Kuruluş' },
- *       { value: 4, label: 'Lokasyon', note: 'İstanbul' },
- *       { value: 297.5, decimals: 1, suffix: ' mm', label: 'Derinlik' },
- *       { value: 'HGS · POS · QR', label: 'Ödeme kanalları' },
- *     ]}
- *     columns={4}
- *   />
- * Sayısal değerler CountUp ile sayar; metin değerler statik basılır. Her istatistiğin üstünde ince bir çizgi
- * çizilir, kartlar sırayla yükselir. Yalnızca gerçek sayılar için kullanın (ölçüler, gerçek adetler).
- */
+
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import CountUp from '../CountUp/index.ts'
@@ -25,9 +12,9 @@ export type StatItem = {
   suffix?: string
   label: string
   note?: string
-  /** Binlik ayırıcı; varsayılan |value| ≥ 10.000 için açık. */
+
   grouping?: boolean
-  /** Sayacın başladığı değer. */
+
   from?: number
 }
 
@@ -36,7 +23,7 @@ export type StatRowProps = {
   columns?: 2 | 3 | 4
   tone?: 'light' | 'dark'
   className?: string
-  /** dl için erişilebilir etiket. */
+
   label?: string
 }
 

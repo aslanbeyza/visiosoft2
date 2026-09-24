@@ -1,10 +1,9 @@
-/* Vitrin sayfalarında ortak bölüm düzenleri */
+
 .stack {
   display: grid;
   gap: clamp(2.25rem, 4vw, 3.5rem);
 }
 
-/* Ortalanmış başlıklı yığın: SectionHeading'in max-width kutusu da ortaya gelir */
 .stackCenter {
   justify-items: center;
 }

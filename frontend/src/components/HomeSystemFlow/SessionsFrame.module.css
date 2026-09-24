@@ -10,7 +10,6 @@
     0 18px 40px -18px rgb(15 20 48 / 0.28);
 }
 
-/* İnce tarayıcı çubuğu; ortadaki etiket alt yazıdır. */
 .bar {
   display: grid;
   grid-template-columns: 1.95rem minmax(0, 1fr) 1.95rem;
@@ -62,10 +61,6 @@
   height: auto;
 }
 
-/*
- * Telefonda tablo tam genişlikte okunmaz: görsel plaka, giriş, çıkış, süre, ücret ve ödeme durumu
- * sütunlarına (kaynakta x 180–800, y 140–376 → 620 × 236: başlık satırı ve üç kayıt) kırpılır, yaklaşık 1,6× büyür.
- */
 @media (max-width: 639px) {
   .picture {
     aspect-ratio: 620 / 236;

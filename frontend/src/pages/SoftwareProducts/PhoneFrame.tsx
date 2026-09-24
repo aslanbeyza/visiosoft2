@@ -7,30 +7,19 @@ import styles from './PhoneFrame.module.css'
 
 type PhoneFrameProps = {
   image: HubImage
-  /** Görsel çevresindeki metin ekranı zaten anlatıyorsa true (alt boş kalır). */
+
   decorative?: boolean
   eager?: boolean
-  /**
-   * Açılış kipi (direction verilmediğinde):
-   * undefined: ilk ekran statik, sonraki ekran değişimleri açılarak gelir.
-   * null: açılış bekliyor (ekran kapalı). sayı: bu gecikmeyle yukarıdan aşağı açılır.
-   */
+
   revealDelay?: number | null
-  /**
-   * Adım kipi: 1 ileri, -1 geri. Verilirse çerçeve sabit kalır, yalnızca ekran katmanı
-   * 16 px kayarak ve saydamlaşarak değişir (0,45 s). Hareket azaltmada anında değişir.
-   */
+
   direction?: 1 | -1
-  /**
-   * Adım kipinde tüm ekranlar (image dahil) üst üste, kalıcı katmanlar olarak çizilir. Görseller bölüme yaklaşırken
-   * yüklenir ve DOM'da kalır; ilk sekme değişiminde bile ekran boş (beyaz) görünmez.
-   */
+
   screens?: HubImage[]
   sizes?: string
   className?: string
 }
 
-// "on": sağdan/soldan 16 px kayarak belirir · "off": ters yöne kayarak saydamlaşır (görünmeyen katmanlarda iz bırakmaz).
 const slide = {
   on: (dir: number) => ({ opacity: [0, 1], x: [16 * dir, 0], zIndex: 2 }),
   off: (dir: number) => ({ opacity: 0, x: -16 * dir, zIndex: 1 }),
@@ -42,7 +31,6 @@ const enter = {
   exit: (dir: number) => ({ opacity: 0, x: -16 * dir }),
 }
 
-/** Gerçek telefon çerçevesi (şeffaf ekranlı görsel) içinde uygulama ekranı; çerçeve bir kez çizilir, ekran katmanı değişir. */
 export default function PhoneFrame({
   image,
   decorative = false,

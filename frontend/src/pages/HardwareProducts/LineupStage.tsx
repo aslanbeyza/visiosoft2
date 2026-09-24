@@ -12,15 +12,11 @@ import styles from './LineupStage.module.css'
 
 const pad = (value: number) => String(value).padStart(2, '0')
 
-/**
- * Hero anı: altı ürün tek zemin çizgisinin üzerinde, gerçek yükseklik oranlarıyla zeminden yükselir.
- * Işık huzmesi kaydırmayla soldan sağa geçer; ölçüsü bilinen ürünlerde yükseklik çizgisi çizilir.
- */
 export default function LineupStage() {
   const reduce = useReducedMotion()
   const path = usePath()
   const stageRef = useRef<HTMLDivElement>(null)
-  // Kırpılmış pencereler kendi görünürlüğünü bildiremez; tetik kırpılmamış sahneden gelir.
+
   const inView = useInView(stageRef, { once: true, amount: 0.3 })
   const { scrollYProgress } = useScroll({ target: stageRef, offset: ['start end', 'end start'] })
   const spotX = useTransform(scrollYProgress, [0, 1], ['-32%', '32%'])
@@ -40,7 +36,7 @@ export default function LineupStage() {
 
       <ol className={styles.row} aria-label={heroCopy.lineupLabel}>
         {lineupItems.map((item, index) => {
-          // Ortadaki uzun ürünler önce, kenardakiler sonra yükselir.
+
           const delay = 0.5 + Math.abs(index - center) * 0.14
           const style = { '--r': lineupRatio(item) } as CSSProperties
           return (

@@ -8,8 +8,6 @@
   margin-top: clamp(2.75rem, 5vw, 4rem);
 }
 
-/* Adımlar */
-
 .steps {
   margin: 0;
   padding: 0;
@@ -131,8 +129,6 @@
   color: rgb(255 255 255 / 0.7);
 }
 
-/* Saha fotoğrafı */
-
 .media {
   margin: 0;
   min-width: 0;
@@ -214,7 +210,6 @@
     padding-top: 0.5rem;
   }
 
-  /* Çerçeve oranı fotoğrafla aynı kalır; işaretçiler görseldeki parçalarla hizalı olur. */
   .media {
     position: sticky;
     top: 10rem;

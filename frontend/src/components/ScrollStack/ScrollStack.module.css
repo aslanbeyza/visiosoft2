@@ -139,7 +139,6 @@
   }
 }
 
-/* Yığın: kartlar navbar altına yapışır, her biri bir öncekinden 1,25rem aşağıda durur. */
 @media (min-width: 1024px) {
   .list {
     --ss-nav: 4.5rem;
@@ -154,11 +153,6 @@
     position: sticky;
     top: calc(var(--ss-nav) + var(--ss-offset, 0rem) + var(--index) * 1.25rem);
   }
-
-  /*
-   * Navbar gizlenince yalnızca yapışmış kartlar onun boşluğuna kayar (useNavbarShift, satır içi transform).
-   * Henüz yapışmamış kart kaydırılmaz; aksi hâlde bölüm başlığının üstüne binerdi.
-   */
 
   .list[data-stacked='true'] .card {
     min-height: min(32rem, calc(100svh - 10rem - var(--ss-offset, 0rem)));

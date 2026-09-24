@@ -28,7 +28,6 @@ function Logo({ logo, decorative = false }: { logo: Reference; decorative?: bool
   )
 }
 
-/** Logo başına kayma süresi (sn); iki satır farklı uzunlukta olsa da hız aynı kalır. */
 const SECONDS_PER_LOGO = 3.4
 
 export default function HomeReferences() {
@@ -86,7 +85,7 @@ export default function HomeReferences() {
                         </li>
                       ))}
                     </ul>
-                    {/* Kesintisiz döngü için aynı liste ikinci kez; ekran okuyucudan gizli. */}
+                    {}
                     <ul className={styles.list} aria-hidden="true">
                       {row.map((logo) => (
                         <li key={logo.file} className={styles.tile}>

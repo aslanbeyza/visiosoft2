@@ -15,7 +15,6 @@ import styles from './ShowcaseLayout.module.css'
 
 const icons = { veri: <ChartIcon />, kamera: <CameraIcon />, rapor: <ReportIcon /> }
 
-/** /kus-bakisi-otopark-yonetimi — hero anı: canlı harita ekranında park alanı, kamera ve doluluk paneline yakınlaşma. */
 export default function KusBakisi() {
   const path = usePath()
   const copy = showcaseCopy['kus-bakisi']
@@ -47,7 +46,7 @@ export default function KusBakisi() {
               </Prose>
             </Reveal>
           </div>
-          {/* Görselin üst kenarında panel başlığı var; screenshot kipi onu kırpmaz. */}
+          {}
           <MediaFrame className={styles.splitMedia} ratio="1052 / 592" mode="screenshot" caption={kusBakisiStory.caption}>
             <Picture {...kusBakisiStory.image} sizes="(min-width: 1024px) 44vw, 100vw" />
           </MediaFrame>

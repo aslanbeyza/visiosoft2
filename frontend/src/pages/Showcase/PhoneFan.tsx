@@ -14,18 +14,12 @@ type PhoneFanProps = {
 
 const FRAME = { src: '/img/pages/phone-frame-crop.webp', avif: '/img/pages/phone-frame-crop.avif', width: 726, height: 1444 }
 
-// Yelpaze pozları: soldaki, ortadaki (önde) ve sağdaki telefon
-// (yan telefonların alt köşesi, dönüş + y ile etiket satırına taşmayacak kadar yukarıda kalır)
 const poses = [
   { x: '-72%', rotate: -6, y: 16, scale: 0.9, z: 1 },
   { x: '0%', rotate: 0, y: 0, scale: 1, z: 2 },
   { x: '72%', rotate: 6, y: 16, scale: 0.9, z: 1 },
 ]
 
-/**
- * Mobil abonelik hero anı: üç gerçek uygulama ekranı telefon çerçevesinde üst üste gelir,
- * görünüme girince ortadaki yükselir, yandakiler arkasından yelpaze gibi açılır; kaydırmada hafif paralaks.
- */
 export default function PhoneFan({ screens, label, caption }: PhoneFanProps) {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)

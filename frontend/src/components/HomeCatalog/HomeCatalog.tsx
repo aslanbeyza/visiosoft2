@@ -9,10 +9,6 @@ import { usePath } from '../../hooks/usePath/index.ts'
 import { homeCatalogCopy as text } from './homeCatalogCopy.ts'
 import styles from './HomeCatalog.module.css'
 
-/**
- * Parklio Solutions / Software vitrininin Visiosoft örneği:
- * ortada hap geçiş, değişen başlık, üç kolonlu ürün ızgarası.
- */
 export default function HomeCatalog() {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())

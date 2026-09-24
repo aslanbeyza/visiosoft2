@@ -21,7 +21,7 @@ const lineY: Variants = { hidden: { scaleY: 0 }, show: { scaleY: 1, transition: 
 const travelVariants: Variants = {
   hidden: { x: '0%', opacity: 0 },
   show: {
-    // Belge düğümler arasında görünür, düğümün içine girerken kaybolur.
+
     x: ['0%', '16.667%', '33.333%', '50%', '66.667%'],
     opacity: [0, 1, 0, 1, 0],
     transition: { duration: 2.8, delay: 1.5, times: [0, 0.25, 0.5, 0.75, 1], ease: 'linear' },
@@ -48,7 +48,6 @@ function DocumentGlyph() {
   )
 }
 
-/** Gelirden müşteriye elektronik fatura akışı: düğümler sırayla gelir, bağlantılar çizilir, belge bir kez yol alır. */
 export default function InvoiceFlow({ label, steps }: Props) {
   const reduce = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)

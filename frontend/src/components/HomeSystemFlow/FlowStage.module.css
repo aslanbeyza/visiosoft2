@@ -116,15 +116,10 @@
 
 .sceneInner {
   min-width: 0;
-  /* ParkingFlow alt satırının boş payı dengelenir. */
+
   margin-bottom: -0.75rem;
 }
 
-/*
- * Oturumlar ekranı tam boyda sahnenin ortasındadır (--w genişlik, --h çubukla birlikte yükseklik).
- * mini: sağ üst köşeye ölçeklenir (sahnede boş kalan alan; kiosk ve bariyerin üstü). hidden: aynı konumda saydam.
- * cq birimleri .viewport kabına göre çözülür.
- */
 .sessions {
   --w: min(92cqw, calc((90cqh - 2.25rem) * 996 / 436));
   --h: calc(var(--w) * 436 / 996 + 2.2rem);
@@ -150,7 +145,6 @@
   transform: var(--dock);
 }
 
-/* Küçük pencerenin solunda, başlık çubuğu hizasında: sahnenin üst bandı her genişlikte boştur (kiosk/bariyerle çakışmaz). */
 .dockCaption {
   position: absolute;
   top: calc(4cqh - 0.3rem);
@@ -250,7 +244,6 @@
     aspect-ratio: 1200 / 720;
   }
 
-  /* Mobilde görsel plaka–ödeme durumu sütunlarına kırpılır (SessionsFrame): 620 × 236. */
   .sessions {
     --w: min(94cqw, calc((92cqh - 2.25rem) * 620 / 236));
     --h: calc(var(--w) * 236 / 620 + 2.2rem);

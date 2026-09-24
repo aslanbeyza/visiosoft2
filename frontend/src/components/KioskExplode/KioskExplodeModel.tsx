@@ -47,26 +47,33 @@ type LabelFrame = {
   endFov: number
 }
 
-function labelFrameFor(framing: 'tall' | 'compact'): LabelFrame {
-  if (framing === 'compact') {
-    return {
-      columnX: 2.15,
-      slotY: [1.55, 0.85, 0.15],
-      endRadius: 5.6,
-      endAzim: 0.3,
-      endHeight: 1.35,
-      endLookY: 0.8,
-      endFov: 42,
-    }
-  }
+function labelFrameFor(framing: 'tall' | 'compact', override?: ExplodeVariant['labelFrame']): LabelFrame {
+  const base: LabelFrame =
+    framing === 'compact'
+      ? {
+          columnX: 2.15,
+          slotY: [1.55, 0.85, 0.15],
+          endRadius: 5.6,
+          endAzim: 0.3,
+          endHeight: 1.35,
+          endLookY: 0.8,
+          endFov: 42,
+        }
+      : {
+          columnX: 2.5,
+          slotY: [3.05, 1.25, -0.55],
+          endRadius: 10.5,
+          endAzim: 0.24,
+          endHeight: 2.3,
+          endLookY: 1.42,
+          endFov: 47,
+        }
+
+  if (!override) return base
   return {
-    columnX: 2.5,
-    slotY: [3.05, 1.25, -0.55],
-    endRadius: 10.5,
-    endAzim: 0.24,
-    endHeight: 2.3,
-    endLookY: 1.42,
-    endFov: 47,
+    ...base,
+    ...override,
+    slotY: override.slotY ?? base.slotY,
   }
 }
 
@@ -103,10 +110,6 @@ function paintScreen(mesh: Mesh, screenTexture: Texture, intensity: number) {
   }
 }
 
-/**
- * CAD mesh UV’si güvenilmez olduğu için navbar fotoğrafını düzlem olarak öne yapıştırır.
- * faceGroups içindeki ilk bulunan düğüm boyut/konum referansıdır.
- */
 function attachNavFaceDecal(model: Object3D, faceTexture: Texture, faceGroups: ReadonlySet<string>) {
   model.updateMatrixWorld(true)
 
@@ -119,7 +122,6 @@ function attachNavFaceDecal(model: Object3D, faceTexture: Texture, faceGroups: R
   }
   if (!anchor) return
 
-  // Plexi camı fotoğrafı bozar; gizle.
   model.traverse((node) => {
     if (!node.name.startsWith('PLEXI')) return
     node.traverse((child) => {
@@ -152,10 +154,6 @@ function attachNavFaceDecal(model: Object3D, faceTexture: Texture, faceGroups: R
   model.add(decal)
 }
 
-/**
- * Siyah fondaki navbar ürün fotoğrafından panel yüzünü kırpar
- * (ayak ve boşluk dışarıda kalır).
- */
 function cropNavProductFace(image: HTMLImageElement | ImageBitmap): Texture {
   const width = 'width' in image ? image.width : 0
   const height = 'height' in image ? image.height : 0
@@ -191,9 +189,9 @@ function cropNavProductFace(image: HTMLImageElement | ImageBitmap): Texture {
   }
   const contentW = maxX - minX + 1
   const contentH = maxY - minY + 1
-  // Alt ~%24 kırmızı ayak; üstte LED + tarif yüzü kalsın.
+
   const faceH = Math.max(1, Math.floor(contentH * 0.76))
-  // Yanlardan ince kırpım: beyaz çerçeve kenarı düzlemde dolsun.
+
   const insetX = Math.floor(contentW * 0.02)
   const cropW = Math.max(1, contentW - insetX * 2)
   const crop = document.createElement('canvas')
@@ -347,7 +345,7 @@ export default function KioskExplodeModel({ variant }: KioskExplodeModelProps) {
   useEffect(() => () => screenTexture?.dispose(), [screenTexture])
 
   useEffect(() => {
-    // LED: navbar fotoğrafı perspektifli; düz tarif yüzü çizilir. Fotoğraf yalnızca StaticExplode’da.
+
     if (variant.id === 'ledli-reklam-paneli') {
       const texture = createLedPanelFaceTexture()
       setFaceTexture(texture)
@@ -391,7 +389,7 @@ export default function KioskExplodeModel({ variant }: KioskExplodeModelProps) {
   )
 
   const framing = variant.framing ?? 'tall'
-  const labelFrame = useMemo(() => labelFrameFor(framing), [framing])
+  const labelFrame = useMemo(() => labelFrameFor(framing, variant.labelFrame), [framing, variant.labelFrame])
 
   const layout = useMemo(() => {
     const columnX = fitColumn(size.width, size.height, labelFrame)
@@ -472,7 +470,12 @@ export default function KioskExplodeModel({ variant }: KioskExplodeModelProps) {
 
     const shouldShowLabels = explodeAmount.current > 0.34
     if (shouldShowLabels !== areLabelsVisible) setAreLabelsVisible(shouldShowLabels)
-    const reveal = Math.floor(Math.max(0, (explodeAmount.current - 0.34) / 0.09))
+    const reveal =
+      slottedLabels.length <= 2
+        ? shouldShowLabels
+          ? slottedLabels.length
+          : 0
+        : Math.floor(Math.max(0, (explodeAmount.current - 0.34) / 0.09))
     if (reveal !== revealCount.current) {
       revealCount.current = reveal
       setRevealedCount(Math.min(reveal, slottedLabels.length))

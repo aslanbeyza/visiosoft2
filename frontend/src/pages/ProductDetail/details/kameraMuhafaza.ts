@@ -60,10 +60,4 @@ export const kameraMuhafazaDetail: ProductDetailData = {
     device: 'camera',
     deviceLabel: name,
   },
-  drawing: {
-    image: drawingImage('kamera-muhafaza', 1227, 850, drawingAlt),
-    text: 'Ön, yan ve arka görünüşler ile montaj ayaklı perspektif görünüm tek paftada yer alır. Çizimi büyütüp detayları yakından inceleyebilirsiniz.',
-    note: 'Çizimdeki gövde yazısı ürün tanıtım örneğidir.',
-    dimensions: [],
-  },
 }

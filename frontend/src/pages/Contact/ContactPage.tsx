@@ -5,10 +5,6 @@ import CompanyFacts from './CompanyFacts.tsx'
 import MeetingSection from './MeetingSection.tsx'
 import { contactCopy as copy } from './contactCopy.ts'
 
-/**
- * /iletisim — form ilk ekranda → yan panelde WhatsApp/e-posta →
- * şirket bilgileri → online görüşme.
- */
 export default function ContactPage() {
   const { config } = useLocale()
   const calendlyUrl = config?.calendly_url || copy.meeting.fallbackUrl

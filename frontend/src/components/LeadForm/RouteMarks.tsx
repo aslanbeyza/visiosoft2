@@ -12,8 +12,8 @@ type RouteMarksProps = {
 
 const MARK_Y = 34
 const { bay, roadTop, stops } = SCENE
-const g = 9 // köşe işaretinin yolu çevreleyen boşluğu
-const c = 16 // köşe kolu uzunluğu
+const g = 9
+const c = 16
 const bx0 = bay.x - g
 const by0 = bay.y - g
 const bx1 = bay.x + bay.w + g
@@ -26,13 +26,12 @@ const corners = [
 ].join('')
 
 const ICONS = {
-  // Teklif dosyası: kıvrık köşeli sayfa + onay
+
   quote: ['M-7-10h9l5 5v15h-14Z', 'M-3.5 2.5l2.6 2.6 5-5.2'],
-  // Keşif: konum işareti
+
   discovery: ['M0 11c-6.5-6-8.5-9.5-8.5-13.5a8.5 8.5 0 0 1 17 0c0 4-2 7.5-8.5 13.5Z', 'M0-5.2a2.6 2.6 0 1 0 0 5.2a2.6 2.6 0 1 0 0-5.2'],
 } as const
 
-/** Kilometre taşları, bitiş işareti, park yeri köşeleri ve (keşifte) ölçü çizgisi. */
 export default function RouteMarks({ variant, run, reduce, arrivals }: RouteMarksProps) {
   const ink = (delay: number, duration = 0.8) => ({
     initial: reduce ? false : { pathLength: 0 },

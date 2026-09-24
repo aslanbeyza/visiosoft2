@@ -10,7 +10,6 @@ const pad = (value: number) => String(value).padStart(2, '0')
 
 type SegmentProps = { progress: MotionValue<number>; index: number; count: number; filled: boolean }
 
-/** İki işaret arasındaki çizgi: masaüstünde yatay (scaleX), mobilde dikey (scaleY) dolar. */
 function Segment({ progress, index, count, filled }: SegmentProps) {
   const scale = useTransform(progress, [index / (count - 1), (index + 1) / (count - 1)], [0, 1])
 
@@ -32,7 +31,6 @@ function StepIcon({ id, className }: { id: keyof typeof stepIcons; className: st
   )
 }
 
-/** "Çalışma şeklimiz" şeridi: çizgi kaydırmayla dolar, ulaştığı adımın işareti lacivertleşir. */
 export default function WorkingSteps() {
   const reduce = useReducedMotion()
   const listRef = useRef<HTMLDivElement>(null)
@@ -42,7 +40,6 @@ export default function WorkingSteps() {
   const { scrollYProgress } = useScroll({ target: listRef, offset: ['start 0.85', 'end 0.6'] })
   const [reached, setReached] = useState(0)
 
-  // Durum yalnızca ulaşılan adım sayısı değişince güncellenir (kare başına state yok).
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
     const next = value <= 0.001 ? 0 : Math.min(count, Math.floor(value * (count - 1) + 0.001) + 1)
     if (next !== reached) setReached(next)

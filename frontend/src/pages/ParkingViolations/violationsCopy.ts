@@ -1,10 +1,8 @@
-// /isgaliye-ve-park-ceza sayfasının Türkçe metinleri (mevcut sayfa metinlerinden derlendi).
 
 export type ViolationId = 'evDouble' | 'doubleSlot' | 'lineCross' | 'outside' | 'disabled' | 'fossil' | 'marked' | 'rented'
 
 export type Violation = { id: ViolationId; label: string; hint: string }
 
-/** Bölüm başlığı kimlikleri (aria-labelledby). */
 export const titleIds = { hero: 'isgaliye-baslik', board: 'ihlal-turleri-baslik', audit: 'denetim-baslik', process: 'surec-baslik' }
 
 export const violationsCopy = {

@@ -10,7 +10,6 @@ import { onStreetCopy as copy } from './onStreetCopy.ts'
 import StreetScan from './StreetScan.tsx'
 import styles from './OnStreetPage.module.css'
 
-/** /yol-ustu-parklandirma — tarama anlı split hero, dört adımlı akış ve avantajlar. */
 export default function OnStreetPage() {
   const path = usePath()
 

@@ -1,14 +1,13 @@
-// Hub & spoke çiziminin geometrisi (viewBox 1000 × 600). Modül sırası endToEndCopy.modules ile aynıdır.
+
 export const HUB_VIEWBOX = { width: 1000, height: 600 } as const
 
 export const HUB_CENTER = { x: 500, y: 300, ring: 138 } as const
 
-/** Kart bağlantı ucu (viewBox x). Sekmeler %27 / %73 ile hizalı. */
 export const NODE_X = { left: 270, right: 730 } as const
 
 export type Spoke = {
   side: 'left' | 'right'
-  /** Kartın bağlantı ucunun y konumu (viewBox birimi). */
+
   y: number
 }
 
@@ -29,7 +28,6 @@ export type SpokeEnds = {
   d: string
 }
 
-/** Karttan halka kenarına yay (Magic UI Animated Beam eğrisi). */
 export function spokeEnds(spoke: Spoke): SpokeEnds {
   const nodeX = NODE_X[spoke.side]
   const nodeY = spoke.y
@@ -49,7 +47,6 @@ export function spokeEnds(spoke: Spoke): SpokeEnds {
   }
 }
 
-/** Arka plan sinaps noktaları (kart ve halka dışında). */
 export const FIELD: readonly [number, number][] = [
   [148, 72],
   [852, 84],
@@ -65,8 +62,6 @@ export const FIELD: readonly [number, number][] = [
   [652, 544],
 ]
 
-/** CPU Architecture köşe işaretleri (halka çevresi). */
 export const CHIP = 156
 
-/** Kartın kutu içindeki dikey konumu (%). */
 export const spokeTop = (spoke: Spoke) => `${(spoke.y / HUB_VIEWBOX.height) * 100}%`

@@ -1,14 +1,4 @@
-/**
- * Kullanım:
- * <Field label="E-posta" name="email" hint="İş e-postanızı tercih edin." required>
- *   <TextInput name="email" type="email" autoComplete="email" />
- * </Field>
- * veya render-prop ile:
- * <Field label="Adres" name="address" required>
- *   {(id, describedBy, meta) => <Textarea id={id} name="address" aria-describedby={describedBy} invalid={meta.invalid} required />}
- * </Field>
- * `error` verilmezse Form'un doğrulama/sunucu hatalarından `name` ile eşleşen mesaj otomatik gösterilir.
- */
+
 import { useId } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -31,9 +21,9 @@ export type FieldProps = {
   hint?: string
   error?: string
   required?: boolean
-  /** Ek: Form hata özetiyle eşleşme için alan adı. */
+
   name?: string
-  /** Ek: kontrol kimliği; verilmezse üretilir. */
+
   id?: string
   children: ReactNode | ((id: string, describedBy: string | undefined, meta: FieldRenderMeta) => ReactNode)
   className?: string

@@ -1,42 +1,5 @@
 'use client';
 
-/**
- * ============================================================================
- * DEMO PANEL — DURUM ÇEKİRDEĞİ (context + reducer + simülasyon)
- * ============================================================================
- *
- * TEK CONTEXT + TEK REDUCER. On modül VE mobil uygulama sekmesi aynı store'u
- * paylaşır; ayrı state yok, prop drilling yok.
- *
- * `state.world` TEK GERÇEKLİK KAYNAĞIDIR. Oturumlar tablosu, borç listesi,
- * finansal KPI'lar ve mobil borç sorgulama HEPSİ aynı `world.sessions`
- * dizisinden türetilir; kopyalanmış ikinci bir liste yoktur. Bu yüzden bir
- * yerdeki değişiklik her yerde anında görünür.
- *
- * KÖPRÜ KURALI: Mobil aksiyonların reducer dalları `world`'ü panel
- * aksiyonlarıyla AYNI saf yardımcılarla (panelDemo.ts §10) değiştirir.
- * Örneğin `MOBILE_PAY_DEBT` tek geçişte: oturumu 'Ödendi' yapar, kanalı
- * 'Mobil' olan bir Payment üretir, bildirim + toast düşürür ve köprü
- * kaydını `mobile.bridge`'e ekler.
- *
- * KULLANIM
- *
- *   // Sayfa kökünde
- *   <PanelProvider><PanelShell /></PanelProvider>
- *
- *   // Modül içinde
- *   const state = usePanelState();
- *   const dispatch = usePanelDispatch();
- *   const world = useWorld();
- *   const park = useCurrentPark();          // null = Tüm Otoparklar
- *   const ui = useModuleUi('sessions');
- *   const { toast, notify, openBarrier, restartDevice, exportCsv } = usePanelHelpers();
- *
- * YAN ETKİ KURALI: Reducer SAFTIR. Zamanlayıcı, localStorage, hash senkronu,
- * CSV indirme gibi yan etkiler yalnızca Provider'ın useEffect'lerinde veya
- * `usePanelHelpers()` içinde yaşar.
- */
-
 import {
   createContext,
   useCallback,
@@ -91,20 +54,15 @@ import {
   type Tone,
 } from '@/lib/panelDemo';
 
-/* ==========================================================================
-   1 · DURUM TİPLERİ
-   ========================================================================== */
-
 export interface SortState {
   key: string;
   dir: 'asc' | 'desc';
 }
 
-/** Her modülün kendi sekme/filtre/sıralama/sayfa/seçim durumu. */
 export interface ModuleUiState {
   tab: string;
   search: string;
-  /** Bütün filtreler string olarak tutulur; modül kendi tipine çevirir. */
+
   filters: Record<string, string>;
   sort: SortState | null;
   page: number;
@@ -112,14 +70,12 @@ export interface ModuleUiState {
   selection: string[];
 }
 
-/** Satır detayı (z 60). */
 export interface SheetState {
   kind: string;
   id: string;
   data?: Record<string, string | number | boolean | null>;
 }
 
-/** Üstteki alt modal (z 70–80). */
 export interface ModalState {
   kind: string;
   id?: string;
@@ -149,27 +105,23 @@ export interface MobileSheet {
 export interface MobileState {
   authed: boolean;
   tab: MobileTab;
-  /** expo-router yığını taklidi. */
+
   stack: MobileRoute[];
   sheet: MobileSheet | null;
-  /** Serbest form alanları (plaka girişi, kart formu, talep metni…). */
+
   forms: Record<string, string>;
-  /** Mobilde yapılan işlemin panelde nereye düştüğünü gösteren köprü kayıtları. */
+
   bridge: BridgeRecord[];
-  /**
-   * Telefon çerçevesi ölçeği: dar ekran ↔ gerçek cihaz ↔ büyütülmüş.
-   * 0.75, 416px'lik gövdeyi ~312px'e indirir; 360px'lik telefonlarda
-   * simülasyon yatay kaydırma olmadan sığar.
-   */
+
   scale: 0.75 | 1 | 1.25;
   notice: { text: string; tone: Tone } | null;
 }
 
 export interface PanelState {
   world: DemoWorld;
-  /** Tüm göreli zaman biçimleyicileri bunu okur. BASE_EPOCH → mount'ta Date.now(). */
+
   epochMs: number;
-  /** Gerçek "şimdi"nin epochMs'ye göre dakika ofseti. */
+
   nowMin: number;
   clockSynced: boolean;
   tick: number;
@@ -177,7 +129,7 @@ export interface PanelState {
   parkId: number;
   role: PanelRole;
   module: ModuleId;
-  /** Sabitlenen MENÜ satırlarının kimlikleri (MenuEntry.id). */
+
   pins: string[];
   sidebarCollapsed: boolean;
   ui: Record<ModuleId, ModuleUiState>;
@@ -185,30 +137,12 @@ export interface PanelState {
   modal: ModalState | null;
   toasts: Toast[];
   notifications: PanelNotification[];
-  /** Komut bekleyen varlık id'leri (bariyer açılıyor, cihaz yeniden başlıyor…). */
+
   busy: string[];
-  /**
-   * MODÜL EKRANLARININ KALICI VERİSİ.
-   *
-   * `PanelShell` yalnızca seçili modülü render eder; diğerleri UNMOUNT olur.
-   * Bu yüzden bir ekranın `useState`'inde tutulan KULLANICI ÜRETİMİ kayıt
-   * (eklenen tablet, düzenlenen kamera, kaydedilen ödeme yöntemi sırası…)
-   * başka bir modüle geçilip geri dönüldüğünde kayboluyordu. Bu harita
-   * reducer'da yaşadığı için modül değişiminden etkilenmez.
-   *
-   * Yalnızca KALICI OLMASI GEREKEN veri buraya konur; modal açık/kapalı,
-   * taslak form, filtre paneli gibi geçici UI durumu ekranın kendi
-   * `useState`'inde kalır (kapanınca sıfırlanması DOĞRU davranıştır).
-   *
-   * Anahtarlar modül adıyla ad alanına alınır: `'devices.tablets'`.
-   */
+
   moduleData: Record<string, unknown>;
   mobile: MobileState;
 }
-
-/* ==========================================================================
-   2 · VARSAYILANLAR
-   ========================================================================== */
 
 const DEFAULT_TABS: Record<ModuleId, string> = {
   welcome: 'overview',
@@ -256,10 +190,6 @@ const INITIAL_MOBILE: MobileState = {
   notice: null,
 };
 
-/**
- * İlk durum — SAF ve DETERMİNİSTİK. `Date.now()` burada ÇAĞRILMAZ;
- * sunucu ile istemcinin ilk render'ı birebir aynı olur.
- */
 export function createInitialState(): PanelState {
   return {
     world: buildWorld(),
@@ -284,12 +214,8 @@ export function createInitialState(): PanelState {
   };
 }
 
-/* ==========================================================================
-   3 · AKSİYONLAR
-   ========================================================================== */
-
 export type PanelAction =
-  /* --- kabuk --- */
+
   | { type: 'SET_MODULE'; module: ModuleId; tab?: string; filters?: Record<string, string> }
   | { type: 'SET_PARK'; parkId: number }
   | { type: 'SET_ROLE'; role: PanelRole }
@@ -300,7 +226,7 @@ export type PanelAction =
   | { type: 'SYNC_CLOCK'; epochMs: number }
   | { type: 'SIM_TICK'; nowMin: number }
   | { type: 'RESTORE_PREFS'; pins?: string[]; sidebarCollapsed?: boolean; refreshMs?: number | null }
-  /* --- modül UI --- */
+
   | { type: 'SET_TAB'; module: ModuleId; tab: string }
   | { type: 'SET_SEARCH'; module: ModuleId; search: string }
   | { type: 'SET_FILTER'; module: ModuleId; key: string; value: string }
@@ -309,17 +235,12 @@ export type PanelAction =
   | { type: 'SET_SORT'; module: ModuleId; key: string }
   | { type: 'SET_PAGE'; module: ModuleId; page: number }
   | { type: 'SET_PAGE_SIZE'; module: ModuleId; size: number }
-  /**
-   * Modül ekranının kalıcı verisini yazar. `updater` verilirse ÖNCEKİ değer
-   * reducer'ın İÇİNDE çözülür; böylece aynı olay içinde arka arkaya yapılan
-   * güncellemeler (React toplu işlerken) birbirini ezmez. Reducer saf kalır:
-   * çıktı yalnızca (state, action) ikilisine bağlıdır.
-   */
+
   | { type: 'SET_MODULE_DATA'; key: string; value?: unknown; updater?: (prev: unknown) => unknown; fallback?: unknown }
   | { type: 'TOGGLE_ROW'; module: ModuleId; id: string }
   | { type: 'TOGGLE_ALL'; module: ModuleId; ids: string[] }
   | { type: 'CLEAR_SELECTION'; module: ModuleId }
-  /* --- katmanlar --- */
+
   | { type: 'OPEN_SHEET'; sheet: SheetState }
   | { type: 'CLOSE_SHEET' }
   | { type: 'OPEN_MODAL'; modal: ModalState }
@@ -329,7 +250,7 @@ export type PanelAction =
   | { type: 'PUSH_NOTICE'; notice: Omit<PanelNotification, 'id' | 'atMin' | 'read'> }
   | { type: 'READ_NOTICE'; id?: string }
   | { type: 'READ_EVENTS' }
-  /* --- oturum aksiyonları (15) --- */
+
   | { type: 'SESSION_UPDATE_PLATE'; id: string; plate: string }
   | { type: 'SESSION_ADD_NOTE'; id: string; note: string }
   | { type: 'SESSION_SET_FREE'; id: string }
@@ -347,13 +268,13 @@ export type PanelAction =
   | { type: 'SESSION_CREATE'; parkId: number; plate: string; entryMin: number; exitMin: number | null; vehicleClassId: number; notes?: string }
   | { type: 'SESSIONS_BULK_CANCEL'; ids: string[]; reason: string }
   | { type: 'SESSIONS_IMPORT'; parkId: number; rows: { plate: string; entryMin: number; exitMin: number | null; vehicleClassId: number }[] }
-  /* --- park ayarları --- */
+
   | { type: 'PARK_UPDATE'; parkId: number; patch: Partial<DemoPark> }
-  /* --- tahsilat --- */
+
   | { type: 'PAYMENT_REFUND'; id: string; reason: string }
   | { type: 'DEBT_PAY'; sessionId: string; serviceId: number }
   | { type: 'RECEIVE_PAYMENT'; parkId: number; plate: string; entryMin: number; exitMin: number; vehicleClassId: number; serviceId: number; amount: number; notes?: string }
-  /* --- abonelik --- */
+
   | { type: 'MEMBERSHIP_EXTEND'; id: string; days: number; kind: 'odeme' | 'hediye' | 'duzeltme'; note: string; collect: boolean }
   | { type: 'MEMBERSHIP_DEDUCT'; id: string; days: number }
   | { type: 'MEMBERSHIP_CANCEL'; id: string; reason: string }
@@ -365,25 +286,25 @@ export type PanelAction =
   | { type: 'PACKAGE_DELETE'; id: string }
   | { type: 'WAITLIST_NOTIFY'; id: string }
   | { type: 'WAITLIST_CONVERT'; id: string }
-  /* --- cihaz / bariyer --- */
+
   | { type: 'BARRIER_OPEN_START'; barrierId: string }
   | { type: 'BARRIER_OPEN_RESULT'; barrierId: string; outcome: 'opened' | 'failed' | 'unconfirmed'; transport: 'gate' | 'pmsp'; reason: string }
   | { type: 'DEVICE_RESTART'; deviceId: string }
   | { type: 'DEVICE_RESTART_DONE'; deviceId: string }
   | { type: 'RADAR_SET_THRESHOLD'; alertId: string; key: keyof RadarThresholds; value: number }
   | { type: 'CAMERA_SNAPSHOT'; cameraId: string }
-  /* --- listeler --- */
+
   | { type: 'LIST_ADD'; entry: Omit<ListEntry, 'id' | 'createdAtMin' | 'deleted'> }
   | { type: 'LIST_UPDATE'; id: string; patch: Partial<ListEntry> }
   | { type: 'LIST_REMOVE'; id: string }
   | { type: 'LIST_IMPORT'; kind: 'white' | 'black'; parkId: number; rows: { plate: string; name: string; company: string; phone: string; description: string }[] }
-  /* --- destek --- */
+
   | { type: 'TICKET_CREATE'; parkId: number; subject: string; content: string; category: TicketCategoryId; priority: TicketPriorityId; source: 'portal' | 'mobil'; plate?: string | null; attachments?: { name: string; sizeKb: number }[] }
   | { type: 'TICKET_REPLY'; id: string; body: string; sender: 'partner' | 'agent'; attachments?: { name: string; sizeKb: number }[]; isTemplate?: boolean }
   | { type: 'TICKET_SET_STATUS'; id: string; status: TicketStatusId }
   | { type: 'TICKET_ASSIGN'; id: string; assignee: string | null }
   | { type: 'TICKET_CLOSE'; id: string }
-  /* --- mobil --- */
+
   | { type: 'MOBILE_NAV'; op: 'push' | 'pop' | 'replace' | 'reset'; route?: MobileRoute }
   | { type: 'MOBILE_SET_TAB'; tab: MobileTab }
   | { type: 'MOBILE_SHEET'; sheet: MobileSheet | null }
@@ -406,11 +327,6 @@ export type PanelAction =
   | { type: 'MOBILE_TOGGLE_AUTORENEW'; membershipId: string }
   | { type: 'MOBILE_TOGGLE_NOTIFICATIONS' };
 
-/* ==========================================================================
-   4 · REDUCER YARDIMCILARI
-   ========================================================================== */
-
-/** panelDemo.nextId ile aynı biçim; bump'tan ÖNCE çağrıldığı için +1. */
 const seqId = (world: DemoWorld, prefix: string) =>
   `${prefix}-U${String(world.seq + 1).padStart(5, '0')}`;
 
@@ -455,7 +371,6 @@ function addBridge(mobile: MobileState, rec: BridgeRecord): MobileState {
   return { ...mobile, bridge: [rec, ...mobile.bridge].slice(0, 12) };
 }
 
-/** Ödeme alma — panel ve mobil aynı yolu kullanır (köprü kuralı). */
 function collect(
   state: PanelState,
   session: ParkSession,
@@ -504,11 +419,9 @@ function collect(
 
 export function panelReducer(state: PanelState, action: PanelAction): PanelState {
   switch (action.type) {
-    /* ---------------- kabuk ---------------- */
+
     case 'SET_MODULE': {
-      // Rol maskesi ve ücretsiz-tesis kısıtı burada da uygulanır: derin bağlantı
-      // veya kısayol, erişilemez bir modüle geçemez (menüde gizli olan sayfanın
-      // rotası gerçek panelde de 403 verir).
+
       const meta = MODULES.find((m) => m.id === action.module);
       const park = findPark(state.world, state.parkId);
       if (!meta || !moduleVisible(meta, state.role, park)) {
@@ -523,10 +436,7 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
           }),
         };
       }
-      // Derin bağlantı filtresi hedef modülün filtrelerini DEĞİŞTİRİR, üstüne
-      // eklemez: önceki ekranda kalan filtreyle kesişince kullanıcı "filtre
-      // uygulandı" bildirimini görüp beklediğinden az kayıt buluyordu.
-      // Seçim de sıfırlanır — görünmeyen satırlar toplu işleme girmesin.
+
       const ui = action.tab || action.filters
         ? patchUi(state, action.module, {
           ...(action.tab ? { tab: action.tab } : {}),
@@ -539,14 +449,12 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
 
     case 'SET_PARK': {
       const park = findPark(state.world, action.parkId);
-      // Geçersiz tesis (ör. elle düzenlenmiş '#sessions?park=99' bağlantısı)
-      // yok sayılır. Aksi halde panel var olmayan bir tesise kilitlenir ve
-      // bütün modüller boş liste gösterirdi.
+
       if (park === null && action.parkId !== ALL_PARKS_ID) return state;
-      // Tesis değişimi tüm modüllerin sayfa ve seçimini sıfırlar
+
       const ui = {} as Record<ModuleId, ModuleUiState>;
       MODULES.forEach((m) => { ui[m.id] = { ...state.ui[m.id], page: 1, selection: [] }; });
-      // Erişilemez hâle gelen modülden çık
+
       const meta = MODULES.find((m) => m.id === state.module)!;
       const module = moduleVisible(meta, state.role, park) ? state.module : 'welcome';
       return { ...state, parkId: action.parkId, ui, module, sheet: null, modal: null };
@@ -566,11 +474,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
     case 'SET_REFRESH':
       return { ...state, refreshMs: action.ms };
 
-    /* Park Ayarları ekranının kaydı — dünyayı GERÇEKTEN değiştirir: kapasite,
-       kullanım türü, oturum kuralları ve borç eşiği tüm modüllerde okunur.
-       Kullanım türü "Site Otopark (Ücretsiz)" yapılırsa finansal modüller
-       gerçek panelde olduğu gibi menüden kalkar; o sırada açık olan modül
-       erişilemez hâle gelirse Ana Ekran'a düşülür. */
     case 'PARK_UPDATE': {
       const parks = state.world.parks.map((p) =>
         p.id === action.parkId ? { ...p, ...action.patch } : p
@@ -616,7 +519,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
         refreshMs: action.refreshMs === undefined ? state.refreshMs : action.refreshMs,
       };
 
-    /* ---------------- modül UI ---------------- */
     case 'SET_TAB':
       return { ...state, ui: patchUi(state, action.module, { tab: action.tab, page: 1, selection: [] }) };
 
@@ -658,10 +560,7 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
     }
 
     case 'TOGGLE_ALL': {
-      // `ids` yalnızca GÖRÜNEN SAYFANIN satırlarıdır. Seçimi bu listeyle
-      // değiştirmek, başka sayfada yapılmış seçimi sessizce siliyordu; bu
-      // yüzden birleşim/çıkarma yapılır: sayfanın tamamı seçiliyse yalnızca o
-      // sayfa seçimden düşer, değilse eksik kalanlar seçime eklenir.
+
       const cur = state.ui[action.module].selection;
       const allOn = action.ids.length > 0 && action.ids.every((i) => cur.includes(i));
       const selection = allOn
@@ -681,7 +580,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
       return { ...state, moduleData: { ...state.moduleData, [action.key]: next } };
     }
 
-    /* ---------------- katmanlar ---------------- */
     case 'OPEN_SHEET':
       return { ...state, sheet: action.sheet };
     case 'CLOSE_SHEET':
@@ -706,7 +604,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
     case 'READ_EVENTS':
       return { ...state, world: { ...state.world, events: state.world.events.map((e) => ({ ...e, read: true })) } };
 
-    /* ---------------- oturum aksiyonları ---------------- */
     case 'SESSION_UPDATE_PLATE': {
       const s = findSession(state.world, action.id);
       if (!s) return state;
@@ -1023,11 +920,10 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
       };
     }
 
-    /* ---------------- tahsilat ---------------- */
     case 'PAYMENT_REFUND': {
       const p = state.world.payments.find((x) => x.id === action.id);
       if (!p) return state;
-      // Faturası kesilmiş ödemenin iadesi engellenir (gerçek sistemdeki kural)
+
       if (p.invoiceStatus === 'completed') {
         return {
           ...state, world: bumpSeq(state.world),
@@ -1120,7 +1016,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
       };
     }
 
-    /* ---------------- abonelik ---------------- */
     case 'MEMBERSHIP_EXTEND': {
       const m = state.world.memberships.find((x) => x.id === action.id);
       if (!m) return state;
@@ -1295,7 +1190,7 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
         approvals: world.approvals.filter((x) => x.id !== a.id),
         parks: world.parks.map((p) => (p.id === a.parkId ? { ...p, membershipUsed: p.membershipUsed + 1 } : p)),
       };
-      // Kota doluysa sıradaki kişi 'Bilgilendirildi' olur
+
       const park = findPark(world, a.parkId);
       if (park && park.membershipUsed < park.capacityMembership) {
         const idx = world.waitlist.findIndex((w) => w.parkId === a.parkId && w.status === 'Bekliyor');
@@ -1394,7 +1289,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
       };
     }
 
-    /* ---------------- cihaz / bariyer ---------------- */
     case 'BARRIER_OPEN_START':
       return { ...state, busy: [...state.busy, action.barrierId] };
 
@@ -1490,7 +1384,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
       };
     }
 
-    /* ---------------- listeler ---------------- */
     case 'LIST_ADD': {
       let world = bumpSeq(state.world);
       const entry: ListEntry = {
@@ -1502,7 +1395,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
       };
       world = { ...world, lists: [entry, ...world.lists] };
 
-      // Beyaz listeye eklenen plakanın AKTİF oturumu gerçekten ücretsize döner
       if (entry.kind === 'white') {
         world = {
           ...world,
@@ -1564,7 +1456,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
       };
     }
 
-    /* ---------------- destek ---------------- */
     case 'TICKET_CREATE':
     case 'MOBILE_CREATE_TICKET': {
       let world = bumpSeq(state.world);
@@ -1684,7 +1575,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
         toasts: pushToast(state, { title: 'Talep kapatıldı', tone: 'neutral', duration: 3500 }),
       };
 
-    /* ---------------- mobil: gezinme ---------------- */
     case 'MOBILE_NAV': {
       const m = state.mobile;
       if (action.op === 'pop') {
@@ -1733,7 +1623,7 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
       return { ...state, mobile: { ...state.mobile, authed: true, tab: 'parkings', stack: [{ name: 'parkings' }] } };
 
     case 'MOBILE_LOGOUT':
-      /* Site telefon ikizinde login yok — çıkış yine otopark köküne döner. */
+
       return {
         ...state,
         mobile: {
@@ -1747,7 +1637,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
     case 'MOBILE_RESET':
       return { ...state, mobile: { ...INITIAL_MOBILE, scale: state.mobile.scale } };
 
-    /* ---------------- mobil: köprü aksiyonları ---------------- */
     case 'MOBILE_PAY_DEBT': {
       const targets = state.world.sessions.filter((s) => action.sessionIds.includes(s.id));
       if (targets.length === 0) return state;
@@ -1894,7 +1783,7 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
       };
 
     case 'MOBILE_ADD_CARD': {
-      // GÜVENLİK: yalnızca marka + son 3 hane + sahip adı saklanır.
+
       let world = bumpSeq(state.world);
       world = {
         ...world,
@@ -1956,7 +1845,6 @@ export function panelReducer(state: PanelState, action: PanelAction): PanelState
 const PanelStateContext = createContext<PanelState | null>(null);
 const PanelDispatchContext = createContext<Dispatch<PanelAction> | null>(null);
 
-/* v2: sabitlemeler artık modül değil MENÜ satırı kimliği tutuyor. */
 const PINS_KEY = (role: PanelRole, parkId: number) => `vsf_panel_pins2_${role}_${parkId}`;
 const SIDEBAR_KEY = 'vsf_panel_sidebar';
 const REFRESH_KEY = 'vsf_panel_refresh';
@@ -1981,18 +1869,11 @@ function parseHash(hash: string): { module?: ModuleId; parkId?: number; tab?: st
 export function PanelProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(panelReducer, undefined, createInitialState);
   const syncedRef = useRef(false);
-  /** Adres çubuğuna en son YAZDIĞIMIZ hash — push/replace kararı buna bakar. */
+
   const hashRef = useRef<string | null>(null);
-  /**
-   * Açılış sürerken geçmişe YENİ kayıt yazılmaz. Derin bağlantıyla gelen
-   * ziyaretçi (ör. /panel#payments?park=2) ilk render'da varsayılan modülle
-   * başlayıp hemen hedefe geçtiği için, bu koruma olmadan geçmişe sahte bir
-   * "Ana Ekran" adımı sıkışır ve geri düğmesi sayfadan çıkmak yerine oraya
-   * döner. Açılış dispatch'leri işlendikten sonra (bir makrogörev) serbest.
-   */
+
   const bootingRef = useRef(true);
 
-  /* --- Saat senkronu + hash okuma (yalnızca istemcide, bir kez) --- */
   useEffect(() => {
     if (syncedRef.current) return;
     syncedRef.current = true;
@@ -2011,53 +1892,40 @@ export function PanelProvider({ children }: { children: ReactNode }) {
         refreshMs: refresh === null ? undefined : refresh === 'off' ? null : Number(refresh),
       });
     } catch {
-      /* localStorage engelliyse sessizce geç */
+
     }
   }, []);
 
-  /* --- Açılış korumasını serbest bırak ---
-     AYRI bir etki olmak zorunda: yukarıdaki etki `syncedRef` ile korunduğu
-     için StrictMode'un ikinci çağrısında erken döner ve temizlenen
-     zamanlayıcıyı bir daha kurmazdı; koruma sonsuza dek açık kalır, geri/ileri
-     çalışmazdı. Bu etki korumasızdır, her kurulumda yeniden zamanlanır. */
   useEffect(() => {
     const boot = setTimeout(() => { bootingRef.current = false; }, 0);
     return () => clearTimeout(boot);
   }, []);
 
-  /* --- Sabitlenenleri rol + tesis bazında yükle --- */
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(PINS_KEY(state.role, state.parkId));
       const parsed = raw ? (JSON.parse(raw) as string[]) : [];
-      // Bilinmeyen kimlikler (eski sürümden kalan) sessizce atılır.
+
       const pins = Array.isArray(parsed) ? parsed.filter((id) => MENU.some((e) => e.id === id)) : [];
       dispatch({ type: 'RESTORE_PREFS', pins });
     } catch {
-      /* yoksay */
+
     }
   }, [state.role, state.parkId]);
 
-  /* --- Tercihleri yaz --- */
   useEffect(() => {
     try {
       window.localStorage.setItem(PINS_KEY(state.role, state.parkId), JSON.stringify(state.pins));
-    } catch { /* yoksay */ }
+    } catch {  }
   }, [state.pins, state.role, state.parkId]);
 
   useEffect(() => {
     try {
       window.localStorage.setItem(SIDEBAR_KEY, state.sidebarCollapsed ? '1' : '0');
       window.localStorage.setItem(REFRESH_KEY, state.refreshMs === null ? 'off' : String(state.refreshMs));
-    } catch { /* yoksay */ }
+    } catch {  }
   }, [state.sidebarCollapsed, state.refreshMs]);
 
-  /* --- Hash yazımı (derin bağlantı + tarayıcı geçmişi) ---
-     MODÜL değişimi tarayıcı geçmişine YENİ bir kayıt yazar (pushState), böylece
-     geri/ileri düğmeleri modüller arasında gezinir. Aynı modül içindeki tesis,
-     sekme gibi değişiklikler geçmişi şişirmemek için mevcut kaydı günceller
-     (replaceState). Paylaşılan bağlantı her iki durumda da adres çubuğunda
-     güncel kalır. */
   useEffect(() => {
     if (!syncedRef.current) return;
     const tab = state.ui[state.module]?.tab;
@@ -2075,7 +1943,6 @@ export function PanelProvider({ children }: { children: ReactNode }) {
     }
   }, [state.module, state.parkId, state.ui]);
 
-  /* --- Geri / İleri --- */
   useEffect(() => {
     const onPop = () => {
       const h = parseHash(window.location.hash);
@@ -2087,10 +1954,6 @@ export function PanelProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
-  /* --- SİMÜLASYON DÖNGÜSÜ ---
-     Tek interval; aralık üst bardaki otomatik yenileme seçimidir.
-     document.hidden iken tick DURUR (bant genişliği/CPU tasarrufu);
-     unmount'ta temizlenir. */
   useEffect(() => {
     if (state.refreshMs === null) return;
     if (typeof document === 'undefined') return;
@@ -2113,10 +1976,6 @@ export function PanelProvider({ children }: { children: ReactNode }) {
   );
 }
 
-/* ==========================================================================
-   7 · HOOK'LAR
-   ========================================================================== */
-
 export function usePanelState(): PanelState {
   const ctx = useContext(PanelStateContext);
   if (!ctx) throw new Error('usePanelState yalnızca <PanelProvider> içinde kullanılabilir.');
@@ -2131,7 +1990,6 @@ export function usePanelDispatch(): Dispatch<PanelAction> {
 
 export const useWorld = (): DemoWorld => usePanelState().world;
 
-/** null = "Tüm Otoparklar" (parkId 0) seçili. */
 export function useCurrentPark(): DemoPark | null {
   const { world, parkId } = usePanelState();
   return useMemo(() => (parkId === ALL_PARKS_ID ? null : findPark(world, parkId)), [world, parkId]);
@@ -2144,31 +2002,11 @@ export function useModuleUi(module: ModuleId): ModuleUiState {
   return ui[module] ?? emptyUi(module);
 }
 
-/** Biçimleyicilere verilecek epoch + now ikilisi. */
 export function useClock(): { epochMs: number; nowMin: number; synced: boolean } {
   const { epochMs, nowMin, clockSynced } = usePanelState();
   return { epochMs, nowMin, synced: clockSynced };
 }
 
-/**
- * `useState` ile AYNI imzayı taşıyan, ama değeri modül ekranının dışında —
- * reducer'da — tutan kancadır.
- *
- * NEDEN: `PanelShell` yalnızca seçili modülü render eder; başka bir modüle
- * geçince ekran unmount olur ve `useState`'teki her şey silinir. Kullanıcının
- * ÜRETTİĞİ kayıt (eklenen tablet, düzenlenen kamera, kaydedilen ayar) bu
- * yüzden geri dönüldüğünde yok oluyordu. Bu kanca o veriyi panelin ömrü
- * boyunca yaşatır.
- *
- *   const [tablets, setTablets] = usePersistentState<TabletRow[]>('devices.tablets', () => SEED);
- *
- * KURAL: yalnızca kalıcı olması GEREKEN veri. Modal açık/kapalı, taslak form,
- * seçili satır gibi geçici durum normal `useState` ile kalmalıdır — ekran
- * kapanınca sıfırlanması doğru davranıştır.
- *
- * `key` bileşenin ömrü boyunca sabit olmalıdır ve modül adıyla ad alanına
- * alınır (`'devices.tablets'`), böylece iki ekran çakışmaz.
- */
 export function usePersistentState<T>(
   key: string,
   initial: T | (() => T)
@@ -2176,7 +2014,6 @@ export function usePersistentState<T>(
   const { moduleData } = usePanelState();
   const dispatch = usePanelDispatch();
 
-  /* Tohum bir KEZ hesaplanır (useState'in tembel başlangıcıyla aynı). */
   const seedRef = useRef<{ v: T } | null>(null);
   if (seedRef.current === null) {
     seedRef.current = { v: typeof initial === 'function' ? (initial as () => T)() : initial };
@@ -2206,30 +2043,24 @@ export function usePersistentState<T>(
   return [value, set];
 }
 
-/** Ledger deltası (test/teşhis amaçlı). */
 export function useLedger(parkId: number) {
   const { world } = usePanelState();
   return world.ledger[parkId] ?? EMPTY_LEDGER;
 }
 
-/* ==========================================================================
-   8 · YARDIMCI AKSİYONLAR (yan etkili — hook içinde yaşar)
-   ========================================================================== */
-
-/** Gerçek panelin zamanlama hissi. */
 export const TIMING = { barrier: 600, threeDS: 900, reportQueue: 3000, deviceRestart: 20_000 };
 
 export interface PanelHelpers {
   toast: (title: string, body?: string, tone?: Tone, duration?: number) => void;
   notify: (title: string, body: string, tone?: Tone, targetModule?: ModuleId) => void;
   goto: (module: ModuleId, tab?: string, filters?: Record<string, string>) => void;
-  /** Onaylı bariyer açma: ~600 ms sonra sonuç üretir, BarrierLog'a kayıt düşer. */
+
   openBarrier: (barrierId: string, reason: string) => void;
-  /** Cihaz servis yeniden başlatma: 20 sn sonra Aktif'e döner. */
+
   restartDevice: (deviceId: string) => void;
-  /** Rapor kuyruğu deseni: ~3 sn sonra bildirim ziline düşer. */
+
   queueReport: (label: string, targetModule?: ModuleId) => void;
-  /** 3DS simülasyonu: ~900 ms sonra callback. */
+
   simulate3DS: (onDone: (ok: boolean) => void) => void;
 }
 
@@ -2271,7 +2102,7 @@ export function usePanelHelpers(): PanelHelpers {
       dispatch({ type: 'BARRIER_OPEN_START', barrierId });
       const seedSource = state.tick + barrierId.length;
       later(() => {
-        // Yedekli komut yolu: önce PMSP, başarısızsa Tailscale (gate)
+
         const roll = (Math.sin(seedSource * 12.9898) * 43758.5453) % 1;
         const v = Math.abs(roll);
         const outcome = v > 0.82 ? (v > 0.93 ? 'failed' : 'unconfirmed') : 'opened';

@@ -13,15 +13,12 @@ type KioskExplodeSceneProps = {
 
 const LOOK_AT = new Vector3()
 
-/**
- * Yakın karede ürün dolu; patlatmada Showcase gibi uzaklaşır.
- * compact: kamera muhafaza gibi alçak ürün — kiosk kadar yakın ve dolu kadraj.
- */
 function productCameraShot(
   progress: number,
   width: number,
   height: number,
   framing: 'tall' | 'compact',
+  compactCameraScale = 1,
 ) {
   const approach = easeInOut(mapRange(progress, 0.02, 0.48))
   const explode = easeInOut(mapRange(progress, 0.5, 0.92))
@@ -29,8 +26,9 @@ function productCameraShot(
   const portraitBoost = aspect < 0.95 ? 16 : aspect < 1.35 ? 8 : 0
 
   if (framing === 'compact') {
+    const radius = 3.35 - approach * 0.25 + explode * 2.4
     return {
-      radius: 3.35 - approach * 0.25 + explode * 2.4,
+      radius: radius * compactCameraScale,
       height: 1.05 - approach * 0.04 + explode * 0.35,
       lookY: 0.72 + explode * 0.08,
       azimuth: lerp(0.28, 0.32, explode),
@@ -47,14 +45,14 @@ function productCameraShot(
   }
 }
 
-function CameraRig({ framing }: { framing: 'tall' | 'compact' }) {
+function CameraRig({ framing, compactCameraScale }: { framing: 'tall' | 'compact'; compactCameraScale?: number }) {
   const { size } = useThree()
   const pan = useRef({ x: 0, y: 0 })
 
   useFrame((state, delta) => {
     const frameDelta = Math.min(delta, 0.05)
     const { camera } = state
-    const shot = productCameraShot(kioskStage.progress, size.width, size.height, framing)
+    const shot = productCameraShot(kioskStage.progress, size.width, size.height, framing, compactCameraScale ?? 1)
     pan.current.x = damp(pan.current.x, kioskStage.pointer.x, 3.2, frameDelta)
     pan.current.y = damp(pan.current.y, kioskStage.pointer.y, 3.2, frameDelta)
     const perspectiveCamera = camera as PerspectiveCamera
@@ -120,12 +118,15 @@ function Studio() {
   )
 }
 
-/** İzole WebGL tuvali: yalnızca patlatma bölümünde yaşar. */
 export default function KioskExplodeScene({ active, variant }: KioskExplodeSceneProps) {
   const framing = variant.framing ?? 'tall'
+  const compactScale = variant.compactCameraScale ?? 1
   const start =
     framing === 'compact'
-      ? { fov: 38, position: [1.05, 1.05, 3.2] as [number, number, number] }
+      ? {
+          fov: 38,
+          position: [1.05 * compactScale, 1.05, 3.2 * compactScale] as [number, number, number],
+        }
       : { fov: 40, position: [1.13, 1.65, 5.07] as [number, number, number] }
 
   return (
@@ -142,7 +143,7 @@ export default function KioskExplodeScene({ active, variant }: KioskExplodeScene
         gl.setClearColor(STUDIO_CLEAR, 1)
       }}
     >
-      <CameraRig framing={framing} />
+      <CameraRig framing={framing} compactCameraScale={variant.compactCameraScale} />
       <Studio />
       <Suspense fallback={null}>
         <KioskExplodeModel variant={variant} />

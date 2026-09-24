@@ -60,7 +60,6 @@
   line-height: 1.6;
 }
 
-/* Teknik pafta zemini: kahraman sahnesiyle aynı ızgara dili. */
 .figure {
   position: relative;
   display: grid;
@@ -78,7 +77,6 @@
   background-size: 2.5rem 2.5rem;
 }
 
-/* Kutu solda, etiketler için sağda boşluk; kılavuz uzunlukları kutu genişliğine (cqw) göre çözülür. */
 .box {
   position: relative;
   width: min(calc(100% - 11rem), 19rem);
@@ -141,7 +139,7 @@
   top: 0;
   left: calc((100 - var(--x)) * 1cqw + 1.75rem);
   translate: 0 -50%;
-  /* Dar ekranda uzun etiket iki satıra iner, sahneden taşmaz. */
+
   width: max-content;
   max-width: 8.75rem;
   padding: 0.3rem 0.65rem;

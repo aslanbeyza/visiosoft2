@@ -1,9 +1,3 @@
-/**
- * Yazı gövdesini Prose'a vermeden önce düzenler. Sunucu, içinde tek bir HTML etiketi bulunan markdown dosyasını
- * markdown olarak işlemeden döndürür; bazı eski yazılar da <p> yerine "&nbsp;&nbsp;&nbsp;…<br>" girintisi kullanır.
- * Blok etiketi olmayan içerik boş satırlardan paragraflara, "## / ###" satırları başlıklara, "- " / "1. " satırları
- * listelere çevrilir; satır başı &nbsp; girintileri atılır. Blok yapısı olan içerik yalnızca girintiden temizlenir.
- */
 
 const BLOCK_TAG = /<(p|h[1-6]|ul|ol|li|table|blockquote|div|figure|pre|section|article|hr)[\s>/]/i
 const INDENT = /^(?:\s|&nbsp;|&#160;| )+/i
@@ -62,7 +56,7 @@ function renderBlock(block: string) {
 export function normalizeContent(content: string) {
   if (!content.trim()) return ''
   if (BLOCK_TAG.test(content)) {
-    // Blok yapısı var: yalnızca paragraf başındaki boşluk girintileri atılır.
+
     return content.replace(/(<p[^>]*>)(?:\s|&nbsp;|&#160;| )+/gi, '$1')
   }
   return content
@@ -74,7 +68,6 @@ export function normalizeContent(content: string) {
     .join('\n')
 }
 
-/** İçindekiler yalnızca gerçek ara başlık varken çizilir; düzey h2 yoksa h3'e iner. */
 export function tocDepthFor(html: string): 2 | 3 | null {
   if (/<h2[\s>]/i.test(html)) return 2
   if (/<h3[\s>]/i.test(html)) return 3

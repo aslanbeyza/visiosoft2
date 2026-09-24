@@ -16,23 +16,22 @@ export type AnatomyValues = {
 }
 
 const CORNERS = 'M40 78V40h38 M402 40h38v38 M440 262v38h-38 M78 300H40v-38'
-// Plakadaki karakter grupları: 34 | ••• | ••
+
 const groups = [
   { cx: 160, x: 130, w: 60, text: '34' },
   { cx: 258, x: 212, w: 92, text: '•••' },
   { cx: 356, x: 324, w: 64, text: '••' },
 ]
 
-/** Plaka tanımanın anatomisi: kamera karesi, araç arkası, kilitlenen çerçeve, büyütülmüş plaka ve karakter hücreleri. */
 export default function PlateAnatomySvg({ v }: { v: AnatomyValues }) {
   return (
     <svg className={styles.svg} viewBox="0 0 480 470" aria-hidden="true" focusable="false">
-      {/* Kamera karesi */}
+      {}
       <motion.path d={CORNERS} className={styles.ink} style={{ pathLength: v.frame }} />
       <line x1="40" y1="170" x2="440" y2="170" className={styles.grid} />
       <line x1="240" y1="40" x2="240" y2="300" className={styles.grid} />
 
-      {/* Araç arkası (sade çizim) */}
+      {}
       <motion.path
         d="M120 272V196c0-14 6-24 18-30l30-40c6-8 14-12 24-12h96c10 0 18 4 24 12l30 40c12 6 18 16 18 30v76"
         className={styles.body}
@@ -43,14 +42,14 @@ export default function PlateAnatomySvg({ v }: { v: AnatomyValues }) {
       <motion.path d="M132 196h34M314 196h34" className={styles.lamp} style={{ pathLength: v.car }} />
       <motion.rect x="204" y="220" width="72" height="22" rx="3" className={styles.plateSmall} style={{ opacity: v.car }} />
 
-      {/* Tespit çerçevesi kilitlenir */}
+      {}
       <motion.path
         d="M192 224v-14h14M274 210h14v14M288 238v14h-14M206 252h-14v-14"
         className={styles.lock}
         style={{ scale: v.lockScale, opacity: v.lockOpacity }}
       />
 
-      {/* Büyütülmüş plaka */}
+      {}
       <motion.g style={{ opacity: v.plateOpacity, y: v.plateY }}>
         <line x1="240" y1="262" x2="240" y2="344" className={styles.leader} />
         <rect x="70" y="352" width="340" height="76" rx="8" className={styles.plate} />
@@ -65,7 +64,7 @@ export default function PlateAnatomySvg({ v }: { v: AnatomyValues }) {
         ))}
       </motion.g>
 
-      {/* Karakter hücreleri ayrışır */}
+      {}
       {groups.map((group, index) => (
         <motion.rect
           key={group.x}

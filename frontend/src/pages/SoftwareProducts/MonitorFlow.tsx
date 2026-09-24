@@ -8,13 +8,9 @@ import { monitorCopy as text } from './softwareHubCopy.ts'
 import styles from './MonitorFlow.module.css'
 
 const ICONS = [CameraIcon, CloudIcon, ChartIcon, UsersIcon]
-/** Sinyal çizgisi bir turu 4,8 sn'de tamamlar; düğüm halkası sinyal ona vardığında atar. */
+
 const PULSE_DELAYS = ['0.36s', '1.84s', '3.32s', '4.7s']
 
-/**
- * Saha → Zone → metrikler → operasyon akışı. Bağlantı çizgisi görünüme girince soldan sağa açılır (scaleX);
- * görünümdeyken ve sekme açıkken ince bir sinyal çizgi boyunca akar, düğümler sırayla atar.
- */
 export default function MonitorFlow() {
   const reduce = Boolean(useReducedMotion())
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -25,7 +21,7 @@ export default function MonitorFlow() {
 
   return (
     <div ref={wrapRef} className={styles.wrap} data-live={live}>
-      {/* Hat ilk ve son düğümün merkezleri arasında uzanır; yalnızca transform ile çizilir, son durumu her genişlikte tamdır. */}
+      {}
       <span className={styles.line} aria-hidden="true">
         <motion.span
           className={styles.base}
@@ -34,7 +30,7 @@ export default function MonitorFlow() {
           transition={{ duration: 1.6, delay: 0.3, ease: revealEase }}
         />
       </span>
-      {/* Sinyal yalnızca transform + opacity ile hat boyunca ilerler. */}
+      {}
       <span className={styles.signalTrack} aria-hidden="true">
         <span className={styles.signal} />
       </span>
