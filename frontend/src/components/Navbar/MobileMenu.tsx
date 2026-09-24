@@ -156,8 +156,8 @@ export default function MobileMenu({ id, items, current, reduce, sheetRef, onNav
             <Button to={path(navCta.primary.route)} variant="primary" size="lg" className={styles.action} onClick={onNavigate}>
               {navCta.primary.label}
             </Button>
-            <Button to={path(navCta.secondary.route)} variant="secondary" size="lg" className={styles.action} onClick={onNavigate}>
-              {navCta.secondary.label}
+            <Button to={path(navCta.contact.route)} variant="secondary" size="lg" className={styles.action} onClick={onNavigate}>
+              {navCta.contact.label}
             </Button>
           </div>
 

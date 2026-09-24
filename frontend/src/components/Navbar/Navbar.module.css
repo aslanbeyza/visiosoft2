@@ -15,15 +15,15 @@
   box-shadow:
     0 1px 2px rgb(15 20 48 / 0.06),
     0 16px 40px -20px rgb(15 20 48 / 0.28);
-  transform: translateY(calc(-100% - 1.5rem));
-  transition: transform 0.25s var(--ease-apple);
+  /* Visually hidden but still reachable by screen readers and Tab; shown only on keyboard focus. */
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-.skip:focus,
 .skip:focus-visible {
   outline: 2px solid #fff;
   outline-offset: -5px;
-  transform: none;
+  clip-path: none;
 }
 
 .header {
@@ -299,50 +299,6 @@
   margin-inline-start: auto;
 }
 
-.textLink {
-  position: relative;
-  display: none;
-  align-items: center;
-  height: 2.5rem;
-  border-radius: 0.25rem;
-  color: var(--nav-fg);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: -0.006em;
-  white-space: nowrap;
-  text-decoration: none;
-  outline: none;
-  transition: color 0.3s var(--ease-apple);
-}
-
-.textLink::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: 0.55rem;
-  left: 0;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right center;
-  transition: transform 0.35s var(--ease-apple);
-}
-
-.textLink:hover {
-  color: var(--nav-hover);
-}
-
-.textLink:hover::after,
-.textLink[aria-current='page']::after {
-  transform: scaleX(1);
-  transform-origin: left center;
-}
-
-.textLink:focus-visible {
-  outline: 2px solid var(--nav-focus);
-  outline-offset: 4px;
-}
-
 .ctaWrap {
   display: none;
 }
@@ -457,10 +413,6 @@
   .scrim {
     display: block;
   }
-
-  .textLink {
-    display: inline-flex;
-  }
 }
 
 @media (min-width: 1024px) and (max-width: 1279.98px) {
@@ -489,8 +441,7 @@
 }
 
 @media (min-width: 1024px) and (max-width: 1179.98px) {
-  .link,
-  .textLink {
+  .link {
     font-size: 0.8125rem;
   }
 
@@ -518,14 +469,9 @@
   .actions {
     gap: 1.5rem;
   }
-
-  .textLink {
-    font-size: 0.9375rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .skip,
   .header,
   .header::before,
   .header::after,
@@ -534,8 +480,6 @@
   .link,
   .chevronButton,
   .chevron,
-  .textLink,
-  .textLink::after,
   .menuButton,
   .burger span {
     transition: none;
