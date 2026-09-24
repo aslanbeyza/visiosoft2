@@ -1,8 +1,5 @@
-
-@media (min-width: 1024px) {
-  .hero.hero[data-media='true'] > div {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  }
+.first {
+  padding-top: clamp(5.5rem, 4vw + 4rem, 7rem);
 }
 
 .heading {

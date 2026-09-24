@@ -1,4 +1,3 @@
-import type { ComparisonGroup } from '../../components/ComparisonTable/index.ts'
 import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
 
 type InfraItem = { icon: FeatureIconName; title: string; description: string }
@@ -7,36 +6,6 @@ export const comparisonCopy = {
   seoTitle: 'Visiosoft ve Geleneksel Sistemler - Karşılaştırma',
   seoDescription:
     'Visiosoft otopark sistemlerinin geleneksel yazılım ve altyapı ile karşılaştırması: uzaktan erişim, canlı görüntü izleme, özgür yazılım ve ARM işlemci teknolojisi.',
-
-  hero: {
-    eyebrow: 'Her Yerden Canlı Takip',
-    title: ['Otoparktaymış', 'gibi yönetin.'],
-    lead: 'Nerede olursanız olun, otoparkınızı uzaktan izleyin. Kaçak geçişi en aza indiren tahsilat altyapısıyla gelirinizi kontrol altında tutun.',
-    primary: 'Ücretsiz Keşif İste',
-    secondary: 'Detaylı karşılaştırma',
-  },
-
-  scene: {
-    label: 'Uzaktan erişim karşılaştırması',
-    toggleLabel: 'Görünümü seçin',
-    note: 'Uzaktan erişim · temsilî çizim',
-    you: 'Siz',
-    youNote: 'Evden, ofisten veya seyahatte',
-    lot: 'Otoparkınız',
-    modes: {
-      traditional: {
-        label: 'Geleneksel',
-        badge: 'Kör nokta',
-        caption: 'Otoparkta olmazsanız ne olduğunu bilemezsiniz.',
-      },
-      visio: {
-        label: 'Visiosoft',
-        badge: 'Canlı bağlantı',
-        caption: 'Otoparktaymış gibi her şeyi görün ve yönetin.',
-      },
-    },
-    chips: ['Canlı görüntü izleme', 'Uzaktan erişim', 'Bulut yedekli veri'],
-  },
 
   contrast: {
     eyebrow: 'İki yaklaşım',
@@ -58,129 +27,40 @@ export const comparisonCopy = {
   },
 
   table: {
-    eyebrow: 'Özellik özellik',
-    title: 'Detaylı karşılaştırma',
-    lead: 'Erişimden tahsilata, rapordan desteğe kadar geleneksel kurulum ile Visiosoft’un sahada ne fark yarattığını satır satır görün.',
-    caption: 'Geleneksel otopark sistemleri ile Visiosoft özellik karşılaştırması',
-    columns: { a: 'Geleneksel', b: 'Visiosoft' },
-    groups: [
+    title: 'Neler değişir?',
+    columns: { question: 'Soru', old: 'Geleneksel sistem', new: 'Visiosoft' },
+    rows: [
       {
-        heading: 'Erişim ve izleme',
-        rows: [
-          {
-            feature: 'Uzaktan erişim',
-            a: false,
-            b: 'Her yerden güvenli',
-            note: 'Evden, ofisten veya seyahatte Tailscale VPN üzerinden panele ve canlı görüntüye bağlanırsınız.',
-          },
-          {
-            feature: 'Canlı görüntü izleme',
-            a: false,
-            b: 'Gerçek zamanlı',
-            note: 'Giriş-çıkış kameraları ve bariyer durumu Grafana izleme ile tek ekranda takip edilir.',
-          },
-          {
-            feature: 'Mobil uygulama',
-            a: false,
-            b: 'iOS & Android',
-            note: 'Olay bildirimleri, oturum ve işlemler telefonda; gişeye bağlı kalmazsınız.',
-          },
-          {
-            feature: 'Çoklu saha yönetimi',
-            a: 'Tek lokasyon odaklı',
-            b: 'Tek panelden çok saha',
-            note: 'Birden fazla otoparkı aynı Zone hesabından izler, raporları birleştirirsiniz.',
-          },
-        ],
+        question: 'Otoparkı nereden izlersiniz?',
+        old: 'Sahada, gişenin başında.',
+        new: 'Telefondan ya da ofisten; canlı görüntü ve bariyer durumu tek ekranda.',
       },
       {
-        heading: 'Tahsilat ve operasyon',
-        rows: [
-          {
-            feature: 'Ödeme yöntemleri',
-            a: 'Genelde tek kanal',
-            b: 'HGS + POS + QR',
-            note: 'HGS başarısızsa POS veya QR’a yönlendirilir; tahsilat zinciri kırılmaz.',
-          },
-          {
-            feature: 'Tahsilat başarısı',
-            a: 'Değişken / personel bağımlı',
-            b: 'Yüksek, yedekli akış',
-            note: 'Kaçak geçiş ve “ödemeden çıktı” senaryoları kayıt altına alınır, gelir takibi netleşir.',
-          },
-          {
-            feature: 'Abonelik ve filo',
-            a: 'Manuel listeler',
-            b: 'Kurallı geçiş & faturalama',
-            note: 'Site sakini, personel ve kurumsal filolar paneldan tanımlanır; toplu faturalama desteklenir.',
-          },
-          {
-            feature: 'İsgaliye / park ihlali',
-            a: 'Kağıt veya sözlü takip',
-            b: 'Dijital kayıt ve süreç',
-            note: 'İhlal satırları, süre ve ücret panoda görünür; operatör müdahalesi belgelenir.',
-          },
-          {
-            feature: 'Raporlama',
-            a: 'Sınırlı / dışa aktarım zor',
-            b: 'Operasyonel + finansal',
-            note: 'Ödeme tipi, bariyer, tarih ve istisna kırılımları; günlük operasyon ve amortisman için net özet.',
-          },
-        ],
+        question: 'Sürücü nasıl öder?',
+        old: 'Çoğunlukla tek kanaldan.',
+        new: 'HGS, POS ve QR ile. HGS geçmezse sistem POS ya da QR’a yönlendirir.',
       },
       {
-        heading: 'Yazılım ve donanım',
-        rows: [
-          {
-            feature: 'İşletim sistemi',
-            a: 'Windows lisansı',
-            b: 'Pardus & Ubuntu',
-            note: 'Pardus ve Ubuntu ücretsiz, açık kaynaklı Linux dağıtımlarıdır; lisans maliyeti düşer.',
-          },
-          {
-            feature: 'Plaka tanıma (PTS)',
-            a: 'Klasik karakter tanıma',
-            b: 'Derin öğrenme modeli',
-            note: 'Model sahadan öğrenmeye devam eder; zor ışık ve kirli plakada daha tutarlı sonuç.',
-          },
-          {
-            feature: 'Donanım altyapısı',
-            a: 'Standart CPU',
-            b: 'Nvidia CUDA & ARM',
-            note: 'Hızlı plaka tanıma ve verimli GPU/CPU kullanımı; sahada düşük gecikme.',
-          },
-          {
-            feature: 'Otomatik güncelleme',
-            a: 'Manuel / yerinde',
-            b: 'Uzaktan, planlı',
-            note: 'Özellik ve güvenlik yamaları uzaktan uygulanır; saha ziyareti ihtiyacı azalır.',
-          },
-        ],
+        question: 'Ödemeden çıkan araç ne olur?',
+        old: 'Görevlinin dikkatine kalır.',
+        new: 'Her geçiş kayda geçer; kaçak geçiş raporda görünür.',
       },
       {
-        heading: 'Güvenlik ve destek',
-        rows: [
-          {
-            feature: 'Veri güvenliği',
-            a: 'Yalnızca yerel disk',
-            b: 'Bulut yedekli',
-            note: 'Donanım arızası veya hırsızlıkta bile oturum ve faturalama kayıtları korunur.',
-          },
-          {
-            feature: 'KVKK uyumlu veri',
-            a: false,
-            b: true,
-            note: 'Görüntülerdeki yüz ve özel alanlar bulanıklaştırılabilir; saklama politikası tanımlanır.',
-          },
-          {
-            feature: 'Teknik destek',
-            a: 'Mesai / sınırlı',
-            b: '7/24',
-            note: 'Gece vardiyası ve yoğun saatlerde de uzaktan müdahale ve yönlendirme alınır.',
-          },
-        ],
+        question: 'Aboneler ve filolar nasıl yönetilir?',
+        old: 'Elle tutulan listelerle.',
+        new: 'Panelden tanımlanır, toplu faturalanır.',
       },
-    ] satisfies ComparisonGroup[],
+      {
+        question: 'Birden fazla otoparkınız varsa?',
+        old: 'Her saha ayrı yönetilir.',
+        new: 'Hepsi tek hesaptan izlenir, raporlar birleşir.',
+      },
+      {
+        question: 'Gece bir sorun çıkarsa?',
+        old: 'Mesai saatini beklersiniz.',
+        new: '7/24 uzaktan müdahale edilir.',
+      },
+    ],
   },
 
   infra: {

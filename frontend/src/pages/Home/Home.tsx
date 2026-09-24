@@ -6,6 +6,7 @@ import HomeProof from '../../components/HomeProof/index.ts'
 import HomeSectors from '../../components/HomeSectors/index.ts'
 import HomeZone from '../../components/HomeZone/index.ts'
 import Seo from '../../components/Seo/index.ts'
+import VisiGuide from '../../components/VisiGuide/index.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
 
 const HOME_DESCRIPTION =
@@ -25,6 +26,7 @@ export default function Home() {
       <HomeSectors />
       <HomeCta />
       <HomeReady />
+      <VisiGuide />
     </>
   )
 }

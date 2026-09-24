@@ -8,9 +8,6 @@ export type RoiField = {
   max: number
   step: number
   initial: number
-
-  minLabel: string
-  maxLabel: string
 }
 
 export const roiAssumptions = {
@@ -24,43 +21,16 @@ export const roiAssumptions = {
   systemInvestment: 450_000,
 }
 
+const plain = (value: number) => value.toLocaleString('tr-TR')
+
 export const roiCopy = {
   id: 'amortisman',
-  eyebrow: 'Finansal fizibilite & amortisman simülatörü',
-  title: 'Otonom sisteme geçişte yatırımınız kaç ayda geri döner?',
-  lead: 'Mevcut personel sayınızı ve aylık trafiğinizi girin; şeffaf formüllerle yıllık tasarrufu ve tahmini amortisman süresini görün.',
+  title: 'Yatırımınız kaç ayda geri döner?',
 
   fields: [
-    {
-      id: 'staff',
-      label: 'Vardiyalı gişe personeli',
-      min: 1,
-      max: 10,
-      step: 1,
-      initial: 1,
-      minLabel: '1 personel',
-      maxLabel: '10 personel (vardiyalı)',
-    },
-    {
-      id: 'vehicles',
-      label: 'Aylık ortalama araç',
-      min: 2_000,
-      max: 60_000,
-      step: 1_000,
-      initial: 15_000,
-      minLabel: '2.000 araç / ay',
-      maxLabel: '60.000 araç / ay',
-    },
-    {
-      id: 'fee',
-      label: 'Ortalama geçiş ücreti',
-      min: 30,
-      max: 250,
-      step: 5,
-      initial: 60,
-      minLabel: '30 ₺ / araç',
-      maxLabel: '250 ₺ / araç',
-    },
+    { id: 'staff', label: 'Gişe personeli', min: 1, max: 10, step: 1, initial: 1 },
+    { id: 'vehicles', label: 'Aylık araç', min: 2_000, max: 60_000, step: 1_000, initial: 15_000 },
+    { id: 'fee', label: 'Ortalama ücret', min: 30, max: 250, step: 5, initial: 60 },
   ] satisfies RoiField[],
 
   units: {
@@ -69,25 +39,10 @@ export const roiCopy = {
     fee: '₺',
   },
 
-  breakdownLabel: 'Yıllık tasarruf ve ek gelir dökümü',
-  lines: {
-    staff: 'Gişe personeli gider tasarrufu',
-    paper: 'Bilet rulosu & mekanik bakım',
-    leak: 'Manuel bariyer denetimi (%5 kaçak)',
-  },
-  totalLabelBefore: 'gişe görevlisi ile yıllık net ek kazanç',
-  totalLabelZero: '0',
-  roiLabel: 'Tahmini amortisman (ROI)',
-  roiUnit: 'ay',
-  note: 'Amortisman süresinden sonraki tüm tasarruf doğrudan işletme kârınıza kalır.',
+  totalLabel: 'Yıllık tasarruf ve ek gelir',
+  roi: (months: string) => `Kendini ${months} ayda öder`,
   cta: 'Detaylı fizibilite raporu iste',
-
-  standardsLabel: 'Hesaplama standartları',
-  standards: (a: typeof roiAssumptions) =>
-    [
-      `Personel başı maliyet: ${a.monthlyStaffCost.toLocaleString('tr-TR')} ₺ / ay (maaş + SGK)`,
-      `Ortalama bilet / rulo maliyeti: ${a.ticketCost.toLocaleString('tr-TR')} ₺`,
-      `Manuel bariyer denetimi ile kaçak önleme: %${(a.leakRate * 100).toLocaleString('tr-TR', { maximumFractionDigits: 0 })}`,
-      `Tipik otonom paket yatırımı: ${a.systemInvestment.toLocaleString('tr-TR')} ₺`,
-    ] as const,
+  /** One line so the result stays traceable without a block of text. */
+  assumptions: (a: typeof roiAssumptions) =>
+    `Hesap: personel ${plain(a.monthlyStaffCost)} ₺/ay · bilet ${plain(a.ticketCost)} ₺ · kaçak %${plain(a.leakRate * 100)} · paket ${plain(a.systemInvestment)} ₺`,
 }

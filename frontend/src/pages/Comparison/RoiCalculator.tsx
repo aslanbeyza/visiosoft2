@@ -55,60 +55,24 @@ export default function RoiCalculator() {
                 aria-valuetext={display(field.id, values[field.id])}
                 onChange={(event) => setValues((prev) => ({ ...prev, [field.id]: Number(event.target.value) }))}
               />
-              <div className={styles.fieldScale} aria-hidden="true">
-                <span>{field.minLabel}</span>
-                <span>{field.maxLabel}</span>
-              </div>
             </div>
           )
         })}
 
-        <div className={styles.standards}>
-          <p className={styles.standardsTitle}>{roiCopy.standardsLabel}</p>
-          <ul className={styles.standardsList}>
-            {roiCopy.standards(roiAssumptions).map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
       </div>
 
       <div className={styles.result}>
-        <p className={styles.resultLabel}>{roiCopy.breakdownLabel}</p>
-
-        <dl className={styles.lines}>
-          <div className={styles.line}>
-            <dt>{roiCopy.lines.staff}</dt>
-            <dd>{money.format(yearlyStaff)}</dd>
-          </div>
-          <div className={styles.line}>
-            <dt>{roiCopy.lines.paper}</dt>
-            <dd>{money.format(yearlyPaper)}</dd>
-          </div>
-          <div className={styles.line}>
-            <dt>{roiCopy.lines.leak}</dt>
-            <dd>{money.format(yearlyLeak)}</dd>
-          </div>
-        </dl>
-
         <div className={styles.total} aria-live="polite" aria-atomic="true">
-          <p className={styles.totalLabel}>
-            <span className={styles.totalZero}>{roiCopy.totalLabelZero}</span> {roiCopy.totalLabelBefore}
-          </p>
+          <p className={styles.totalLabel}>{roiCopy.totalLabel}</p>
           <p className={styles.totalValue}>{money.format(yearlyTotal)}</p>
-          <p className={styles.roi}>
-            {roiCopy.roiLabel}:{' '}
-            <strong>
-              {months.format(roiMonths)} {roiCopy.roiUnit}
-            </strong>
-          </p>
+          <p className={styles.roi}>{roiCopy.roi(months.format(roiMonths))}</p>
         </div>
-
-        <p className={styles.note}>{roiCopy.note}</p>
 
         <Button to={path('discovery.show')} size="lg" className={styles.cta}>
           {roiCopy.cta}
         </Button>
+
+        <p className={styles.assumptions}>{roiCopy.assumptions(roiAssumptions)}</p>
       </div>
     </div>
   )

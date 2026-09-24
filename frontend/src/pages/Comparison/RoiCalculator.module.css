@@ -50,14 +50,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.fieldScale {
-  display: flex;
-  justify-content: space-between;
-  color: var(--color-corp-muted);
-  font-size: 0.72rem;
-  font-variant-numeric: tabular-nums;
-}
-
 .range {
   width: 100%;
   height: 1.5rem;
@@ -105,31 +97,6 @@
   border-radius: 0.4rem;
 }
 
-.standards {
-  margin: 0;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--color-corp-line);
-  border-radius: 0.6rem;
-  background: var(--color-corp-surface);
-}
-
-.standardsTitle {
-  margin: 0 0 0.55rem;
-  color: var(--color-corp-ink);
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.standardsList {
-  display: grid;
-  gap: 0.35rem;
-  margin: 0;
-  padding: 0 0 0 1.1rem;
-  color: var(--color-corp-body);
-  font-size: 0.78rem;
-  line-height: 1.5;
-}
-
 .result {
   display: grid;
   align-content: start;
@@ -139,45 +106,6 @@
   border: 1px solid var(--color-corp-line);
   border-radius: 0.85rem;
   background: var(--color-corp-surface);
-}
-
-.resultLabel {
-  margin: 0;
-  color: var(--color-corp-muted);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.lines {
-  display: grid;
-  gap: 0.65rem;
-  margin: 0;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--color-corp-line);
-}
-
-.line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.line dt {
-  color: var(--color-corp-body);
-  font-size: 0.82rem;
-  line-height: 1.4;
-}
-
-.line dd {
-  margin: 0;
-  color: var(--color-success);
-  font-size: 0.95rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
 }
 
 .total {
@@ -194,21 +122,6 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-wrap: balance;
-}
-
-.totalZero {
-  display: inline-block;
-  margin-right: 0.15em;
-  padding: 0.05em 0.35em;
-  border-radius: 0.3rem;
-  background: color-mix(in srgb, var(--color-navy-600) 12%, #fff);
-  color: var(--color-navy-600);
-  font-size: 1.05em;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0;
-  line-height: 1.2;
-  vertical-align: baseline;
 }
 
 .totalValue {
@@ -238,34 +151,23 @@
   font-weight: 600;
 }
 
-.roi strong {
-  color: var(--color-success);
-  font-size: 1rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.note {
-  margin: 0;
-  color: var(--color-corp-muted);
-  font-size: 0.78rem;
-  line-height: 1.5;
-  text-align: center;
-  text-wrap: pretty;
-}
-
 .cta {
   width: 100%;
   justify-content: center;
+}
+
+.assumptions {
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  text-align: center;
 }
 
 @media (min-width: 900px) {
   .root {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
     align-items: stretch;
-  }
-
-  .note {
-    text-align: left;
   }
 
   .total {
