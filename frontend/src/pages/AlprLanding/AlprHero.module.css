@@ -79,7 +79,6 @@
     width: min(80rem, calc(100% - 3rem));
   }
 
-  /* Tablette üç bileşen kartı 2+1 kırılmaz; şemadaki üç düğümle aynı sırada tek satırda durur. */
   .cards ul {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

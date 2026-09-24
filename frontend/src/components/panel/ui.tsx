@@ -1,8 +1,4 @@
-/**
- * ParkBiz telefon ikizi için ince UI kit — Zone Fi* bağımlılığı yok.
- * Icon / StatusDot / ton sınıfları MobileApp ekranları için yeterlidir;
- * Card/Badge/Button yalnızca MobileApp yan paneli için stub.
- */
+
 import { type ReactNode } from 'react';
 import './panel-theme.css';
 import { upperTR } from '@/lib/text';
@@ -19,11 +15,6 @@ export const TONE_TEXT: Record<Tone, string> = {
   accent: 'text-plasma',
 };
 
-/**
- * Rozet tonları — Zone kuralı: zemin durum rengi `/0.10`, içe halka `/0.30`,
- * metin durumun açık tonu, yarıçap 6px, 12px/500. Ölçüler `panel-theme.css`
- * içindeki `.zone-badge` sınıfında durur.
- */
 export const TONE_BADGE: Record<Tone, string> = {
   neutral: 'zone-badge zone-badge--neutral',
   info: 'zone-badge zone-badge--info',
@@ -153,7 +144,6 @@ export function StatusDot({ tone = 'neutral', pulse = false, className }: { tone
   );
 }
 
-/* --- Stub'lar: MobilePhone kullanmaz; MobileApp.tsx derlemesi için --- */
 export function Card({ children, className }: { title?: ReactNode; subtitle?: ReactNode; actions?: ReactNode; children?: ReactNode; className?: string; bodyClassName?: string; padded?: boolean; id?: string }) {
   return <div className={className}>{children}</div>;
 }

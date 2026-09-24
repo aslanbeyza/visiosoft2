@@ -12,12 +12,9 @@ import styles from './ProductViewer.module.css'
 type ProductViewerProps = {
   slug: HardwareSlug
   name: string
-  /** WebGL açılamazsa kahraman görseli durur. */
+
   fallback: ReactNode
-  /**
-   * hero: kiosk patlatma gibi tam ekran sahne (models/products).
-   * card: künye yanındaki kompakt kart (eski düzen).
-   */
+
   mode?: 'hero' | 'card'
 }
 
@@ -81,7 +78,6 @@ function ViewerFrame({
   )
 }
 
-/** Donanım 3B vitrini: models/products GLB’leri; hero tam ekran, card kompakt. */
 export default function ProductViewer({ slug, name, fallback, mode = 'card' }: ProductViewerProps) {
   const src = productModelSrc(slug)
   const [fullscreen, setFullscreen] = useState(false)

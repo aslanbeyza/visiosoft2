@@ -7,7 +7,6 @@
   min-width: 0;
 }
 
-/* Uzun açıklama cümlesi başlık olarak kullanıldığı için H2 ölçeği bu sütunda bir kademe küçülür. */
 .heading h2 {
   font-size: clamp(1.75rem, 1.5vw + 1.15rem, 2.6rem);
   letter-spacing: -0.03em;
@@ -118,7 +117,6 @@
     align-self: stretch;
   }
 
-  /* Navbar (4.5rem) + ürün çubuğu (3.25rem) altında kalır. */
   .sticky {
     position: sticky;
     top: 10rem;

@@ -27,7 +27,6 @@ function Word({ children, progress, range, last }: WordProps) {
   )
 }
 
-/** Kaydırdıkça kelime kelime koyulaşan açılış cümlesi; ekran okuyucu tüm cümleyi tek parça okur. */
 function Statement({ children }: { children: string }) {
   const reduce = useReducedMotion()
   const ref = useRef<HTMLParagraphElement>(null)

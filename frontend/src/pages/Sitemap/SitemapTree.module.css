@@ -1,7 +1,7 @@
 .tree {
   --wire: 2px;
   --gap: 1.5rem;
-  /* Düğümler arası sütun boşluğu; dağıtım çizgisinin uçları bu değerle ilk/son sütun ortasına hizalanır. */
+
   --col-gap: 0.75rem;
 
   display: grid;
@@ -133,7 +133,7 @@
   .bus {
     position: absolute;
     top: 0;
-    /* Sütun genişliği = (100% - (n-1)·boşluk) / n; çizgi ilk ve son sütunun ortasında biter. */
+
     left: calc((100% - (var(--n) - 1) * var(--col-gap)) / (2 * var(--n)));
     right: calc((100% - (var(--n) - 1) * var(--col-gap)) / (2 * var(--n)));
     display: block;

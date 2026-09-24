@@ -31,16 +31,6 @@ import {
 import type { ParkingFlowStepId } from './scene.ts'
 import styles from './ParkingFlow.module.css'
 
-/**
- * Kullanım:
- * `<ParkingFlow steps={parkingFlowSteps} mode="scroll" />` — kaydırdıkça ilerleyen, sabitlenen sahne
- * `<ParkingFlow steps={steps} mode="auto" tone="dark" />` — görünürken kendi kendine dönen, duraklatılabilir döngü
- * `<ParkingFlow steps={steps} mode="manual" active="pay" highlight="kiosk" />` — ebeveynin yönettiği adım + cihaz vurgusu
- * `<ParkingFlow steps={steps} mode="manual" active="detect" barrier="closed" />` — 404: bariyer kapalı, araç bekler
- * Sahne (M8): şeritte ilerleyen araç, direkteki kamera konisi plakayı okur, ayraç çizilir, kontrol kutusuna darbe iner,
- * kiosk ekranı lacivertten (işlem) yeşile (ödeme tamam) döner, bariyer kolu yoldan yukarı kalkar ve araç geçer.
- * Adım etiketleri gerçek DOM'dur (<ol>), aria-current ile eşitlenir. Hareket azaltma: son kare, tüm cihazlar görünür.
- */
 export type ParkingFlowStep = { id: ParkingFlowStepId; title: string; description: string }
 
 export type ParkingFlowProps = {
@@ -48,27 +38,30 @@ export type ParkingFlowProps = {
   mode?: 'scroll' | 'auto' | 'manual'
   highlight?: ParkingFlowDevice
   tone?: 'light' | 'dark'
-  /** cad: çizim kâğıdı (ızgara, GİRİŞ/ÇIKIŞ, cihaz etiketleri). Varsayılan sahneler değişmez. */
+
   variant?: 'default' | 'cad'
   showLabels?: boolean
   className?: string
-  /** manual: etkin adım (sıra ya da kimlik). Verilmezse bileşen kendi durumunu tutar. */
+
   active?: number | ParkingFlowStepId
-  /** manual: kullanıcı bir adım etiketine tıkladığında. */
+
   onActiveChange?: (index: number, id: ParkingFlowStepId) => void
-  /** Vurgu etiketi metni; varsayılan cihaz adı. */
+
   highlightLabel?: string
-  /** Sahnenin erişilebilir adı. */
+
   label?: string
   caption?: string
-  /** scroll: sahne bir kaydırma boyu sabitlenir (≥1024px). */
+
   pin?: boolean
-  /** scroll+pin: sarmalayıcı yüksekliği (görünüm alanı katı). */
+
   scrollLength?: number
-  /** auto: adım başına saniye. */
+
   autoDuration?: number
-  /** closed: bariyer hiç açılmaz, araç direğin önünde bekler. */
+
   barrier?: 'auto' | 'closed'
+
+  /** Otomatik döngüde Duraklat / Oynat düğmesi (varsayılan açık). */
+  showPause?: boolean
 }
 
 const TAIL_SECONDS = 1.2
@@ -100,6 +93,7 @@ export default function ParkingFlow({
   scrollLength = 1.6,
   autoDuration = 2.2,
   barrier = 'auto',
+  showPause = true,
 }: ParkingFlowProps) {
   const reduce = Boolean(useReducedMotion())
   const wide = useMediaQuery('(min-width: 1024px)')
@@ -111,8 +105,6 @@ export default function ParkingFlow({
   const inView = useInView(rootRef, { amount: 0.3 })
   const revealed = useInView(rootRef, { once: true, amount: 0.2 })
 
-  // Dar sahne (sayfa sütunu < COMPACT_BELOW px): vurgu etiketi şeridin altına iner, görünüm kırpılır.
-  // Ölçüm düzen efektinde bağlanır; ResizeObserver ilk bildirimi boyamadan önce verdiği için geniş kare görünmez.
   const [compact, setCompact] = useState(false)
   useLayoutEffect(() => {
     const node = stageRef.current
@@ -126,14 +118,13 @@ export default function ParkingFlow({
   }, [])
 
   const count = steps.length
-  // Kimlik listesi içeriğe göre sabitlenir; ebeveyn her render'da yeni dizi verse de yeniden abone olunmaz.
+
   const idsKey = steps.map((step) => step.id).join('|')
   const ids = useMemo(() => (idsKey ? (idsKey.split('|') as ParkingFlowStepId[]) : []), [idsKey])
   const pinned = mode === 'scroll' && pin && wide && !reduce && count > 0
   const barrierClosed = barrier === 'closed'
   const tail = count > 0 ? TAIL_SECONDS / (count * autoDuration) : 0
 
-  // Tek ilerleme değeri (0–1; otomatik döngüde kuyrukla 1+tail) sahnedeki tüm değişkenleri sürer.
   const progress = useMotionValue(0)
   const car = useMotionValue(CAR_START)
   const cone = useMotionValue(0.16)
@@ -177,7 +168,6 @@ export default function ParkingFlow({
 
   useMotionValueEvent(progress, 'change', apply)
 
-  /* Kaydırma modu */
   const { scrollYProgress } = useScroll({
     target: rootRef,
     offset: pinned ? ['start start', 'end end'] : ['start 80%', 'end 45%'],
@@ -186,7 +176,6 @@ export default function ParkingFlow({
     if (mode === 'scroll' && !reduce) progress.set(value)
   })
 
-  /* Elle mod */
   const [internalActive, setInternalActive] = useState(0)
   const manualIndex = useMemo(() => {
     if (mode !== 'manual' || count === 0) return -1
@@ -195,7 +184,6 @@ export default function ParkingFlow({
     return Math.min(count - 1, internalActive)
   }, [mode, active, ids, count, internalActive])
 
-  /* Otomatik mod */
   const [paused, setPaused] = useState(false)
   const running = mode === 'auto' && !reduce && inView && pageVisible && !paused && count > 0
   const loop = useRef<Loop>({ controls: null, timer: undefined })
@@ -207,7 +195,6 @@ export default function ParkingFlow({
     loop.current.timer = undefined
   }, [])
 
-  // Döngü: kaldığı ilerlemeden sona kadar doğrusal akar, kısa bir beklemeyle başa döner.
   const startLoop = useCallback(
     (from: number) => {
       const end = 1 + tail
@@ -237,7 +224,6 @@ export default function ParkingFlow({
     return stopLoop
   }, [running, startLoop, stopLoop, progress, tail])
 
-  // Elle modda hedef adıma yumuşak geçiş; hareket azaltmada doğrudan atlama.
   useEffect(() => {
     if (mode !== 'manual' || manualIndex < 0) return
     const target = progressForStep(manualIndex, count, ids[manualIndex])
@@ -249,7 +235,6 @@ export default function ParkingFlow({
     return () => controls.stop()
   }, [mode, manualIndex, count, ids, reduce, progress])
 
-  // İlk kare. Hareket azaltmada sahne tamamlanmış hâlde durur: araç açık bariyerin altından geçerken.
   useEffect(() => {
     if (reduce && mode !== 'manual' && count > 0) progress.set(progressForStep(count - 1, count, ids[count - 1]))
     apply(progress.get())
@@ -270,7 +255,7 @@ export default function ParkingFlow({
       else animate(progress, target, { duration: 0.9, ease: revealEase })
       return
     }
-    // Kaydırma modu (sabit): pencere o adımın ilerleme noktasına gider.
+
     const root = rootRef.current
     if (!root) return
     const top = root.getBoundingClientRect().top + window.scrollY
@@ -278,8 +263,6 @@ export default function ParkingFlow({
     window.scrollTo({ top: top + distance * target, behavior: reduce ? 'instant' : 'smooth' })
   }
 
-  // Vurgu sonradan değişirse (ör. elle modda cihaz seçimi) dirsekli çizgi ve etiket kısa bir çizimle yeniden gelir;
-  // ilk görünüşteki uzun gecikme yalnızca bir kez uygulanır. Değişim render sırasında türetilir (effect içinde setState yok).
   const [seenHighlight, setSeenHighlight] = useState(highlight)
   const [replay, setReplay] = useState(false)
   if (seenHighlight !== highlight) {
@@ -288,7 +271,7 @@ export default function ParkingFlow({
   }
 
   const labelActive = mode === 'manual' ? manualIndex : reduce ? -1 : sceneActive
-  // showLabels=false: liste yalnızca ekran okuyucu içindir; görünmez odaklanabilir düğme bırakılmaz, düz öğeler çizilir.
+
   const clickable = showLabels && (mode === 'manual' || mode === 'auto' || pinned)
   const leader = highlight ? leaders[highlight] : null
   const deviceName = highlight ? (highlightLabel ?? text.devices[highlight]) : null
@@ -322,8 +305,7 @@ export default function ParkingFlow({
             cad={variant === 'cad'}
           />
           {leader && deviceName && !compact ? (
-            // Konum ve çapa ötelemesi statik dış span'dedir; framer-motion yalnız iç kapsülün opacity/y değerini yazar,
-            // böylece satır içi transform çapanın translate'ini ezmez (dikey ortalama ve anchor='end' korunur).
+
             <span
               key={highlight}
               className={styles.deviceLabel}
@@ -343,7 +325,7 @@ export default function ParkingFlow({
           ) : null}
         </div>
         {leader && deviceName && compact ? (
-          // Dar sahne: etiket cihazların üstüne binmesin diye şeridin altında, sahnedeki halkalı işaretle eşleşir.
+
           <div key={highlight} className={styles.labelBelow} data-placement="below">
             <motion.span
               className={styles.labelPill}
@@ -359,10 +341,10 @@ export default function ParkingFlow({
         ) : null}
         <p className={styles.srOnly}>{text.sceneDescription}</p>
 
-        {caption || (mode === 'auto' && !reduce) ? (
+        {caption || (mode === 'auto' && !reduce && showPause) ? (
           <div className={styles.footer}>
             {caption ? <figcaption className={styles.caption}>{caption}</figcaption> : <span />}
-            {mode === 'auto' && !reduce ? (
+            {mode === 'auto' && !reduce && showPause ? (
               <button
                 type="button"
                 className={styles.toggle}

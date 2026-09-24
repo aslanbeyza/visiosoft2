@@ -8,7 +8,6 @@ import { endToEndCopy } from './endToEndCopy.ts'
 import HubSpoke from './HubSpoke.tsx'
 import styles from './E2eHero.module.css'
 
-/** Uçtan uca sistem hero'su: solda başlık ve eylemler, sağda (dar ekranda altta) hub & spoke şeması. */
 export default function E2eHero() {
   const { hero } = endToEndCopy
   const reduce = Boolean(useReducedMotion())

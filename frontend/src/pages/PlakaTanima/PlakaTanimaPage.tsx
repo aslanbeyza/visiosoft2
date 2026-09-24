@@ -7,10 +7,6 @@ import PlakaTech from './PlakaTech.tsx'
 import PlateScan from './PlateScan.tsx'
 import { plakaCopy as copy } from './plakaCopy.ts'
 
-/**
- * /plaka-tanima — amiral sayfa.
- * Okuma anı → Başarı (koşullu plaka okuma) → Hız → Teknoloji → Saha.
- */
 export default function PlakaTanimaPage() {
   return (
     <>

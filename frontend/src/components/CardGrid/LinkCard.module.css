@@ -37,7 +37,6 @@
   --spot: rgb(154 161 227 / 0.14);
 }
 
-/* Gölge ayrı katmanda; yalnızca opaklığı değişir. */
 .card::before {
   content: '';
   position: absolute;
@@ -51,7 +50,6 @@
   transition: opacity 0.35s var(--ease-apple);
 }
 
-/* M10 — işaretçiyi izleyen ışık. */
 .card::after {
   content: '';
   position: absolute;
@@ -82,8 +80,6 @@
     opacity: 1;
   }
 }
-
-/* Görsel sahnesi */
 
 .stage {
   position: relative;
@@ -131,8 +127,6 @@
 .card:hover .image {
   transform: scale(1.04);
 }
-
-/* Metin */
 
 .body {
   display: flex;
@@ -184,7 +178,6 @@
   text-decoration: none;
 }
 
-/* Tüm kart tıklanabilir; bağlantı metni yalnızca başlıktır. */
 .link::after {
   content: '';
   position: absolute;

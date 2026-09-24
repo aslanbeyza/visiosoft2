@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 
-/** Görünür olunca hedefe ease-out ile sayar; hareket azaltmada direkt son değer. */
 export function useCountUp(target: number, active: boolean, duration = 1800) {
   const reduce = useReducedMotion()
   const [value, setValue] = useState(0)

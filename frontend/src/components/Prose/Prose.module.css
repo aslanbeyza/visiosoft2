@@ -98,7 +98,6 @@
   outline-offset: 3px;
 }
 
-/* Genel sıfırlama liste imlerini kaldırır; metin içindeki listeler imleriyle okunur. */
 .prose ul,
 .prose ol {
   margin: 0 0 1.25em;
@@ -225,7 +224,6 @@
   margin: 0.2em 0 0.9em;
 }
 
-/* Tablolar: html modunda sarmalayıcıya alınır; çocuk modunda tablo kendi kaydırma alanını taşır. */
 .tableWrap {
   overflow-x: auto;
   margin: 1.75rem 0;
@@ -262,8 +260,6 @@
 .prose tr:last-child td {
   border-bottom: 0;
 }
-
-/* İçindekiler düzeni */
 
 .layout {
   --ink: var(--color-corp-ink);
@@ -383,13 +379,12 @@
 }
 
 @media (min-width: 1024px) {
-  /* İki sütun yalnızca içindekiler çizildiğinde; metin geniş sütunda, liste sağdaki dar sütunda. */
+
   .layout[data-toc='true'] {
     grid-template-columns: minmax(0, 1fr) 15rem;
     column-gap: clamp(2.5rem, 5vw, 5rem);
   }
 
-  /* DOM'da liste metinden önce gelir (dar ekranda üstte); masaüstünde sağ sütuna taşınır. */
   .aside {
     position: sticky;
     top: 6.5rem;

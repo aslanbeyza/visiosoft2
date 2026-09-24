@@ -13,7 +13,6 @@ type FlagshipStageProps = {
 
 const SWIPE_MIN = 48
 
-/** Büyük ürün sahnesi: yatay kaydırma ile ürün değişir, dikey sayfa kaydırması korunur. */
 export default function FlagshipStage({ items, active, onStep }: FlagshipStageProps) {
   const start = useRef<{ x: number; y: number } | null>(null)
 

@@ -16,11 +16,6 @@ import styles from './WebsitePricingPage.module.css'
 const [features, onboarding, system, faq] = copy.subNav
 const featureItems = copy.features.items.map(({ icon, ...item }) => ({ ...item, icon: <FeatureIcon name={icon} /> }))
 
-/**
- * /site-fiyatlari — Site otopark yönetimi.
- * Açılış (site kesiti + fiyat kartı) → alt gezinme → Özellikler (kartlar) → Kurulum (kaydırmalı adımlar) →
- * Sistem nedir? (gece tonu, Prose) → SSS (akordeon + FAQPage şeması) → CtaBand. Service/Offer şeması ayrıca eklenir.
- */
 export default function WebsitePricingPage() {
   const path = usePath()
 

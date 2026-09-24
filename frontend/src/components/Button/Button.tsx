@@ -7,15 +7,12 @@ type ButtonProps = {
   to?: string
   href?: string
   children: ReactNode
-  /**
-   * primary: lacivert dolgu · secondary: beyaz, çerçeveli · light: koyu zeminde beyaz dolgu ·
-   * outlineLight: koyu zeminde çerçeveli. `ghost` eski adıdır, secondary ile aynıdır.
-   */
+
   variant?: 'primary' | 'secondary' | 'ghost' | 'light' | 'outlineLight'
   size?: 'md' | 'lg'
-  /** Metnin sağında ok ikonu gösterir. */
+
   arrow?: boolean
-  /** href bağlantısını yeni sekmede açar; ekran okuyucu için görünmez "(yeni sekmede açılır)" eklenir. */
+
   external?: boolean
   type?: 'button' | 'submit'
   disabled?: boolean

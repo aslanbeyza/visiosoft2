@@ -46,7 +46,6 @@ function Card({ card, index }: { card: CardModel; index: number }) {
   )
 }
 
-/** Destek, güvenlik ve entegrasyon: başlık, bir cümle, kanıt etiketleri. */
 export default function AssuranceColumns() {
   const reduce = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)

@@ -12,7 +12,6 @@ type ReportsCtaProps = {
   secondary: { label: string; href: string }
 }
 
-/** CtaBand görünümünde son bant; ikincil eylem harici WhatsApp bağlantısıdır (CtaBand yalnızca iç rota alır). */
 export default function ReportsCta({ eyebrow, title, description, primary, secondary }: ReportsCtaProps) {
   const reduce = useReducedMotion()
 

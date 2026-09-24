@@ -24,7 +24,6 @@ export type HgsFallbackStoryProps = {
   className?: string
 }
 
-/** Avantajlar bölümü: HGS başarısız → POS → tahsilat hikâyesi (temsilî operasyon kartı). */
 export default function HgsFallbackStory({
   kicker,
   caption,

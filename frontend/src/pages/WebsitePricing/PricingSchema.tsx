@@ -5,7 +5,6 @@ import { price, pricingCopy } from './pricingCopy.ts'
 
 const copy = pricingCopy.schema
 
-/** Service + Offer yapılandırılmış verisi (fiyat sayfada gösterildiği için Offer korunur). SSS şeması Faq bileşeninden gelir. */
 export default function PricingSchema() {
   const { pathname } = useLocation()
   const url = `${SITE_URL}${pathname.replace(/\/$/, '')}`

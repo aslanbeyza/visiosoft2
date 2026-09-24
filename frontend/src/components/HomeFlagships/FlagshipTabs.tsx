@@ -14,7 +14,6 @@ type FlagshipTabsProps = {
   panelId: string
 }
 
-/** Ürün sekmeleri: gezici tabindex, ←/→/Home/End; etkin sekmenin altında layoutId ile kayan çizgi. */
 export default function FlagshipTabs({ items, active, onSelect, tabId, panelId }: FlagshipTabsProps) {
   const reduce = useReducedMotion()
   const group = useId()

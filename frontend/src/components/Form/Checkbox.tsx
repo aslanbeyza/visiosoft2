@@ -1,9 +1,4 @@
-/**
- * Kullanım:
- * <Checkbox name="needs_barrier" label="Bariyer" description="Fiziksel geçiş kontrolü" />
- * <Checkbox name="payment_methods" value="hgs" label="HGS" checked={hgs} onChange={setHgs} />
- * Onay işareti CSS ile çizilir; hata verilmezse Form'un `name` ile eşleşen hatası gösterilir.
- */
+
 import { useId } from 'react'
 import type { ChangeEvent, ReactNode } from 'react'
 import { FieldErrorIcon } from './Field.tsx'

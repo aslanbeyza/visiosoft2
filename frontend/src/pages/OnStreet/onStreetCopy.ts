@@ -2,7 +2,6 @@ import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
 
 type IconText = { icon: FeatureIconName; title: string; description: string }
 
-// Yol üstü parklandırma sayfasının metinleri (mevcut sayfa ve menü metinlerinden)
 export const onStreetCopy = {
   seo: {
     title: 'Yol Üstü Parklandırma - Visiosoft',

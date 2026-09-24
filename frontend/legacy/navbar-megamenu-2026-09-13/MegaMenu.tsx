@@ -11,7 +11,6 @@ import { cardImageSize, menuKind } from './navData.ts'
 import type { PanelCustom } from './navData.ts'
 import styles from './MegaMenu.module.css'
 
-// Gölge kırpılmasın diye açık durumda alt kenar negatif tutulur.
 const CLIP_CLOSED = 'inset(0% 0% 100% 0%)'
 const CLIP_OPEN = 'inset(0% 0% -40% 0%)'
 
@@ -50,7 +49,6 @@ type MegaMenuProps = {
   onNavigate: () => void
 }
 
-/** Masaüstü mega menü paneli: tanıtım sütunu + donanım kartları ya da yazılım listesi. */
 export default function MegaMenu({ id, item, current, custom, onNavigate }: MegaMenuProps) {
   const path = usePath()
   const kind = menuKind(item)

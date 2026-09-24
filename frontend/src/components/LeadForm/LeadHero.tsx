@@ -11,11 +11,10 @@ export type LeadHeroProps = {
   lead: string
   variant: 'quote' | 'discovery'
   route?: { label: string; steps: string[] }
-  /** Forma inen bağlantı. */
+
   jump?: { href: string; label: string }
 }
 
-/** Form sayfalarının ortalanmış hero'su: M2 başlık + isteğe bağlı talep rotası sahnesi. */
 export default function LeadHero({ eyebrow, title, lead, variant, route, jump }: LeadHeroProps) {
   const reduce = Boolean(useReducedMotion())
   const titleId = useId()

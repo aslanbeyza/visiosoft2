@@ -12,7 +12,6 @@
   container-type: inline-size;
 }
 
-/* Merkez (VISIO) */
 .hub {
   display: grid;
   place-content: center;
@@ -53,7 +52,6 @@
   line-height: 1.35;
 }
 
-/* SVG katmanı */
 .art {
   display: none;
 }
@@ -174,7 +172,6 @@
   }
 }
 
-/* Modül sekmeleri */
 .spokes {
   position: relative;
   padding-top: 1.75rem;
@@ -270,7 +267,6 @@
   white-space: nowrap;
 }
 
-/* Dar ekran: merkezden aşağı inen gövde hattı ve kartlara kısa bağlantılar */
 .trunk {
   position: absolute;
   top: 0;
@@ -341,7 +337,6 @@
   }
 }
 
-/* Açıklama paneli ve denetimler */
 .footer {
   display: grid;
   gap: 0.85rem;
@@ -430,7 +425,7 @@
   flex: none;
   align-items: center;
   gap: 0.4rem;
-  /* Dokunmatik hedef en az 44 px */
+
   min-height: 2.75rem;
   padding: 0 0.95rem;
   border: 1px solid var(--color-corp-line);
@@ -459,7 +454,6 @@
   outline-offset: 3px;
 }
 
-/* ≥ 768px: gerçek hub & spoke yerleşimi (kutu viewBox ile aynı oranda) */
 @media (min-width: 768px) {
   .box {
     aspect-ratio: 1000 / 600;

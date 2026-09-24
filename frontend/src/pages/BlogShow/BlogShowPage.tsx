@@ -20,10 +20,6 @@ import ReadingProgress from './ReadingProgress.tsx'
 import { useBlogPost } from './useBlogPost.ts'
 import styles from './BlogShowPage.module.css'
 
-/**
- * /blog/:slug — okuma çizgisi + yazı başlığı (h1 satır satır, görsel açılır) → temizlenmiş HTML ve içindekiler →
- * ilgili yazılar → CtaBand. Yükleniyor iskeleti, bulunamadı (404) ve hata (tekrar dene) durumları ayrıdır.
- */
 export default function BlogShowPage() {
   const { slug = '' } = useParams()
   const path = usePath()
@@ -55,7 +51,7 @@ export default function BlogShowPage() {
 
   const { post } = state
   const content = normalizeContent(post.content || '')
-  // Ara başlık varken geniş iki sütunlu düzen; yoksa metin başlıkla aynı ortalanmış tek sütunda akar.
+
   const layout = tocDepthFor(content) ? 'toc' : 'single'
   const related = Array.isArray(post.related) ? post.related : []
   const canonical = path('blog.index', post.slug)
@@ -80,7 +76,7 @@ export default function BlogShowPage() {
         <ArticleHeader post={post} cover={cover} layout={layout} />
         <Section tone="paper" spacing="md" width="content">
           <div className={styles.body} data-layout={layout}>
-            {/* Prose içindekileri h2'lerden, h2 yoksa h3'lerden üretir; başlık yoksa tek sütun kalır. */}
+            {}
             <Prose html={content} toc tocLabel={copy.toc} size="lg" />
           </div>
         </Section>

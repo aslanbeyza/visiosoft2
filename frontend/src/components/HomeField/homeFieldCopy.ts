@@ -1,4 +1,4 @@
-/** Ana sayfa vitrin: kaydırmada ürünler yukarı uçar, sonra başa döner. */
+
 export const homeFieldCopy = {
   titleId: 'saha-title',
   eyebrow: 'Vitrin',

@@ -11,7 +11,6 @@ export type GlossaryTerm = {
 
 const collator = new Intl.Collator('tr', { sensitivity: 'base' })
 
-/** Türkçe arama için harf katlama: işgaliye ↔ isgaliye, kuş ↔ kus. */
 export function fold(value: string) {
   return value
     .toLocaleLowerCase('tr-TR')

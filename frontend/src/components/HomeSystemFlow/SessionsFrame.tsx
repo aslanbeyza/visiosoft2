@@ -6,7 +6,6 @@ type SessionsFrameProps = {
   className?: string
 }
 
-/** Adım 6: gerçek Zone oturumlar ekranı, ince tarayıcı çerçevesinde; başlık çubuğu aynı zamanda alt yazıdır. */
 export default function SessionsFrame({ className = '' }: SessionsFrameProps) {
   const image = text.sessions
 

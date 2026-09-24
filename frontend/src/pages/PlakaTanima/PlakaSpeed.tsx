@@ -9,7 +9,6 @@ import styles from './PlakaSpeed.module.css'
 const copy = plakaCopy.speed
 const icons = [<SpeedIcon key="hiz" />, <ChipIcon key="cip" />, <LeafIcon key="guc" />]
 
-/** Hız bölümü: tam genişlik başlık, ardından üç performans kartı. */
 export default function PlakaSpeed() {
   const items: FeatureItem[] = copy.items.map((item, index) => ({
     ...item,

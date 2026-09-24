@@ -15,7 +15,6 @@
   justify-items: center;
 }
 
-/* Lacivert logo koyu zeminde beyaza çevrilir. */
 .mark {
   display: block;
   width: min(13rem, 58vw);

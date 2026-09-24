@@ -27,7 +27,7 @@ export default {
     port: envInt("PORT", 3000),
   },
   cors: {
-    // Virgülle ayrılmış birden fazla köken desteklenir (ör. Vite 5173 ve 5174).
+
     origin: env("CORS_ORIGIN", "http://localhost:5173,http://localhost:5174")
       .split(",")
       .map((origin) => origin.trim())

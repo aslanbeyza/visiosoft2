@@ -8,7 +8,6 @@ import LedPanelFigure from './LedPanelFigure.tsx'
 import type { HeroDimensions as Dimensions, ProductDetailData } from './detailTypes.ts'
 import styles from './HeroStage.module.css'
 
-// LED görünüşü milimetre ölçekli çizildiği için ölçü çizgileri doğrudan kutu kenarlarına oturur.
 const LED_DIMENSIONS: Dimensions = {
   height: { label: '1900 mm', span: { from: 0, to: 100 }, edges: [8, 30.8] },
   width: { label: '715 mm', span: { from: 0, to: 100 }, edges: [3, 3] },
@@ -20,7 +19,6 @@ const CORNERS = ['tl', 'tr', 'bl', 'br'] as const
 
 const formatMm = (value: number) => value.toLocaleString('tr-TR', { useGrouping: false, maximumFractionDigits: 1 })
 
-/** Paftadaki antet gibi: ürün adı ve ölçüler (yoksa kategori). */
 function plateFor(data: ProductDetailData) {
   const pick = (id: string) => data.figures.items.find((item) => item.id === id)?.value
   const values = [pick('width'), pick('height'), pick('depth')].filter((value): value is number => value !== undefined)
@@ -33,10 +31,6 @@ type HeroStageProps = {
   reduce: boolean
 }
 
-/**
- * Kahraman sahnesi: teknik pafta ızgarası çizilir, köşe işaretleri belirir, ürün zeminden yükselir,
- * ardından ölçü çizgileri ve antet gelir. Kaydırmada ürün ve ızgara farklı hızlarda kayar.
- */
 export default function HeroStage({ data, reduce }: HeroStageProps) {
   const stageRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: stageRef, offset: ['start start', 'end start'] })

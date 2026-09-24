@@ -23,7 +23,6 @@ export type CatalogTab = {
   items: readonly CatalogItem[]
 }
 
-/** Parklio’daki Solutions / Software vitrininin Visiosoft örneği. */
 export const homeCatalogCopy = {
   titleId: 'katalog-title',
   tablistLabel: 'Çözüm ve yazılım vitrini',

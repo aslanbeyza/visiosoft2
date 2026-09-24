@@ -1,4 +1,4 @@
-// Otopark teklif motoru metinleri — kaynak: tr.json `parking_quote_engine.*` anahtarları.
+
 export const quoteCopy = {
   meta: {
     title: 'Otopark Teklif Motoru - Visiosoft',

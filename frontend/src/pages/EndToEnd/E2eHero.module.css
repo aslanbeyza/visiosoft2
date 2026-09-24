@@ -1,13 +1,12 @@
 .hero {
   position: relative;
   overflow: clip;
-  /* Sabit navbar'ı geçer: mobilde ≥ 6rem, masaüstünde ≥ 7rem. */
+
   padding-block: clamp(6rem, 4vw + 4.75rem, 8rem) clamp(3.5rem, 6vw, 5.5rem);
   background: #fff;
   color: var(--color-corp-ink);
 }
 
-/* Çok hafif nokta ızgarası: şemanın arkasında mühendislik kâğıdı hissi */
 .hero::before {
   position: absolute;
   inset: 0;

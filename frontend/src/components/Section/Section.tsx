@@ -4,11 +4,11 @@ import styles from './Section.module.css'
 type SectionProps = {
   children: ReactNode
   id?: string
-  /** paper: beyaz · surface: açık gri · navy: koyu lacivert · night: en koyu lacivert */
+
   tone?: 'paper' | 'surface' | 'navy' | 'night'
-  /** Dikey boşluk. */
+
   spacing?: 'none' | 'md' | 'lg'
-  /** İç kap genişliği: prose 46rem · content 72rem · wide 80rem · full */
+
   width?: 'prose' | 'content' | 'wide' | 'full'
   className?: string
   innerClassName?: string
@@ -16,7 +16,6 @@ type SectionProps = {
   label?: string
 }
 
-/** Tasarım sistemindeki tüm bölümlerin ortak kabı: zemin tonu, dikey boşluk ve içerik genişliği. */
 export default function Section({
   children,
   id,

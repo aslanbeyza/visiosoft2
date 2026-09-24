@@ -6,7 +6,6 @@ import { revealEase } from '../../components/Reveal/index.ts'
 import { prsCopy } from './prsCopy.ts'
 import styles from './HeroMap.module.css'
 
-// Ekran görüntüsündeki kamera simgelerinin konumları (%, 1600×762 kırpılmış görsel üzerinde ölçüldü)
 const cameras: [number, number][] = [
   [17.6, 63.4],
   [19.15, 82.4],
@@ -25,12 +24,10 @@ const cameras: [number, number][] = [
   [58.95, 10.6],
 ]
 
-// Plaka kartının köşeleri (kutu oranı 179×81 — görselle aynı oran, bozulma yok)
 const corners = ['M0 26V0h32', 'M147 0h32v26', 'M179 55v26h-32', 'M32 81H0V55']
 
 const base = '/img/pages/plaka-tanima-canli-harita'
 
-/** Hero anı: gerçek Zone canlı harita ekranında kameralar soldan sağa sırayla uyanır, ardından çerçeve plaka kartına kilitlenir. */
 export default function HeroMap() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)
@@ -40,7 +37,7 @@ export default function HeroMap() {
 
   return (
     <div ref={ref} className={styles.root}>
-      {/* Arayüz ekran görüntüsü: screenshot kipi kenardaki panel değerlerini kırpmaz; katmanlar görselle birlikte kayar. */}
+      {}
       <MediaFrame caption={map.caption} chips={[{ label: map.chip, tone: 'navy' }]} mode="screenshot" amount={0.2}>
         <div className={styles.stage}>
           <Picture

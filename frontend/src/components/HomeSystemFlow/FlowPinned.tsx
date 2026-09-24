@@ -7,10 +7,6 @@ import { STORY_LENGTH, TOTAL_STEPS, progressToFill, stepMidProgress } from './fl
 import { homeSystemFlowCopy as text } from './homeSystemFlowCopy.ts'
 import styles from './HomeSystemFlow.module.css'
 
-/**
- * ≥1024px ve hareket serbest: adım listesi ve sahne tek ekranda sabitlenir; kaydırma etkin adımı seçer.
- * Adım 01–05 eşit pay alır, kayıt adımı (Zone ekranı) iki kat; Zone ekranı 02'den itibaren köşede görünür.
- */
 export default function FlowPinned() {
   const storyRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: storyRef, offset: ['start start', 'end end'] })
@@ -22,7 +18,6 @@ export default function FlowPinned() {
     if (next !== active) setActive(next)
   })
 
-  // Adım seçimi: pencere o adımın kaydırma diliminin ortasına gider.
   const select = (index: number) => {
     const story = storyRef.current
     if (!story) return

@@ -1,10 +1,4 @@
-/**
- * Kullanım:
- * <Prose toc html={post.content} />            // API'den gelen HTML: temizlenir, başlıklara id verilir
- * <Prose toc><h2 id="kapsam">Kapsam</h2><p>…</p></Prose>   // React içeriği; id'siz başlıklara id atanır
- * h2/h3/p/ul/ol/blockquote/table/code/img için tipografi. `toc` h2 başlıklardan yapışkan "İçindekiler" üretir
- * (tocDepth={3} ile h3 de eklenir); etkin başlık IntersectionObserver ile izlenir. Dar ekranda içindekiler katlanır.
- */
+
 import { useId, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { useActiveHeading, useDomHeadings } from './headings.ts'
@@ -14,11 +8,11 @@ import styles from './Prose.module.css'
 
 export type ProseProps = {
   children?: ReactNode
-  /** Sunucudan gelen HTML; script ve on* öznitelikleri ayıklanır. `children` yerine kullanılır. */
+
   html?: string
-  /** Başlıklardan yapışkan içindekiler listesi üretir. */
+
   toc?: boolean
-  /** İçindekilere dahil edilen en derin başlık düzeyi. */
+
   tocDepth?: 2 | 3
   tocLabel?: string
   tone?: 'light' | 'dark'
@@ -52,7 +46,7 @@ export default function Prose({
   const sanitized = useMemo(() => (html === undefined ? null : sanitizeHtml(html, { tableWrapClass: styles.tableWrap })), [html])
   const domHeadings = useDomHeadings(rootRef, toc && html === undefined)
   const allHeadings = sanitized ? sanitized.headings : domHeadings
-  // Düzey verilmezse h2 kullanılır; metinde hiç h2 yoksa içindekiler h3 başlıklardan üretilir.
+
   const depth = tocDepth ?? (allHeadings.some((heading) => heading.level === 2) ? 2 : 3)
   const headings = allHeadings.filter((heading) => heading.level <= depth)
   const active = useActiveHeading(

@@ -6,7 +6,6 @@ import { usePath } from '../../hooks/usePath/index.ts'
 import { homeWorkCopy as text } from './homeWorkCopy.ts'
 import styles from './HomeWork.module.css'
 
-/** Ajans tipi iş listesi: isimlendirilmiş saha, uydurma KPI yok. */
 export default function HomeWork() {
   const path = usePath()
 

@@ -3,7 +3,6 @@ import KusBakisi from './KusBakisi.tsx'
 import LowConfidence from './LowConfidence.tsx'
 import MobilAbonelik from './MobilAbonelik.tsx'
 
-/** Dört vitrin rotasını ilgili sayfaya yönlendirir (Marketing.tsx `routeName` geçirir). */
 export default function ShowcasePage({ routeName }: { routeName: string }) {
   switch (routeName) {
     case 'kus-bakisi':

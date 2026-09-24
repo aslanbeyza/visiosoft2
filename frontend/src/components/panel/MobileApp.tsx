@@ -1,43 +1,5 @@
 'use client';
 
-/**
- * ============================================================================
- * DEMO PANEL · MOBİL UYGULAMA SEKMESİ (telefon simülasyonu)
- * ============================================================================
- *
- * Gerçek ParkBiz mobil uygulamasının (Expo SDK 52 / expo-router v4) etkileşimli
- * ikizi. Panelin sol menüsündeki "Mobil Uygulama" öğesi bu ekranı açar.
- *
- * DÜRÜSTLÜK NOTU: Gerçek Zone partner panelinde böyle bir sekme YOKTUR.
- * Bu, panel ile mobil uygulamanın aynı veri kümesini paylaştığını göstermek
- * için eklenmiş bir DEMO EKİ'dir (PanelShell başlıkta rozetle belirtir).
- *
- * MİMARİ
- *  · Telefon çerçevesi, çentik, durum çubuğu ve home indicator TAMAMEN CSS ile
- *    çizilir — görsel dosya yoktur.
- *  · Uygulamanın kendi expo-router hiyerarşisi PanelProvider'ın `mobile`
- *    dilimiyle taklit edilir: stack (push/pop/replace/reset) + sheet + tab.
- *  · Telefonda yapılan her işlem ÇEKİRDEK REDUCER'a yazar (MOBILE_* aksiyonları)
- *    ve panelin diğer modüllerinde anında görünür. Sağdaki "Canlı Köprü"
- *    paneli bunu satır satır listeler ve ilgili modüle derin bağlantı verir.
- *
- * KURALLAR
- *  · SABİT RENK YOK ve SİTE TEMASI YOK. Telefon gövdesi `app-phone` kökünü
- *    taşır (panel-theme.css): o kökün altında `electric` = ParkBiz laciverti
- *    #133b68, `carbon` = beyaz yüzey #ffffff, `ink` = metin + cihaz gövdesi
- *    #0f1724, `alert`/`neon`/`amber` = uygulamanın kendi durum renkleri.
- *    Değerler gerçek uygulamanın brands/parkbiz/brand.json dosyasından gelir;
- *    telefon ne sitenin açık temasına ne Zone'un koyusuna boyanır.
- *  · Render sırasında Date.now() ÇAĞRILMAZ. Durum çubuğu saati kendi
- *    bileşenindedir ('--:--' → useEffect). Tüm göreli zamanlar store'daki
- *    tek `epochMs` alanından türetilir → hydration güvenli.
- *  · ÖLÜ KONTROL YOK. Devre dışı bırakılan her kontrolün gerekçesi ekranda
- *    yazılıdır (kota dolu, süresi dolmuş kart, kapalı talep…).
- *  · GÜVENLİK: Kart numarası HİÇBİR YERDE saklanmaz ve log'lanmaz. Form
- *    yalnızca yerel bileşen state'inde tutulur, alan varsayılan olarak
- *    maskelidir ve store'a yalnızca marka + son 3 hane + ad yazılır.
- */
-
 import {
   useCallback,
   useEffect,
@@ -100,16 +62,10 @@ import {
   type MobileTab,
 } from './PanelProvider';
 
-/* ==========================================================================
-   0 · YARDIMCILAR
-   ========================================================================== */
-
-/** Türkçe harfleri ASCII'ye indirger (gerçek uygulamadaki plaka kuralı). */
 const TR_FOLD: Record<string, string> = {
   Ç: 'C', Ğ: 'G', İ: 'I', I: 'I', Ö: 'O', Ş: 'S', Ü: 'U',
 };
 
-/** Plaka girişi: büyük harf + ASCII + yalnızca harf/rakam. */
 function normalizePlate(raw: string): string {
   const up = upperTR(raw);
   let out = '';
@@ -120,7 +76,6 @@ function normalizePlate(raw: string): string {
   return out.slice(0, 9);
 }
 
-/** '34ABC123' → '34 ABC 123' (gerçek uygulamanın üç parçalı biçimi). */
 function prettyPlate(raw: string): string {
   const p = raw.replace(/\s/g, '');
   const m = /^(\d{1,2})([A-Z]{1,3})(\d{2,5})$/.exec(p);
@@ -135,7 +90,6 @@ function initialsOf(name: string): string {
   return parts.map((p) => upperTR(p.charAt(0))).join('') || 'VS';
 }
 
-/** Kart markası — yalnızca ilk haneden türetilir, numara saklanmaz. */
 function brandOf(digits: string): string {
   if (digits.startsWith('4')) return 'Visa';
   if (digits.startsWith('5')) return 'Mastercard';
@@ -144,7 +98,6 @@ function brandOf(digits: string): string {
   return 'Kart';
 }
 
-/** Deterministik "sorgulama" sonucu — gerçek bir servise gidilmez. */
 function vatLookup(vat: string): { title: string; office: string; city: string } {
   const n = vat.split('').reduce((a, c) => a + (Number(c) || 0), 0);
   const titles = ['Demo Lojistik A.Ş.', 'Örnek Filo Kiralama Ltd. Şti.', 'Numune Teknoloji A.Ş.', 'Taslak Dağıtım Ltd. Şti.'];
@@ -155,8 +108,6 @@ function vatLookup(vat: string): { title: string; office: string; city: string }
     city: 'İstanbul',
   };
 }
-
-/* --- İkonlar: ui.tsx'te olmayan birkaç mobil ikon --------------------- */
 
 const EXTRA_PATHS: Record<string, string> = {
   building: 'M4 21V6.5L11 3l7 3.5V21M9.5 21v-4.5h5V21M8 9.5h.01M12 9.5h.01M16 9.5h.01M8 13h.01M12 13h.01M16 13h.01',
@@ -198,12 +149,6 @@ function MIcon({ name, size = 18, className }: { name: MIconKey; size?: number; 
     </svg>
   );
 }
-
-/* ==========================================================================
-   1 · MOBİL UI PRİMİTİFLERİ
-   Gerçek uygulamanın tasarım dili: beyaz yüzey, 1px yumuşak kenarlık,
-   22px kart yarıçapı, çok kalın başlıklar, UPPERCASE bölüm etiketleri.
-   ========================================================================== */
 
 function MCard({
   children, className, onClick, ariaLabel,
@@ -327,7 +272,6 @@ function MTextArea({
   );
 }
 
-/** Gerçek uygulamanın SelectField satırı: sol ikon + değer + chevron. */
 function MSelectRow({
   icon, label, value, placeholder, onClick,
 }: { icon: MIconKey; label: string; value?: string | null; placeholder: string; onClick: () => void }) {
@@ -405,12 +349,6 @@ function MEmpty({ icon = 'search', title, desc, action }: { icon?: MIconKey; tit
   );
 }
 
-/**
- * Sihirbaz adım göstergesi — gerçek uygulamadaki DebtWizardStepper ve
- * SubscriptionWizardStepper bileşenlerinin birebir karşılığı: 28px daire,
- * aktif adım halkalı, tamamlanan adım dolu + ✓, aralarda ilerleyen çizgi.
- * Tamamlanmış adıma dokunulunca o adıma geri dönülür (canJump).
- */
 function MStepper({
   steps, current, onStep, ariaLabel,
 }: { steps: string[]; current: number; onStep?: (step: number) => void; ariaLabel: string }) {
@@ -471,7 +409,6 @@ function MStepper({
   );
 }
 
-/** Gerçek uygulamanın TR plaka görseli (mavi şerit `electric` tokenıyla). */
 function PlateVisual({ value, placeholder = '34 PBZ 001' }: { value: string; placeholder?: string }) {
   const shown = value ? prettyPlate(value) : placeholder;
   return (
@@ -488,14 +425,6 @@ function PlateVisual({ value, placeholder = '34 PBZ 001' }: { value: string; pla
   );
 }
 
-/* ==========================================================================
-   2 · TELEFON KABUĞU — durum çubuğu · başlıklar · sekme çubuğu · katmanlar
-   ========================================================================== */
-
-/**
- * Durum çubuğu saati. Kendi bileşenindedir: ilk render '--:--' basar
- * (SSR = istemci) ve yalnızca bu span dakikada bir yenilenir.
- */
 function StatusClock() {
   const [t, setT] = useState('--:--');
   useEffect(() => {
@@ -514,7 +443,7 @@ function StatusBar() {
   return (
     <div className="relative flex h-[44px] shrink-0 items-end justify-between px-6 pb-1.5">
       <StatusClock />
-      {/* Çentik — CSS ile çizilir, görsel dosya yok */}
+      {}
       <span aria-hidden className="absolute top-0 left-1/2 h-[26px] w-[38%] -translate-x-1/2 rounded-b-[14px] bg-ink" />
       <span className="flex items-center gap-1.5 text-ink">
         <MIcon name="bars" size={14} />
@@ -529,12 +458,7 @@ function BrandedHeader({ right }: { right?: ReactNode }) {
   return (
     <div className="relative flex h-[52px] shrink-0 items-center justify-center border-b border-line px-3">
       <span className="flex items-center gap-2">
-        {/*
-          Gerçek uygulamanın başlık markası (src/components/BrandedHeader.tsx):
-          brands/parkbiz/assets/logo_header.jpg, 40 × 35 pt, resizeMode="contain",
-          yanında "ParkBiz" yazısı. Burada duran araba ikonlu lacivert kare
-          yer tutucuydu; markanın kendisi değildi.
-        */}
+        {}
         <img
           src="/img/parkbiz-mark.jpg"
           alt=""
@@ -593,7 +517,7 @@ function TabBar({
 }: {
   tab: MobileTab;
   onSelect: (t: MobileTab) => void;
-  /** Dokunma ipucunun gösterileceği sekme (örn. abonelik). */
+
   hintTab?: MobileTab | null;
 }) {
   return (
@@ -621,7 +545,6 @@ function TabBar({
   );
 }
 
-/** Alt kısımda beliren, 5 sn'de kaybolan bildirim bandı. */
 function NoticeBanner({ text, tone, onClose }: { text: string; tone: Tone; onClose: () => void }) {
   const ring: Record<Tone, string> = {
     neutral: 'border-steel text-ash',
@@ -646,14 +569,11 @@ function NoticeBanner({ text, tone, onClose }: { text: string; tone: Tone; onClo
   );
 }
 
-/** Telefonun içinde yaşayan katman (sheet / onay modalı). ESC ile kapanır. */
 function PhoneOverlay({
   title, onClose, children, footer, align = 'bottom',
 }: { title: string; onClose: () => void; children: ReactNode; footer?: ReactNode; align?: 'bottom' | 'center' }) {
   const ref = useRef<HTMLDivElement>(null);
-  /* `onClose` satır içi ok fonksiyonudur; bağımlılığa konulursa simülasyonun
-     her adımında etki yeniden kurulur ve odak, sheet içinde yazarken katmanın
-     köküne geri sıçrardı. Kimlik ref'te sabitlenir (bkz. ui.tsx useLayer). */
+
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
   useEffect(() => {
@@ -697,10 +617,6 @@ function PhoneOverlay({
   );
 }
 
-/* ==========================================================================
-   3 · ORTAK GÖRÜNÜMLER
-   ========================================================================== */
-
 function QuotaBand({ park }: { park: DemoPark }) {
   if (park.capacityMembership <= 0) return null;
   const left = park.capacityMembership - park.membershipUsed;
@@ -724,7 +640,6 @@ function QuotaBand({ park }: { park: DemoPark }) {
   );
 }
 
-/** Fiyat tarifesi akordeonu — paneldeki AYNI `world.pricings` satırları. */
 function PricingAccordion({ world, park }: { world: DemoWorld; park: DemoPark }) {
   const rows = useMemo(() => world.pricings.filter((p) => p.parkId === park.id), [world.pricings, park.id]);
   const groups = useMemo(() => {
@@ -786,7 +701,6 @@ function PricingAccordion({ world, park }: { world: DemoWorld; park: DemoPark })
   );
 }
 
-/** Kayıtlı kart görseli (gerçek kredi kartı düzeni). Tam numara YOKTUR. */
 function CardVisual({
   card, onDefault, onDelete,
 }: { card: SavedCard; onDefault?: () => void; onDelete?: () => void }) {
@@ -840,10 +754,6 @@ function CardVisual({
   );
 }
 
-/* ==========================================================================
-   4 · GEZİNME YARDIMCISI — expo-router push/pop/replace/reset karşılığı
-   ========================================================================== */
-
 function useNav() {
   const dispatch = usePanelDispatch();
   return useMemo(
@@ -871,13 +781,12 @@ interface Ctx {
   nowMin: number;
   forms: Record<string, string>;
   nav: Nav;
-  /** Panelde o an seçili tesis — "otopark seçmeyeceğim" kaçışında kullanılır. */
+
   panelParkId: number;
 }
 
 const screenPad = 'space-y-3 px-3.5 py-3.5';
 
-/** Dokunma ipucu — parmak + dalga; kart/sekme üzerinde kullanıcı hareketi. */
 function TapHint({ className }: { className?: string }) {
   return (
     <span className={cx('phone-tap-hint pointer-events-none absolute z-20', className)} aria-hidden>
@@ -897,10 +806,6 @@ function hintPhase(forms: Record<string, string>): HintPhase {
   return 'park';
 }
 
-/* ==========================================================================
-   5 · EKRAN · GİRİŞ (logout / nadir yollar — hero’da başlangıç değil)
-   ========================================================================== */
-
 function LoginScreen({ c }: { c: Ctx }) {
   const dispatch = usePanelDispatch();
   const [email, setEmail] = useState(c.world.mobileUser.email);
@@ -917,18 +822,9 @@ function LoginScreen({ c }: { c: Ctx }) {
   };
 
   return (
-    /*
-      Gerçek giriş ekranı (app/(auth)/login.tsx) zemini `colors.background`
-      yani DÜZ BEYAZ'dır — bu yüzden burada da bg-carbon kullanılır; ayrıca
-      logonun kendi beyaz zemini böylece dikiş bırakmaz.
-    */
+
     <div className="flex min-h-full flex-col justify-center bg-carbon px-5 py-6">
-      {/*
-        Gerçek uygulamanın giriş logosu: assets/images/parkbiz_logo.png,
-        220 × 220 pt kutu içinde %80 ölçüde ve "contain" — yani 176 × 176.
-        Kelime markası logonun İÇİNDE olduğu için altına ayrıca "ParkBiz"
-        yazılmaz; gerçek ekranda da yazmaz.
-      */}
+      {}
       <div className="mx-auto flex h-[176px] w-[176px] items-center justify-center">
         <img
           src="/img/parkbiz-logo.png"
@@ -965,10 +861,6 @@ function LoginScreen({ c }: { c: Ctx }) {
   );
 }
 
-/* ==========================================================================
-   6 · EKRAN · OTOPARKLAR (liste + harita)
-   ========================================================================== */
-
 function ParkMap({
   parks, selected, onSelect,
 }: { parks: DemoPark[]; selected: number | null; onSelect: (id: number) => void }) {
@@ -988,7 +880,7 @@ function ParkMap({
 
   return (
     <div className="relative h-[360px] overflow-hidden rounded-[22px] border border-line bg-anthracite">
-      {/* Şematik şehir dokusu — SVG ile çizilir, harita servisi kullanılmaz */}
+      {}
       <svg viewBox="0 0 360 360" className="absolute inset-0 h-full w-full text-steel" aria-hidden preserveAspectRatio="none">
         <g stroke="currentColor" strokeWidth="10" opacity="0.55">
           <path d="M0 70h360M0 180h360M0 292h360M62 0v360M170 0v360M276 0v360" />
@@ -1035,7 +927,7 @@ function ParkMap({
         );
       })}
 
-      {/* Kullanıcı konumu */}
+      {}
       <span aria-hidden className="absolute bottom-[12%] left-[46%] flex h-4 w-4 items-center justify-center">
         <span className="h-3 w-3 rounded-full border-[2px] border-carbon bg-neon shadow" />
       </span>
@@ -1156,7 +1048,7 @@ function ParkingsScreen({ c }: { c: Ctx }) {
         })
       )}
 
-      {/* Yüzen kontroller: Liste/Harita geçişi + Destek FAB */}
+      {}
       <div className="sticky bottom-0 z-10 flex items-center pt-1">
         <span className="flex-1" />
         <span className="inline-flex rounded-full border border-line bg-carbon p-1 shadow-lg">
@@ -1190,10 +1082,6 @@ function ParkingsScreen({ c }: { c: Ctx }) {
   );
 }
 
-/* ==========================================================================
-   7 · EKRAN · OTOPARK DETAYI (tam ekran)
-   ========================================================================== */
-
 function ParkingDetailScreen({ c, parkId }: { c: Ctx; parkId: number }) {
   const park = c.world.parks.find((p) => p.id === parkId);
   if (!park) return <div className={screenPad}><MEmpty title="Otopark bulunamadı" /></div>;
@@ -1204,7 +1092,6 @@ function ParkingDetailScreen({ c, parkId }: { c: Ctx; parkId: number }) {
   );
 }
 
-/** Hem tam ekran hem alttan açılan sheet aynı gövdeyi kullanır. */
 function ParkingBody({ c, park }: { c: Ctx; park: DemoPark }) {
   const dispatch = usePanelDispatch();
   const packages = c.world.packages.filter((p) => p.parkId === park.id && p.active);
@@ -1216,7 +1103,7 @@ function ParkingBody({ c, park }: { c: Ctx; park: DemoPark }) {
     const write = async () => {
       try {
         if (typeof navigator !== 'undefined' && navigator.clipboard) await navigator.clipboard.writeText(park.address);
-      } catch { /* pano engelliyse sessizce geç */ }
+      } catch {  }
       c.nav.notice('Adres panoya kopyalandı — harita uygulamanıza yapıştırabilirsiniz.', 'success');
     };
     void write();
@@ -1302,19 +1189,8 @@ function ParkingBody({ c, park }: { c: Ctx; park: DemoPark }) {
   );
 }
 
-/* ==========================================================================
-   8 · EKRAN · BORÇ SORGULAMA (adım 1)
-   ========================================================================== */
-
-/** Gerçek uygulamadaki DebtWizardStepper adım adları. */
 const DEBT_STEPS = ['Plaka', 'Borçlar', 'Ödeme'];
 
-/**
- * Borç ödemesinde kart sheet'i — gerçek `debts/payment.tsx` ile birebir:
- * başlık "Ödeme Kartı Seçin", tutar etiketi "{tutar} TRY", onay düğmesi
- * "Kartı Seç ve Devam Et"; `session` verildiğinde sheet'in üstünde
- * Giriş / Çıkış / Süre şeridi görünür (debtDetail karşılığı).
- */
 const openDebtCardSheet = (total: number, sessionId: string): Record<string, string> => ({
   target: 'pay.cardId',
   amount: String(total),
@@ -1405,10 +1281,6 @@ function DebtsScreen({ c, initialPlate }: { c: Ctx; initialPlate: string }) {
   );
 }
 
-/* ==========================================================================
-   9 · EKRAN · BORÇ SONUÇLARI (adım 2)
-   ========================================================================== */
-
 function DebtResultScreen({ c, plate }: { c: Ctx; plate: string }) {
   const rows = useMemo(
     () => selectDebts(c.world, ALL_PARKS_ID).filter((s) => plateKey(s.plateTxt) === plateKey(plate)),
@@ -1486,21 +1358,12 @@ function DebtResultScreen({ c, plate }: { c: Ctx; plate: string }) {
   );
 }
 
-/* ==========================================================================
-   10 · EKRAN · BORÇ ÖDEME (adım 3) + sonuç ekranları
-   ========================================================================== */
-
 function DebtPayScreen({ c, ids, plate }: { c: Ctx; ids: string[]; plate: string }) {
   const dispatch = usePanelDispatch();
   const helpers = usePanelHelpers();
   const [phase, setPhase] = useState<'form' | 'busy' | 'ok' | 'fail'>('form');
   const [snap, setSnap] = useState<{ amount: number; at: number } | null>(null);
 
-  /*
-    Gerçek uygulamada sonuç ekranları ayrı rotalardır (debts/success ·
-    debts/failure) ve başlık çubuğu "Ödeme Başarılı" / "Ödeme Başarısız" yazar.
-    Telefon kabuğu başlığı store'dan okuduğu için evre forma da yansıtılır.
-  */
   const setForm = c.nav.form;
   useEffect(() => { setForm('pay.phase', phase); }, [phase, setForm]);
   useEffect(() => () => setForm('pay.phase', ''), [setForm]);
@@ -1508,9 +1371,7 @@ function DebtPayScreen({ c, ids, plate }: { c: Ctx; ids: string[]; plate: string
   const rows = useMemo(() => c.world.sessions.filter((s) => ids.includes(s.id)), [c.world.sessions, ids]);
   const total = rows.reduce((a, s) => a + s.amount, 0);
   const cardId = c.forms['pay.cardId'] ?? '';
-  // Sheet'ten YENİ kart eklendiğinde forma '__default__' yazılır; resolveCard
-  // bunu yeni eklenen (varsayılan) karta çözer — aksi halde ödeme düğmesi
-  // eklenen karta rağmen pasif kalırdı.
+
   const card = resolveCard(c.world.cards, cardId);
   const first = rows[0];
 
@@ -1519,7 +1380,7 @@ function DebtPayScreen({ c, ids, plate }: { c: Ctx; ids: string[]; plate: string
     setPhase('busy');
     setSnap({ amount: total, at: c.nowMin });
     helpers.simulate3DS(() => {
-      // Süresi dolmuş kart bilinçli olarak başarısız yola gider (deterministik).
+
       if (card.isExpired) {
         setPhase('fail');
         return;
@@ -1590,7 +1451,7 @@ function DebtPayScreen({ c, ids, plate }: { c: Ctx; ids: string[]; plate: string
       <MStepper
         steps={DEBT_STEPS}
         current={3}
-        // 2 → sonuç listesi (bir adım geri) · 1 → plaka ekranı (iki adım geri)
+
         onStep={(s) => { c.nav.pop(); if (s === 1) c.nav.pop(); }}
         ariaLabel="Borç ödeme adımları"
       />
@@ -1667,18 +1528,6 @@ function ReceiptRow({ k, v, icon }: { k: string; v: ReactNode; icon?: MIconKey }
   );
 }
 
-/* ==========================================================================
-   11 · ABONELİK — sekme kökü (sihirbaz adım 1) + "Aboneliklerim" ekranı
-
-   Gerçek uygulamada sekme kökü (app/(app)/(tabs)/subscriptions.tsx) YALNIZCA
-   3 adımlı sihirbazın 1. adımıdır: otopark arama + liste. Kullanıcının mevcut
-   abonelikleri AYRI bir ekranda yaşar (app/(app)/subscriptions/history.tsx,
-   başlık "Aboneliklerim") ve oraya Profil > "Mevcut Abonelikler" satırından
-   gidilir. Demo ikizinde de aynı ayrım yapılır: `subscriptions` rotası
-   params.view === 'mine' ile yığına PUSH edildiğinde geçmiş ekranı açılır.
-   ========================================================================== */
-
-/** Gerçek uygulamadaki SubscriptionWizardStepper adım adları. */
 const SUB_STEPS = ['Otopark', 'Paket & Araç', 'Ödeme ve Onay'];
 
 function memberTone(m: Membership): Tone {
@@ -1689,7 +1538,7 @@ function memberTone(m: Membership): Tone {
 }
 
 function cornerLabel(m: Membership, nowMin: number): string {
-  // Rozet metinleri gerçek history ekranından birebir alınmıştır.
+
   if (m.statusId === 'pending') return 'ÖDEME BEKLİYOR - TAMAMLA';
   if (m.statusId === 'terminated') return 'İPTAL EDİLDİ';
   if (m.statusId === 'expired') return 'SÜRESİ BİTTİ';
@@ -1699,7 +1548,6 @@ function cornerLabel(m: Membership, nowMin: number): string {
   return `${formatInt(left)} GÜN KALDI`;
 }
 
-/** Kartın sağ üstündeki durum etiketi (gerçek ekranda 4 değer alır). */
 function statusTagLabel(m: Membership): string {
   if (m.statusId === 'active') return 'Aktif';
   if (m.statusId === 'pending') return '⚠️ Ödeme Bekliyor';
@@ -1707,7 +1555,6 @@ function statusTagLabel(m: Membership): string {
   return 'Pasif';
 }
 
-/** İlerleme çubuğunun altındaki bitiş tarihine eklenen ek (gerçek biçim). */
 function progressSuffix(m: Membership): string {
   if (m.statusId === 'pending') return ' • ÖDEME BEKLİYOR';
   if (m.statusId === 'terminated') return ' • İPTAL EDİLDİ';
@@ -1718,7 +1565,6 @@ const STATUS_ORDER: Record<string, number> = {
   active: 0, pending: 1, doc_pending: 2, doc_rejected: 3, expired: 4, terminated: 5,
 };
 
-/** Kullanıcının aboneliklerini toplayan seçici (iki ekran da kullanır). */
 function useMyMemberships(c: Ctx): Membership[] {
   const myPlates = useMemo(() => new Set(c.world.vehicles.map((v) => plateKey(v.plateTxt))), [c.world.vehicles]);
   return useMemo(
@@ -1730,7 +1576,6 @@ function useMyMemberships(c: Ctx): Membership[] {
   );
 }
 
-/** Sekme kökü = sihirbazın 1. adımı: otopark arama + liste. */
 function SubscriptionsScreen({ c }: { c: Ctx }) {
   const [q, setQ] = useState('');
 
@@ -1782,10 +1627,6 @@ function SubscriptionsScreen({ c }: { c: Ctx }) {
   );
 }
 
-/**
- * "Aboneliklerim" (gerçek: app/(app)/subscriptions/history.tsx).
- * Kart rozetleri, durum etiketleri ve boş durum metni birebir kopyadır.
- */
 function MySubscriptionsScreen({ c }: { c: Ctx }) {
   const mine = useMyMemberships(c);
 
@@ -1813,7 +1654,7 @@ function MySubscriptionsScreen({ c }: { c: Ctx }) {
         const closed = m.statusId === 'terminated' || m.statusId === 'expired';
         return (
           <div key={m.id} className="relative pt-2">
-            {/* Kartın sol üstüne taşan rozet — gerçek ekrandaki daysLeftBadge. */}
+            {}
             <span
               className={cx(
                 'absolute top-0 left-5 z-10 inline-flex items-center gap-1 rounded-[8px] px-2 py-[5px] text-[10px] font-black text-carbon',
@@ -1856,17 +1697,13 @@ function MySubscriptionsScreen({ c }: { c: Ctx }) {
   );
 }
 
-/* ==========================================================================
-   12 · EKRAN · ABONELİK SATIN ALMA (adım 2 + 3 + sonuç)
-   ========================================================================== */
-
 function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
   const dispatch = usePanelDispatch();
   const helpers = usePanelHelpers();
   const park = c.world.parks.find((p) => p.id === parkId) ?? null;
 
   const rawStep = c.forms['mem.step'] ?? '';
-  // 2 = paket & araç · 3 = ödeme ve onay · 4 = başarı · 5 = "Ödeme Başarısız"
+
   const step = rawStep === '3' ? 3 : rawStep === 'done' ? 4 : rawStep === 'fail' ? 5 : 2;
   const vehicleId = c.forms['mem.vehicleId'] ?? '';
   const packageId = c.forms['mem.packageId'] ?? '';
@@ -1881,7 +1718,7 @@ function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
 
   const vehicle = c.world.vehicles.find((v) => v.id === vehicleId) ?? null;
   const pkg = c.world.packages.find((p) => p.id === packageId) ?? null;
-  // Bkz. DebtPayScreen: '__default__' sheet'ten yeni eklenen kartı işaret eder.
+
   const card = resolveCard(c.world.cards, cardId);
   const packages = useMemo(
     () => c.world.packages.filter((p) => p.parkId === parkId && p.active && p.isPurchasable),
@@ -1899,7 +1736,6 @@ function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
 
   if (!park) return <div className={screenPad}><MEmpty title="Otopark bulunamadı" /></div>;
 
-  /* --- Sonuç: Ödeme Başarısız (gerçek: subscriptions/failure.tsx) --- */
   if (step === 5) {
     return (
       <div className={cx(screenPad, 'pt-6')}>
@@ -1946,7 +1782,6 @@ function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
     );
   }
 
-  /* --- Sonuç: Abonelik Aktif --- */
   if (step === 4) {
     const total = created ? Math.max(1, created.availableUntilMin - created.subscribedAtMin) : 1;
     const elapsed = created ? Math.max(0, Math.min(total, c.nowMin - created.subscribedAtMin)) : 0;
@@ -2002,7 +1837,7 @@ function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
           Finansal Özet&apos;teki abonelik geliri arttı.
         </div>
 
-        {/* Gerçek success ekranının iki eylemi + destek satırı. */}
+        {}
         <MButton onClick={() => { c.nav.tab('parkings'); }}>Ana Sayfaya Dön</MButton>
         <MButton
           variant="outline"
@@ -2025,7 +1860,6 @@ function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
     );
   }
 
-  /* --- Adım 2: araç + paket --- */
   if (step === 2) {
     return (
       <div className={screenPad}>
@@ -2130,10 +1964,8 @@ function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
     );
   }
 
-  /* --- Adım 3: özet + ödeme --- */
   const phoneOk = phone.replace(/\D/g, '').length === 10;
 
-  /** Gerçek subscriptions/payment.tsx'in CardPaymentSheet parametreleri. */
   const cardSheetParams: Record<string, string> = {
     target: 'mem.cardId',
     amount: String(pkg?.cost ?? 0),
@@ -2150,7 +1982,7 @@ function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
     helpers.simulate3DS(() => {
       setBusy(false);
       if (card.isExpired) {
-        // Deterministik hata yolu: süresi dolmuş kart → "Ödeme Başarısız" ekranı.
+
         c.nav.form('mem.err', 'Kartınızın son kullanma tarihi geçmiş — ödeme reddedildi. Lütfen başka bir kart deneyin.');
         c.nav.form('mem.step', 'fail');
         return;
@@ -2284,7 +2116,7 @@ function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
 
       <div className="flex gap-2">
         <MButton variant="outline" onClick={() => c.nav.form('mem.step', '2')}>Geri</MButton>
-        {/* Gerçek ekranda düğme kart seçilmemişken de çalışır: sheet'i açar. */}
+        {}
         <MButton
           onClick={() => {
             if (!card) { c.nav.sheet('card', cardSheetParams); return; }
@@ -2299,10 +2131,6 @@ function BuyMembershipScreen({ c, parkId }: { c: Ctx; parkId: number }) {
     </div>
   );
 }
-
-/* ==========================================================================
-   13 · EKRAN · ABONELİK DETAYI + ÖDEME GEÇMİŞİ
-   ========================================================================== */
 
 function SubscriptionDetailScreen({ c, id }: { c: Ctx; id: string }) {
   const dispatch = usePanelDispatch();
@@ -2358,9 +2186,7 @@ function SubscriptionDetailScreen({ c, id }: { c: Ctx; id: string }) {
             icon="wallet"
             onClick={() =>
               c.nav.sheet('card', {
-                // Gerçek subscriptions/[id].tsx: başlık "Abonelik Ödemesi",
-                // tutar etiketi "Abonelik Tutarı", onay "Ödeme Yap", kayıtlı
-                // kartlar gizli (hideSavedCards).
+
                 target: 'membership.pay',
                 id: m.id,
                 amount: String(m.amount),
@@ -2514,10 +2340,6 @@ function PaymentHistoryScreen({ c, id }: { c: Ctx; id: string }) {
   );
 }
 
-/* ==========================================================================
-   14 · EKRAN · ARAÇLARIM + YENİ ARAÇ
-   ========================================================================== */
-
 function VehiclesScreen({ c }: { c: Ctx }) {
   if (c.world.vehicles.length === 0) {
     return (
@@ -2592,16 +2414,6 @@ function AddVehicleScreen({ c }: { c: Ctx }) {
   );
 }
 
-/* ==========================================================================
-   15 · EKRAN · KAYITLI KARTLARIM + KART EKLEME
-   ========================================================================== */
-
-/**
- * Gerçek uygulamada kart ekleme AYRI BİR EKRAN DEĞİL, "Kayıtlı Kartlarım"
- * üzerinde açılan CardPaymentSheet'tir (payment-methods/index.tsx):
- * başlık "Yeni Kart Kaydet", tutar satırı doğrulama notu, onay "Kartı Kaydet",
- * kayıtlı kart sekmesi gizli.
- */
 const CARD_REGISTER_SHEET: Record<string, string> = {
   target: 'card.register',
   amount: '0',
@@ -2649,17 +2461,6 @@ function CardsScreen({ c }: { c: Ctx }) {
     </div>
   );
 }
-
-/*
- * NOT: Gerçek uygulamada AYRI bir "Kart Ekle" EKRANI YOKTUR. Kart, Kayıtlı
- * Kartlarım üzerindeki CardPaymentSheet ile ("Yeni Kart Kaydet") eklenir —
- * bkz. CARD_REGISTER_SHEET. Bu yüzden demo ikizindeki eski tam ekran form
- * kaldırıldı; 'add-card' rotası Kayıtlı Kartlarım'a düşer.
- */
-
-/* ==========================================================================
-   16 · EKRAN · DESTEK TALEPLERİ
-   ========================================================================== */
 
 const myTickets = (world: DemoWorld): SupportTicket[] =>
   world.tickets.filter((t) => t.source === 'mobil').sort((a, b) => b.updatedAtMin - a.updatedAtMin);
@@ -2716,7 +2517,7 @@ function SupportDetailScreen({ c, id }: { c: Ctx; id: string }) {
   const [open, setOpen] = useState(true);
   const [body, setBody] = useState('');
   const t = c.world.tickets.find((x) => x.id === id) ?? null;
-  // Yanıt ekleri talep başına ayrı forma yazılır; ekran değişince karışmaz.
+
   const attKey = `rep.att:${id}`;
   const replyAtts = parseAtt(c.forms[attKey] ?? '');
   if (!t) return <div className={screenPad}><MEmpty title="Talep bulunamadı" /></div>;
@@ -2825,7 +2626,7 @@ function SupportDetailScreen({ c, id }: { c: Ctx; id: string }) {
             />
           )}
           <div className="flex items-end gap-2">
-            {/* Gerçek composer: solda ataç düğmesi, ortada çok satırlı alan. */}
+            {}
             <button
               type="button"
               aria-label="Dosya ekle"
@@ -2854,8 +2655,7 @@ function SupportDetailScreen({ c, id }: { c: Ctx; id: string }) {
             onClick={() => {
               const text = body.trim();
               if (replyAtts.length > 0) {
-                // MOBILE_REPLY_TICKET ek taşımaz; ekli yanıt için çekirdek
-                // TICKET_REPLY kullanılır (gönderen yine abone tarafıdır).
+
                 dispatch({ type: 'TICKET_REPLY', id: t.id, body: text, sender: 'partner', attachments: replyAtts });
                 c.nav.form(attKey, '');
               } else {
@@ -2871,8 +2671,6 @@ function SupportDetailScreen({ c, id }: { c: Ctx; id: string }) {
     </div>
   );
 }
-
-/* --- Yeni talep ------------------------------------------------------- */
 
 const parseAtt = (raw: string): { name: string; sizeKb: number }[] =>
   raw ? raw.split('|').filter(Boolean).map((s) => {
@@ -2895,7 +2693,7 @@ function NewSupportScreen({ c }: { c: Ctx }) {
   const parkLabel =
     parkRaw === 'none' ? 'Otopark seçmeyeceğim' : c.world.parks.find((p) => String(p.id) === parkRaw)?.name ?? null;
   const veh = c.world.vehicles.find((v) => v.id === vehId) ?? null;
-  // 'manual' = "Yeni Plaka Gir" · 'none' = "Araç seçmeyeceğim" (gerçek ekranla aynı).
+
   const manualMode = vehId === 'manual';
   const vehValue = manualMode
     ? (manualPlate ? prettyPlate(normalizePlate(manualPlate)) : null)
@@ -2927,7 +2725,7 @@ function NewSupportScreen({ c }: { c: Ctx }) {
 
   return (
     <div className={screenPad}>
-      {/* Etiket ve placeholder metinleri gerçek support/create.tsx ile birebir. */}
+      {}
       <MSelectRow icon="ticket" label="Konu / Sorun" value={catLabel} placeholder="Sorun türünü seçin" onClick={() => c.nav.sheet('select', { kind: 'category' })} />
       <MSelectRow icon="map" label="Otopark" value={parkLabel} placeholder="Hangi otoparkta sorun yaşadınız?" onClick={() => c.nav.sheet('select', { kind: 'park' })} />
       <MSelectRow icon="car" label="Araç" value={vehValue} placeholder="Araç seçin veya yeni girin" onClick={() => c.nav.sheet('select', { kind: 'vehicle' })} />
@@ -2964,12 +2762,7 @@ function NewSupportScreen({ c }: { c: Ctx }) {
         />
       </div>
 
-      {/*
-        Düğme `!valid` iken kapalıdır; eksik olanın NE olduğu ekranda yazmazsa
-        kullanıcı gri bir düğmeye bakıp kalır (mesaj alanının kendi `help`
-        satırı var, ama "Konu / Sorun" seçiminin yoktu). Eksikler burada
-        sayılır, böylece kapalı düğmenin gerekçesi görünür olur.
-      */}
+      {}
       {!valid && (
         <p className="-mt-1 text-[11px] text-slatey">
           Gönderebilmek için{' '}
@@ -2988,10 +2781,6 @@ function NewSupportScreen({ c }: { c: Ctx }) {
     </div>
   );
 }
-
-/* ==========================================================================
-   17 · EKRAN · PROFİL + İLETİŞİM
-   ========================================================================== */
 
 function ProfileScreen({ c }: { c: Ctx }) {
   const dispatch = usePanelDispatch();
@@ -3175,18 +2964,12 @@ function ContactScreen({ c }: { c: Ctx }) {
   );
 }
 
-/* ==========================================================================
-   18 · KATMANLAR (SHEET'LER)
-   ========================================================================== */
-
-/** '__default__' = sheet'ten yeni eklenen kart (eklenen kart varsayılan olur). */
 function resolveCard(cards: SavedCard[], id: string): SavedCard | null {
   if (!id) return null;
   if (id === '__default__') return cards.find((x) => x.isDefault) ?? null;
   return cards.find((x) => x.id === id) ?? null;
 }
 
-/** Gerçek CardPaymentSheet'in etiketli alanı: üstte UPPERCASE etiket + input. */
 function MField({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div>
@@ -3196,13 +2979,6 @@ function MField({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-/**
- * Ödeme kartı sheet'i — gerçek `src/components/CardPaymentSheet.tsx` ile
- * birebir düzen: başlık + tutar etiketi, (borç akışında) Giriş/Çıkış/Süre
- * şeridi, "Kayıtlı Kart" / "Yeni Kart" sekmeleri, ETİKETLİ alanlar
- * (AD SOYAD · KART NUMARASI · SKT · CVV), altta hata satırı ve TEK onay
- * düğmesi (`confirmLabel` → yüklenirken "İşleniyor...").
- */
 function CardPaymentSheet({
   c, target, membershipId, currentRoute, title, amountLabel, confirmLabel, sessionId, hideSaved = false,
 }: {
@@ -3228,7 +3004,6 @@ function CardPaymentSheet({
   const cvvBad = cvv.length < 3;
   const okNew = !holderBad && !numberBad && !expBad && !cvvBad;
 
-  /** Borç akışında sheet'in üstünde duran oturum şeridi (debtDetail eşleniği). */
   const session = sessionId ? c.world.sessions.find((s) => s.id === sessionId) ?? null : null;
 
   const choose = (id: string) => {
@@ -3247,12 +3022,12 @@ function CardPaymentSheet({
       brand: brandOf(digits), last3: digits.slice(-3),
       holderName: holder.trim(), expireMonth: expM, expireYear: expY,
     });
-    // MOBILE_ADD_CARD yığından bir adım geri alır; bulunduğumuz ekranı geri koyuyoruz.
+
     dispatch({ type: 'MOBILE_NAV', op: 'push', route: currentRoute });
     if (target === 'membership.pay' && membershipId) {
       dispatch({ type: 'MEMBERSHIP_PAY', id: membershipId, cardId: '__default__' });
     } else if (target !== 'card.register') {
-      // 'card.register' yalnızca kart kaydeder; bir ödeme formunu beslemez.
+
       c.nav.form(target, '__default__');
     }
     c.nav.sheet(null);
@@ -3486,22 +3261,16 @@ function SelectionSheet({ c, kind }: { c: Ctx; kind: string }) {
   );
 }
 
-/** Gerçek AttachmentSourceSheet satırları (başlık + alt açıklama birebir). */
 const ATTACH_SOURCES: { id: string; label: string; sub: string; icon: MIconKey; file: string; kb: number }[] = [
   { id: 'cam', label: 'Kameradan Çek', sub: 'Yeni bir fotoğraf çekin', icon: 'camera', file: 'kamera-goruntusu', kb: 1840 },
   { id: 'gal', label: 'Galeriden Seç', sub: 'Cihazınızdaki fotoğraflar', icon: 'image', file: 'galeri-foto', kb: 2360 },
   { id: 'doc', label: 'Belge Seç', sub: 'PDF, Word, Excel veya ZIP', icon: 'doc', file: 'belge', kb: 640 },
 ];
 
-/** Tek ekte izin verilen üst sınır (gerçek uygulamanın 413 hatası eşiği). */
 const ATTACH_MAX_KB = 20 * 1024;
 
 const isImageAtt = (name: string) => /\.(jpg|jpeg|png|heic|webp)$/i.test(name);
 
-/**
- * Ek kaynağı sheet'i. `key` hangi forma yazılacağını söyler: yeni talep formu
- * 'sup.att', bir talebin yanıt kutusu 'rep.att:{ticketId}'.
- */
 function AttachSheet({ c, formKey, max }: { c: Ctx; formKey: string; max: number }) {
   const atts = parseAtt(c.forms[formKey] ?? '');
   const full = atts.length >= max;
@@ -3553,10 +3322,6 @@ function AttachSheet({ c, formKey, max }: { c: Ctx; formKey: string; max: number
   );
 }
 
-/**
- * Ek önizlemesi (gerçek ImagePreviewModal): görselde tam ekran koyu katman,
- * belgede dosya kartı. Görsel dosyası yoktur — kare, CSS ile çizilir.
- */
 function PreviewSheet({ c, name }: { c: Ctx; name: string }) {
   const image = isImageAtt(name);
   return (
@@ -3597,7 +3362,6 @@ function PreviewSheet({ c, name }: { c: Ctx; name: string }) {
   );
 }
 
-/** Ek kırpıntıları: dokununca önizleme açar, çarpı ile kaldırır. */
 function AttachStrip({
   c, atts, onRemove, onAdd, max,
 }: { c: Ctx; atts: { name: string; sizeKb: number }[]; onRemove?: (name: string) => void; onAdd?: () => void; max?: number }) {
@@ -3690,10 +3454,6 @@ function LegalSheet({ c, title }: { c: Ctx; title: string }) {
   );
 }
 
-/* ==========================================================================
-   19 · TELEFON — çerçeve + yönlendirici
-   ========================================================================== */
-
 const TITLES: Record<MobileRouteName, string> = {
   login: 'Giriş',
   parkings: 'Otoparklar',
@@ -3736,7 +3496,7 @@ function ScreenBody({ c, route }: { c: Ctx; route: MobileRoute }) {
     case 'vehicles': return <VehiclesScreen c={c} />;
     case 'add-vehicle': return <AddVehicleScreen c={c} />;
     case 'cards': return <CardsScreen c={c} />;
-    // Gerçekte ayrı ekran yok: kart, Kayıtlı Kartlarım üzerindeki sheet ile eklenir.
+
     case 'add-card': return <CardsScreen c={c} />;
     case 'support': return <SupportScreen c={c} />;
     case 'support-detail': return <SupportDetailScreen c={c} id={p.id ?? ''} />;
@@ -3761,7 +3521,7 @@ function Phone({ c }: { c: Ctx }) {
     route.name === 'vehicles' ? { label: 'Ekle', run: () => c.nav.push({ name: 'add-vehicle' }) }
       : route.name === 'cards' ? { label: 'Kart Ekle', run: () => c.nav.sheet('card', CARD_REGISTER_SHEET) }
         : route.name === 'support' ? { label: 'Yeni Talep', run: () => c.nav.push({ name: 'new-support' }) }
-          // Gerçek "Aboneliklerim" ekranının sağ üst eylemi: Yeni Abonelik.
+
           : route.name === 'subscriptions' && route.params?.view === 'mine'
             ? { label: 'Yeni Abonelik', run: () => c.nav.tab('subscriptions') }
             : null;
@@ -3769,18 +3529,12 @@ function Phone({ c }: { c: Ctx }) {
   const cardTarget = sheet?.kind === 'card' ? (sheet.params?.target ?? 'pay.cardId') : '';
 
   return (
-    /*
-      TELEFONUN KENDİ PENCERESİ. Zone'un koyu paleti gövdenin İÇİNE girmez:
-      `app-phone` kökü (panel-theme.css) gerçek ParkBiz marka değerlerini
-      kurar — yüzey #ffffff, metin #0f1724, birincil lacivert #133b68,
-      gövde/çerçeve #0f1724. Böylece telefon ne siteye ne de panele benzer;
-      gerçek uygulamanın kendisine benzer.
-    */
+
     <div
       className="app-phone relative shrink-0 rounded-[2.6rem] border border-steel/60 bg-ink p-[13px] shadow-2xl"
       style={{ width: 416, height: 870 }}
     >
-      {/* Yan tuşlar — CSS ile çizilir */}
+      {}
       <span aria-hidden className="absolute top-[150px] -left-[3px] h-[52px] w-[3px] rounded-l bg-ink" />
       <span aria-hidden className="absolute top-[215px] -left-[3px] h-[52px] w-[3px] rounded-l bg-ink" />
       <span aria-hidden className="absolute top-[180px] -right-[3px] h-[74px] w-[3px] rounded-r bg-ink" />
@@ -3793,8 +3547,7 @@ function Phone({ c }: { c: Ctx }) {
             title={
               route.name === 'subscriptions' && route.params?.view === 'mine'
                 ? 'Aboneliklerim'
-                // Abonelik sihirbazının sonuç adımları gerçek uygulamada ayrı
-                // rotalardır: subscriptions/success ve subscriptions/failure.
+
                 : (route.name === 'buy-membership' && m.forms['mem.step'] === 'done') ||
                   (route.name === 'debt-pay' && m.forms['pay.phase'] === 'ok')
                   ? 'Ödeme Başarılı'
@@ -3823,10 +3576,7 @@ function Phone({ c }: { c: Ctx }) {
           )}
         </div>
 
-        {/*
-          Sekme çubuğu kökte durur. Tek istisna Otopark Detayı: gerçek uygulamada
-          o ekran AppTabScreen ile açılır ve PersistentTabBar'ı korur.
-        */}
+        {}
         {m.authed && (isRoot || route.name === 'parking-detail') && (
           <TabBar
             tab={m.tab}
@@ -3882,10 +3632,6 @@ function Phone({ c }: { c: Ctx }) {
   );
 }
 
-/* ==========================================================================
-   20 · YAN PANELLER — "Bu ne?" kısayolları + Canlı Köprü
-   ========================================================================== */
-
 const MODULE_TAB: Partial<Record<ModuleId, string>> = {
   payments: 'payments', memberships: 'list', support: 'all', sessions: 'all',
 };
@@ -3909,7 +3655,6 @@ interface Shortcut {
   run: () => void;
 }
 
-/** Telefon çerçevesi ölçekleri — dar ekran / gerçek cihaz / büyütülmüş. */
 type PhoneScale = 0.75 | 1 | 1.25;
 
 const PHONE_SCALES: { value: PhoneScale; label: string; hint: string }[] = [
@@ -4045,28 +3790,12 @@ function BridgePanel({
   );
 }
 
-/* ==========================================================================
-   21 · ÇALIŞMA ZAMANI — telefonun iki kullanımı için ortak
-   ========================================================================== */
-
-/**
- * Telefonun çalışması için gereken asgari bağlam.
- *
- * İki yerden kullanılır ve ikisinde de AYNI davranmalıdır:
- *  · panelin "Mobil Uygulama" modülü (kısayollar ve canlı köprü ile birlikte),
- *  · ana sayfadaki mobil bölümü (yalnızca telefon).
- *
- * Bu yüzden CİHAZA ait davranış (bildirim bandının kendiliğinden kapanması)
- * burada durur; YERLEŞİME ait kararlar (ölçek) çağırana bırakılır — panelde
- * kullanıcı ölçeği kendi seçer, ana sayfada bölüm genişliğinden hesaplanır.
- */
 function useMobileRuntime() {
   const state = usePanelState();
   const dispatch = usePanelDispatch();
   const nav = useNav();
   const m = state.mobile;
 
-  /* Bildirim bandı 5 sn sonra kendiliğinden kapanır (gerçek NoticeBanner). */
   const noticeText = m.notice?.text ?? null;
   useEffect(() => {
     if (!noticeText) return;
@@ -4089,14 +3818,6 @@ function useMobileRuntime() {
   return { state, dispatch, nav, m, c };
 }
 
-/**
- * TELEFONUN TEK BAŞINA HÂLİ — yan panel, rozet, kısayol yoktur.
- *
- * Gövde 416 × 870 piksel sabittir (gerçek cihaz ölçüsü). `scale` yalnızca dış
- * ölçüyü küçültür; içerideki hiçbir punto, dolgu veya dokunma hedefi değişmez.
- * Dar ekranda da uygulama BİREBİR aynı uygulamadır — küçültülmüş bir uyarlama
- * değil, uzaktan bakılan aynı cihaz.
- */
 export function MobilePhone({ scale = 1 }: { scale?: number }) {
   const { c } = useMobileRuntime();
   return (
@@ -4108,31 +3829,19 @@ export function MobilePhone({ scale = 1 }: { scale?: number }) {
   );
 }
 
-/* ==========================================================================
-   22 · DEFAULT EXPORT — MOBİL UYGULAMA MODÜLÜ
-   ========================================================================== */
-
 export default function MobileApp() {
   const helpers = usePanelHelpers();
   const { state, dispatch, nav, m, c } = useMobileRuntime();
 
-  /*
-   * DAR EKRAN UYUMU — telefon gövdesi 416px sabittir; 360–400px'lik gerçek
-   * telefonlarda simülasyon yatay kaydırma istiyordu. İlk oturuşta (yalnızca
-   * kullanıcı henüz ölçeğe dokunmadıysa) küçük ölçeğe düşürülür.
-   * useEffect içinde ve tek seferlik: ilk render sunucuyla aynı kalır,
-   * hydration uyuşmazlığı olmaz; sonrasında seçim kullanıcınındır.
-   */
   const scaleTouched = useRef(false);
   useEffect(() => {
     if (scaleTouched.current) return;
     scaleTouched.current = true;
     if (typeof window === 'undefined') return;
-    // 416px gövde + main'in yatay boşluğu: ~460px altında artık sığmıyor.
+
     if (window.innerWidth < 460) dispatch({ type: 'MOBILE_SET_SCALE', scale: 0.75 });
   }, [dispatch]);
 
-  /* Kısayollar için borcu olan bir plaka seç (önce kullanıcının araçları). */
   const debtPlate = useMemo(() => {
     const debts = selectDebts(state.world, ALL_PARKS_ID);
     const own = state.world.vehicles.find((v) => debts.some((d) => plateKey(d.plateTxt) === plateKey(v.plateTxt)));
@@ -4188,7 +3897,7 @@ export default function MobileApp() {
         id: 'mine', icon: 'list',
         label: 'Aboneliklerimi gör',
         desc: 'Kalan gün çubuğu, otomatik yenileme anahtarı, iptal ve ödeme geçmişi',
-        // Gerçek uygulamadaki yol: Profil → "Mevcut Abonelikler" → Aboneliklerim.
+
         run: () => { ensureAuth(); nav.tab('profile'); nav.push({ name: 'subscriptions', params: { view: 'mine' } }); },
       },
     ],
@@ -4207,8 +3916,7 @@ export default function MobileApp() {
       dispatch({ type: 'SET_MODULE', module: rec.targetModule, tab });
       const term = bridgeTerm(state.world, rec);
       if (term) dispatch({ type: 'SET_SEARCH', module: rec.targetModule, search: term });
-      // Abonelikler modülü 'focus' anahtarıyla doğrudan o kaydın detayını açar;
-      // köprü satırı böylece aramada bırakmak yerine kaydın üstüne indirir.
+
       if (rec.targetModule === 'memberships' && rec.targetId) {
         dispatch({ type: 'SET_FILTER', module: 'memberships', key: 'focus', value: rec.targetId });
       }
@@ -4219,11 +3927,7 @@ export default function MobileApp() {
 
   return (
     <IdleGuard as="section" className="space-y-4">
-      {/*
-        "Gerçek Zone panelinde karşılığı yoktur — demo eki" rozeti kabuğun
-        sayfa başlığında zaten basılıyor (PanelShell · meta.demoExtra); burada
-        tekrar edilince dar ekranda aynı cümle iki kez alt alta düşüyordu.
-      */}
+      {}
       <div className="flex flex-wrap items-center gap-2">
         <Badge tone="info" icon="mobile">ParkBiz mobil uygulaması · etkileşimli ikiz</Badge>
         <span className="ml-auto"><DemoBadge /></span>

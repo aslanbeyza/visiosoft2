@@ -22,7 +22,6 @@ export const parkingFlowCopy = {
   } satisfies Record<ParkingFlowDevice, string>,
 } as const
 
-/** Sayfaların doğrudan kullanabileceği varsayılan beş adım. */
 export const parkingFlowSteps: { id: ParkingFlowStepId; title: string; description: string }[] = [
   { id: 'approach', title: 'Araç yaklaşır', description: 'Araç giriş ya da çıkış şeridine girer; sistem plakayı okumaya hazırdır.' },
   { id: 'detect', title: 'Plaka okunur', description: 'Direkteki kamera plakayı tanır; plaka girişi ya da etiket gerekmez.' },

@@ -8,7 +8,6 @@ export type HubModule = {
   detail: string
 }
 
-// Uçtan uca sistem sayfasının metinleri (mevcut sayfa, menü ve ana sayfa metinlerinden)
 export const endToEndCopy = {
   seo: {
     title: 'Uçtan Uca Otopark Sistemi - Visiosoft',

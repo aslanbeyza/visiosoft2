@@ -12,7 +12,6 @@ type CategoryFilterProps = {
   visibleCount: number
 }
 
-/** Kategori sekmeleri — statik alt çizgi; animasyonlu pill yok. */
 export default function CategoryFilter({ active, onChange, counts, visibleCount }: CategoryFilterProps) {
   const options: { key: FilterKey; label: string }[] = [
     { key: 'all', label: productsCopy.all },

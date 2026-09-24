@@ -36,8 +36,6 @@
   --no-fg: rgb(255 255 255 / 0.5);
 }
 
-/* Tablo */
-
 .scroller {
   display: none;
   overflow-x: auto;
@@ -139,7 +137,6 @@
   font-weight: 600;
 }
 
-/* M12 — süpüren çizgi: hücrenin üst kenarında, soldan sağa. */
 .sweep {
   position: absolute;
   top: -1px;
@@ -176,8 +173,6 @@
   width: 0.9rem;
   height: 0.9rem;
 }
-
-/* Kartlar (dar ekran) */
 
 .cards {
   display: grid;

@@ -13,7 +13,6 @@ import styles from './ShowcaseLayout.module.css'
 
 const icons = { merkez: <SettingsIcon />, hiz: <ClockIcon />, dogruluk: <ShieldIcon /> }
 
-/** /hgs-ile-dusuk-confidence-onay — hero anı: güven kontrolünde ikiye ayrılan PTS okuma akışı. */
 export default function LowConfidence() {
   const copy = showcaseCopy['low-confidence']
 
@@ -38,7 +37,7 @@ export default function LowConfidence() {
               </Prose>
             </Reveal>
           </div>
-          {/* Arayüz görüntüsü kenarlara kadar metin taşır; screenshot kipi kenar metnini kırpmaz. */}
+          {}
           <MediaFrame className={styles.splitMedia} ratio="1010 / 448" mode="screenshot" caption={approvalCopy.caption}>
             <Picture {...approvalCopy.image} sizes="(min-width: 1024px) 50vw, 100vw" />
           </MediaFrame>

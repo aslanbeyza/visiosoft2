@@ -47,7 +47,6 @@
   stroke-linecap: round;
 }
 
-/* Tarama çizgisi: tam genişlikte katman sağa kayar, çizgi katmanın sol kenarındadır. */
 .head {
   position: absolute;
   inset: 0;
@@ -141,7 +140,6 @@
   outline-offset: 3px;
 }
 
-/* Atım etiketleri: geniş ekranda atımların altında, dar ekranda 2×2 ızgara. */
 .beats ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

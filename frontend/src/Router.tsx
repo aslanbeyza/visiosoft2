@@ -6,10 +6,6 @@ import MainLayout from './layout/MainLayout/index.ts'
 import Marketing from './pages/Marketing/index.ts'
 import { pages } from './pages/registry.ts'
 
-/*
- * Tüm sayfalar registry üzerinden tembel yüklenir; tek Suspense sınırı MainLayout içindeki PageTransition'dadır.
- * Marketing küçük bir dağıtıcıdır ve kendi içinde aynı registry'den tembel bileşenler kullanır.
- */
 const Home = lazy(pages.home)
 const SoftwareProducts = lazy(pages.softwareProducts)
 const Contact = lazy(pages.contact)

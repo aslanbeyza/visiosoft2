@@ -4,21 +4,12 @@ import { products } from '../../pages/HardwareProduct/products.ts'
 import type { HardwareSlug } from '../../pages/HardwareProduct/products.ts'
 import { flagshipShowcase } from './homeFlagshipsCopy.ts'
 
-/**
- * Tek ürün adı: sekme etiketi mega menüdeki standart addır (siteNav.ts hardwareMenu);
- * menüde bulunmazsa products.ts'e düşer.
- */
 const navName = (slug: HardwareSlug) => {
   const { route, copy } = products[slug]
   const entry = hardwareMenu.find((link) => link.route === route)
   return { name: entry?.label ?? copy.name, category: entry?.description ?? copy.eyebrow }
 }
 
-/**
- * Dört ana ürün ve sahne ölçüleri. Görsel verisi public/img/home altındadır.
- * Birim cqh = sahne yüksekliğinin %1'i. Ürünler zemine oturur (lift yok); vitrin ölçeği önceki
- * sekmeli sahneden ≈%25 daha büyüktür.
- */
 export const STAGE = {
   floor: 16,
   kioskHeight: 90,
@@ -46,7 +37,6 @@ export type Flagship = {
   fit: { height: number } | { width: number }
 }
 
-/** Ürünün alfa kutusu sahnede ölçeklenir; görsel kutunun içine şeffaf kenarları taşacak şekilde yerleşir. */
 export function flagshipGeometry(item: Flagship) {
   const [x0, y0, x1, y1] = item.image.bbox
   const pw = x1 - x0
@@ -122,7 +112,6 @@ export const flagships: Flagship[] = [
   },
 ]
 
-/** Vitrin kartı + ürün sayfası rotası. */
 export const flagshipInfo = (slug: Flagship['slug']) => {
   const { route } = products[slug]
   return { ...flagshipShowcase[slug], route }

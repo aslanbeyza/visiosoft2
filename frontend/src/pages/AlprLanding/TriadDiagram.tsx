@@ -5,7 +5,6 @@ import styles from './TriadDiagram.module.css'
 
 const HUB = { x: 280, y: 206 }
 
-// Üç bileşen: konum, hub'a giden bağlantı eğrisi, eğri boyunca yol alan noktanın göreli kareleri ve simge çizgileri
 const nodes = [
   {
     x: 110,
@@ -37,7 +36,6 @@ type TriadDiagramProps = {
   active: number | null
 }
 
-/** Hero anı: yazılım, donanım ve destek düğümleri çizilir; bağlantılar hub'a akar. Kart üzerine gelindiğinde ilgili düğüm öne çıkar. */
 export default function TriadDiagram({ labels, hub, label, active }: TriadDiagramProps) {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

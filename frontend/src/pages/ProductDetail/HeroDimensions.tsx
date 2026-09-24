@@ -16,7 +16,6 @@ type LineProps = {
   duration?: number
 }
 
-/** pathLength ile çizilen ölçü çizgisi (M3). */
 function Stroke({ reduce, delay, duration = 0.8, ...line }: LineProps) {
   return (
     <motion.line
@@ -28,7 +27,6 @@ function Stroke({ reduce, delay, duration = 0.8, ...line }: LineProps) {
   )
 }
 
-/** Kesik uzatma çizgisi; dash dizisi korunur, yalnızca opaklıkla belirir. */
 function Extension({ reduce, delay, ...line }: Omit<LineProps, 'duration'>) {
   return (
     <motion.line
@@ -40,7 +38,6 @@ function Extension({ reduce, delay, ...line }: Omit<LineProps, 'duration'>) {
   )
 }
 
-// Çizgilerin görsel kutusundan uzaklığı (px). SVG'de viewBox olmadığı için birimler CSS pikselidir.
 const H_LINE = -26
 const W_LINE = -22
 const TICK = 7
@@ -49,14 +46,10 @@ const pct = (value: number) => `${value}%`
 type HeroDimensionsProps = {
   dimensions: HeroDimensionsData
   reduce: boolean
-  /** Ürün yükseldikten sonra başlama gecikmesi (sn). */
+
   delay?: number
 }
 
-/**
- * Ölçü çizgileri görselin kendi kutusuna yerleşir: SVG kutuyu tam kaplar, yüzdeler kutuya göre çözülür.
- * Böylece ekran boyutu değişse de çizgiler ürünün kenarlarıyla hizalı kalır.
- */
 export default function HeroDimensions({ dimensions, reduce, delay = 1.25 }: HeroDimensionsProps) {
   const { height, width } = dimensions
   const base = delay

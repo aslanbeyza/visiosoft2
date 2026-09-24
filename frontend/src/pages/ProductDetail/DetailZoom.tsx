@@ -8,10 +8,6 @@ type DetailZoomProps = {
   zoom: DetailZoomData
 }
 
-/**
- * Hareket azaltıldığında yakınlaşma yoktur; "Kaydırdıkça … yaklaşın." girişini kaydırmadan söz etmeyen
- * "… yakından bakın." biçimine çevirir (yönelme hâli iki fiilde de aynı kalır).
- */
 const staticLeadOf = (description: string) => {
   const match = /^Kaydırdıkça\s+(.+?)\s+yaklaşın\.$/u.exec(description)
   if (!match) return undefined
@@ -19,10 +15,6 @@ const staticLeadOf = (description: string) => {
   return `${parts.charAt(0).toLocaleUpperCase('tr-TR')}${parts.slice(1)} yakından bakın.`
 }
 
-/**
- * Yakından inceleme bölümü: kioskta ürün fotoğrafı, çizimi olan ürünlerde teknik çizim üzerinde sabitlenmiş yakınlaşma,
- * diğerlerinde ürün görselleri ya da işaretli parça görünümü.
- */
 export default function DetailZoom({ zoom }: DetailZoomProps) {
   switch (zoom.kind) {
     case 'kiosk':

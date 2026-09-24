@@ -1,7 +1,7 @@
 export type PillarId = 'stack' | 'operation' | 'revenue'
 
 export const homeIntroCopy = {
-  // Büyük harf dönüşümü Türkçe yerelde marka adını "VİSİOSOFT" yaptığı için kurumsal bölüm etiketi kullanılır.
+
   eyebrow: 'Kurumsal',
   title: 'Tek işimiz otopark otomasyonu.',
   statement:

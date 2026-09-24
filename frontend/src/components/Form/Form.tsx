@@ -1,21 +1,4 @@
-/**
- * Kullanım:
- * const { ref, token, ready } = useTurnstile(config?.turnstile_site_key)
- * <Form
- *   onSubmit={(data) => submitLead('quote', toBody(data))}
- *   submitLabel="Teklif İste" sendingLabel="Gönderiliyor" successTitle="Talebiniz alındı"
- *   successBody="Uzmanımız en kısa sürede sizinle iletişime geçecek." errorFallback="Bir hata oluştu. Lütfen tekrar deneyin."
- *   resetLabel="Yeni talep oluştur" hiddenValues={{ 'cf-turnstile-response': token }} busy={!ready}
- * >
- *   <FormRow columns={2}>
- *     <Field label="Ad Soyad" name="name" required><TextInput name="name" autoComplete="name" /></Field>
- *     <Field label="Telefon" name="phone" required><TextInput name="phone" type="tel" autoComplete="tel" /></Field>
- *   </FormRow>
- *   {siteKey ? <div ref={ref} /> : null}
- * </Form>
- *
- * Bal küpü (`website_url`) otomatik eklenir; doğrulama hataları alanlara bağlı bir özetle (role="alert") gösterilir.
- */
+
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { FormEvent, MouseEvent, ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -30,32 +13,32 @@ import styles from './Form.module.css'
 export type FormResult = { message: string }
 
 export type FormProps = {
-  /** Gönderim; çözülürse başarı paneli, reddedilirse hata özeti gösterilir. */
+
   onSubmit: (data: FormData) => Promise<FormResult>
   children: ReactNode
   submitLabel: string
   sendingLabel: string
   successTitle: string
-  /** Verilmezse sunucudan dönen `message` gösterilir. */
+
   successBody?: string
-  /** Sunucu mesajı yokken gösterilecek genel hata metni. */
+
   errorFallback: string
-  /** Verilirse başarı panelinde formu yeniden açan düğme çıkar. */
+
   resetLabel?: string
-  /** Ek: özel kurallar — alan adı → mesaj döndürür; boş/null geçerli demektir. */
+
   validate?: (data: FormData) => Record<string, string> | null | undefined
-  /** Ek: gönderimden önce FormData'ya eklenen değerler (ör. Turnstile jetonu). Formda aynı ad doluysa dokunulmaz. */
+
   hiddenValues?: Record<string, string>
-  /** Ek: gönder düğmesini dıştan kilitler (ör. Turnstile hazır değilken). */
+
   busy?: boolean
-  /** Ek: gönder düğmesinin yanında küçük not/bağlantı (ör. KVKK metni). */
+
   footer?: ReactNode
-  /** Ek: başarı panelindeki "yeniden" düğmesine basılınca; kontrollü alanları sıfırlamak için. */
+
   onReset?: () => void
   onSuccess?: (result: FormResult) => void
   id?: string
   className?: string
-  /** Ek: formun erişilebilir adı. */
+
   label?: string
 }
 
@@ -69,7 +52,6 @@ type State = {
 const INITIAL: State = { status: 'idle', message: '', errors: {}, attempt: 0 }
 const FIRST_CONTROL = 'input:not([type="hidden"]):not([tabindex="-1"]), select, textarea'
 
-/** Sunucu hatasını (services/api.ts `request`) mesaj + alan hatalarına ayırır. */
 function describeError(error: unknown, form: HTMLFormElement | null, fallback: string) {
   const source = error && typeof error === 'object' ? (error as { message?: unknown; status?: unknown; errors?: unknown }) : null
   const errors = toFieldErrors(source?.errors, form)
@@ -120,12 +102,10 @@ export default function Form({
 
   const context = useMemo(() => ({ status, errors }), [status, errors])
 
-  // Hata özeti belirince odak oraya taşınır; her başarısız denemede yeniden.
   useEffect(() => {
     if (status === 'error') summaryRef.current?.focus()
   }, [status, attempt])
 
-  // Başarı paneli okunsun diye odak panele geçer; yeniden açılışta ilk alana döner.
   useEffect(() => {
     if (status === 'success') {
       successRef.current?.focus()
@@ -231,7 +211,7 @@ export default function Form({
 
             <div className={styles.body}>{children}</div>
 
-            {/* Bal küpü: görünmez, sekme sırasında yok; yalnızca botlar doldurur. */}
+            {}
             <div className={styles.honeypot} aria-hidden="true">
               <label htmlFor={honeypotId}>{formCopy.honeypotLabel}</label>
               <input id={honeypotId} name={HONEYPOT_NAME} type="text" tabIndex={-1} autoComplete="off" />

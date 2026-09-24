@@ -1,17 +1,4 @@
-/**
- * Kullanım:
- *   <PageHero variant="centered" eyebrow="Teklif" title="Teklifinizi oluşturun." lead="…" actions={<Button …/>} />
- *   <PageHero variant="split" tone="night" breadcrumbs={[…]} title={['Plaka tanıma', 'saniyeler içinde']} media={<MediaFrame …/>} />
- *   <PageHero
- *     variant="product" tone="surface" eyebrow="Otopark Kiosk Sistemleri" title={copy.name} lead={copy.lead}
- *     aside={<dl>{meta.map((m) => <div key={m.label}><dt>{m.label}</dt><dd>{m.value}</dd></div>)}</dl>}
- *     media={<Picture … loading="eager" fetchPriority="high" />}
- *   />
- * Başlık TextReveal ile satır satır belirir; etiket çizgisi çizilir, açıklama/künye/eylemler sırayla yükselir.
- * `split` görseli sağa koyar (mobilde varsayılan olarak üstte, `mediaOrder="last"` ile altta);
- * `product` görseli yumuşak zeminli sahneye alır (hafif kaydırma paralaksı), `aside` içindeki çıplak <dl> künye olarak
- * biçimlenir. `centered` görsel almaz. Eski `description` özelliği `lead` ile aynıdır; `variant` verilmezse "centered".
- */
+
 import { useId, useLayoutEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
@@ -24,33 +11,27 @@ import styles from './PageHero.module.css'
 export type PageHeroProps = {
   variant?: 'centered' | 'split' | 'product'
   eyebrow?: string
-  /** Dizi verilirse her öğe ayrı satır olur. */
+
   title: string | string[]
   lead?: string
-  /** Eski ad; `lead` ile aynı. */
+
   description?: string
   actions?: ReactNode
   breadcrumbs?: BreadcrumbItem[]
-  /** split/product görsel alanı (MediaFrame, Picture, ParkingFlow…). */
+
   media?: ReactNode
-  /** product: künye <dl>; split: açıklamanın altındaki ek içerik. */
+
   aside?: ReactNode
   tone?: 'paper' | 'surface' | 'night'
   className?: string
-  /** Görselin dar ekrandaki sırası; split için varsayılan "first", product için "last". */
+
   mediaOrder?: 'first' | 'last'
-  /** Görselin altındaki küçük not (ör. "temsilî görsel"). */
+
   mediaNote?: string
-  /**
-   * true: medya alanında tıklanabilir içerik (canlı telefon demosu vb.) varsa giriş animasyonu
-   * yalnızca opacity kullanır; translateY transform'u iç içe scale ile tıklama hedeflerini bozar.
-   */
+
   mediaInteractive?: boolean
   id?: string
-  /**
-   * Alt boşluk: default (clamp 3–4.5rem) · compact (clamp 2.5–3.5rem; altında bitişik bir sahne/bölüm varsa) ·
-   * flush (0; hero'nun zemini sonraki bölüme kesintisiz akıyorsa). Üst boşluk navbar için her zaman korunur.
-   */
+
   spacing?: 'default' | 'compact' | 'flush'
 }
 
@@ -85,8 +66,6 @@ export default function PageHero({
   const titleProps = Array.isArray(title) ? { lines: title } : { text: title }
   const lineKey = Array.isArray(title) && title.length > 1 ? title.join('\n') : ''
 
-  // Satır dizisi görsel olarak ayrı satırlarda kalır, ama metin (textContent) kelimeleri bitiştirmesin:
-  // satır kutuları ya da <br> arasına görünmez bir boşluk düğümü eklenir (zaten boşluk varsa eklenmez).
   useLayoutEffect(() => {
     if (!lineKey) return
     const heading = document.getElementById(titleId)

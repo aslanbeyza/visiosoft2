@@ -1,4 +1,4 @@
-/* align-content: iki sütunlu satırda alan uzasa da etiket, kutu ve hata üstte toplu kalır. */
+
 .field {
   display: grid;
   align-content: start;

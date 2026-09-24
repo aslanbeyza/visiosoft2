@@ -9,12 +9,10 @@ import HeroLineup from './HeroLineup.tsx'
 import { listingSeo } from './listingCopy.ts'
 import ProductsSection from './ProductsSection.tsx'
 
-/** /donanim-urunleri: ürün dizisi hero'su → filtrelenebilir kartlar → kategoriler + sayılar → katalog. */
 export default function HardwareListing() {
   const reduce = useReducedMotion()
   const [active, setActive] = useState<FilterKey>('all')
 
-  // Kategori satırından seçim: filtre uygulanır, ürünlere kaydırılır ve odak ilgili çipe taşınır.
   const selectCategory = (key: CategoryKey) => {
     setActive(key)
     const section = document.getElementById('urunler')

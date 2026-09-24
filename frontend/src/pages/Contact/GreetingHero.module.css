@@ -51,7 +51,6 @@
   line-height: 1.04;
 }
 
-/* Tüm selamlamalar aynı ızgara hücresinde durur: yükseklik en uzun cümleye göre ayarlanır, boş satır kalmaz. */
 .visual {
   display: grid;
 }
@@ -75,7 +74,6 @@
   text-wrap: balance;
 }
 
-/* Geniş ekranda sözcük arası boşluk; 36rem altında "Merhaba," kendi satırında kalır (her selamlama iki satır). */
 .break {
   display: inline;
 }

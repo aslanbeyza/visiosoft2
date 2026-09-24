@@ -1,4 +1,3 @@
-/** Cloudflare Turnstile betiğini bir kez yükleyen, useSyncExternalStore ile izlenen küçük depo. */
 
 export type TurnstileRenderOptions = {
   sitekey: string
@@ -54,7 +53,6 @@ export function subscribeLoader(listener: () => void) {
   }
 }
 
-/** Betiği yalnızca ilk çağrıda ekler; tekrar çağrılar mevcut durumu korur. */
 export function ensureTurnstileScript() {
   if (typeof document === 'undefined' || status === 'loading' || status === 'ready') return
   if (window.turnstile) {
@@ -75,7 +73,7 @@ export function ensureTurnstileScript() {
   script.dataset.turnstile = 'true'
   script.addEventListener('error', () => setStatus('error'))
   script.addEventListener('load', () => {
-    // onload geri çağrısı gelmezse bile API varsa hazır kabul edilir.
+
     if (window.turnstile) setStatus('ready')
   })
   document.head.appendChild(script)

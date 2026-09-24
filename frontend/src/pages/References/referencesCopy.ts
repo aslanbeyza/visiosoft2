@@ -1,4 +1,4 @@
-// Kaynak: tr.json (references_hero_title / references_hero_description / footer_references)
+
 const description =
   "Belediyelerden teknoloji merkezlerine kadar farklı ölçekteki kurumlarla yürüttüğümüz projeler, Visiosoft'un güvenilir ve sürdürülebilir otopark yönetim yaklaşımını yansıtıyor."
 

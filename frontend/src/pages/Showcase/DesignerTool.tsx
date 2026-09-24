@@ -9,7 +9,6 @@ import { showcaseCopy } from './showcaseCopy.ts'
 import { designerStoryCopy, slotDrawCopy } from './designerCopy.ts'
 import styles from './ShowcaseLayout.module.css'
 
-/** /designer_kus_bakisi_cizim_araci — hero anı: kamera görüntüsü üzerinde slot çizimi, etiketleme ve kalibrasyon. */
 export default function DesignerTool() {
   const copy = showcaseCopy['designer-tool']
 

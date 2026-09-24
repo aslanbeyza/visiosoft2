@@ -8,10 +8,6 @@ type MethodRoutesProps = {
   label: string
 }
 
-/**
- * Seçili yöntemin üç adımlık rotası. Üç panel aynı hücrede üst üste durur, yükseklik sabit kalır.
- * Dar ekranda dikey liste; ≥768px'te sahnenin altında yatay şerit (çizgi soldan sağa çizilir, adımlar sırayla yükselir).
- */
 export default function MethodRoutes({ methods, selected, label }: MethodRoutesProps) {
   return (
     <div className={styles.routes}>

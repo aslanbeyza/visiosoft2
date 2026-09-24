@@ -1,10 +1,4 @@
-/**
- * Kullanım:
- *   <SubNav items={[{ id: 'urunler', label: 'Ürünler' }, { id: 'katalog', label: 'Katalog' }]} extra={<Button …/>} />
- * `id` değerleri sayfadaki bölümlerin (Section id) kimlikleriyle aynı olmalıdır. Çubuk navbar'ın altına yapışır,
- * yapışmışken navbar gizlenince onunla birlikte kayar (useStickyShift); etkin bölüm useScrollSpy ile bulunur.
- * Bağlantılar `#id` hedefine tarayıcının kendi kaydırmasıyla gider; html scroll-padding-top çubuğu hesaba katar.
- */
+
 import { useEffect, useId, useRef } from 'react'
 import type { FocusEvent, ReactNode } from 'react'
 import { LayoutGroup, motion, useReducedMotion } from 'framer-motion'
@@ -22,16 +16,13 @@ export type SubNavItem = {
 
 export type SubNavProps = {
   items: SubNavItem[]
-  /** nav etiketi; varsayılan "Sayfa bölümleri". */
+
   label?: string
-  /** Sağdaki ek alan (ör. küçük bir Button); ≥768px'te görünür. */
+
   extra?: ReactNode
-  /**
-   * Okuma çizgisinin üstten uzaklığı (px). html scroll-padding-top değerinden (8.25rem = 132 px) büyük olmalıdır;
-   * aksi hâlde bağlantıyla gelinen bölümün üst kenarı çizginin altında kalır ve bir önceki bölüm etkin görünür.
-   */
+
   offset?: number
-  /** Sabitlenmiş bir bölüm ekranı kaplarken çubuğu yukarı kaydırır. */
+
   hidden?: boolean
   className?: string
 }
@@ -49,13 +40,10 @@ export default function SubNav({ items, label, extra, offset = 148, hidden = fal
   useStickyShift(sentinelRef, stickyRef, reduce)
   const { updateEdges, reveal, page } = useStripScroll(listRef, wrapRef, ids, reduce)
 
-  // Etkin bağlantı, kullanıcı sayfayı kaydırdıktan sonra dar ekranda listenin ortasına getirilir;
-  // etkin bölüm yokken (ilk bölümün üstü) liste başa döner.
   useEffect(() => {
     reveal(active)
   }, [active, reveal])
 
-  // Klavyeyle odaklanan bağlantı (ve odak halkası) kaydırılabilir listede görünür kalır (WCAG 2.4.11).
   const onFocus = (event: FocusEvent<HTMLUListElement>) => {
     if (event.target instanceof HTMLElement) reveal(null, event.target)
   }
@@ -86,7 +74,7 @@ export default function SubNav({ items, label, extra, offset = 148, hidden = fal
                             <motion.span
                               layoutId="subnav-active"
                               className={styles.activeBar}
-                              // Yerleşim animasyonu genişliği ölçekle değiştirir; yarıçap style'da olunca framer düzeltir.
+
                               style={{ borderRadius: 3 }}
                               aria-hidden="true"
                               initial={reduce ? false : { opacity: 0 }}
@@ -101,11 +89,7 @@ export default function SubNav({ items, label, extra, offset = 148, hidden = fal
                 </ul>
               </LayoutGroup>
 
-              {/*
-                Kenar geçişi bir etiketin değil boşluğun üstüne düşse de şeridin devam ettiği görülsün diye oklar.
-                Yalnızca işaretçi içindir: klavyeyle bağlantılar zaten sırayla gezilir ve odaklanan bağlantı görünür
-                alana kaydırılır; bu yüzden sekme sırasına ve erişilebilirlik ağacına eklenmez.
-              */}
+              {}
               {(['start', 'end'] as const).map((edge) => (
                 <button
                   key={edge}

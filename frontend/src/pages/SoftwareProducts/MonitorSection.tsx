@@ -5,7 +5,6 @@ import MonitorFlow from './MonitorFlow.tsx'
 import { monitorCopy as text } from './softwareHubCopy.ts'
 import styles from './MonitorSection.module.css'
 
-/** Canlı izleme: koyu bant; başlık + kontrol listesi ve izleme akışı. */
 export default function MonitorSection() {
   return (
     <Section id="canli-izleme" tone="night" spacing="lg" labelledBy="hub-monitor-title">

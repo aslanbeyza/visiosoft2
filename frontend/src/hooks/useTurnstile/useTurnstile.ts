@@ -1,12 +1,4 @@
-/**
- * Kullanım:
- * const { ref, token, ready, error, reset } = useTurnstile(config?.turnstile_site_key)
- * <Form hiddenValues={{ 'cf-turnstile-response': token }} busy={!ready} …>
- *   {config?.turnstile_site_key ? <div ref={ref} /> : null}
- * </Form>
- * Anahtar yokken jeton 'local-dev' ve ready=true döner (LeadForm/backend sözleşmesi). Widget form içindeyse
- * Cloudflare `cf-turnstile-response` gizli alanını da kendisi ekler; hiddenValues yalnızca boşsa devreye girer.
- */
+
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import type { RefObject } from 'react'
 import { ensureTurnstileScript, getLoaderStatus, getServerLoaderStatus, subscribeLoader } from './turnstileLoader.ts'
@@ -14,15 +6,15 @@ import { ensureTurnstileScript, getLoaderStatus, getServerLoaderStatus, subscrib
 export const LOCAL_TURNSTILE_TOKEN = 'local-dev'
 
 export type UseTurnstileResult = {
-  /** Widget'ın çizileceği kap; anahtar varken DOM'a bağlanmalı. */
+
   ref: RefObject<HTMLDivElement | null>
-  /** Doğrulama jetonu; anahtar yoksa 'local-dev'. */
+
   token: string
-  /** Gönderime hazır: anahtar yok ya da widget bir jeton üretti. */
+
   ready: boolean
-  /** Ek: betik yüklenemedi veya widget hata verdi. */
+
   error: boolean
-  /** Ek: jetonu sıfırlar ve widget'ı yeniden başlatır (başarılı gönderimden sonra). */
+
   reset: () => void
 }
 
@@ -39,7 +31,6 @@ export function useTurnstile(siteKey?: string): UseTurnstileResult {
     ensureTurnstileScript()
   }, [enabled])
 
-  // Betik hazır olunca widget çizilir; kaldırılınca temizlenir (StrictMode'da çift çalışma güvenlidir).
   useEffect(() => {
     if (!enabled || !siteKey || scriptStatus !== 'ready') return
     const container = ref.current

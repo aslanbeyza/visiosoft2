@@ -70,7 +70,6 @@
   margin: 0;
 }
 
-/* Değer ve etiket iki alt satırı paylaşır: bir değer iki satıra kırılsa da etiketler aynı hizada kalır. */
 .figure {
   position: relative;
   display: grid;

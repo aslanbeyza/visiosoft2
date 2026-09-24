@@ -1,20 +1,12 @@
-/**
- * Sitenin tek bilgi mimarisi kaynağı. Navbar, Footer (ve ileride Site Haritası) buradan okur.
- * Rotalar ad olarak tutulur; yol `usePath()(route)` ile üretilir.
- */
 
 export type NavIcon = 'cloud' | 'code' | 'network' | 'street' | 'building' | 'ticket' | 'hgs' | 'eye' | 'led' | 'report'
 
-/** Sıkı kırpılmış, arka planı şeffaf menü görseli (2x). width/height gerçek piksel ölçüsüdür. */
 export type NavImage = {
   webp: string
   avif: string
   width: number
   height: number
-  /**
-   * Optik ölçek (0–1]. 4/3 kutuda contain yüksekliğe dayandığından dikey ürünler (kiosk) ince kalır,
-   * yatay ürünler (Visiobox, kamera) kutuyu doldurur; yatay ürünler bu oranla küçültülerek ölçek dengelenir.
-   */
+
   fit: number
 }
 
@@ -22,10 +14,7 @@ export type NavMenuLink = {
   route: string
   label: string
   description: string
-  /**
-   * Donanım mega menüsündeki yeri: 'card' ürün kartı, 'accessory' sol sütunda küçük metin bağlantısı.
-   * Footer ve site haritası yerleşimden bağımsız olarak tüm öğeleri listeler.
-   */
+
   placement?: 'card' | 'accessory'
   image?: NavImage
   icon?: NavIcon

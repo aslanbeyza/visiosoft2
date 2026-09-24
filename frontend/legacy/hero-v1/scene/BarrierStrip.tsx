@@ -17,7 +17,6 @@ type BarrierStripProps = {
   reduce: boolean | null
 }
 
-/** Bariyer kontrol ünitesi — kol durumu, loop dedektörü ve açılma süresi. */
 export default function BarrierStrip({ open, loopActive, labels, reduce }: BarrierStripProps) {
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-white/12 bg-[#0d0d12]/90 px-3 py-2.5 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.9)]">

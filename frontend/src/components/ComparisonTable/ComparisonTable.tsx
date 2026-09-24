@@ -1,15 +1,4 @@
-/**
- * Kullanım:
- * <ComparisonTable
- *   caption="Geleneksel otopark yönetimi ile Visiosoft karşılaştırması"
- *   columns={{ a: 'Geleneksel', b: 'Visiosoft' }}
- *   groups={[
- *     { heading: 'Erişim', rows: [{ feature: 'Uzaktan erişim', a: false, b: true }] },
- *   ]}
- * />
- * ≥768px gerçek <table> (caption, scope); satırlar belirirken ince lacivert çizgi soldan sağa süpürür (M12).
- * Daha dar ekranlarda her satır bir kart olur. b sütunu vurguludur. `groups` verilirse bölüm başlıkları gösterilir.
- */
+
 import { Fragment, useRef } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
@@ -23,7 +12,7 @@ export type ComparisonRow = {
   feature: string
   a: ComparisonValue
   b: ComparisonValue
-  /** Özelliğin altında küçük açıklama. */
+
   note?: string
 }
 
@@ -34,20 +23,19 @@ export type ComparisonGroup = {
 
 export type ComparisonTableProps = {
   columns: { a: string; b: string }
-  /** Düz satır listesi; `groups` yoksa kullanılır. */
+
   rows?: ComparisonRow[]
-  /** Bölümlü karşılaştırma; verilirse `rows` yok sayılır. */
+
   groups?: ComparisonGroup[]
-  /** Tablonun erişilebilir başlığı; `captionVisible` ile görünür de yapılabilir. */
+
   caption: string
   captionVisible?: boolean
-  /** İlk sütun başlığı (varsayılan "Özellik"). */
+
   featureLabel?: string
   tone?: 'light' | 'dark'
   className?: string
 }
 
-/* M12 — süpüren çizgi: her hücrede bir parça; parçalar sırayla çizilir, hepsi bitince birlikte söner. */
 const COLUMNS = 3
 const SEGMENT = 0.24
 const FADE = 0.4

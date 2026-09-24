@@ -5,20 +5,13 @@ type PhoneTabHitsProps = {
   labels: readonly string[]
   active: number
   onSelect: (index: number) => void
-  /**
-   * true: yalnızca dokunma/tık; sekme listesi başka yerde tutuluyorsa.
-   * false: bu katman erişilebilir tablist olur (Hero).
-   */
+
   decorative?: boolean
   tablistLabel?: string
   idPrefix?: string
   tabRefs?: RefObject<(HTMLButtonElement | null)[]>
 }
 
-/**
- * PhoneFrame ekran alanının altındaki görünmez sekme hedefleri (parkbiz-port alt çubuğu).
- * Konum PhoneFrame.module.css .screen inset'iyle aynıdır.
- */
 export default function PhoneTabHits({
   labels,
   active,

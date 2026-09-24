@@ -9,10 +9,6 @@ const subscribeVisibility = (onChange: () => void) => {
 const pageVisible = () => document.visibilityState !== 'hidden'
 const serverVisible = () => true
 
-/**
- * Video yalnızca bölüm görünürken ve sekme açıkken oynar.
- * Hareket azaltma tercihinde hiç oynatılmaz (afiş kalır).
- */
 export function useHeroPlayback(
   videoRef: RefObject<HTMLVideoElement | null>,
   sectionRef: RefObject<HTMLElement | null>,

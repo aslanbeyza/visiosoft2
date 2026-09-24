@@ -46,8 +46,6 @@
   transform: translateX(3px);
 }
 
-/* Kayan logolar */
-
 .marqueeBlock {
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
 }
@@ -71,19 +69,16 @@
   animation-direction: reverse;
 }
 
-/* Yalnızca görünürken kayar. */
 .marqueeRoot[data-running='true'] .track {
   animation-play-state: running;
   will-change: transform;
 }
 
-/* Logo satırlarının üzerine gelince durur; oynat/duraklat düğmesi bu alanın dışında kalır. */
 .marquee:hover .track,
 .marquee:focus-within .track {
   animation-play-state: paused;
 }
 
-/* Liste genişliği sondaki boşluğu da içerir; -%50 kayma kesintisiz döngü verir. */
 .list {
   display: flex;
   gap: 1rem;
@@ -163,8 +158,6 @@
   width: 0.85rem;
   height: 0.85rem;
 }
-
-/* Hareket azaltma: sabit logo ızgarası */
 
 .grid {
   display: grid;

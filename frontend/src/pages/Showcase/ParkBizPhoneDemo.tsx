@@ -213,7 +213,6 @@ function SubscribeScreen({ plate, done }: { plate: string; done: boolean }) {
   )
 }
 
-/** ParkBiz (parkbiz-port) abonelik akışının canlı telefon demosu — React Native uygulamasının web yansıması. */
 export default function ParkBizPhoneDemo() {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)

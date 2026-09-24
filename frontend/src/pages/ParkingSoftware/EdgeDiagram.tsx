@@ -17,7 +17,6 @@ type EdgeDiagramProps = {
 
 type LinkProps = { label: string; sync?: boolean; show: boolean; delay: number; flow: MotionValue<string> }
 
-/** Düğümler arası bağlantı: çizgi çizilerek uzar; senkronizasyon hattında kesikli akış kaydırmaya bağlı ilerler. */
 function Link({ label, sync = false, show, delay, flow }: LinkProps) {
   const reduce = Boolean(useReducedMotion())
   const wide = useMediaQuery('(min-width: 768px)')
@@ -41,14 +40,13 @@ function Link({ label, sync = false, show, delay, flow }: LinkProps) {
   )
 }
 
-/** Hibrit mimari: saha cihazları → Edge Controller → merkezi yönetim. */
 export default function EdgeDiagram({ label, nodes, links }: EdgeDiagramProps) {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)
   const inView = useInView(rootRef, { once: true, amount: 0.35 })
   const show = reduce || inView
   const { scrollYProgress } = useScroll({ target: rootRef, offset: ['start end', 'end start'] })
-  // Kesikli şerit izin iki katı uzunluğunda; 0 → %50 kayma her anda izi tamamen kaplar.
+
   const flow = useTransform(scrollYProgress, [0, 1], ['0%', '50%'])
 
   const rise = (index: number) => ({

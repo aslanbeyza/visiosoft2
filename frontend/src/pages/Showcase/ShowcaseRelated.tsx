@@ -16,7 +16,6 @@ const icons: Record<ShowcaseRoute, ReactNode> = {
 
 const order: ShowcaseRoute[] = ['kus-bakisi', 'designer-tool', 'low-confidence', 'mobil-abonelik']
 
-/** Bulunulan vitrin dışındaki üç vitrine bağlantı kartları. */
 export default function ShowcaseRelated({ current, tone }: { current: ShowcaseRoute; tone: 'paper' | 'surface' }) {
   const path = usePath()
   const headingId = `${current}-diger-vitrinler`

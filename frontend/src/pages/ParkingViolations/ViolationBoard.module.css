@@ -4,7 +4,6 @@
   margin-top: clamp(1.75rem, 3vw, 2.5rem);
 }
 
-/* Sekiz ihlal tek çerçeve; ince ayraçlarla ayrılmış satırlar. */
 .list {
   display: grid;
   overflow: hidden;
@@ -25,10 +24,6 @@
   border-top: 1px solid var(--color-corp-line);
 }
 
-/*
- * Satır seçilince planda ilgili slot vurgulanır; bu yüzden açıklama ayrı bir panelde değil, satırın
- * kendisinde durur ve sekiz ihlal aynı anda okunur. Seçili satırı soldaki şerit işaretler.
- */
 .row {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -60,13 +55,11 @@
   box-shadow: inset 3px 0 0 var(--color-navy-400);
 }
 
-/* Liste overflow gizlediği için dış hat içeri alınır. */
 .row:focus-visible {
   outline: 2px solid var(--color-navy-600);
   outline-offset: -2px;
 }
 
-/* Plandaki rozetle aynı biçim: eşleşmeyi kuran ipucu bu, o yüzden iki yerde de birebir aynı görünür. */
 .badge {
   grid-area: badge;
   display: grid;

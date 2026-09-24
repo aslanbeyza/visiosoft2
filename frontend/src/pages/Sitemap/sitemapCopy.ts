@@ -17,7 +17,6 @@ export const sitemapCopy = {
 
 const footerLinks = (title: string) => footerGroups.find((group) => group.title === title)?.links ?? []
 
-/** Menüdeki etiketi kullanır; menüde yoksa verilen yedek etiket (sayfanın kendi başlığı). */
 const navLabel = (route: string, fallback: string) =>
   primaryNav.find((item) => item.route === route)?.label ?? softwareMenu.find((item) => item.route === route)?.label ?? fallback
 
@@ -73,7 +72,6 @@ const groups: SitemapGroup[] = [
   },
 ]
 
-/** Bir rota yalnızca ilk geçtiği grupta listelenir. */
 function dedupe(list: SitemapGroup[]) {
   const seen = new Set<string>()
   return list

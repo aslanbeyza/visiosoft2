@@ -49,7 +49,7 @@
 }
 
 .title {
-  /* 16ch: "İnsansız Çıkış" / "Ödeme Kiosk" — sütun genişlese de iki satır kalır. */
+
   max-width: min(16ch, 100%);
   margin: 0.15rem 0 0;
   color: var(--color-corp-ink);
@@ -108,7 +108,6 @@
   margin-top: 1.6rem;
 }
 
-/* Sütun daralınca (telefon ya da iki kolonlu kadraj) künye tek sıraya iner. */
 @container hero-copy (min-width: 26rem) {
   .meta {
     grid-template-columns: 1fr 1fr;
@@ -175,7 +174,6 @@
     padding-top: clamp(7rem, 3.5vw + 5rem, 8.5rem);
   }
 
-  /* Metin sütunu üste hizalanır: ürünler arasında geçişte kırıntı ve başlık aynı yükseklikte kalır. */
   .inner {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     align-items: start;

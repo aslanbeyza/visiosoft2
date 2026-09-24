@@ -35,7 +35,6 @@
   min-width: 0;
 }
 
-/* Üst çizgi: görünüme girince soldan sağa çizilir. */
 .hairline {
   position: absolute;
   top: 0;
@@ -51,7 +50,6 @@
   background: var(--line);
 }
 
-/* Numaralı satırda çizginin başında kısa lacivert vurgu. */
 .grid[data-variant='numbered'] .hairline::after {
   content: '';
   position: absolute;
@@ -78,7 +76,6 @@
   color: var(--ink);
 }
 
-/* Kart varyantı: ayrı üst çizgi yok, üst kenarı kartın kendi çerçevesi (--line) çizer. */
 .grid[data-variant='card'] .card {
   padding: 1.5rem 1.4rem 1.35rem;
   border: 1px solid var(--line);
@@ -90,7 +87,6 @@
     background-color 0.35s var(--ease-apple);
 }
 
-/* Gölge ayrı katmanda; yalnızca opaklığı değişir. */
 .grid[data-variant='card'] .card::before {
   content: '';
   position: absolute;
@@ -108,7 +104,6 @@
   box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.7);
 }
 
-/* M10 — işaretçiyi izleyen ışık. */
 .card::after {
   content: '';
   position: absolute;
@@ -141,7 +136,6 @@
   }
 }
 
-/* Bento vurgusu (featured): lacivert zemin, büyük başlık, meta büyük gösterge rakamı. */
 .grid[data-variant='card'] .item[data-featured='true'] .card {
   --ink: #fff;
   --body: rgb(255 255 255 / 0.76);
@@ -188,7 +182,6 @@
   line-height: 0.9;
 }
 
-/* Çizgili ve numaralı varyantlar: kutusuz, üst çizgi + boşluk. */
 .grid[data-variant='plain'] .card,
 .grid[data-variant='numbered'] .card {
   padding: 1.35rem 0 0.5rem;
@@ -296,7 +289,6 @@
   text-decoration: none;
 }
 
-/* Tüm kart tıklanabilir; bağlantı metni yalnızca başlıktır. */
 .link::after {
   content: '';
   position: absolute;
@@ -371,7 +363,6 @@
   white-space: nowrap;
 }
 
-/* Dokunmatik ekranlarda hover olmadığı için ok hep görünür. */
 @media (hover: none) {
   .arrow {
     opacity: 1;
@@ -386,7 +377,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* İki sütunda vurgulu kart tüm satırı kaplar. */
   .grid[data-variant='card'] .item[data-featured='true'] {
     grid-column: 1 / -1;
   }
@@ -409,7 +399,6 @@
     padding: 1.75rem 1.6rem 1.5rem;
   }
 
-  /* Üç ve dört sütunda vurgulu kart tek sütunda iki satır boyu uzanır. */
   .grid[data-columns='3'][data-variant='card'] .item[data-featured='true'],
   .grid[data-columns='4'][data-variant='card'] .item[data-featured='true'] {
     grid-column: auto;

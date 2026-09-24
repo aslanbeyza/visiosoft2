@@ -38,7 +38,6 @@
     background-color 0.35s var(--ease-apple);
 }
 
-/* Gölge ayrı katmanda; yalnızca opaklığı değişir. */
 .card::before {
   content: '';
   position: absolute;
@@ -164,7 +163,6 @@
   transform: translateX(3px);
 }
 
-/* Dokunmatik ekranlarda hover olmadığı için ok hep görünür. */
 @media (hover: none) {
   .arrow {
     opacity: 1;

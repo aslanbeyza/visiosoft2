@@ -9,7 +9,6 @@ import styles from './HeroLineup.module.css'
 
 const TITLE_ID = 'donanim-urunleri-baslik'
 
-/** Liste sayfası hero'su: üstte başlık ve eylemler, altta tam genişlikte ürün dizisi. */
 export default function HeroLineup() {
   const reduce = useReducedMotion()
   const path = usePath()

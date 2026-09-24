@@ -62,7 +62,6 @@
   line-height: 1.6;
 }
 
-/* Geniş ekran: başlık solda, bildiri sağda alt çizgiye hizalı; çizgi, değerler ve not tam genişlik. */
 @media (min-width: 1024px) {
   .inner {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

@@ -82,7 +82,6 @@ function scrollToStep(story: HTMLElement, index: number, progress: number) {
   window.scrollTo({ top: top + distance * (target / SPAN), behavior: 'smooth' })
 }
 
-/** Masaüstü: kaydırınca ürün uçar. Mobil: yığılmış kart destesı. */
 export default function HomeField() {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())

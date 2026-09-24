@@ -1,4 +1,4 @@
-/* Ekranda kâğıt görünümlü sayfa; baskıda tam A4 sayfası. */
+
 .sheet {
   display: grid;
   gap: clamp(1.5rem, 3vw, 2.25rem);
@@ -10,10 +10,7 @@
   background: #fff;
   box-shadow: 0 1px 2px rgb(15 20 48 / 0.04), 0 24px 48px -32px rgb(15 20 48 / 0.3);
   color: var(--color-corp-ink);
-  /*
-   * Navbar + SubNav payını html scroll-padding-top (8.25rem ≥1024, 7.75rem altı) karşılar; burada yalnızca
-   * çubukla sayfa arasındaki nefes payı kalır. useScrollSpy okuma çizgisini bu değer kadar aşağı alır.
-   */
+
   scroll-margin-top: 1rem;
 }
 
@@ -66,7 +63,6 @@
     var(--color-corp-surface);
 }
 
-/* Görsel mutlak konumlu: uzun görseller (kiosk) sahnenin 4:5 oranını büyütüp kırpılmaz. */
 .stageInner {
   position: relative;
   width: 100%;
@@ -230,7 +226,6 @@
   border-radius: 0.2rem;
 }
 
-/* Baskı: her ürün bir A4 sayfası; ekrandaki animasyon başlangıç durumları sıfırlanır. */
 @media print {
   .sheet {
     gap: 7mm;

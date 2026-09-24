@@ -1,4 +1,3 @@
-/** Ana sayfa güvence metinleri. Güvenlik etiketleri otopark yazılımı metinleriyle aynı kaynaktan. */
 
 export type AssuranceColumnId = 'support' | 'security' | 'integration'
 export type WorkStepId = 'discovery' | 'install' | 'monitor'

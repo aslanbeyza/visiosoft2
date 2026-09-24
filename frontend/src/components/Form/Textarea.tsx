@@ -1,6 +1,4 @@
-/**
- * Kullanım: <Field label="Ek Mesaj" name="message"><Textarea name="message" rows={4} placeholder="…" /></Field>
- */
+
 import type { TextareaHTMLAttributes } from 'react'
 import { useFieldControl } from './FieldContext.ts'
 import styles from './controls.module.css'

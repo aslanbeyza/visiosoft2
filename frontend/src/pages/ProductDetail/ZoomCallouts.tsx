@@ -14,11 +14,6 @@ type ZoomCalloutsProps = {
 
 const pad = (value: number) => String(value).padStart(2, '0')
 
-/**
- * İşaretli parça görünümü: teknik pafta zemininde ürün görseli aşağıdan açılır, parçaların üzerine numaralı
- * işaretler düşer ve kılavuz çizgileri sağdaki parça etiketlerine çizilir. Listede bir maddenin üzerine gelmek
- * ilgili işareti ve etiketi vurgular. Tetik kırpılmamış kapsayıcıdadır; hareket azaltmada her şey yerindedir.
- */
 export default function ZoomCallouts({ zoom }: ZoomCalloutsProps) {
   const titleId = useId()
   const reduce = Boolean(useReducedMotion())

@@ -15,8 +15,6 @@
   box-shadow: 0 24px 60px -36px rgb(0 0 0 / 0.7);
 }
 
-/* Üst çubuk */
-
 .bar {
   display: flex;
   align-items: center;
@@ -102,8 +100,6 @@
   height: 0.9rem;
 }
 
-/* Kod alanı */
-
 .scroller {
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -150,14 +146,12 @@
   min-width: 0;
 }
 
-/* Parçalar kendi kutusuna sahip olsun diye inline-block: clip-path yüzdeleri parçanın genişliğine göre çalışır. */
 .text > span {
   display: inline-block;
   white-space: pre;
   vertical-align: top;
 }
 
-/* Yazım imleci: yalnızca yazılan satırda, yanıp söner. */
 .line[data-caret='true'] .text::after {
   content: '';
   display: inline-block;
@@ -168,8 +162,6 @@
   background: var(--accent);
   animation: blink 1s steps(2, start) infinite;
 }
-
-/* Renkler: sakin, tek aile. */
 
 .string {
   color: var(--color-navy-300);

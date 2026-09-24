@@ -10,12 +10,11 @@ const MobilePhoneStandalone = lazy(() => import('../../components/panel/MobilePh
 const ease = (delay: number, duration = 1): Transition => ({ duration, delay, ease: revealEase })
 
 type ParkBizPhoneStageProps = {
-  /** Görünür olunca giriş animasyonu (mobil bölümde IO ile birlikte kullanılır). */
+
   animateOnView?: boolean
   onInteract?: () => void
 }
 
-/** ParkBiz canlı telefon ikizi — visiosoft-3d MobilePhoneStandalone. */
 export default function ParkBizPhoneStage({ animateOnView = true, onInteract }: ParkBizPhoneStageProps) {
   const reduce = Boolean(useReducedMotion())
   const stageRef = useRef<HTMLDivElement>(null)
@@ -41,7 +40,7 @@ export default function ParkBizPhoneStage({ animateOnView = true, onInteract }: 
           <Suspense fallback={<div className={styles.phoneSlot} aria-hidden="true" />}>
             <div className={styles.phoneSlot}>
               <div className={styles.phoneScale}>
-                {/* Ölçek CSS container query ile; sabit 0.71 yok. */}
+                {}
                 <MobilePhoneStandalone scale={1} />
               </div>
             </div>

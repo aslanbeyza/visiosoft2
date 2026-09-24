@@ -29,7 +29,6 @@ export function phaseIndex(phase: ScenePhase) {
   return order.indexOf(phase)
 }
 
-/** Çıkış kapısı senaryosunu sırayla döndüren zaman çizelgesi. */
 export function useParkingSequence(enabled: boolean) {
   const [step, setStep] = useState(0)
   const index = enabled ? step % sceneSteps.length : phaseIndex('paid')

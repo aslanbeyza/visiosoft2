@@ -12,10 +12,6 @@ type LogoDriftProps = {
   toggleLabel: string
 }
 
-/**
- * Referanslar hero anı: logolar üç sütunda zıt yönlere yavaşça akar (dekoratif; tam liste aşağıda).
- * Yalnızca görünürken ve sekme açıkken akar; duraklatma düğmesi var; hareket azaltmada statik tek kopya.
- */
 export default function LogoDrift({ logos, toggleLabel }: LogoDriftProps) {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)

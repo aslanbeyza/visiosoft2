@@ -9,10 +9,6 @@ import { usePrefersReducedMotion } from './usePrefersReducedMotion.ts'
 import { useVideoPhase } from './useVideoPhase.ts'
 import styles from './Hero.module.css'
 
-/**
- * Ana sayfa hero'su: tam genişlik geçiş videosu, metin sütunu ve videoyla eşzamanlı durum kartı.
- * Video yalnızca görünürken oynar; hareket azaltma tercihinde afiş ve sabit "Plaka doğrulandı" kartı gösterilir.
- */
 export default function Hero() {
   const reduce = usePrefersReducedMotion()
   const sectionRef = useRef<HTMLElement>(null)
@@ -42,8 +38,7 @@ export default function Hero() {
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
         >
-          {/* Hareket azaltmada video hiç oynamaz: kaynak eklenmez, yalnızca afiş iner.
-              Tercih sonradan kapanırsa kaynaklar boş videoya eklenir ve seçim yeniden başlar. */}
+          {}
           {reduce
             ? null
             : sources.map((source) => <source key={source.src} src={source.src} type={source.type} />)}

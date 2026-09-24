@@ -7,19 +7,15 @@ import { legalPageCopy as copy } from './legalPageCopy.ts'
 import styles from './LegalIndex.module.css'
 
 type LegalIndexProps = {
-  /** Etkin belgenin rota adı. */
+
   active: string
-  /** Etkin belgedeki h2 sayısı; madde cetvelinin çentik sayısı. */
+
   headingCount: number
 }
 
 const pad = (value: number) => String(value).padStart(2, '0')
 const RULER_WIDTH = 240
 
-/**
- * Hero altındaki belge dizini: altı yasal metin numaralı cetvel üzerinde dizilir, çizgiler soldan sağa çizilir,
- * etkin belge lacivert kalın çizgiyle işaretlenir. Altında belgenin başlık sayısı kadar çentikli cetvel çizilir (M3).
- */
 export default function LegalIndex({ active, headingCount }: LegalIndexProps) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())

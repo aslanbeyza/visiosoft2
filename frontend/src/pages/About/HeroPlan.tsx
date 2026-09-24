@@ -3,11 +3,6 @@ import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { revealEase } from '../../components/Reveal/index.ts'
 import styles from './HeroPlan.module.css'
 
-/**
- * Hakkımızda kahraman sahnesi: kuşbakışı otopark planı çizilir, dolu yerler belirir,
- * lacivert araç koridordan gelip vurgulu boş yere park eder ve "P" tabelası yükselir.
- * Tetik kırpılmamış kaptan gelir; hareket azaltmada son kare doğrudan çizilir.
- */
 const TOP = [100, 188, 276, 364, 452, 540]
 const PARKED_TOP = [100, 188, 452]
 const PARKED_BOTTOM = [100, 276, 364, 540]

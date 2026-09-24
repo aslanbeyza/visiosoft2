@@ -1,4 +1,4 @@
-/** /otopark-terimleri — keşif ve saha dilindeki Visiosoft terimleri. */
+
 export const glossaryCopy = {
   seoTitle: 'Otopark Terimleri | Visiosoft',
   seoDescription:

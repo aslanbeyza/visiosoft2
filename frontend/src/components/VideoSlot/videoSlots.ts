@@ -1,4 +1,4 @@
-// world ve kiosk yuvaları kaldırıldı: videoları yoktu, başlangıç görselleri üçüncü taraf logosu taşıyordu ve hiçbir yerde kullanılmıyordu.
+
 export type SlotId = 'alpr' | 'visiobox' | 'camera' | 'bentoExtra' | 'hgs'
 
 export type VideoSource = { src: string; type: string }

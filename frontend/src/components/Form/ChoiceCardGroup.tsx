@@ -1,10 +1,4 @@
-/**
- * Kullanım:
- * <ChoiceCardGroup type="radio" name="project_type" legend="Otopark modelinizi seçin" value={type} onChange={setType}
- *   options={[{ value: 'paid', label: 'Ücretli otopark', description: '…', icon: <Icon /> }]} />
- * <ChoiceCardGroup type="checkbox" name="payment_methods" legend="Ödeme kanalları" value={methods} onChange={setMethods} options={…} />
- * Kartlar gerçek radio/checkbox girdileridir: ok tuşları (radio) ve boşluk ile seçilir; seçili kartın işareti çizilerek gelir.
- */
+
 import { useId } from 'react'
 import type { ReactNode } from 'react'
 import { RevealGroup, RevealItem } from '../Reveal/index.ts'
@@ -29,7 +23,7 @@ type ChoiceCardGroupBase = {
   error?: string
   required?: boolean
   disabled?: boolean
-  /** Ek: geniş ekranda sütun sayısı (varsayılan: seçenek sayısına göre 2 veya 3). */
+
   columns?: 1 | 2 | 3
   className?: string
 }

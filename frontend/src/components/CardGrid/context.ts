@@ -2,9 +2,9 @@ import { createContext, useContext } from 'react'
 
 export type CardGridContextValue = {
   columns: number
-  /** Kartın ızgaradaki sırası; aynı satırdaki kartların gecikmesi buradan türetilir. */
+
   position: number
-  /** true ise kartlar konum değişimlerini (filtre vb.) layout animasyonuyla izler. */
+
   animateLayout: boolean
 }
 

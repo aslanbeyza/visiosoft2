@@ -19,7 +19,6 @@ type Track = { key: string; ids: string[]; note: string }
 
 const { panel, catalog } = quoteCopy
 
-/** Önceki listeyle karşılaştırıp eklenen/çıkarılan bileşenleri tek cümlede anlatır. */
 function describeChange(previous: string[], items: PackageItem[]) {
   const added = items.filter((item) => !previous.includes(item.id))
   const removed = previous.filter((id) => !items.some((item) => item.id === id))
@@ -30,7 +29,6 @@ function describeChange(previous: string[], items: PackageItem[]) {
   return parts.join(' ')
 }
 
-/** "Önerilen Paket" paneli: canlı bileşen listesi, son kural notu ve seçim özeti. */
 export default function PackagePanel({ choices, items, id, className = '' }: PackagePanelProps) {
   const reduce = Boolean(useReducedMotion())
   const titleId = useId()
@@ -38,7 +36,6 @@ export default function PackagePanel({ choices, items, id, className = '' }: Pac
   const key = ids.join('|')
   const [track, setTrack] = useState<Track>({ key, ids, note: '' })
 
-  // Liste değiştiğinde notu render sırasında türet (önceki değeri saklama kalıbı).
   if (track.key !== key) {
     setTrack({ key, ids, note: describeChange(track.ids, items) })
   }

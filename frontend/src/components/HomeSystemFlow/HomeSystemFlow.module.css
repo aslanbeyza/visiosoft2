@@ -1,8 +1,4 @@
-/*
- * Hero "Sistem Nasıl Çalışır?" atlaması: html scroll-padding-top (6rem) ve bölümün üst boşluğu (lg) birlikte
- * başlığı ekranın ortasına itiyordu. Negatif pay bölümün üst boşluğunu yutar; üst etiket navbar payının hemen altına oturur.
- * Değer Section[data-spacing='lg'] üst boşluğuyla aynı clamp'i kullanır.
- */
+
 .section {
   scroll-margin-top: calc(-1 * clamp(5rem, 10vw, 9rem) + 1.5rem);
 }
@@ -11,7 +7,6 @@
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
-/* Sabit karede üst boşluğu gezinme çubuğu payı verir; başlıkla liste arası açılmaz. */
 .head[data-pinned='true'] {
   margin-bottom: -2.5rem;
 }
@@ -34,12 +29,10 @@
   outline: none;
 }
 
-/* Bağlantılardan sonra standart (md) alt boşluk; lg payı Zone bölümüne kadar boş yüzey bırakıyordu. */
 .section[data-spacing='lg'][aria-labelledby] {
   padding-bottom: clamp(4rem, 7vw, 6.5rem);
 }
 
-/* Masaüstü hikâye: 100svh sabit kare + adım paylarının toplamı (5 × 30svh + 60svh, flowData STEP_WEIGHTS). */
 .story {
   position: relative;
   height: calc(100svh + var(--story, 210) * 1svh);
@@ -59,7 +52,7 @@
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   align-items: center;
   gap: clamp(2.5rem, 4.5vw, 5rem);
-  /* Çizim kâğıdı dış çerçevesi (outline-offset 5px) sütunlar arasında kesilmesin. */
+
   padding-inline: 6px;
 }
 
@@ -69,14 +62,12 @@
   }
 }
 
-/* Mobil / tablet */
 .compact {
   display: grid;
   gap: 1.75rem;
   padding-inline: 6px;
 }
 
-/* Hareket azaltma */
 .static {
   display: grid;
   gap: 2.25rem;

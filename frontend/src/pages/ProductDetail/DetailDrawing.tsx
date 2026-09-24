@@ -18,7 +18,6 @@ type DetailDrawingProps = {
 
 const c = detailCopy.drawing
 
-/** Teknik çizim: pafta kırpma açılışıyla gelir, ölçü satırları çizgiyle süpürülür, çizim tam ekran büyütülür. */
 export default function DetailDrawing({ drawing, name }: DetailDrawingProps) {
   const titleId = useId()
   const reduce = Boolean(useReducedMotion())
@@ -76,7 +75,7 @@ export default function DetailDrawing({ drawing, name }: DetailDrawingProps) {
               className={styles.image}
             />
           </MediaFrame>
-          {/* Fareyle çizime tıklamak da büyütür; klavye kullanıcıları görünür düğmeyi kullanır. */}
+          {}
           <button type="button" className={styles.hit} tabIndex={-1} aria-hidden="true" onClick={() => setOpen(true)}>
             <span className={styles.chip}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true" focusable="false">

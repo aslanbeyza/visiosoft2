@@ -1,14 +1,4 @@
-/**
- * Kullanım:
- *   <TextReveal as="h1" text="Tek işimiz otopark otomasyonu." className={styles.title} />
- *   <TextReveal as="h2" lines={['Sahada çalışan', 'donanım ailesi']} delay={0.2} />
- *   <TextReveal as="p" mode="words" text="Uzun bir açıklama cümlesi…" />
- *
- * Satırlar ya da kelimeler görünüm alanına girince kırpılmış kutulardan yukarı kayarak belirir (M2).
- * `lines` verilmezse satırlar yerleşimden ölçülür; aynı satırdaki kelimeler birlikte hareket eder.
- * Erişilebilir metin tek parçadır (başlıklarda aria-label, diğerlerinde ekran okuyucu metni);
- * hareket azaltma tercihinde düz metin basılır ve başlık semantiği korunur.
- */
+
 import { Fragment, useCallback, useLayoutEffect, useRef } from 'react'
 import type { CSSProperties } from 'react'
 import { useInView, useReducedMotion } from 'framer-motion'
@@ -16,20 +6,20 @@ import styles from './TextReveal.module.css'
 
 export type TextRevealProps = {
   text?: string
-  /** Açık satır kırılımları; her satır kendi başına belirir. */
+
   lines?: string[]
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div'
-  /** lines: satırlar 0,08 s arayla · words: kelimeler 0,03 s arayla. */
+
   mode?: 'lines' | 'words'
-  /** Başlangıç gecikmesi (s). */
+
   delay?: number
   className?: string
   id?: string
-  /** Parçalar arası gecikme (s); varsayılan moda göre 0,08 / 0,03. */
+
   stagger?: number
-  /** Tek parçanın süresi (s). */
+
   duration?: number
-  /** Başlaması için görünmesi gereken oran. */
+
   amount?: number
 }
 
@@ -39,7 +29,6 @@ const splitWords = (value: string) => value.split(/[ \t]+/).filter(Boolean)
 
 type WordProps = { word: string; index?: number; last: boolean }
 
-/** Kırpılmış kutu ve içinde kayan kelime; `--i` gecikme sırasını verir. */
 function Word({ word, index, last }: WordProps) {
   return (
     <>
@@ -77,8 +66,6 @@ export default function TextReveal({
   const step = stagger ?? (mode === 'lines' ? 0.08 : 0.03)
   const heading = HEADINGS.has(Tag)
 
-  // Satırlar yerleşimden ölçülür: aynı yükseklikte başlayan kelimeler aynı satır sırasını alır.
-  // Değerler React state'i yerine doğrudan CSS değişkeni olarak yazılır; animasyon başlayana kadar yeniden ölçülür.
   useLayoutEffect(() => {
     if (!measure) return
     const root = ref.current
@@ -108,7 +95,7 @@ export default function TextReveal({
       <Tag id={id} className={className}>
         {rows.map((row, index) => (
           <Fragment key={`${index}-${row}`}>
-            {/* Satır sonundaki boşluk görünmez; textContent satırları "Otopark donanımları." diye birleştirir. */}
+            {}
             {index > 0 ? (
               <>
                 {' '}
@@ -126,7 +113,7 @@ export default function TextReveal({
   const fragments = explicit
     ? rows.map((row, rowIndex) => {
         const words = splitWords(row)
-        // Blok satırlar arasındaki boşluk düğümü yerleşimde çökertilir; textContent/innerText kelimeleri ayrı okur.
+
         return (
           <Fragment key={`${rowIndex}-${row}`}>
             {rowIndex > 0 ? ' ' : null}

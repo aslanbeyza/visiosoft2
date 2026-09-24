@@ -2,13 +2,9 @@ import { useRef } from 'react'
 import { useInView } from 'framer-motion'
 import styles from './KioskScreen.module.css'
 
-/**
- * Kiosk ekranındaki ödeme arayüzü. Kioskun gerçek arayüzünün düzeni temel alınarak Türkçe hazırlandı;
- * görsel yerine DOM olduğu için yakınlaşmada net kalır. Ekran 3/4 açıdan göründüğü için yatayda sıkıştırılır.
- */
 export default function KioskScreen() {
   const ref = useRef<HTMLDivElement>(null)
-  // Bekleme noktaları yalnızca ekran görünürken döner; sahne kırpması da hesaba katılır.
+
   const inView = useInView(ref, { margin: '200px 0px' })
 
   return (

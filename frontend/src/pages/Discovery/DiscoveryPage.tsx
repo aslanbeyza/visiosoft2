@@ -2,7 +2,6 @@ import LeadForm, { LeadAside, LeadLayout } from '../../components/LeadForm/index
 import Seo from '../../components/Seo/index.ts'
 import { discoveryCopy as copy } from './discoveryCopy.ts'
 
-/** /ucretsiz-kesif — adres alanlı form + sonraki adımlar. */
 export default function DiscoveryPage() {
   return (
     <>

@@ -1,6 +1,5 @@
 import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
 
-// /plaka-tanima-sistemi metinleri — mevcut sayfa ve SSS metinlerinden derlendi.
 export const prsCopy = {
   metaTitle: 'Plaka Tanıma Sistemi | PTS Teknolojisi | Visiosoft',
   metaDescription:

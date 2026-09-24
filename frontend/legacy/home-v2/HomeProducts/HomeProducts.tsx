@@ -12,7 +12,6 @@ import { homeProductsCopy as text, productImage } from './homeProductsCopy.ts'
 import type { HomeProductCard } from './homeProductsCopy.ts'
 import styles from './HomeProducts.module.css'
 
-/** Kart kendi gecikmesiyle belirir; görsel sahnesi ve görsel aynı gecikmeyle kart içinde açılır. */
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
   show: (delay: number = 0) => ({
@@ -32,7 +31,6 @@ const imageVariants: Variants = {
   show: { scale: 1, transition: { duration: 1.2, ease: revealEase } },
 }
 
-/** Masaüstü ızgarasında aynı satırdaki kartlar soldan sağa sırayla gelir (kiosk, tir, box, rack, housing, tower, katalog). */
 const delays = [0, 0.08, 0.16, 0.08, 0.16, 0, 0.08]
 
 function Arrow({ className }: { className: string }) {

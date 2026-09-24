@@ -8,7 +8,6 @@ import styles from './FlowSteps.module.css'
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 
-/** "e-fatura", "e-arşiv" satır sonunda bölünmez; metin ASCII kısa çizgiyle aranabilir kalır. */
 const NO_BREAK = /(e-fatura|e-arşiv)/
 const renderText = (value: string) =>
   value.split(NO_BREAK).map((part, index) =>
@@ -25,9 +24,9 @@ type StepState = 'idle' | 'active' | 'done' | 'static'
 
 type FlowStepsProps = {
   steps: readonly SystemFlowStep[]
-  /** Etkin adım; −1 hiçbir adımı vurgulamaz (hareket azaltma). */
+
   active: number
-  /** Adım cinsinden sürekli ilerleme (0 … adım sayısı); etkin adımın çizgisini doldurur. */
+
   fill?: MotionValue<number>
   onSelect?: (index: number) => void
   variant: 'pinned' | 'compact' | 'static'
@@ -88,7 +87,6 @@ function StepItem({ step, index, state, fill, onSelect, shown, reduce }: StepIte
   )
 }
 
-/** Sol sütundaki adım listesi: etkin adım aria-current ile işaretlenir, üst çizgisi ilerlemeyle dolar. */
 export default function FlowSteps({ steps, active, fill, onSelect, variant, label, heading }: FlowStepsProps) {
   const reduce = Boolean(useReducedMotion())
   const listRef = useRef<HTMLOListElement>(null)

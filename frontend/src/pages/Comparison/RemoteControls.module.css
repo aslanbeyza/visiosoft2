@@ -1,4 +1,4 @@
-/* Sahne üstündeki gerçek DOM etiketleri (SVG metni yok). */
+
 .you {
   position: absolute;
   top: 62%;
@@ -33,7 +33,6 @@
   letter-spacing: 0.04em;
 }
 
-/* Durum etiketi planın altında; dar ekranda "Otoparkınız" etiketiyle çakışmaz. */
 .status {
   position: absolute;
   right: 3%;

@@ -9,17 +9,12 @@ import type { ScanPhase } from './PlateSvg.tsx'
 import styles from './PlateScan.module.css'
 
 const copy = plakaCopy.scan
-// Görür → Tanır süreleri (ms); Onaylar sonrası bekleme.
+
 const PHASE_MS = [1100, 1300, 0] as const
 const FILL_S = [1, 1.2, 0.4] as const
 const HOLD_MS = 2600
 const pad = (value: number) => String(value).padStart(2, '0')
 
-/**
- * Başarı bölümü: sabit kamera kadrajında TR plakası; koşul yalnızca overlay katmanını değiştirir.
- * Görür → Tanır → Onaylar plakanın altında cam HUD’da ilerler. Koşullar görünürken döner;
- * seçimle o kareden devam eder. Hareket azaltmada kilitli son kare gösterilir.
- */
 export default function PlateScan() {
   const reduce = Boolean(useReducedMotion())
   const pageVisible = usePageVisible()

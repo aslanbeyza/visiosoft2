@@ -17,10 +17,8 @@ const draw: Variants = {
   show: (delay: number = 0) => ({ scaleX: 1, transition: { duration: 1, delay, ease: revealEase } }),
 }
 
-/** "e-fatura", "e-arşiv" satır sonunda tireden bölünmesin diye bölünmez tire (U+2011) kullanılır. */
 const keepCompounds = (text: string) => text.replace(/\be-(?=\p{L})/gu, 'e‑')
 
-/** Üst blok: sol başlık, sağ açıklama ve üç ilke. Başlık satırları → açıklama → ilkeler sırayla belirir. */
 export default function TrustHeader({ titleId }: { titleId: string }) {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

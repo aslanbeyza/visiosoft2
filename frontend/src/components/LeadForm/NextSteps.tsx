@@ -9,7 +9,6 @@ export type NextStepsProps = {
   steps: { title: string; description: string }[]
 }
 
-/** "Sonraki adımlar": dikey adım listesi; çizgi kaydırmayla dolar, çizgi ulaşan adım etkinleşir. */
 export default function NextSteps({ eyebrow, title, steps }: NextStepsProps) {
   const titleId = useId()
 

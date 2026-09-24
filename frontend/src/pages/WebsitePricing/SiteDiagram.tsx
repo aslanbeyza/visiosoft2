@@ -18,7 +18,7 @@ const draw: Variants = {
 const fade: Variants = { hidden: { opacity: 0 }, show: (d: number = 0) => ({ opacity: 1, transition: { duration: 0.7, delay: d } }) }
 const grow: Variants = { hidden: { scaleX: 0 }, show: (d: number = 0) => ({ scaleX: 1, transition: { duration: 1.2, delay: d, ease: revealEase } }) }
 const drop: Variants = { hidden: { opacity: 0, y: -10 }, show: (d: number = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: d, ease: revealEase } }) }
-// Veri hattında yukarı doğru tek seferlik akış (döngü yok).
+
 const pulse: Variants = {
   hidden: { opacity: 0, y: 0 },
   show: (d: number = 0) => ({ opacity: [0, 1, 1, 0], y: [0, -60, -300, -314], transition: { duration: 1.6, delay: d, times: [0, 0.12, 0.88, 1], ease: 'easeInOut' } }),
@@ -26,10 +26,6 @@ const pulse: Variants = {
 
 const pct = (x: number, y: number): CSSProperties => ({ left: `${(x / SITE_VIEW.w) * 100}%`, top: `${(y / SITE_VIEW.h) * 100}%` })
 
-/**
- * Site kesiti (açılışın imza görseli): bloklar ve katlar çizilir, her katın kapasite hattı dolar ve sınır bayrağı iner,
- * veri hattı katları bulut panele bağlar, cihazlar belirir. Tek seferliktir; hareket azaltmada tamamlanmış hâliyle durur.
- */
 export default function SiteDiagram() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

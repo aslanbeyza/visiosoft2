@@ -1,4 +1,4 @@
-/** Talep formunun ortak Türkçe metinleri; sayfaya özel etiketler prop ile değiştirilir. */
+
 export const leadFormCopy = {
   fields: {
     name: 'Ad Soyad',
@@ -9,14 +9,14 @@ export const leadFormCopy = {
     message: 'Ek Mesaj',
     optional: 'Opsiyonel',
   },
-  /** Alan içinde gösterilen örnek metinler. */
+
   examples: {
     address: 'Otoparkın adresi',
   },
   hints: {
     phone: 'Uzmanımız bu numaradan size ulaşır.',
   },
-  /** Boş zorunlu alanlar için alan adını söyleyen mesajlar (hata özetinde de okunur). */
+
   parking: {
     projectType: 'Proje tipi',
     paid: 'Ücretli otopark',

@@ -10,9 +10,6 @@ import { flagships } from './flagships.ts'
 import { homeFlagshipsCopy as text } from './homeFlagshipsCopy.ts'
 import styles from './HomeFlagships.module.css'
 
-/**
- * Ana sayfa donanım vitrini: başlık üründen ayrı, masaüstünde iki kolon, kaydırmayı ele geçirmez.
- */
 export default function HomeFlagships() {
   const path = usePath()
   const base = useId()

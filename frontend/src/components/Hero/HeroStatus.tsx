@@ -11,7 +11,7 @@ import parts from './StatusParts.module.css'
 
 type HeroStatusProps = {
   phase: Phase
-  /** "Plaka okunuyor…" rayı (0–1), videonun zamanından. */
+
   progress: MotionValue<number>
   reduce: boolean
   playing: boolean
@@ -19,10 +19,6 @@ type HeroStatusProps = {
 
 const hud = heroCopy.hud
 
-/**
- * Videoyla eşzamanlı geçiş kartı. Görsel içerik ekran okuyuculardan gizlidir;
- * yerine sabit bir özet okunur (otomatik değişen içerikte aria-live yok).
- */
 export default function HeroStatus({ phase, progress, reduce, playing }: HeroStatusProps) {
   const stage = stageOf(phase)
   const swap = { duration: reduce ? 0 : 0.35, ease: revealEase }
@@ -65,7 +61,7 @@ export default function HeroStatus({ phase, progress, reduce, playing }: HeroSta
         </div>
 
         <div className={styles.detail}>
-          {/* Plaka yuvası: algılamada okuma rayı, doğrulamadan sonra plaka (bariyer açılınca da kalır). */}
+          {}
           <div className={`${styles.slot} ${styles.slotPlate}`}>
             <motion.div className={styles.layer} {...layer(stage === 'detect')}>
               <motion.span className={styles.note} {...layer(phase === 'reading')}>

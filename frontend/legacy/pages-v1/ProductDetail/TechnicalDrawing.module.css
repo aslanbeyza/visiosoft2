@@ -140,7 +140,6 @@
   transform: translateY(0);
 }
 
-/* Dokunmatik ekranlarda üzerine gelme olmadığı için ipucu sürekli görünür. */
 @media (hover: none) {
   .chip {
     opacity: 1;

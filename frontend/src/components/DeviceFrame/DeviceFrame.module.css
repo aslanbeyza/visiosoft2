@@ -26,7 +26,6 @@
   border-radius: 1.35rem;
 }
 
-/* Çerçeve görseli ekranın üstünde durur; tıklamalar altındaki içeriğe geçer. */
 .frame {
   position: relative;
   z-index: 1;

@@ -42,9 +42,6 @@
   height: 100%;
 }
 
-/* Ekran görüntüsü kipi: .clip güvenli iç pay (12 px) ve nötr paspartudur; oran iç kutuya uygulanır, görsel contain ile sığar.
-   İç kutu en fazla 6 px kayar; 1 px çizgisiyle birlikte paydan 5 px önce durur, bu yüzden hiçbir kenar kırpılmaz.
-   Gölge .clip'in kardeşi olan .shadow'dadır; clip-path ve overflow onu kesmez. */
 .frame[data-mode='screenshot'] {
   --mf-mat: 0.75rem;
 }
@@ -101,8 +98,6 @@
   list-style: none;
 }
 
-/* Ekran görüntüsü kipinde etiketler görüntünün üzerine binmez: paspartu içinde, görüntünün üstünde akışta bir satırdır.
-   Alt boşluk iç payla eşittir; iç kutu 6 px yukarı kaysa bile etiketlerle arasında 6 px kalır. */
 .frame[data-mode='screenshot'] .chips {
   position: static;
   margin-bottom: var(--mf-mat);

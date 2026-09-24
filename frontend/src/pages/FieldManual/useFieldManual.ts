@@ -3,7 +3,6 @@ import { getFieldManual } from '../../services/index.ts'
 
 export type ManualSpec = { label: string; value: string }
 
-/** Backend bölümü; eski şema (body/items) ve güncel şema (summary/paragraphs/specs) birlikte desteklenir. */
 export type ManualSectionData = {
   title?: string
   summary?: string
@@ -38,7 +37,6 @@ export type FieldManualState = { status: 'loading' } | { status: 'error' } | { s
 
 type Result = { attempt: number; manual: ManualData | null }
 
-/** Kılavuzu getirir; yükleniyor durumu deneme numarasından türetilir, `retry` yeniden dener. */
 export function useFieldManual() {
   const [attempt, setAttempt] = useState(0)
   const [result, setResult] = useState<Result | null>(null)

@@ -23,7 +23,7 @@ export const kioskDetail: ProductDetailData = {
       height: 2064,
       alt: 'İnsansız çıkış ödeme kiosku: kırmızı ön panelde ekran, temassız kart okuyucu ve Visiosoft logosu, beyaz kolon ve havalandırmalı taban',
     },
-    // Değerler görsel kutusuna göre yüzde: kafa üstü 0,5 · taban altı 99,5 · ön panel 23,7–95,6.
+
     dimensions: {
       height: { label: '1800 mm', span: { from: 0.5, to: 99.5 }, edges: [24, 1] },
       width: { label: '300 mm', span: { from: 23.7, to: 95.6 }, edges: [0.8, 1.6] },

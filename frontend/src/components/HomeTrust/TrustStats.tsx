@@ -22,7 +22,6 @@ const item: Variants = {
   show: (delay: number = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.8, delay, ease: revealEase } }),
 }
 
-/** İstatistik sırası: üst ve alt çizgi soldan çizilir, sütun ayraçları iner, 33 ve 100 ms bir kez sayar. */
 export default function TrustStats() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

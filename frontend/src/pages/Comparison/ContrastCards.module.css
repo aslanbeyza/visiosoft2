@@ -92,7 +92,6 @@
   min-height: 3rem;
 }
 
-/* Dikey ayraç yalnızca yan yana düzende görünür. */
 .line {
   display: none;
   background: var(--color-corp-line);

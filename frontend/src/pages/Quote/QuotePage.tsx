@@ -2,7 +2,6 @@ import LeadForm, { LeadAside, LeadLayout } from '../../components/LeadForm/index
 import Seo from '../../components/Seo/index.ts'
 import { quoteCopy as copy } from './quoteCopy.ts'
 
-/** /teklif-al — form + sonraki adımlar paneli. */
 export default function QuotePage() {
   return (
     <>

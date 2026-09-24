@@ -5,10 +5,6 @@ import SitemapGroups from './SitemapGroups.tsx'
 import SitemapTree from './SitemapTree.tsx'
 import { sitemapCopy as copy, sitemapGroups } from './sitemapCopy.ts'
 
-/**
- * /site-haritasi — ortalanmış hero + site ağacı (kökten dallar çizilir, düğümlerde gerçek sayfa sayıları) →
- * grup kartları (satırlar süpürme çizgisiyle belirir). Etiketler siteNav ve sayfaların kendi başlıklarından gelir.
- */
 export default function SitemapPage() {
   const path = usePath()
 

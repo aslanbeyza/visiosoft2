@@ -2,7 +2,6 @@ import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
 
 type IconItem = { icon: FeatureIconName; title: string; description: string; meta?: string }
 
-/** Hizmetlerimiz sayfası metinleri; mevcut sayfa metninden alınmıştır. */
 export const servicesCopy = {
   seoTitle: 'Hizmetlerimiz - Visiosoft',
   seoDescription:

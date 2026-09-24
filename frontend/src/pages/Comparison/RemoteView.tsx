@@ -12,10 +12,6 @@ import styles from './RemoteView.module.css'
 const copy = comparisonCopy.scene
 const MODES: RemoteMode[] = ['traditional', 'visio']
 
-/**
- * Hero anı: "Otoparktaymış gibi" fikrini gösterir. Görünüme girince geleneksel kör noktadan
- * Visiosoft'un canlı bağlantısına bir kez geçer; ziyaretçi düğmelerle iki görünüm arasında gezinebilir.
- */
 export default function RemoteView() {
   const reduce = Boolean(useReducedMotion())
   const visible = usePageVisible()

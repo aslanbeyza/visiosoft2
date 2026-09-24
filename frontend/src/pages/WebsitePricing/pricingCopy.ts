@@ -1,6 +1,4 @@
-// /site-fiyatlari sayfasının Türkçe metinleri (mevcut sayfa metinlerinden taşındı).
 
-/** Sayfada gösterilen ve JSON-LD Offer'da kullanılan başlangıç fiyatı (müşteri onayına bağlı; raporda listelendi). */
 export const price = { amount: '1499', label: '$1.499+', currency: 'USD' }
 
 export const pricingCopy = {
@@ -19,7 +17,7 @@ export const pricingCopy = {
   card: {
     label: 'Başlangıç',
     note: 'Net fiyat; giriş-çıkış sayısı, kat yapısı, kamera/bariyer ihtiyacı ve entegrasyon kapsamına göre belirlenir.',
-    // Kart kısa kalsın diye yalnızca başlıklar; ayrıntılar hemen alttaki Özellikler bölümünde.
+
     highlights: [{ title: 'Bulut tabanlı erişim' }, { title: 'Kat başına araç sınırı' }, { title: 'Plaka ve abone yönetimi' }],
   },
   diagram: {

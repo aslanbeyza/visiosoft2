@@ -1,4 +1,4 @@
-/** /donanim-urunleri/katalog metinleri. */
+
 export const catalogSeo = {
   title: 'Donanım Kataloğu | Visiosoft',
   description:

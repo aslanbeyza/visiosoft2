@@ -13,7 +13,6 @@ export const sectorLabels: Record<SectorKey, string> = {
   diger: 'Diğer',
 }
 
-// Sektör, yalnızca referans adındaki anahtar kelimelerden türetilir (ek veri yok)
 const rules: [SectorKey, RegExp][] = [
   ['belediye', /belediyesi/iu],
   ['universite', /üniversite/iu],
@@ -23,10 +22,8 @@ const rules: [SectorKey, RegExp][] = [
 
 export const sectorOf = (name: string): SectorKey => rules.find(([, pattern]) => pattern.test(name))?.[0] ?? 'diger'
 
-// Görünen ad düzeltmesi: sıra sayısından sonra boşluk ("2.Matbaacılar" → "2. Matbaacılar")
 const displayName = (name: string) => name.replace(/^(\d+)\.(?=\S)/u, '$1. ')
 
-// Logolar kırpılmış, zemini saydam kopyalarla gösterilir; kopyası olmayan dosya özgün URL'sine düşer.
 export const referenceItems = references.map((reference) => ({
   ...reference,
   name: displayName(reference.name),

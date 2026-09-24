@@ -1,32 +1,212 @@
+/* Tek kompozisyon: solda el terminali, sağda metin + kayıt zaman çizelgesi. */
+
 .grid {
   display: grid;
-  gap: clamp(2rem, 4vw, 3rem);
+  gap: clamp(2rem, 4vw, 2.75rem);
   align-items: start;
+  max-width: 66rem;
+  margin-inline: auto;
+}
+
+.figure {
+  position: relative;
+  width: min(17.5rem, 78vw);
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.figureHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-navy-600);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.statusDot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-navy-600) 14%, transparent);
+}
+
+.deviceLabel {
+  color: var(--color-corp-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.matte {
+  padding: 0.55rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(15 20 48 / 0.04),
+    0 22px 44px -28px rgb(15 20 48 / 0.35);
+}
+
+.videoWrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 0.65rem;
+  background: var(--color-corp-surface);
+  aspect-ratio: 464 / 832;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+}
+
+.playToggle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.2s var(--ease-apple);
+}
+
+.playToggle:hover,
+.playToggle:focus-visible {
+  opacity: 1;
+  background: rgb(15 20 48 / 0.12);
+}
+
+.playToggle:focus-visible {
+  outline: 2px solid var(--color-navy-600);
+  outline-offset: -2px;
+}
+
+.playToggleLabel {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-corp-ink);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 1px 3px rgb(15 20 48 / 0.08);
+}
+
+.figureMeta {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.nowPlaying {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+}
+
+.nowTx {
+  color: var(--color-corp-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nowStep {
+  color: var(--color-corp-ink);
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+}
+
+.progressRow {
+  display: flex;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.progressTrack {
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-corp-line) 85%, transparent);
+  opacity: 0.55;
+}
+
+.progressTrack[data-active] {
+  opacity: 1;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-navy-600);
+  transition: width 0.2s linear;
+}
+
+.caption {
+  margin: 0;
+  color: var(--color-corp-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .copy {
   min-width: 0;
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  align-content: start;
+}
+
+.heading {
+  margin-bottom: 0;
 }
 
 .points {
   display: grid;
-  gap: 1rem;
-  margin: 1.75rem 0 0;
+  gap: 0;
+  margin: 0;
   padding: 0;
   list-style: none;
-  max-width: 36rem;
+  border-top: 1px solid var(--color-corp-line);
 }
 
 .point {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 0.85rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--color-corp-line);
 }
 
 .pointMark {
-  flex-shrink: 0;
-  width: 0.35rem;
-  height: 0.35rem;
-  margin-top: 0.55em;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-top: 0.45em;
   border-radius: 50%;
   background: var(--color-navy-600);
 }
@@ -34,30 +214,36 @@
 .pointTitle {
   margin: 0;
   color: var(--color-corp-ink);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.4;
+  font-size: 0.98rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
 }
 
 .pointDesc {
-  margin: 0.2rem 0 0;
+  margin: 0.25rem 0 0;
   color: var(--color-corp-body);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   line-height: 1.55;
 }
 
 .timelineBlock {
-  margin-top: 2rem;
-  max-width: 36rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--color-corp-line);
+  padding: 1.15rem 1.2rem 1.25rem;
+  border: 1px solid var(--color-corp-line);
+  border-radius: 0.85rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(15 20 48 / 0.03);
+}
+
+.timelineHead {
+  display: grid;
+  gap: 0.75rem;
 }
 
 .timelineKicker {
-  margin: 0 0 0.75rem;
+  margin: 0;
   color: var(--color-corp-muted);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -67,6 +253,8 @@
   display: inline-flex;
   flex-wrap: wrap;
   gap: 0.15rem;
+  width: fit-content;
+  max-width: 100%;
   padding: 0.2rem;
   border: 1px solid var(--color-corp-line);
   border-radius: 0.65rem;
@@ -75,14 +263,16 @@
 
 .tab,
 .tabActive {
-  min-height: 2.1rem;
-  padding: 0.35rem 0.95rem;
+  min-height: 2rem;
+  padding: 0.3rem 0.85rem;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 0.84rem;
+  border-radius: 0.45rem;
+  font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s var(--ease-apple),
+    color 0.2s var(--ease-apple);
 }
 
 .tab {
@@ -103,7 +293,7 @@
 .steps {
   display: grid;
   gap: 0;
-  margin: 1.15rem 0 0;
+  margin: 1rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -111,9 +301,9 @@
 .step {
   position: relative;
   display: flex;
-  gap: 0.9rem;
+  gap: 0.85rem;
   align-items: flex-start;
-  padding-bottom: 0.95rem;
+  padding-bottom: 0.85rem;
 }
 
 .step:last-child {
@@ -141,8 +331,10 @@
   height: 0.55rem;
   margin-top: 0.35rem;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--color-corp-muted) 45%, transparent);
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  background: color-mix(in srgb, var(--color-corp-muted) 40%, transparent);
+  transition:
+    background 0.2s var(--ease-apple),
+    box-shadow 0.2s var(--ease-apple);
 }
 
 .stepDot[data-done],
@@ -160,8 +352,8 @@
   background: none;
   text-align: left;
   font: inherit;
-  font-size: 0.94rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.45;
   color: var(--color-corp-muted);
   cursor: pointer;
 }
@@ -175,217 +367,46 @@
 }
 
 .stepButton[data-live] {
-  font-weight: 600;
+  font-weight: 650;
   color: var(--color-corp-ink);
-}
-
-/* Medya: MediaFrame paspartusu — dikey video kırpılmadan, tam kare. */
-.figure {
-  position: relative;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.figureHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 0.65rem;
-  width: 100%;
-}
-
-.statusBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--color-navy-600);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.statusDot {
-  width: 0.35rem;
-  height: 0.35rem;
-  border-radius: 50%;
-  background: currentColor;
-}
-
-.deviceLabel {
-  color: var(--color-corp-muted);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.matte {
-  width: fit-content;
-  max-width: 100%;
-  padding: 0.65rem;
-  border: 1px solid var(--color-corp-line);
-  border-radius: 0.75rem;
-  background: color-mix(in srgb, var(--color-corp-line) 40%, var(--color-corp-surface));
-  box-shadow: 0 1px 2px rgb(15 20 48 / 0.04), 0 18px 36px -22px rgb(15 20 48 / 0.2);
-}
-
-.videoWrap {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0.4rem;
-  border: 1px solid color-mix(in srgb, var(--color-corp-line) 55%, transparent);
-  background: #fff;
-  /* Kaynak 464×832 — oran korunur; contain ile yanlar kesilmez. */
-  aspect-ratio: 464 / 832;
-  width: min(16.5rem, 72vw, calc(min(56svh, 28rem) * 464 / 832));
-  max-height: min(56svh, 28rem);
-}
-
-.video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  background: #fff;
-}
-
-.nowPlaying {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.65rem;
-  margin: 0.75rem 0 0;
-  max-width: 100%;
-}
-
-.nowTx {
-  color: var(--color-corp-muted);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.nowStep {
-  color: var(--color-corp-ink);
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.playToggle {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background: transparent;
-  opacity: 0;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.playToggle:hover,
-.playToggle:focus-visible {
-  opacity: 1;
-  background: rgb(15 20 48 / 0.1);
-}
-
-.playToggleLabel {
-  padding: 0.45rem 0.9rem;
-  border: 1px solid var(--color-corp-line);
-  border-radius: 999px;
-  background: #fff;
-  color: var(--color-corp-ink);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  box-shadow: 0 1px 3px rgb(15 20 48 / 0.08);
-}
-
-.progressRow {
-  display: flex;
-  gap: 0.3rem;
-  margin-top: 0.65rem;
-  width: 100%;
-}
-
-.progressTrack {
-  height: 2px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-corp-line) 80%, transparent);
-}
-
-.progressFill {
-  height: 100%;
-  background: var(--color-navy-600);
-  transition: width 0.2s linear;
-}
-
-.progressLabels {
-  display: flex;
-  gap: 0.3rem;
-  margin-top: 0.35rem;
-  width: 100%;
-}
-
-.progressLabel {
-  color: var(--color-corp-muted);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.progressLabel[data-active] {
-  color: var(--color-navy-600);
-  font-weight: 600;
-}
-
-.caption {
-  margin: 0.7rem 0 0;
-  max-width: 22rem;
-  color: var(--color-corp-muted);
-  font-size: 0.8rem;
-  line-height: 1.5;
 }
 
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: clamp(1.5rem, 3.5vw, 2.75rem);
-    align-items: center;
+    grid-template-columns: 19.5rem minmax(0, 1fr);
+    grid-template-areas: 'figure copy';
+    column-gap: clamp(2.75rem, 4.5vw, 3.75rem);
+    align-items: start;
   }
 
   .figure {
+    grid-area: figure;
+    width: 100%;
+    margin: 0;
     position: sticky;
-    top: calc(var(--scroll-padding-top, 6.5rem) + 0.75rem);
-    margin-inline: 0;
-    justify-self: end;
+    top: calc(var(--scroll-padding-top, 6.5rem) + 0.5rem);
   }
 
-  .videoWrap {
-    width: min(17rem, calc(min(50svh, 26rem) * 464 / 832));
-    max-height: min(50svh, 26rem);
+  .copy {
+    grid-area: copy;
+    padding-top: 0.15rem;
   }
 }
 
 @media (min-width: 1280px) {
   .grid {
-    column-gap: clamp(1.75rem, 4vw, 3rem);
+    max-width: 70rem;
+    grid-template-columns: 20.5rem minmax(0, 1fr);
+    column-gap: 4rem;
   }
+}
 
-  .videoWrap {
-    width: min(18rem, calc(min(52svh, 28rem) * 464 / 832));
-    max-height: min(52svh, 28rem);
+@media (prefers-reduced-motion: reduce) {
+  .playToggle,
+  .tab,
+  .tabActive,
+  .stepDot,
+  .progressFill {
+    transition: none;
   }
 }

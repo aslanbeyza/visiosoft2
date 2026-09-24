@@ -1,7 +1,6 @@
-/** /donanim-urunleri metinleri (eski copy.ts'ten; yasaklı iddialar çıkarıldı). */
+
 import { hardwareItems } from './data.ts'
 
-/** Ürün adları kartlardaki başlıklarla aynı kaynaktan (products.ts copy.name) türetilir. */
 const productNames = hardwareItems.map((item) => item.name)
 
 export const listingSeo = {
@@ -31,7 +30,6 @@ export const productsCopy = {
   resultSuffix: 'ürün gösteriliyor',
 }
 
-/** Kart ızgarasını tamamlayan "birlikte çalışır" kutucuğu. Rol metinleri kategori açıklamalarından türetildi. */
 export const systemTileCopy = {
   eyebrow: 'Birlikte çalışır',
   title: 'Bir çıkış noktası, tek sistem.',

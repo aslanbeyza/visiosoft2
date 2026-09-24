@@ -16,10 +16,6 @@ import styles from './FieldManualPage.module.css'
 
 const PDF_HREF = `${API_URL}/api/manuals/field-user-manual/pdf?locale=tr`
 
-/**
- * /saha-kullanim-kilavuzu — bölünmüş hero (başlık, künye, PDF/Yazdır; sağda çizilen cilt sırtı = bölüm listesi) →
- * kılavuz metni (içindekiler, teknik özellik tablosu) → destek satırı. `?pdf=1` (sunucu PDF'i) hareketsiz ve eylemsiz çizer.
- */
 export default function FieldManualPage() {
   const path = usePath()
   const [params] = useSearchParams()
@@ -28,7 +24,6 @@ export default function FieldManualPage() {
   const manual = state.status === 'ready' ? state.manual : null
   const hasContent = Boolean(manual && ((manual.sections?.length ?? 0) > 0 || manual.overview))
 
-  // Künye alanı yalnızca veri beklenirken yer ayırır; hata durumunda başlıkla eylemler arasında boşluk bırakmaz.
   const meta = state.status === 'error' ? undefined : (
     <div className={styles.metaSlot} data-pending={state.status === 'loading'}>
       {manual && (manual.version || manual.publish_date) ? (
@@ -50,7 +45,6 @@ export default function FieldManualPage() {
     </div>
   )
 
-  // Yazdır/PDF yalnızca kılavuz içeriği varken anlamlıdır.
   const actions = pdfMode || !manual ? undefined : (
     <>
       {manual?.pdf_filename ? (
@@ -64,7 +58,6 @@ export default function FieldManualPage() {
     </>
   )
 
-  // Hata durumunda hero ikinci bir hata kutusu göstermez: ortalanmış başlık kalır, açıklamayı aşağıdaki tek ErrorState yapar.
   const failed = state.status === 'error'
   const chapters = failed ? undefined : (
     <ManualChapters chapters={manual ? toChapters(manual) : null} title={manual?.toc_title} static={pdfMode} />

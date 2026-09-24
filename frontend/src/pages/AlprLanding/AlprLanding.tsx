@@ -16,7 +16,6 @@ import ExitPreview from './ExitPreview.tsx'
 import { alprCopy as copy } from './alprCopy.ts'
 import styles from './AlprSections.module.css'
 
-// Logo dosyalarının gerçek piksel ölçüleri (CLS önlemi)
 const logoSizes: Record<string, [number, number]> = {
   'Crowne Plaza.png': [141, 72],
   'Metropark awm.png': [143, 145],
@@ -37,7 +36,6 @@ const logos = copy.proof.logoFiles.map((file) => {
   }
 })
 
-/** /plaka-tanima-cozumu — uçtan uca plaka tanıma satış sayfası. */
 export default function AlprLanding() {
   const path = usePath()
   const { process, proof, demo, compliance, faq } = copy

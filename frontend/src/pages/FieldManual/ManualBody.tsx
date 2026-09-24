@@ -10,7 +10,6 @@ import styles from './ManualBody.module.css'
 
 type ChunkProps = { children: ReactNode; isStatic: boolean; divider: boolean }
 
-/** Her bölüm kendi başına yükselir; üstündeki ayraç çizgisi çizilir. PDF modunda düz blok. */
 function Chunk({ children, isStatic, divider }: ChunkProps) {
   const reduce = Boolean(useReducedMotion()) || isStatic
   const line = divider ? (
@@ -85,7 +84,6 @@ function SectionContent({ section, manual }: { section: ManualSectionData; manua
   )
 }
 
-/** Kılavuz metni: belge başlığı, kapsam ve numaralı bölümler; sağda yapışkan içindekiler (Prose). */
 export default function ManualBody({ manual, isStatic }: { manual: ManualData; isStatic: boolean }) {
   const sections = manual.sections ?? []
 

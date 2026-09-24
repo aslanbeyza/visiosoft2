@@ -1,10 +1,7 @@
 .stage {
-  /* Konteyner sorgusu: telefon genişliği sarmalayıcıya göre ölçeklenir. */
+
   container-type: inline-size;
-  /*
-   * Genişlik: rem / vw / viewport yüksekliği — hangisi küçükse o kazanır.
-   * Böylece kısa ekranda telefon kesilmez, tamamı görünür.
-   */
+
   width: min(15rem, 78vw, calc((100svh - 14rem) * 416 / 870));
   max-width: 100%;
   margin-inline: auto;

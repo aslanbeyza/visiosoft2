@@ -1,18 +1,14 @@
-/**
- * Kullanım: <Stepper steps={['Senaryo', 'Kurgu', 'İletişim']} current={1} onSelect={(index) => goTo(index)} />
- * Tamamlanan adımlar onay işaretiyle, geçerli adım `aria-current="step"` ile işaretlenir;
- * `onSelect` verilirse tamamlanan adımlara geri dönülebilir. Bağlantı çizgileri adım tamamlanınca dolar.
- */
+
 import { formCopy } from './formCopy.ts'
 import styles from './Stepper.module.css'
 
 export type StepperProps = {
   steps: string[]
-  /** 0 tabanlı geçerli adım. */
+
   current: number
-  /** Ek: nav etiketi. */
+
   label?: string
-  /** Ek: tamamlanmış adıma tıklanınca. */
+
   onSelect?: (index: number) => void
   className?: string
 }

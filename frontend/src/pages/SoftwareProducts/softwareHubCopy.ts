@@ -1,4 +1,4 @@
-/** /yazilim-urunleri sayfasının Türkçe metinleri ve görsel künyeleri (mevcut site metinlerinden derlenmiştir). */
+
 export type HubImage = {
   src: string
   avif?: string
@@ -41,7 +41,6 @@ export const heroCopy = {
   tablistLabel: 'ParkBiz alt sekmeleri',
 }
 
-/** visiosoft.com.tr hub-software ile aynı kapsam; rotalar visiosoft2 routes.ts ile eşleşir. */
 export const solutionHubCopy = {
   eyebrow: 'Park Yazılım',
   title: 'Ana çözümler',
@@ -151,10 +150,6 @@ export const zoneCopy = {
   ],
 }
 
-/**
- * Gerçek ParkBiz uygulama ekranları (public/img/app/screens.json). Çerçeveli sürüm 780 × 1692; çentik ve ana ekran
- * çizgisi için üst/alt beyaz bantlar içerir ve telefon çerçevesinin ekran alanına (623 × 1351) birebir oturur.
- */
 const appScreen = (id: string, alt: string): HubImage => ({
   src: `/img/app/${id}.webp`,
   avif: `/img/app/${id}.avif`,
@@ -163,10 +158,6 @@ const appScreen = (id: string, alt: string): HubImage => ({
   alt,
 })
 
-/**
- * Hero telefon demosu: parkbiz-port alt sekmeleri (Otoparklar, Abonelik, Borçlar, Profil).
- * Ekranlar screens.json'daki tabBar: 4 kareleriyle eşleşir.
- */
 export const heroTabs = [
   {
     id: 'otoparklar',

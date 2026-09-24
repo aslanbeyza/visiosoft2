@@ -6,7 +6,6 @@
   list-style: none;
 }
 
-/* Üç sütun yalnızca geniş ekranda: tablette telefon ve e-posta değerleri satır ortasında bölünüyordu. */
 @media (min-width: 1024px) {
   .list {
     grid-template-columns: repeat(3, minmax(0, 1fr));

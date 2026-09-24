@@ -21,7 +21,6 @@ type StepSetupProps = {
 
 const { setup } = quoteCopy
 
-/** 2. adım: ödeme altyapısı, geçiş kontrolü ve kurulum tercihi. */
 export default function StepSetup(props: StepSetupProps) {
   const { choices, showErrors, autoFocus, total } = props
   const errors = showErrors ? setupErrors(choices) : {}

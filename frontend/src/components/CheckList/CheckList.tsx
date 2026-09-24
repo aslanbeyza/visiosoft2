@@ -1,10 +1,4 @@
-/**
- * Kullanım:
- *   <CheckList items={copy.summary} />
- *   <CheckList items={copy.use_cases} columns={2} tone="dark" />
- * Onay işaretleri görünüme girince sırayla çizilir (M3); satırlar hafifçe yükselir.
- * Hareket azaltmada işaretler ve satırlar doğrudan tam hâlde görünür.
- */
+
 import { motion } from 'framer-motion'
 import { RevealGroup, RevealItem, revealEase } from '../Reveal/index.ts'
 import styles from './CheckList.module.css'
@@ -14,7 +8,7 @@ export type CheckListProps = {
   columns?: 1 | 2
   tone?: 'light' | 'dark'
   className?: string
-  /** Liste için erişilebilir etiket (grup adı). */
+
   label?: string
 }
 

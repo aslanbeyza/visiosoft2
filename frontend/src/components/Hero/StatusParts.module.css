@@ -49,7 +49,7 @@
 .rail {
   position: relative;
   display: block;
-  /* Plaka rozeti genişliğinde: ray dolar, aynı yuvada plaka oluşur. */
+
   width: 9.25rem;
   height: 2px;
   overflow: hidden;

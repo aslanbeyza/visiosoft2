@@ -15,11 +15,6 @@
   color: var(--ke-ink);
 }
 
-/**
- * Showcase pin-spacer: 100svh sahne + 200svh kaydırma (end: '+=200%').
- * 380×773’te ≈ 380×2319. Kaydırma yüksekliği padding değil kutu boyu —
- * sticky yalnızca içerik kutusunda tutunur.
- */
 .pinSpacer {
   display: flex;
   flex-direction: column;
@@ -146,7 +141,6 @@
   text-wrap: pretty;
 }
 
-/* 3B overlay’de lede kiosk gövdesinin üstüne biniyor; yalnız yüksek kadrajda açılır. */
 .overlay .lede {
   display: none;
 }

@@ -1,4 +1,4 @@
-/* Ürün dizisi sahnesi: --stage-h en uzun ürünün (TIR kiosk) görüntü yüksekliğidir. */
+
 .stage {
   --stage-h: clamp(10.5rem, 52vw, 15rem);
   --label-h: 2.25rem;
@@ -16,14 +16,12 @@
   }
 }
 
-/* Kısa masaüstü ekranlarda (1280×720) dizi ilk ekrana sığar. */
 @media (min-width: 1024px) and (max-height: 860px) {
   .stage {
     --stage-h: clamp(13rem, calc(100svh - 29rem), 24rem);
   }
 }
 
-/* Kaydırmayla yatay ilerleyen ışık huzmesi (yalnızca transform/opacity). */
 .spot {
   position: absolute;
   inset: 0 0 var(--label-h);
@@ -64,7 +62,6 @@
   outline-offset: 3px;
 }
 
-/* Yalnızca alt kenarı (zemin) kırpan pencere: ürün zeminin içinden yükselir, üstte hover kalkışı kırpılmaz. */
 .window {
   display: block;
   height: calc(var(--stage-h) * var(--r));
@@ -92,7 +89,6 @@
     opacity 0.45s var(--ease-apple);
 }
 
-/* Zemin gölgesi: ürünün altında yumuşak elips; hover'da koyulaşır. */
 .shadow {
   position: absolute;
   bottom: calc(var(--label-h) - 0.35rem);
@@ -106,7 +102,6 @@
   pointer-events: none;
 }
 
-/* Etiket zeminin altında, ürün ekseninde ortalanır; komşu etiketlerle çakışmaması için dar tutulur. */
 .label {
   position: absolute;
   top: calc(100% - var(--label-h) + 0.7rem);
@@ -120,13 +115,11 @@
   text-align: center;
 }
 
-/* min-width: dar ekranda küçük ürünlerde (Visiobox) dokunma alanı 44 px'in altına düşmesin. */
 .link {
   min-width: 2.75rem;
   padding-bottom: var(--label-h);
 }
 
-/* Kenardaki ürünlerin etiketi sahne dışına taşıp kırpılmasın: ilk etiket sola, son etiket sağa yaslanır. */
 .item:first-child .label {
   left: 0;
   justify-items: start;
@@ -159,7 +152,6 @@
   transition: color 0.3s var(--ease-apple);
 }
 
-/* Ölçü çizgisi (M3): ürünün solunda, uçları tırnaklı dikey çizgi. */
 .dim {
   position: absolute;
   right: calc(100% + 0.7rem);
@@ -216,7 +208,6 @@
   white-space: nowrap;
 }
 
-/* Hover/odak: ürün hafifçe kalkar, diğerleri geri çekilir. */
 @media (hover: hover) and (pointer: fine) {
   .link:hover .image {
     transform: translateY(-0.45rem);
@@ -240,7 +231,6 @@
   opacity: 0.45;
 }
 
-/* Dar ekran: yalnızca sıra numarası görünür, ad ekran okuyucuya kalır. */
 @media (max-width: 767.98px) {
   .name {
     position: absolute;

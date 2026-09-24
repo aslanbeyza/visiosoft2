@@ -21,13 +21,10 @@ import type { PanelCustom } from './navData.ts'
 import { useNavbarScroll } from './useNavbarScroll.ts'
 import styles from './Navbar.module.css'
 
-// Menü niyet okuması (ms): ilk açılış, paneller arası geçiş ve kapanma toleransı.
-// Geçiş gecikmesi, açık panele çapraz inen imlecin komşu öğeden geçerken paneli değiştirmesini önler;
-// imleç aşağı indikçe süre yeniden başlar, yalnızca durunca ya da yatay ilerleyince geçiş yapılır.
 const OPEN_DELAY = 90
 const SWAP_DELAY = 220
 const CLOSE_DELAY = 150
-// Fareyle açılan menüye hemen ardından gelen tıklama menüyü kapatmasın.
+
 const HOVER_CLICK_GRACE = 400
 
 type MenuState = { key: string; at: string; swap: boolean }
@@ -44,7 +41,7 @@ export default function Navbar() {
 
   const [menu, setMenu] = useState<MenuState | null>(null)
   const [mobileAt, setMobileAt] = useState<string | null>(null)
-  // Rota değişince (geri/ileri dahil) açık durum sıfırlanır; aynı yola dönülünce menü kendiliğinden açılmaz.
+
   const [seenPath, setSeenPath] = useState(pathname)
   if (seenPath !== pathname) {
     setSeenPath(pathname)
@@ -57,20 +54,19 @@ export default function Navbar() {
   const toggleRef = useRef<HTMLButtonElement>(null)
   const openTimer = useRef<number | undefined>(undefined)
   const closeTimer = useRef<number | undefined>(undefined)
-  /** Fareyle açılışın olay zaman damgası (event.timeStamp ölçeğinde). */
+
   const hoverOpenedAt = useRef(Number.NEGATIVE_INFINITY)
-  /** Bekleyen panel geçişinin hedefi ve imlecin son dikey konumu (çapraz hareket okuması). */
+
   const pendingSwap = useRef<string | null>(null)
   const lastPointerY = useRef<number | null>(null)
 
-  // Açık durum yalnızca açıldığı yolda geçerlidir; rota değişince her şey kendiliğinden kapanır.
   const openKey = menu !== null && menu.at === pathname ? menu.key : null
   const mobileOpen = mobileAt === pathname
   const anyOpen = openKey !== null || mobileOpen
   const overHero = isHome && atTop && !anyOpen
   const hidden = !reduce && hiddenByScroll && !anyOpen
   const panelCustom: PanelCustom = { swap: menu?.swap ?? false, reduce }
-  /** Aşağı okla açılan panel, render sonrası ilk bağlantısına odaklanır. */
+
   const pendingPanelFocus = useRef<string | null>(null)
 
   useEffect(() => {
@@ -133,7 +129,6 @@ export default function Navbar() {
     scheduleOpen(key, event.timeStamp)
   }
 
-  // Açık panele doğru aşağı inen imleç, üzerinden geçtiği komşu öğede geçiş zamanlayıcısını yeniden başlatır.
   const handlePointerMove = (event: ReactPointerEvent<HTMLLIElement>, key: string) => {
     if (event.pointerType !== 'mouse') return
     const previousY = lastPointerY.current
@@ -147,7 +142,6 @@ export default function Navbar() {
     if (event.pointerType === 'mouse') scheduleClose()
   }
 
-  // Klavye odağı menüyü açmaz (Tab panel bağlantılarını dolaşmasın); açma Enter/Space ya da aşağı okla yapılır.
   const handleFocus = () => warmMenuImages(primaryNav)
 
   const handleBlur = (event: ReactFocusEvent<HTMLLIElement>, key: string) => {
@@ -156,7 +150,6 @@ export default function Navbar() {
     closeMenu()
   }
 
-  // Aşağı ok: menüyü açar ve odağı paneldeki ilk bağlantıya taşır.
   const handleTriggerKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>, key: string) => {
     if (event.key !== 'ArrowDown') return
     event.preventDefault()
@@ -191,7 +184,6 @@ export default function Navbar() {
     main.focus()
   }
 
-  // Masaüstü menüsü açıkken navbar dışına tıklamak menüyü kapatır.
   useEffect(() => {
     if (openKey === null) return
     const onPointerDown = (event: PointerEvent) => {
@@ -204,7 +196,6 @@ export default function Navbar() {
     return () => document.removeEventListener('pointerdown', onPointerDown)
   }, [openKey])
 
-  // Esc kapatır ve odağı tetikleyiciye döndürür; mobil menüde Tab odağı navbar + menü içinde tutar.
   useEffect(() => {
     if (openKey === null && !mobileOpen) return
     const onKeyDown = (event: KeyboardEvent) => {
@@ -242,7 +233,6 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [openKey, mobileOpen, uid])
 
-  // Mobil menü: sayfa kaydırması kilitlenir, arkadaki sayfa inert olur, odak menüye taşınır, masaüstü genişliğine geçilirse kapanır.
   useEffect(() => {
     if (!mobileOpen) return
     const { body, documentElement } = document
@@ -252,7 +242,6 @@ export default function Navbar() {
     body.style.overflow = 'hidden'
     if (scrollbar > 0) body.style.paddingRight = `${scrollbar}px`
 
-    // Navbar ve menü dışındaki her şey (ana içerik, footer, WhatsApp, portallar) ekran okuyucudan ve odaktan çıkarılır.
     const inerted: Element[] = []
     for (let node = headerRef.current; node && node !== body && node.parentElement; node = node.parentElement) {
       for (const sibling of node.parentElement.children) {
@@ -278,7 +267,6 @@ export default function Navbar() {
     }
   }, [mobileOpen])
 
-  // Sayfalardaki yapışkan alt menüler navbar gizlendiğinde html[data-navbar] ile hizalanabilir.
   useEffect(() => {
     const root = document.documentElement
     root.setAttribute('data-navbar', hidden ? 'hidden' : 'visible')
@@ -348,7 +336,7 @@ export default function Navbar() {
                             type="button"
                             className={styles.chevronButton}
                             aria-expanded={open}
-                            // Panel kapalıyken DOM'da yok; olmayan id'ye işaret edilmesin.
+
                             aria-controls={open ? panelId : undefined}
                             data-menu-trigger={item.key}
                             aria-label={navbarCopy.submenu(item.label)}

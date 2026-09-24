@@ -1,4 +1,4 @@
-// Kaynak: /img/visiosoftPark.webp — kişi adı/avatar içeren üst şerit kırpıldı (1600 × 722 ve yakınlaştırma için 2400 × 1084)
+
 export const designerImage = {
   src: '/img/pages/designer-ekran-crop.webp',
   avif: '/img/pages/designer-ekran-crop.avif',
@@ -15,7 +15,6 @@ export const designerZoomImage = {
   alt: designerImage.alt,
 }
 
-/** Slot köşeleri, 1600 × 722 kırpımın piksel koordinatlarında (ekrandaki mavi çizimlerin üzerinden). */
 export const designerSlots = [
   { id: 'A-1', d: 'M91 405 L310 401 L397 562 L120 584 Z', chip: { x: 12.6, y: 50.5 } },
   { id: 'A-2', d: 'M348 399 L575 394 L724 554 L451 566 Z', chip: { x: 28.9, y: 49.8 } },

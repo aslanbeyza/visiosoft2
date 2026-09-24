@@ -74,7 +74,6 @@ function Card({ side, data, dark }: { side: number; data: Side; dark: boolean })
   )
 }
 
-/** İki yaklaşımı karşı karşıya koyan kartlar; kartlar iki yandan gelir, işaretler çizilir. */
 export default function ContrastCards() {
   const reduce = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)

@@ -1,4 +1,4 @@
-// Raporlar sayfası metinleri — mevcut sayfadan alınmıştır.
+
 export const reportsCopy = {
   seo: {
     title: 'Otopark Yazılımında Raporlar | Visiosoft',

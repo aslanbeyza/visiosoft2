@@ -8,10 +8,6 @@ import styles from './PageTransition.module.css'
 type Props = { children: ReactNode }
 type State = { failed: boolean }
 
-/**
- * Tembel parça indirilemezse (ağ hatası, eski dağıtım) sayfa hiçbir zaman perdenin altında kalmaz:
- * düz bir hata görünümü çizilir, perde normal şekilde açılır.
- */
 export default class RouteErrorBoundary extends Component<Props, State> {
   state: State = { failed: false }
 

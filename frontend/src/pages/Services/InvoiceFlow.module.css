@@ -78,7 +78,6 @@
   line-height: 1.35;
 }
 
-/* Bağlantı: dar ekranda aşağı, geniş ekranda sağa. */
 .connector {
   position: absolute;
   top: 100%;

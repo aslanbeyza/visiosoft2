@@ -13,7 +13,6 @@ import {
 } from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
-/** Canlı model-viewer: saniyede 18 derece. three.js birimi bunun altıda biridir. */
 const TURN_SPEED = 18 / 6
 const FOV = 34
 const FIT = 0.82
@@ -111,7 +110,6 @@ function FrameCamera({ reduceMotion }: { reduceMotion: boolean }) {
   return null
 }
 
-/** Tek ürün, döner kaide. Sayfa dışındayken kare çizilmez. */
 export default function ProductViewerStage({ src, playing, reduceMotion }: ProductViewerStageProps) {
   const controls = useRef<OrbitControlsImpl>(null)
 

@@ -14,7 +14,6 @@ const CALIBRATE = 2.5
 const phaseDelays = [0, 1.6, CALIBRATE]
 const phaseDurations = [1.5, 0.8, 1.2]
 
-// 1) slot çizgileri çizilir 2) dolgu ve etiketler gelir 3) kalibrasyon: slotlar hafifçe kayıp yerine oturur
 const strokeVariants: Variants = {
   idle: { pathLength: 0, opacity: 0 },
   done: ({ i, base }: Timing) => ({
@@ -59,14 +58,13 @@ const phaseLineVariants: Variants = {
   }),
 }
 
-/** Designer hero anı: kamera görüntüsündeki park slotları sırayla çizilir, etiketlenir ve kalibrasyonla yerine oturur. */
 export default function SlotDraw() {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)
   const inView = useInView(rootRef, { once: true, amount: 0.3 })
   const [run, setRun] = useState(0)
   const [open, setOpen] = useState(false)
-  // İlk oynatmada çerçevenin açılmasını bekler
+
   const base = run === 0 ? 1 : 0.15
   const motionProps = { initial: reduce ? false : 'idle', animate: reduce || inView ? 'done' : 'idle' } as const
 

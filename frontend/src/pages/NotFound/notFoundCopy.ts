@@ -12,7 +12,7 @@ export const notFoundCopy = {
   linksTitle: 'Buradan devam edebilirsiniz',
   sitemapPrompt: 'Aradığınızı bulamadınız mı?',
   sitemapLink: 'Site haritasına göz atın',
-  /** 404 anlatısı: araç gelir, plaka okunur, kayıt bulunamaz — bariyer kapalı kalır. */
+
   steps: [
     { id: 'approach', title: 'Adres istendi', description: 'Tarayıcınız bu adresteki sayfayı istedi.' },
     { id: 'detect', title: 'Adres okundu', description: 'İstenen adres sitedeki sayfalar arasında arandı.' },

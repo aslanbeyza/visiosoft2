@@ -7,11 +7,6 @@ import type { ParkingFlowDevice } from './parkingFlowCopy.ts'
 import { ARM_LENGTH, ARM_PIVOT, COMPACT_VIEW, SCENE_HEIGHT, SCENE_WIDTH } from './scene.ts'
 import styles from './ParkingFlow.module.css'
 
-/*
- * Şerit sahnesi (viewBox 1200×520). Yandan, hafif yükseltilmiş bakış: uzak kaldırım y=340, yakın kaldırım y=452.
- * Uzak kaldırımda soldan sağa LED panel, kamera direği (kamera + kontrol kutusu), kiosk ve bariyer durur;
- * araç şeritte soldan sağa ilerler. Tüm hareket motion value'larla yalnızca transform/opacity/pathLength üzerinden.
- */
 export type SceneValues = {
   car: MotionValue<number>
   cone: MotionValue<number>
@@ -27,14 +22,14 @@ export type SceneValues = {
 type ParkingFlowSceneProps = {
   values: SceneValues
   highlight?: ParkingFlowDevice
-  /** Sahne görünüme girdi (vurgu çizgisi çizilir). */
+
   revealed: boolean
   reduce: boolean
-  /** Vurgu ilk görünüşten sonra değişti: çizgi beklemeden, kısa sürede yeniden çizilir. */
+
   replay?: boolean
-  /** Dar sahne: görünüm kırpılır; etiket şeridin altında olduğundan dirsekli çizgi yerine cihaz üzerinde işaret çizilir. */
+
   compact?: boolean
-  /** Ana sayfa çizim kâğıdı: GİRİŞ/ÇIKIŞ ve cihaz etiketleri. */
+
   cad?: boolean
 }
 
@@ -63,7 +58,7 @@ export default function ParkingFlowScene({
       aria-hidden="true"
       focusable="false"
     >
-      {/* Zemin ve şerit */}
+      {}
       <g data-ground="true">
         <polygon points="30,340 1170,340 1200,452 0,452" className={styles.lane} />
         <rect x="0" y="452" width="1200" height="12" className={styles.kerb} />
@@ -72,7 +67,6 @@ export default function ParkingFlowScene({
         <line x1="18" y1="396" x2="1182" y2="396" className={styles.dash} />
       </g>
 
-      {/* LED bilgi paneli */}
       <g data-device="ledPanel" data-dim="true">
         <rect x="142" y="250" width="4" height="90" className={styles.fillLine} />
         <rect x="192" y="250" width="4" height="90" className={styles.fillLine} />
@@ -85,7 +79,7 @@ export default function ParkingFlowScene({
         <path d="M170 218h28m-9-9 9 9-9 9" className={styles.ledArrow} />
       </g>
 
-      {/* Kamera direği */}
+      {}
       <g data-device="pole" data-dim="true">
         <rect x="311" y="334" width="34" height="8" rx="1" className={styles.fillLine} />
         <rect x="323" y="124" width="10" height="216" rx="2" className={styles.body} />
@@ -93,10 +87,8 @@ export default function ParkingFlowScene({
         <line x1="328" y1="146" x2="328" y2="222" className={styles.cable} />
       </g>
 
-      {/* Kameradan kontrol kutusuna inen veri darbesi */}
       <motion.line x1="328" y1="146" x2="328" y2="222" className={styles.pulse} style={{ pathLength: values.pulse }} data-dim="true" />
 
-      {/* Kamera */}
       <g data-device="camera" data-dim="true">
         <line x1="333" y1="131" x2="341" y2="131" className={styles.bracketLine} />
         <g transform="translate(334 118) rotate(14)">
@@ -107,7 +99,6 @@ export default function ParkingFlowScene({
         </g>
       </g>
 
-      {/* Kontrol kutusu */}
       <g data-device="controlBox" data-dim="true">
         <rect x="304" y="222" width="48" height="60" rx="4" className={styles.body} />
         <rect x="312" y="230" width="18" height="4" rx="1" className={styles.detailFill} />
@@ -117,10 +108,9 @@ export default function ParkingFlowScene({
         <motion.circle cx="343" cy="232" r="3.5" style={{ fill: values.ledColor }} />
       </g>
 
-      {/* Algılama konisi */}
+      {}
       <motion.polygon points="385,146 396,444 618,444" className={styles.cone} style={{ opacity: values.cone }} data-dim="true" />
 
-      {/* Kiosk */}
       <g data-device="kiosk" data-dim="true">
         <rect x="684" y="336" width="62" height="6" rx="1" className={styles.fillLine} />
         <rect x="690" y="142" width="50" height="198" rx="4" className={styles.kioskBody} />
@@ -134,14 +124,14 @@ export default function ParkingFlowScene({
         <line x1="698" y1="328" x2="732" y2="328" className={styles.vent} />
       </g>
 
-      {/* Bariyer gövdesi uzak kaldırımda; kapalı kol şeride iner, açılınca yukarı kalkar. */}
+      {}
       <g data-device="barrier" data-dim="true">
         <rect x="920" y="336" width="52" height="6" rx="1" className={styles.fillLine} />
         <rect x="928" y="262" width="36" height="78" rx="4" className={styles.body} />
         <motion.circle cx="946" cy="276" r="4" style={{ fill: values.gateColor }} />
       </g>
 
-      {/* Araç (yandan, burun sağa: gidiş yönü). Far önde, stop arkada. */}
+      {}
       <motion.g style={{ x: values.car, y: 373 }} data-dim="true">
         <ellipse cx="76" cy="58" rx="72" ry="4.5" className={styles.shadow} />
         <path
@@ -173,7 +163,7 @@ export default function ParkingFlowScene({
         <circle cx={ARM_PIVOT.x} cy={ARM_PIVOT.y} r="6" className={styles.body} />
       </g>
 
-      {/* Plaka etiketi ve okuma ayracı */}
+      {}
       <motion.g style={{ opacity: values.plate }} data-dim="true">
         <line x1="475" y1="318" x2="475" y2="368" className={styles.plateLeader} />
         <rect x="420" y="284" width="110" height="34" rx="4" className={styles.plate} />
@@ -218,21 +208,18 @@ export default function ParkingFlowScene({
         </g>
       ) : null}
 
-      {/* Vurgu: seçili cihaza giden dirsekli çizgi */}
+      {}
       {leader ? (
-        // Vurgu değişince grup yeniden bağlanır: çizgi baştan çizilir (ilk seferde 0,3 sn bekleyip 0,9 sn; sonra hemen, 0,55 sn).
+
         <g key={`${highlight}-${compact}`} className={styles.leaderGroup}>
           {compact ? (
-            // Dar sahne: etiket şeridin altında; cihazın çevresinde vurgu çerçevesi kalır, cihazın yüzü açık kalır.
+
             <motion.g
               initial={reduce ? false : { opacity: 0, scale: 0.85 }}
               animate={revealed ? { opacity: 1, scale: 1 } : undefined}
               transition={{ duration: 0.45, delay: replay ? 0.2 : 0.6, ease: revealEase }}
             >
-              {/*
-               * Sahne ~⅓ ölçekte çizilir: çizgiler ölçekten bağımsız px kalınlığındadır. Dolgu yoktur.
-               * Katmanlar: zemin renkli hale (çerçeveden geçen çizgileri keser), dışta ince vurgu çizgisi, vurgu çerçevesi.
-               */}
+              {}
               <rect x={leader.frame[0]} y={leader.frame[1]} width={leader.frame[2]} height={leader.frame[3]} rx="12" className={styles.markerHalo} />
               <rect
                 x={leader.frame[0] - 14}

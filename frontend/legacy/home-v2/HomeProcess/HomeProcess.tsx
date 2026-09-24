@@ -25,7 +25,6 @@ type SegmentProps = {
   filled: boolean
 }
 
-/** Adımlar arası ilerleme çizgisi: masaüstünde yatay (scaleX), mobilde dikey (scaleY) dolar. */
 function Segment({ progress, index, count, filled }: SegmentProps) {
   const scale = useTransform(progress, [index / (count - 1), (index + 1) / (count - 1)], [0, 1])
 
@@ -47,7 +46,6 @@ export default function HomeProcess() {
   const { scrollYProgress } = useScroll({ target: listRef, offset: ['start 0.8', 'end 0.5'] })
   const [reached, setReached] = useState(0)
 
-  // Çizgi bir adıma ulaştığında o adım etkinleşir; state yalnızca sayı değişince güncellenir.
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
     const next = value <= 0.001 ? 0 : Math.min(count, Math.floor(value * (count - 1) + 0.001) + 1)
     if (next !== reached) setReached(next)

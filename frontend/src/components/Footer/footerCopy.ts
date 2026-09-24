@@ -1,4 +1,4 @@
-/** Alt bilginin Türkçe metinleri. Bağlantılar `siteNav.ts`, iletişim bilgileri `company.ts` içindedir. */
+
 export const footerCopy = {
   title: 'Site alt bilgisi',
   contactTitle: 'İletişim',

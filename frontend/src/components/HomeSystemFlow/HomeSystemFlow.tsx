@@ -13,11 +13,6 @@ import FlowStatic from './FlowStatic.tsx'
 import { homeSystemFlowCopy as text } from './homeSystemFlowCopy.ts'
 import styles from './HomeSystemFlow.module.css'
 
-/**
- * Ana sayfa 4.3 — Sistem nasıl çalışır? (id "sistem").
- * ≥1024px: adım listesi + sabitlenmiş sahne (kaydırmayla ilerler). <1024px: sahne üstte, adımlar altta, döngü.
- * Hareket azaltma: statik sahne (bariyer açık), tüm adımlar ve Zone oturumlar ekranı görünür.
- */
 export default function HomeSystemFlow() {
   const reduce = Boolean(useReducedMotion())
   const wide = useMediaQuery('(min-width: 1024px)')
@@ -25,7 +20,6 @@ export default function HomeSystemFlow() {
   const headRef = useRef<HTMLDivElement>(null)
   const pinned = wide && !reduce
 
-  // Hero'daki "Sistem Nasıl Çalışır?" bağlantısı odağı bu başlığa taşır.
   useEffect(() => {
     headRef.current?.querySelector(`#${text.titleId}`)?.setAttribute('tabindex', '-1')
   }, [])

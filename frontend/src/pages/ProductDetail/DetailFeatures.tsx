@@ -9,7 +9,6 @@ type DetailFeaturesProps = {
   copy: ProductCopy
 }
 
-/** Öne çıkanlar: products.ts'teki dört özellik numaralı ızgarada, satır satır çizgilerle gelir. */
 export default function DetailFeatures({ copy }: DetailFeaturesProps) {
   const titleId = useId()
   const items = copy.features.map((feature) => ({ title: feature.title, description: feature.desc }))

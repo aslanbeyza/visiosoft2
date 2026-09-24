@@ -1,20 +1,15 @@
-/* Çubuğun akıştaki (yapışmamış) konumunu veren sıfır yükseklikli işaretçi; bkz. useStickyShift. */
+
 .sentinel {
   height: 0;
   pointer-events: none;
 }
 
-/*
- * Navbar gizlenince yapışmış çubuk onun bıraktığı boşluğa kayar. Kayma useStickyShift ile transform olarak yazılır;
- * akıştaki çubuk yerinde kalır (html[data-navbar] seçicisi yapışmamış çubuğu da kaydırıp boş yuva bırakıyordu).
- */
 .sticky {
   position: sticky;
   top: 4rem;
   z-index: 30;
 }
 
-/* Çubuk varken bağlantı hedefleri navbar + çubuğun (7.25rem / 7.75rem) altında kalmasın. */
 :global(html):has(.sticky) {
   scroll-padding-top: 7.75rem;
 }
@@ -35,7 +30,7 @@
 }
 
 .scrollWrap {
-  /* Liste odak halkası kırpılmasın diye kutunun iki yanına bu kadar taşar; etiketler hizasını korur. */
+
   --ring-room: 0.5rem;
   --fade: 2.5rem;
 
@@ -44,7 +39,6 @@
   min-width: 0;
 }
 
-/* Kaydırılabilir alanın kenarlarında içeriğin devam ettiğini gösteren yumuşak geçiş. */
 .scrollWrap::before,
 .scrollWrap::after {
   content: '';
@@ -73,10 +67,6 @@
   opacity: 1;
 }
 
-/*
- * Geçişin üstündeki ok düğmesi: geçiş bir etiketin değil boşluğun üstüne düştüğünde de şeridin devam ettiğini gösterir.
- * Görünen daire 1.75rem; tıklama alanı 2.75rem × çubuk yüksekliği. Yalnızca ilgili kenarda içerik varken görünür.
- */
 .scrollButton {
   position: absolute;
   top: 0;
@@ -142,7 +132,7 @@
   overscroll-behavior-x: contain;
   list-style: none;
   scrollbar-width: none;
-  /* Klavyeyle odaklanan bağlantı kenar geçişinin altında kalmasın. */
+
   scroll-padding-inline: calc(var(--fade) + var(--ring-room));
 }
 
@@ -185,11 +175,6 @@
   font-weight: 600;
 }
 
-/*
- * Odak halkası etiketin tamamını çevreler: dolgusuz ilk bağlantıda da harfin üstünden geçmez.
- * Halka yalancı öğede çizilir; listenin --ring-room dolgusu sayesinde kaydırma kutusunca kırpılmaz.
- * Çizgi yalnızca odakta tanımlanır: boştaki saydam bir outline, forced-colors kipinde her bağlantıda halka olarak çizilirdi.
- */
 .link::before {
   content: '';
   position: absolute;
@@ -206,7 +191,6 @@
   outline: 2px solid var(--color-navy-600);
 }
 
-/* Etkin çizgi: etiketin yarısı kadar (en az 1,5rem), etiket metninin altında ortalı, 3 px ve yuvarlak uçlu. */
 .activeBar {
   position: absolute;
   right: var(--pad-end);

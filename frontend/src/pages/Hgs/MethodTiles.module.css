@@ -126,7 +126,6 @@
   color: rgb(255 255 255 / 0.88);
 }
 
-/* ≥1024px: kutucuklar yan sütunun (sahne + rota) yüksekliğine eşit uzar; içerik dikeyde ortalanır. */
 @media (min-width: 1024px) {
   .root,
   .tiles {

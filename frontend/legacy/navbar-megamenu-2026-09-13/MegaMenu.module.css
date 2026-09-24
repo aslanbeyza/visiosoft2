@@ -26,7 +26,6 @@
   padding-block: 2rem 2.25rem;
 }
 
-/* Tanıtım sütunu */
 .intro {
   display: flex;
   flex-direction: column;
@@ -111,7 +110,6 @@
   transform: translateX(3px);
 }
 
-/* Donanım kartları */
 .cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -153,7 +151,6 @@
   transition: border-color 0.35s var(--ease-apple);
 }
 
-/* Ürünün altında hafif zemin gölgesi */
 .stage::before {
   content: '';
   position: absolute;
@@ -237,7 +234,6 @@
   line-clamp: 2;
 }
 
-/* Keşif yönlendirme hücresi */
 .promo {
   display: flex;
   flex-direction: column;
@@ -316,7 +312,6 @@
   transform: translateX(3px);
 }
 
-/* Yazılım listesi */
 .rows {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -46,7 +46,6 @@
   animation-play-state: paused;
 }
 
-/* Karo oranı logodan bağımsız sabit kalır; logo iç boşlukta ortalanıp sığdırılır */
 .tile {
   position: relative;
   display: block;
@@ -56,7 +55,6 @@
   background: #fff;
 }
 
-/* İç pay kırpılmış logo dosyasında (logos/); görsel karonun neredeyse tamamını kullanır. */
 .tile img {
   position: absolute;
   inset: 8% 7%;

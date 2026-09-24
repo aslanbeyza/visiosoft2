@@ -17,7 +17,6 @@ function nextId() {
   return `p-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`
 }
 
-/** Laptop ve telefon aynı Zone kaydını paylaşır. */
 export function useZoneMini() {
   const [page, setPage] = useState<ZonePage>('allow')
   const [openGroups, setOpenGroups] = useState<string[]>(() => text.groups.map((group) => group.id))

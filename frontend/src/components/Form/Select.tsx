@@ -1,10 +1,4 @@
-/**
- * Kullanım:
- * <Field label="Proje tipi" name="project_type">
- *   <Select name="project_type" defaultValue="paid" options={[{ value: 'paid', label: 'Ücretli otopark' }, { value: 'subscription', label: 'Sadece abonelik' }]} />
- * </Field>
- * `placeholder` verilirse seçilemeyen boş bir ilk seçenek eklenir (required ile birlikte doğrulanır).
- */
+
 import type { SelectHTMLAttributes } from 'react'
 import { useFieldControl } from './FieldContext.ts'
 import styles from './controls.module.css'

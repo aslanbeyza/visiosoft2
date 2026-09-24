@@ -9,7 +9,6 @@ import styles from './MainLayout.module.css'
 export default function MainLayout() {
   const { pathname, hash } = useLocation()
 
-  // Sayfa değişince anında başa dön; #bağlantı varsa ilgili bölüme git.
   useEffect(() => {
     const target = hash ? document.getElementById(decodeURIComponent(hash.slice(1))) : null
     if (target) {

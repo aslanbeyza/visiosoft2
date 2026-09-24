@@ -11,7 +11,6 @@
   min-width: 0;
 }
 
-/* Kart yüzeyi: hover kaldırması bu katmanda; giriş animasyonu dıştaki li'de. */
 .surface {
   position: relative;
   display: flex;
@@ -26,7 +25,6 @@
     border-color 0.35s var(--ease-apple);
 }
 
-/* Gölge ayrı katmanda; yalnızca opaklığı değişir. */
 .surface::before {
   content: '';
   position: absolute;
@@ -53,8 +51,6 @@
 .surface:focus-within::before {
   opacity: 1;
 }
-
-/* Görsel sahnesi */
 
 .stage {
   position: relative;
@@ -85,8 +81,6 @@
 .surface:hover .image {
   transform: scale(1.04);
 }
-
-/* Metin */
 
 .body {
   display: flex;
@@ -119,7 +113,6 @@
   text-decoration: none;
 }
 
-/* Tüm kart tıklanabilir; bağlantı metni yalnızca ürün adıdır. */
 .link::after {
   content: '';
   position: absolute;
@@ -224,8 +217,6 @@
   font-size: clamp(1.3rem, 0.6vw + 1.1rem, 1.6rem);
 }
 
-/* Katalog kartı */
-
 .moreInner {
   position: relative;
   display: flex;
@@ -238,7 +229,6 @@
   color: #fff;
 }
 
-/* LED panelini anımsatan soluk nokta dokusu. */
 .moreInner::before {
   content: '';
   position: absolute;
@@ -345,7 +335,6 @@
   white-space: nowrap;
 }
 
-/* Tablet: kiosk solda iki satır boyunca öne çıkar. */
 @media (min-width: 640px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -391,7 +380,6 @@
     aspect-ratio: auto;
   }
 
-  /* İki satırlık kartta artan yükseklik metne değil görsel sahnesine gider; metnin altında boşluk kalmaz. */
   .card[data-featured='true'] .body {
     flex: none;
   }

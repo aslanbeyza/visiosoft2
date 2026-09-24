@@ -19,7 +19,6 @@ const formatNumber = (value: number, decimals: number) =>
     maximumFractionDigits: decimals,
   })
 
-/** Gerçek ölçüler ve ödeme kanalları; sayılar görünür olunca sayarak yerine oturur. */
 export default function KeyFigures({ label, items, drawingLink, drawingId }: KeyFiguresProps) {
   const titleId = useId()
 

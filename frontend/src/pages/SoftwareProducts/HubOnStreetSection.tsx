@@ -6,7 +6,6 @@ import styles from './HubOnStreetSection.module.css'
 
 const copy = hubOnStreetCopy
 
-/** Yol üstü saha kaydı — site diline uyumlu, sakin iki kolon. */
 export default function HubOnStreetSection() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -51,6 +50,7 @@ export default function HubOnStreetSection() {
   const activeChapterIndex = copy.chapters.reduce((acc, chapter, index) => (time >= chapter.at ? index : acc), 0)
   const activeStep = copy.chapters[activeChapterIndex]
   const activeTx = activeStep?.group ?? copy.transactions[0].id
+  const activeTxLabel = copy.transactions.find((tx) => tx.id === activeTx)?.label ?? ''
 
   const seek = (at: number) => {
     const video = videoRef.current
@@ -67,99 +67,8 @@ export default function HubOnStreetSection() {
   }
 
   return (
-    <Section id="yol-ustu" tone="paper" spacing="lg" labelledBy="hub-yol-ustu-title">
+    <Section id="yol-ustu" tone="surface" spacing="lg" labelledBy="hub-yol-ustu-title">
       <div ref={wrapRef} className={styles.grid}>
-        <div className={styles.copy}>
-          <SectionHeading
-            id="hub-yol-ustu-title"
-            eyebrow={copy.eyebrow}
-            title={`${copy.title} ${copy.titleAccent}`}
-            lead={copy.lede}
-          />
-
-          <ul className={styles.points}>
-            {copy.points.map((point) => (
-              <li key={point.title} className={styles.point}>
-                <span className={styles.pointMark} aria-hidden="true" />
-                <div>
-                  <p className={styles.pointTitle}>{point.title}</p>
-                  <p className={styles.pointDesc}>{point.description}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className={styles.timelineBlock}>
-            <p className={styles.timelineKicker}>{copy.kayittaLabel}</p>
-            <div className={styles.tabs} role="tablist" aria-label="Kayıttaki işlemler">
-              {groups.map(({ tx }) => {
-                const isActive = activeTx === tx.id
-                return (
-                  <button
-                    key={tx.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    aria-controls={`hub-islem-${tx.id}`}
-                    id={`hub-sekme-${tx.id}`}
-                    className={isActive ? styles.tabActive : styles.tab}
-                    onClick={() => seek(tx.from)}
-                  >
-                    {tx.label}
-                  </button>
-                )
-              })}
-            </div>
-
-            {groups.map(({ tx, steps }) => {
-              if (activeTx !== tx.id) return null
-              const liveIndex = steps.findIndex((step) => step === activeStep)
-              return (
-                <ol
-                  key={tx.id}
-                  id={`hub-islem-${tx.id}`}
-                  role="tabpanel"
-                  aria-labelledby={`hub-sekme-${tx.id}`}
-                  className={styles.steps}
-                >
-                  {steps.map((step, index) => {
-                    const isDone = index < liveIndex
-                    const isLive = index === liveIndex
-                    const isLast = index === steps.length - 1
-                    return (
-                      <li key={`${step.group}-${step.at}`} className={styles.step}>
-                        {!isLast ? (
-                          <span
-                            className={styles.stepLine}
-                            data-done={isDone ? '' : undefined}
-                            aria-hidden="true"
-                          />
-                        ) : null}
-                        <span
-                          className={styles.stepDot}
-                          data-done={isDone || isLive ? '' : undefined}
-                          data-live={isLive ? '' : undefined}
-                          aria-hidden="true"
-                        />
-                        <button
-                          type="button"
-                          className={styles.stepButton}
-                          data-done={isDone ? '' : undefined}
-                          data-live={isLive ? '' : undefined}
-                          aria-current={isLive ? 'step' : undefined}
-                          onClick={() => seek(step.at)}
-                        >
-                          {step.label}
-                        </button>
-                      </li>
-                    )
-                  })}
-                </ol>
-              )
-            })}
-          </div>
-        </div>
-
         <figure className={styles.figure}>
           <div className={styles.figureHead}>
             <span className={styles.statusBadge}>
@@ -195,51 +104,115 @@ export default function HubOnStreetSection() {
             </div>
           </div>
 
-          <p className={styles.nowPlaying}>
-            <span className={styles.nowTx}>
-              {copy.transactions.find((tx) => tx.id === activeTx)?.label ?? ''}
-            </span>
-            <span className={styles.nowStep} aria-live="polite">
-              {activeStep?.label ?? ''}
-            </span>
-          </p>
+          <div className={styles.figureMeta}>
+            <p className={styles.nowPlaying} aria-live="polite">
+              <span className={styles.nowTx}>{activeTxLabel}</span>
+              <span className={styles.nowStep}>{activeStep?.label ?? ''}</span>
+            </p>
+            <div className={styles.progressRow} aria-hidden="true">
+              {copy.transactions.map((tx) => {
+                const span = tx.to - tx.from
+                const done = Math.min(1, Math.max(0, (time - tx.from) / span))
+                return (
+                  <div key={tx.id} className={styles.progressTrack} style={{ flex: span }} data-active={activeTx === tx.id ? '' : undefined}>
+                    <div className={styles.progressFill} style={{ width: `${done * 100}%` }} />
+                  </div>
+                )
+              })}
+            </div>
+            <figcaption className={styles.caption}>{copy.note}</figcaption>
+          </div>
+        </figure>
 
-          <div className={styles.progressRow}>
-            {copy.transactions.map((tx) => {
-              const span = tx.to - tx.from
-              const done = Math.min(1, Math.max(0, (time - tx.from) / span))
-              return (
-                <div
-                  key={tx.id}
-                  role="progressbar"
-                  aria-label={`${tx.label} · ${tx.plate}`}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-valuenow={Math.round(done * 100)}
-                  className={styles.progressTrack}
-                  style={{ flex: span }}
-                  title={`${tx.label} · ${tx.plate}`}
-                >
-                  <div className={styles.progressFill} style={{ width: `${done * 100}%` }} />
+        <div className={styles.copy}>
+          <SectionHeading
+            id="hub-yol-ustu-title"
+            eyebrow={copy.eyebrow}
+            title={`${copy.title} ${copy.titleAccent}`}
+            lead={copy.lede}
+            className={styles.heading}
+          />
+
+          <ul className={styles.points}>
+            {copy.points.map((point) => (
+              <li key={point.title} className={styles.point}>
+                <span className={styles.pointMark} aria-hidden="true" />
+                <div>
+                  <p className={styles.pointTitle}>{point.title}</p>
+                  <p className={styles.pointDesc}>{point.description}</p>
                 </div>
+              </li>
+            ))}
+          </ul>
+
+          <div className={styles.timelineBlock}>
+            <div className={styles.timelineHead}>
+              <p className={styles.timelineKicker}>{copy.kayittaLabel}</p>
+              <div className={styles.tabs} role="tablist" aria-label="Kayıttaki işlemler">
+                {groups.map(({ tx }) => {
+                  const isActive = activeTx === tx.id
+                  return (
+                    <button
+                      key={tx.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      aria-controls={`hub-islem-${tx.id}`}
+                      id={`hub-sekme-${tx.id}`}
+                      className={isActive ? styles.tabActive : styles.tab}
+                      onClick={() => seek(tx.from)}
+                    >
+                      {tx.label}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            {groups.map(({ tx, steps }) => {
+              if (activeTx !== tx.id) return null
+              const liveIndex = steps.findIndex((step) => step === activeStep)
+              return (
+                <ol
+                  key={tx.id}
+                  id={`hub-islem-${tx.id}`}
+                  role="tabpanel"
+                  aria-labelledby={`hub-sekme-${tx.id}`}
+                  className={styles.steps}
+                >
+                  {steps.map((step, index) => {
+                    const isDone = index < liveIndex
+                    const isLive = index === liveIndex
+                    const isLast = index === steps.length - 1
+                    return (
+                      <li key={`${step.group}-${step.at}`} className={styles.step}>
+                        {!isLast ? (
+                          <span className={styles.stepLine} data-done={isDone ? '' : undefined} aria-hidden="true" />
+                        ) : null}
+                        <span
+                          className={styles.stepDot}
+                          data-done={isDone || isLive ? '' : undefined}
+                          data-live={isLive ? '' : undefined}
+                          aria-hidden="true"
+                        />
+                        <button
+                          type="button"
+                          className={styles.stepButton}
+                          data-done={isDone ? '' : undefined}
+                          data-live={isLive ? '' : undefined}
+                          aria-current={isLive ? 'step' : undefined}
+                          onClick={() => seek(step.at)}
+                        >
+                          {step.label}
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ol>
               )
             })}
           </div>
-          <div className={styles.progressLabels}>
-            {copy.transactions.map((tx) => (
-              <span
-                key={tx.id}
-                className={styles.progressLabel}
-                data-active={activeTx === tx.id ? '' : undefined}
-                style={{ flex: tx.to - tx.from }}
-              >
-                {tx.label}
-              </span>
-            ))}
-          </div>
-
-          <figcaption className={styles.caption}>{copy.note}</figcaption>
-        </figure>
+        </div>
       </div>
     </Section>
   )

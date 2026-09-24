@@ -2,7 +2,7 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  /* hidden, .app'i kaydırma kabı yapıp tüm sticky öğeleri bozuyordu; clip yatay taşmayı kaydırma kabı oluşturmadan keser. */
+
   overflow-x: clip;
 }
 
@@ -10,7 +10,6 @@
   flex: 1;
 }
 
-/* Atlama bağlantısı ve "Başa dön" odağı main'e taşır; tüm sayfaya odak çerçevesi çizilmesin. */
 .main:focus {
   outline: none;
 }

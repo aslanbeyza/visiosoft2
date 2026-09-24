@@ -9,7 +9,6 @@ import E2eHero from './E2eHero.tsx'
 import { endToEndCopy as copy } from './endToEndCopy.ts'
 import styles from './EndToEndPage.module.css'
 
-/** /uctan-uca-sistem — hub & spoke hero, sahadaki geçiş akışı, avantajlar ve dönüşüm bandı. */
 export default function EndToEndPage() {
   const path = usePath()
 

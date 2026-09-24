@@ -13,14 +13,10 @@ import WebGlGate from './WebGlGate.tsx'
 const Scene = lazy(() => import('./KioskExplodeScene.tsx'))
 
 type KioskExplodeProps = {
-  /** Patlatma destekleyen ürün; varsayılan kiosk. */
+
   slug?: HardwareSlug
 }
 
-/**
- * Kaydırdıkça ürün GLB parçalarına ayrılır.
- * visiosoft-3d KioskShowcase pin-spacer: 100svh sahne, +=200% kaydırma.
- */
 export default function KioskExplode({ slug = 'kiosk' }: KioskExplodeProps) {
   const prefersReducedMotion = Boolean(useReducedMotion())
   const variant = explodeVariantFor(slug)

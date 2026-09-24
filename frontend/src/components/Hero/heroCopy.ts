@@ -6,7 +6,7 @@ export type HeroCopy = {
   description: string
   primary: string
   secondary: string
-  /** Aynı sayfadaki saha anlatısı bölümü ve başlığı. */
+
   systemTarget: { section: string; heading: string }
   proof: string[]
   hud: {

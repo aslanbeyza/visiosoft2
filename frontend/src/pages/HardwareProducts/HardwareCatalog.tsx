@@ -23,13 +23,11 @@ function PrintIcon() {
   )
 }
 
-/** /donanim-urunleri/katalog: ekranda belge görünümü, baskıda kapak + ürün başına bir A4 sayfası. */
 export default function HardwareCatalog() {
   const path = usePath()
   const print = () => window.print()
   const subNavItems = hardwareItems.map((item) => ({ id: `katalog-${item.slug}`, label: item.navLabel }))
 
-  // Baskıda site iskeletini (navbar, footer, WhatsApp) gizleyen işaret; sayfadan çıkınca kaldırılır.
   useEffect(() => {
     document.body.dataset.printMode = 'catalog'
     return () => {
@@ -78,7 +76,7 @@ export default function HardwareCatalog() {
       />
 
       <div className={styles.document}>
-        {/* Yalnızca baskıda görünen kapak sayfası. */}
+        {}
         <div className={styles.cover} aria-hidden="true">
           <p className={styles.coverBrand}>{company.legalName}</p>
           <p className={styles.coverTitle}>{catalogCopy.documentTitle}</p>

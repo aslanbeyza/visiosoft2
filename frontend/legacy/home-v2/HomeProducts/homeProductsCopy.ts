@@ -2,12 +2,12 @@ import type { HardwareSlug } from '../../pages/HardwareProduct/products.ts'
 
 export type HomeProductCard = {
   slug: Exclude<HardwareSlug, 'ledli-reklam-paneli' | 'togerbox'>
-  /** Izgaradaki alan adı (CSS grid-template-areas). */
+
   area: 'kiosk' | 'tir' | 'box' | 'rack' | 'housing' | 'tower'
   width: number
   height: number
   alt: string
-  /** Yalnızca doğrulanmış ölçüler (mm). */
+
   dimensions?: string
 }
 

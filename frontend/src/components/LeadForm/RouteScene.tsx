@@ -6,7 +6,7 @@ import { DRIVE_START, SCENE, buildDrive } from './routeTimeline.ts'
 import styles from './RouteScene.module.css'
 
 export type RouteSceneProps = {
-  /** Dört kilometre taşının etiketleri (son etiket park yerine denk gelir). */
+
   steps: string[]
   variant: 'quote' | 'discovery'
   label: string
@@ -16,10 +16,6 @@ const drive = buildDrive()
 const { bay, laneY, roadTop, roadBottom, roadEnd } = SCENE
 const lastX = drive.x[drive.x.length - 1]
 
-/**
- * Hero anı: yol çizilir, araç talep → görüşme → keşif → teklif taşlarında durarak ilerler
- * ve park yerine yanaşır; park yeri köşe işaretleriyle "tamamlandı" olarak çerçevelenir (M3 + M8 dili).
- */
 export default function RouteScene({ steps, variant, label }: RouteSceneProps) {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

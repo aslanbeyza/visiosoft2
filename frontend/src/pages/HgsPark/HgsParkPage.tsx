@@ -7,11 +7,6 @@ import HgsParkHero from './HgsParkHero.tsx'
 import { HgsParkAdvantages, HgsParkFuture, HgsParkScope } from './HgsParkSections.tsx'
 import { hgsParkPageCopy as copy } from './hgsParkPageCopy.ts'
 
-/**
- * /hgs-park — marka sayfası.
- * Ortalanmış hero (zaman kadranı + logo açılışı) → Geleceğin teknolojisi (dönüşüm şeması + kartlar) →
- * Hizmet kapsamı (lacivert, iki onay listesi) → Avantajlar (numaralı) → CtaBand. Service JSON-LD.
- */
 export default function HgsParkPage() {
   const path = usePath()
 

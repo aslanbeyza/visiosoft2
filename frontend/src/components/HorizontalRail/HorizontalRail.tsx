@@ -4,20 +4,14 @@ import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScrol
 import { useMediaQuery } from '../../hooks/useMediaQuery/index.ts'
 import styles from './HorizontalRail.module.css'
 
-/**
- * Kullanım: `<HorizontalRail label="Rapor grupları" panels={[<Panel …/>, <Panel …/>]} />`
- * Sabitlenen yatay panorama (M7): masaüstünde bölüm panel sayısı × 100svh yüksekliğinde kalır, kaydırdıkça
- * panel şeridi sola akar (transform). Klavye odağı bir panele girince pencere o panelin konumuna kaydırılır,
- * böylece her panel Tab ile ulaşılabilir. 1024px altı ve hareket azaltmada dikey liste.
- */
 export type HorizontalRailProps = {
   panels: ReactNode[]
-  /** Bölüm için erişilebilir ad. */
+
   label?: string
   className?: string
-  /** Panel genişliği (CSS uzunluğu). */
+
   panelWidth?: string
-  /** Sayaç ve ilerleme çizgisi. */
+
   showProgress?: boolean
 }
 
@@ -47,7 +41,6 @@ export default function HorizontalRail({ panels, label, className = '', panelWid
     }
   })
 
-  // Şeridin taşan genişliği ölçülür; kaydırma ilerlemesi bu mesafeye eşlenir.
   useLayoutEffect(() => {
     if (!pinned) return
     const viewport = viewportRef.current
@@ -61,7 +54,6 @@ export default function HorizontalRail({ panels, label, className = '', panelWid
     return () => observer.disconnect()
   }, [pinned, maxShift, count])
 
-  // Odak bir panele girince pencere o panelin ilerleme noktasına gider; şerit overflow: clip olduğundan tarayıcı kendi kaydırmaz.
   const onTrackFocus = useCallback(
     (event: FocusEvent<HTMLOListElement>) => {
       const root = rootRef.current
@@ -87,7 +79,7 @@ export default function HorizontalRail({ panels, label, className = '', panelWid
       <section ref={rootRef} className={`${styles.root} ${className}`.trim()} data-pinned="false" aria-label={label} style={style}>
         <ol className={styles.stack}>
           {panels.map((panel, index) => (
-            // Paneller içerik olduğu için sıra sabittir; index anahtar olarak güvenlidir.
+
             <li key={index} className={styles.stackPanel} data-panel={index}>
               {panel}
             </li>

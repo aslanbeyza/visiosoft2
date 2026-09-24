@@ -3,7 +3,6 @@ import { isHardwareSlug, productNav, products } from '../HardwareProduct/product
 import type { HardwareSlug } from '../HardwareProduct/products.ts'
 import type { DetailImage } from './detailTypes.ts'
 
-/** Tüm donanım detay sayfalarında ortak kullanılan metinler ve yardımcılar. */
 export const detailCopy = {
   breadcrumb: { home: 'Ana sayfa', category: 'Donanım', categoryRoute: 'hardware-products' },
   actions: { discovery: 'Ücretsiz Keşif İste', quote: 'Teklif Al' },
@@ -40,7 +39,6 @@ export const detailCopy = {
   },
 }
 
-/** Arka planı ayrılmış ürün kartı görsellerinin gerçek ölçüleri. */
 export const cardSizes: Partial<Record<HardwareSlug, { width: number; height: number }>> = {
   kiosk: { width: 672, height: 900 },
   'tir-kiosk': { width: 675, height: 900 },
@@ -55,7 +53,6 @@ export function cardImage(slug: HardwareSlug, alt: string): DetailImage {
   return { src: `/img/products/cards/${slug}.webp`, avif: `/img/products/cards/${slug}.avif`, alt, ...size }
 }
 
-/** Teknik çizimlerin sıkıştırılmış kopyaları (public/img/products/drawings). */
 export function drawingImage(name: string, width: number, height: number, alt: string): DetailImage {
   return { src: `/img/products/drawings/${name}.webp`, avif: `/img/products/drawings/${name}.avif`, width, height, alt }
 }
@@ -69,7 +66,6 @@ export type RelatedProduct = {
   image?: DetailImage
 }
 
-/** Donanım menüsündeki sıra korunarak, mevcut ürün dışındaki kartlar. */
 export function relatedProductsFor(current: HardwareSlug): RelatedProduct[] {
   return hardwareMenu.flatMap((item) => {
     const slug = item.route.replace('hardware-products.', '')
@@ -78,7 +74,7 @@ export function relatedProductsFor(current: HardwareSlug): RelatedProduct[] {
       {
         slug,
         route: item.route,
-        // Sayfadaki çubuk, künye ve kırıntıyla aynı standart kısa ad kullanılır.
+
         label: products[slug].navLabel,
         description: item.description,
         tag: products[slug].copy.eyebrow,
@@ -90,10 +86,6 @@ export function relatedProductsFor(current: HardwareSlug): RelatedProduct[] {
 
 export const switcherItems = productNav.map((item) => ({ slug: item.slug, route: item.route, label: item.navLabel }))
 
-/**
- * Ürün çubuğu öğeleri. Menüde yer almayan bir ürünün (Togerbox) sayfasındayken o ürün, aynı kategorideki
- * ürünün (Visiobox) hemen ardına eklenir; böylece çubukta her zaman etkin bir öğe bulunur.
- */
 export function switcherItemsFor(current: HardwareSlug) {
   if (switcherItems.some((item) => item.slug === current)) return switcherItems
   const product = products[current]

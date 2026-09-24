@@ -11,21 +11,19 @@ import { systemTileCopy } from './listingCopy.ts'
 import styles from './SystemTile.module.css'
 
 type SystemTileProps = {
-  /** 3 sütunlu ızgarada kaplanacak sütun (son satırı tamamlar). */
+
   span3: 1 | 2 | 3
-  /** 2 sütunlu ızgarada kaplanacak sütun. */
+
   span2: 1 | 2
 }
 
 const HEADING_ID = 'donanim-sistem-baslik'
 
-/** Görsel oranları temsilîdir; ürünler zeminde yan yana durur. Ad, hero dizisi ve alt menüyle aynı kaynaktan (navLabel). */
 const steps = systemTileCopy.steps.map((step) => {
   const item = lineupItems.find((entry) => entry.slug === step.slug)
   return { ...step, item, name: products[step.slug].navLabel }
 })
 
-/** Kart ızgarasının son satırını tamamlayan kutucuk: bir çıkış noktasında birlikte çalışan donanımlar. */
 export default function SystemTile({ span3, span2 }: SystemTileProps) {
   const reduce = useReducedMotion()
   const path = usePath()

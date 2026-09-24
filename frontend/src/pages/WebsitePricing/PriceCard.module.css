@@ -94,7 +94,6 @@
   line-height: 1.35;
 }
 
-/* Masaüstünde kart yatay: solda etiket + fiyat, sağda başlıklar; çizgi ve not tam genişlikte altta. */
 @media (min-width: 1024px) {
   .card {
     display: grid;

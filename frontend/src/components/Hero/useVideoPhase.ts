@@ -4,11 +4,6 @@ import { useMotionValue } from 'framer-motion'
 import { phaseAt, readProgressAt } from './heroTimeline.ts'
 import type { Phase } from './heroTimeline.ts'
 
-/**
- * Kart durumunu videonun `currentTime` değerinden türetir.
- * rAF döngüsü yalnızca video oynarken çalışır; duraklatılmış videoda `seeked`/`timeupdate` ile eşitlenir.
- * React state'i yalnızca evre değiştiğinde güncellenir; okuma rayı bir motion value'dur.
- */
 export function useVideoPhase(videoRef: RefObject<HTMLVideoElement | null>, enabled: boolean) {
   const [phase, setPhase] = useState<Phase>('detect')
   const progress = useMotionValue(0)

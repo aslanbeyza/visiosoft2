@@ -1,17 +1,4 @@
-/**
- * Kullanım:
- * <FeatureGrid
- *   columns={3}
- *   variant="card"
- *   items={[
- *     { icon: <CameraIcon />, title: 'Plaka tanıma', description: 'Giriş ve çıkışta plaka kamera ile okunur.', meta: 'Kamera', to: path('alpr.index') },
- *   ]}
- * />
- * Varyantlar: card (çerçeveli kart) · plain (çizgili, kutusuz) · numbered (01, 02… numaralı satırlar).
- * Bento: card varyantında bir öğeye `featured: true` verilir (lacivert, büyük, iki satır; meta büyük rakam olur).
- * `to` verilen öğede kartın tamamı bağlantıdır. İkonlar ./icons.tsx içinden ya da herhangi bir ReactNode olabilir.
- * Kartlar sırayla yükselir, kutusuz varyantlarda üst çizgi çizilir, fare kart üzerinde ışık gezdirir (M10); hareket azaltmada sabit.
- */
+
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -25,16 +12,13 @@ export type FeatureItem = {
   icon?: ReactNode
   title: string
   description: string
-  /** Küçük, gri ek bilgi (ör. "Kamera", "100 ms altında"). */
+
   meta?: string
-  /** Verilirse kartın tamamı bu adrese bağlantı olur. */
+
   to?: string
-  /** http/mailto/tel adresleri otomatik algılanır; yeni sekmede açmak için true. */
+
   external?: boolean
-  /**
-   * Bento vurgusu (yalnızca `card`): kart lacivert zeminde ve büyük başlıklı olur; 2 sütunlu ızgarada tüm satırı,
-   * 3–4 sütunlu ızgarada iki satırı kaplar. `meta` büyük gösterge rakamı olarak kartın altına yazılır (ör. "7/24").
-   */
+
   featured?: boolean
 }
 
@@ -43,9 +27,9 @@ export type FeatureGridProps = {
   columns?: 2 | 3 | 4
   variant?: 'card' | 'plain' | 'numbered'
   tone?: 'light' | 'dark'
-  /** Başlık düzeyi; bölüm başlığı h2 ise h3 (varsayılan). */
+
   headingAs?: 'h3' | 'h4'
-  /** Listenin erişilebilir adı. */
+
   label?: string
   className?: string
 }
@@ -116,7 +100,7 @@ function Item({ item, index, delay, variant, headingAs: Heading }: ItemProps) {
       whileInView="show"
       viewport={{ once: true, amount: 0.3 }}
     >
-      {/* Kart varyantında çerçeve zaten üst kenarı çizer; ayrı çizgi yalnızca kutusuz varyantlarda. */}
+      {}
       {variant === 'card' ? null : <motion.span className={styles.hairline} aria-hidden="true" variants={hairlineVariants} />}
       <article
         className={styles.card}
@@ -176,7 +160,7 @@ export default function FeatureGrid({
           key={item.title}
           item={item}
           index={index}
-          // Aynı satırdaki kartlar soldan sağa sırayla gelir.
+
           delay={(index % columns) * 0.08}
           variant={variant}
           headingAs={headingAs}

@@ -4,11 +4,6 @@ import { revealEase } from '../../components/Reveal/index.ts'
 import { paymentCopy as copy } from './paymentCopy.ts'
 import styles from './PaymentRail.module.css'
 
-/**
- * Hero sahnesi: ödemenin yolu. "Visiosoft" ve "PayTR" uçları belirir, aradaki bağlantı çizgisi iki yandan
- * kilide doğru çizilir, kilidin gövdesi ve halkası mürekkeple çizilir (M3); altında kısa açıklama. Dekoratif yol,
- * metinler gerçek DOM'dur.
- */
 export default function PaymentRail() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

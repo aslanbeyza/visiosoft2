@@ -12,10 +12,6 @@ type FlagshipCanvasProps = {
 
 const DURATION = 0.38
 
-/**
- * Dört ürünü aynı zeminde üst üste çizer; etkin olan 380 ms opaklık ve hafif yükselme ile belirir.
- * Gölge ürünün ayak izine oturur.
- */
 export default function FlagshipCanvas({ items, active }: FlagshipCanvasProps) {
   const reduce = Boolean(useReducedMotion())
   const shapes = items.map(flagshipGeometry)

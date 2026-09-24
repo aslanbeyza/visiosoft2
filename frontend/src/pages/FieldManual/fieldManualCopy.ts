@@ -1,7 +1,4 @@
-/**
- * Saha Kullanım Kılavuzu çerçeve metinleri. Kılavuzun kendisi backend'den gelir (data/manuals/field-user-manual);
- * buradaki değerler yalnızca veri gelmeden önce ve alan eksik olduğunda kullanılır.
- */
+
 export const fieldManualCopy = {
   seoTitle: 'Saha Kullanım Kılavuzu | Visiosoft',
   seoDescription:

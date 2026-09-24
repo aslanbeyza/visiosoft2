@@ -9,15 +9,14 @@ export type SoftwareTab = {
     avif: string
     width: number
     height: number
-    /** Ekran okuyucu için ekran görüntüsünün kısa tarifi. */
+
     description: string
-    /** Çerçeveye yerleşim: geniş panel görüntüsü kırpılmadan sığdırılır. */
+
     fit: 'cover' | 'contain'
     background: string
   }
 }
 
-/** Sekmelerin otomatik ilerleme süresi (ms). */
 export const AUTO_ADVANCE_MS = 6000
 
 const shot = (name: string) => ({ src: `/img/software/${name}.webp`, avif: `/img/software/${name}.avif` })

@@ -9,7 +9,6 @@ export const homeReferencesCopy = {
   playShort: 'Oynat',
 }
 
-/** Logo dosyalarının gerçek piksel ölçüleri (CLS oluşmaması için). SVG için viewBox oranı kullanıldı. */
 export const logoSizes: Record<string, [number, number]> = {
   'Arnavutlukköy belediyesi.png': [144, 143],
   'Bakırköy kaymakamlığı.png': [144, 143],

@@ -1,20 +1,9 @@
-/**
- * ParkBiz telefon ikizi için minimal içerik — opsSection (demo dünya) + corporate (destek).
- * Kaynak: visiosoft-3d/src/lib/content.ts (yalnızca kullanılan parçalar).
- */
 
 export const opsSection = {
   eyebrow: 'Uzaktan İzleme · Gelir Yönetimi',
   title: 'Bulut tabanlı',
   titleAccent: 'otopark otomasyonu',
-  /*
-   * "tek tuşla" KALDIRILDI: kaynakta "Tek Tık" nitelemesi RAPOR DIŞA
-   * AKTARIMINA aittir (otopark-yaziliminda-raporlar.blade.php:109 —
-   * 'Tek Tık Dışa Aktarım'), muhasebe entegrasyonuna değil. Muhasebe
-   * entegrasyonunun kendisi kaynaklıdır (lang/tr.json:7 `meta_desc_index`
-   * "resmi muhasebe entegrasyonu"; services.blade.php:165 "Resmi Muhasebe"),
-   * ama efor/hız vaadi kaynaklı değildi.
-   */
+
   lede: 'Gelir raporları, kaçak önleme ve otomatik tahsilat tek panelde. Kameraları canlı izleyin, ödemeyi uzaktan yönetin, resmi muhasebeye aktarın. Mimari hibrittir; talep edilirse sistem tamamen kurum veri merkezinde kurulur.',
   kpis: [
     { label: 'Anlık doluluk', value: '847', unit: '/ 1.200', trend: '+4.2%' },
@@ -52,14 +41,14 @@ export const corporate = {
   taxNo: '9251021443',
   mersis: '0925102144300001',
   duns: '595600260',
-  /** Ticaret Sicil No / Dosya No — iletisim.blade.php:245 */
+
   tradeRegistry: '154166-5',
-  /** Elektronik Tebligat (KEP/e-Tebligat) adresi — iletisim.blade.php:247 */
+
   eNotification: '25929-47072-05048',
-  /** Destek çağrı merkezi — hardware-products-catalog.blade.php altbilgisindeki resmî numara */
+
   supportPhone: '0212 909 56 76',
   supportPhoneHref: '+902129095676',
-  /** Satış hattı yalnızca WhatsApp'tır (config/services.php: whatsapp_display / whatsapp_wa_id) */
+
   whatsapp: '+90 501 504 5034',
   whatsappHref: 'https://wa.me/905015045034',
   email: 'info@visiosoft.com.tr',

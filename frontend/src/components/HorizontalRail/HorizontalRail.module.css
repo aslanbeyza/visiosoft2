@@ -6,7 +6,6 @@
   min-width: 0;
 }
 
-/* Dikey yedek: dar ekran, hareket azaltma ya da tek panel. */
 .stack {
   display: grid;
   gap: 1.5rem;
@@ -19,7 +18,6 @@
   min-width: 0;
 }
 
-/* Sabitlenen panorama */
 .root[data-pinned='true'] {
   height: calc(var(--rail-count) * 100svh);
 }
@@ -32,7 +30,7 @@
   justify-content: center;
   height: 100svh;
   padding: 5rem 0 3.5rem;
-  /* clip: odak/scrollIntoView pencere yerine bu kabı kaydıramaz. */
+
   overflow: clip;
 }
 

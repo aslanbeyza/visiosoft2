@@ -4,10 +4,6 @@ import type { ExplodeCopy } from './explodeVariants.ts'
 import { phaseIndexAt } from './explodeVariants.ts'
 import { clearPointer, padCount, writePointer, writeStageFromProgress } from './kioskExplodeStage.ts'
 
-/**
- * Kaydırma ilerlemesini 3B sahneye yazar; faz indeksini React’e yalnızca değişince taşır.
- * Model, bölüm yaklaşınca bir kez yüklenir.
- */
 export function useKioskExplodeStage(copy: ExplodeCopy) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const railRef = useRef<HTMLSpanElement>(null)

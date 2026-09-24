@@ -17,7 +17,6 @@ type PlatformMapProps = {
   caption: string
 }
 
-// Sahne 1200×380 birimlik ızgaraya göre çizilir (ekran 600×346 birim, üstte 17 birim pay); düğüm konumları aynı oranlarla CSS'e yazılır.
 const VIEW_H = 380
 const ROWS = [40, 190, 340]
 const TARGETS = [90, 190, 290]
@@ -27,7 +26,6 @@ const leftPath = (y: number, t: number) =>
 const rightPath = (y: number, t: number) =>
   y === t ? `M972 ${y} H900` : `M972 ${y} H944 Q936 ${y} 936 ${y + Math.sign(t - y) * 8} V${t - Math.sign(t - y) * 8} Q936 ${t} 928 ${t} H900`
 
-/** Hero sahnesi: canlı harita ekranının iki yanında altı modül, bağlantı çizgileri çizilerek ekrana bağlanır. */
 export default function PlatformMap({ nodes, alt, caption }: PlatformMapProps) {
   const reduce = Boolean(useReducedMotion())
   const wide = useMediaQuery('(min-width: 1024px)')

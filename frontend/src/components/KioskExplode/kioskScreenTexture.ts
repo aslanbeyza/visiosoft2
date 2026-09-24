@@ -19,7 +19,6 @@ function fillRoundRect(
   ctx.fill()
 }
 
-/** Kiosk dokunmatik paneline basılan kırmızı ödeme arayüzü. */
 export function createKioskScreenTexture() {
   const canvas = document.createElement('canvas')
   canvas.width = 512

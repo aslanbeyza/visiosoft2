@@ -1,8 +1,4 @@
-/**
- * Kullanım:
- * <CopyField label="TL IBAN" value="TR750003200000000063156823" display="TR75 0003 2000 0000 0063 1568 23" copyLabel="Kopyala" copiedLabel="Kopyalandı" mono />
- * Düğme değeri panoya kopyalar; sonuç aria-live ile duyurulur. Pano API'si yoksa metin seçilir (Ctrl+C ipucu).
- */
+
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { revealEase } from '../Reveal/index.ts'
@@ -11,15 +7,15 @@ import styles from './CopyField.module.css'
 
 export type CopyFieldProps = {
   label: string
-  /** Panoya kopyalanan değer. */
+
   value: string
   copyLabel: string
   copiedLabel: string
-  /** Sabit genişlikli yazı (IBAN, SWIFT, kod). */
+
   mono?: boolean
-  /** Ek: ekranda gösterilen biçim (ör. boşluklu IBAN); verilmezse `value`. */
+
   display?: string
-  /** Ek: değerin altında küçük not. */
+
   hint?: string
   className?: string
 }
@@ -57,7 +53,7 @@ export default function CopyField({ label, value, copyLabel, copiedLabel, mono =
         return
       }
     } catch {
-      // Pano reddedildi; seçme yedeğine düşülür.
+
     }
 
     const node = valueRef.current

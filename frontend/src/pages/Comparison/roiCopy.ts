@@ -1,11 +1,3 @@
-/**
- * Amortisman simülatörünün metinleri ve hesap varsayımları.
- *
- * Buradaki sayılar ziyaretçiye "Hesaplama standartları" olarak gösterilir; yani Visiosoft'un arkasında
- * durabileceği değerler olmalı. Değiştirmek için tek yer burasıdır, bileşende sabit sayı yoktur.
- *
- * Yatırım tutarı kaydırıcı değildir: tipik otonom paket maliyeti sabittir; amortisman = yatırım / aylık tasarruf.
- */
 
 export type RoiFieldId = 'staff' | 'vehicles' | 'fee'
 
@@ -16,20 +8,19 @@ export type RoiField = {
   max: number
   step: number
   initial: number
-  /** Kaydırıcının iki ucundaki açıklama. */
+
   minLabel: string
   maxLabel: string
 }
 
-/** Hesap sabitleri — kaynak varsayımlar. */
 export const roiAssumptions = {
-  /** Vardiyalı gişe personeli başına aylık işveren maliyeti (maaş + SGK). */
+
   monthlyStaffCost: 42_000,
-  /** Araç başına bilet/rulo ve mekanik bakım payı. */
+
   ticketCost: 0.5,
-  /** Manuel bariyer denetiminde önlenen kaçak oranı. */
+
   leakRate: 0.05,
-  /** Tipik otonom geçiş paketi yatırımı (amortisman hesabında kullanılır). */
+
   systemInvestment: 450_000,
 }
 
@@ -72,7 +63,6 @@ export const roiCopy = {
     },
   ] satisfies RoiField[],
 
-  /** Kaydırıcı değerinin yanındaki birim. */
   units: {
     staff: 'personel',
     vehicles: 'araç',

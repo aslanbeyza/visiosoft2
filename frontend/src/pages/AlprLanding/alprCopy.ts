@@ -1,8 +1,5 @@
 import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
 
-// /plaka-tanima-cozumu metinleri — önceki satış sayfasının Türkçe metinleri; mutlak vaatler yumuşatıldı.
-// Gri tonlamada ve küçük kutuda okunaklı kalan yatay logolar seçildi (açık gri Intetra/Autopia kayboluyor,
-// kare belediye amblemleri 2,75rem yükseklik sınırında okunamıyordu). BYUAŞ bir belediye şirketidir.
 const logoFiles = ['Crowne Plaza.png', 'Metropark awm.png', 'YTÜ.png', 'Vema Holding.png', 'byuas.png', 'marmara teknokent.png']
 
 export const alprCopy = {

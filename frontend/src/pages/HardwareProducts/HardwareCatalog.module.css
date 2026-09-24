@@ -31,7 +31,6 @@
   outline-offset: 3px;
 }
 
-/* Ekranda belge görünümü: açık gri masa üzerinde kâğıt sayfalar. */
 .document {
   padding: clamp(2rem, 5vw, 4rem) 1rem clamp(4rem, 8vw, 6rem);
   background: var(--color-corp-surface);
@@ -70,7 +69,6 @@
     background: #fff;
   }
 
-  /* Site iskeleti (splash, navbar, footer, WhatsApp): #main-content'in kardeşleri baskıda gizlenir. */
   :global(body[data-print-mode='catalog'] :has(> #main-content) > :not(#main-content)) {
     display: none !important;
   }

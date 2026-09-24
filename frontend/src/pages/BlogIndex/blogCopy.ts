@@ -1,4 +1,4 @@
-/** Blog listesi ve yazı sayfası metinleri (tr.json blog.* değerleri + kısa bağlayıcı metinler). */
+
 export const blogCopy = {
   seoTitle: 'Blog | Visiosoft',
   seoDescription: 'En son haberler, güncellemeler ve otopark teknolojisi makaleleri.',
@@ -25,7 +25,7 @@ export const blogCopy = {
   missingTitle: 'Yazı bulunamadı',
   missingBody: 'Aradığınız yazı kaldırılmış ya da adresi değişmiş olabilir.',
   postErrorTitle: 'Yazı şu anda yüklenemedi',
-  /** Kapak görseli notları (içerik kuralı); kart görsellerinde CoverNote.module.css aynı metni kullanır. */
+
   coverNotes: {
     render: 'Temsilî görsel',
     demo: 'Ekran görüntüsü, demo verisi',

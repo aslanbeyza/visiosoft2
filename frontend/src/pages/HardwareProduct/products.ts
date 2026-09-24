@@ -944,7 +944,7 @@ export const products: Record<HardwareSlug, HardwareProductDef> = {
     route: 'hardware-products.kiosk',
     model: '/parking-product-3d/kiosk/kiosk.glb',
     technicalImage: '/parking-product-3d/kiosk/kiosk.png',
-    // Kısa adlar müşterinin onayladığı menü adlarıyla aynıdır (siteNav hardwareMenu).
+
     navLabel: loc('Ödeme Kiosku', 'Kiosk', 'Киоск'),
     copy: kiosk,
   },

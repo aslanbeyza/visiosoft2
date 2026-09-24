@@ -1,8 +1,3 @@
-/* Sayfanın tüm bölümleri koyu; SubNav navbar'la birlikte yukarı kaydığında geride kalan yuvası beyaz şerit göstermesin. */
-/*
- * Sayfaya zemin verilmiyor: her bölüm kendi tonunu taşır. Eskiden burası navy-950 idi, üstüne de yalnızca
- * koyu bölümler biniyordu; sayfa baştan sona birbirine yakın iki lacivertten ibaret kalıyordu.
- */
 
 .heading {
   margin-bottom: clamp(2.25rem, 4vw, 3.5rem);

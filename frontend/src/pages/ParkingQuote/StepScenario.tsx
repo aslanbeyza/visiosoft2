@@ -16,7 +16,6 @@ type StepScenarioProps = {
 
 const { scenario } = quoteCopy
 
-/** 1. adım: ücretli otopark mı, sadece abonelik mi. */
 export default function StepScenario({ value, onChange, onNext, showErrors, autoFocus, total }: StepScenarioProps) {
   const missing = showErrors && value === ''
 

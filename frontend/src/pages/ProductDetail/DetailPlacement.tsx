@@ -10,10 +10,6 @@ type DetailPlacementProps = {
   placement: DetailPlacementData
 }
 
-/**
- * Sistemdeki yeri: geçiş şeridi sahnesi kendi kendine oynar, ürünün karşılığı olan cihaz vurgulanır.
- * Döngü yalnızca görünürken ve sekme açıkken çalışır; duraklat düğmesi ve hareket azaltma yolu ParkingFlow'dadır.
- */
 export default function DetailPlacement({ placement }: DetailPlacementProps) {
   const titleId = useId()
 
@@ -27,6 +23,7 @@ export default function DetailPlacement({ placement }: DetailPlacementProps) {
           steps={parkingFlowSteps}
           mode="auto"
           pin={false}
+          showPause={false}
           highlight={placement.device}
           highlightLabel={placement.deviceLabel}
           tone="dark"

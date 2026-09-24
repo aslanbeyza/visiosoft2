@@ -1,9 +1,4 @@
-/**
- * Kullanım:
- * <Gallery columns={3} images={[{ src: '/img/a.webp', avif: '/img/a.avif', width: 1600, height: 1067, alt: 'Saha görseli', caption: 'temsilî görsel' }]} />
- * Her kare kırpılmamış li'den tetiklenen clip-path açılışıyla gelir (görsel 1.08 → 1), tıklanınca Lightbox açılır;
- * Lightbox içinde ok tuşları/yan düğmelerle görseller arasında geçilir.
- */
+
 import { useCallback, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
@@ -26,13 +21,13 @@ export type GalleryImage = {
 export type GalleryProps = {
   images: GalleryImage[]
   columns?: 2 | 3
-  /** Ek: listenin erişilebilir adı. */
+
   label?: string
-  /** Ek: karede görselin sığdırılması. */
+
   fit?: 'cover' | 'contain'
-  /** Ek: kare oranı (CSS aspect-ratio). */
+
   ratio?: string
-  /** Ek: büyüt düğmesinin adı ("Büyüt: alt"). */
+
   openLabel?: string
   className?: string
 }
@@ -50,7 +45,7 @@ type TileProps = {
 function GalleryTile({ image, index, columns, fit, ratio, openLabel, onOpen }: TileProps) {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLLIElement>(null)
-  // Kırpılan çerçeve kendi görünürlüğünü bildiremez; açılış kırpılmamış li'den tetiklenir.
+
   const inView = useInView(ref, { once: true, amount: 0.2 })
   const delay = (index % columns) * 0.08
 
@@ -105,7 +100,7 @@ export default function Gallery({
   openLabel = galleryCopy.open,
   className = '',
 }: GalleryProps) {
-  // Kapanış animasyonu sırasında son görsel yerinde kalsın diye indeks ve açık/kapalı ayrı tutulur.
+
   const [view, setView] = useState<{ index: number; open: boolean }>({ index: 0, open: false })
   const total = images.length
 

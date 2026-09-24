@@ -6,10 +6,6 @@ export type LeadExtraFields = 'address' | 'parking'
 
 const text = (data: FormData, key: string) => String(data.get(key) || '')
 
-/**
- * Backend sözleşmesi: anahtarlar ve değer biçimleri önceki LeadForm ile birebir aynıdır
- * (name, email, phone, company, message, website_url, cf-turnstile-response + address / parking alanları).
- */
 export function buildLeadBody(data: FormData, extraFields?: LeadExtraFields, token?: string) {
   const body: Record<string, unknown> = {
     name: text(data, 'name'),

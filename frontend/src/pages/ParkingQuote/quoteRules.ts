@@ -1,4 +1,4 @@
-// Teklif motoru kuralları: seçimlerden önerilen paketi ve seçim özetini türetir (saf fonksiyonlar).
+
 import { quoteCopy } from './quoteCopy.ts'
 
 export type ProjectType = 'paid' | 'subscription'
@@ -19,7 +19,7 @@ export type PackageItem = {
   name: string
   reason: string
   group: PackageGroup
-  /** Kural notu (varsa): ürün hangi seçim yüzünden eklendi. */
+
   rule?: string
 }
 
@@ -41,7 +41,6 @@ function item(id: CatalogId, rule?: string): PackageItem {
   return { id, name: entry.name, reason: entry.reason, group: groups[id], rule }
 }
 
-/** Önerilen paket; model seçilmeden boş döner. Sıra sabittir (yazılım → donanım → hizmet). */
 export function buildPackage(choices: QuoteChoices): PackageItem[] {
   if (!choices.projectType) return []
   const paid = choices.projectType === 'paid'
@@ -55,10 +54,8 @@ export function buildPackage(choices: QuoteChoices): PackageItem[] {
   return list
 }
 
-/** 1. adım geçerli mi? */
 export const scenarioComplete = (choices: QuoteChoices) => choices.projectType !== ''
 
-/** 2. adımın eksikleri: alan adı → mesaj. Boş nesne = tamam. */
 export function setupErrors(choices: QuoteChoices): Record<string, string> {
   const errors: Record<string, string> = {}
   if (choices.projectType === 'paid' && choices.payments.length === 0) {

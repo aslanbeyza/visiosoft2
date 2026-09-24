@@ -3,22 +3,11 @@ import type { RefObject } from 'react'
 import { animate, cancelFrame, frame } from 'framer-motion'
 import type { MotionValue } from 'framer-motion'
 
-/** --ease-apple ile aynı eğri; SubNav'ın 0,45 sn'lik kaymasıyla eş zamanlı kalır. */
 const EASE = [0.25, 1, 0.5, 1] as const
 const DURATION = 0.45
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 
-/**
- * Navbar gizlenince yapışmış kartları onun bıraktığı boşluğa kaydırır; henüz yapışmamış kartlar yerinde kalır.
- * Her kart için hedef konum: max(doğal konum, yapışma üstü − navbar yüksekliği × h), yapışkan konumu aşmadan.
- * Böylece kart bölüm başlığının üstüne binmez ve navbar gizliyken doğrudan yeni yapışma noktasında durur.
- * h (0 → 1) navbar durumu değişince yumuşakça değişir. Yalnızca transform yazılır.
- *
- * `progress[i]`: sıradaki kartın (i + 1) görünüm alanının altından gerçek yapışma noktasına ilerleyişi (0 → 1).
- * Gerçek nokta navbar kaymasını da içerir; böylece küçülme, sıradaki kart gerçekten yerine oturduğunda biter.
- * Ölçüm ve yazım framer-motion kare döngüsünde yapılır; MotionValue'lar aynı karede çizilir.
- */
 export function useNavbarShift(
   listRef: RefObject<HTMLOListElement | null>,
   refs: RefObject<HTMLLIElement | null>[],
@@ -37,7 +26,6 @@ export function useNavbarShift(
     let hidden = root.dataset.navbar === 'hidden' ? 1 : 0
     let pending = false
 
-    // Okuma adımı: tüm ölçümler; yazım adımı: transform ve MotionValue'lar. Kare başına tek yerleşim hesabı.
     const measure = () => {
       const rootPx = Number.parseFloat(getComputedStyle(root).fontSize) || 16
       const listStyle = getComputedStyle(list)

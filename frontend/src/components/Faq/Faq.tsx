@@ -1,13 +1,4 @@
-/**
- * Kullanım:
- * <Faq
- *   label="Sık sorulan sorular"
- *   schema                       // FAQPage JSON-LD üretir
- *   items={[{ question: 'Kurulum ne kadar sürer?', answer: 'Keşif sonrası planlanan takvimde…' }]}
- * />
- * Akordeon: <h3><button aria-expanded aria-controls> + role="region". Yukarı/Aşağı/Home/End tuşları sorular arasında gezer.
- * Açılış CSS grid (0fr → 1fr) ile; yanıt metnindeki boş satırlar paragraf olur.
- */
+
 import { useId, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -23,16 +14,16 @@ export type FaqItem = {
 
 export type FaqProps = {
   items: FaqItem[]
-  /** Grubun erişilebilir adı. */
+
   label?: string
-  /** true ise FAQPage JSON-LD eklenir. */
+
   schema?: boolean
   tone?: 'light' | 'dark'
-  /** Başlık düzeyi; bölüm başlığı h2 ise h3 (varsayılan). */
+
   headingAs?: 'h3' | 'h4'
-  /** Başlangıçta açık olan sorunun sırası (0 tabanlı). */
+
   defaultOpen?: number
-  /** true ise aynı anda yalnızca bir soru açık kalır. */
+
   single?: boolean
   className?: string
 }
@@ -52,7 +43,6 @@ const hairlineVariants: Variants = {
   show: { scaleX: 1, transition: { duration: 1, ease: revealEase } },
 }
 
-/** Boş satırla ayrılan bloklar paragraf, tek satır sonları satır kesmesi olur. */
 function renderAnswer(answer: string) {
   return answer
     .replace(/\r\n?/g, '\n')

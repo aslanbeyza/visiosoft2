@@ -7,12 +7,6 @@ import { useMediaQuery } from '../../hooks/useMediaQuery/index.ts'
 import { useNavbarShift } from './useNavbarShift.ts'
 import styles from './ScrollStack.module.css'
 
-/**
- * Kullanım:
- * `<ScrollStack tone="dark" items={[{ id: 'map', eyebrow: 'Canlı harita', title: '…', description: '…', bullets: […], media: <MediaFrame …/> }]} />`
- * Kartlar kaydırdıkça navbar altına yapışıp üst üste biner (M6); sıradaki kart gelirken bir önceki 0,96'ya küçülür
- * ve gölgelenir (kaydırmaya bağlı, state yok). Dar ekran ve hareket azaltmada düz kart listesi.
- */
 export type ScrollStackItem = {
   id: string
   eyebrow?: string
@@ -26,12 +20,9 @@ export type ScrollStackProps = {
   items: ScrollStackItem[]
   tone?: 'light' | 'dark'
   className?: string
-  /** Liste için erişilebilir ad. */
+
   label?: string
-  /**
-   * Navbar altındaki ek yapışma boşluğu (rem). Yapışkan SubNav olan sayfada `stickOffset={3.25}` verilirse
-   * kartlar alt menü çubuğunun altında yığılır. Varsayılan 0.
-   */
+
   stickOffset?: number
 }
 
@@ -42,12 +33,11 @@ export default function ScrollStack({ items, tone = 'light', className = '', lab
   const wide = useMediaQuery('(min-width: 1024px)')
   const stacked = wide && !reduce
 
-  // Kart sayısı değişmedikçe ref ve ilerleme dizileri sabit kalır; ebeveyn her render'da yeni dizi verse de abonelik yenilenmez.
   const count = items.length
   const refs = useMemo(() => Array.from({ length: count }, () => createRef<HTMLLIElement>()), [count])
   const progress = useMemo(() => Array.from({ length: count }, () => motionValue(0)), [count])
   const listRef = useRef<HTMLOListElement>(null)
-  // Kaydırma, CSS yapışma noktası ve navbar kayması tek ölçümden okunur; küçülme gerçek yapışmayla biter.
+
   useNavbarShift(listRef, refs, stacked, progress)
 
   return (
@@ -82,13 +72,13 @@ type StackCardProps = {
   stacked: boolean
   reduce: boolean
   selfRef: RefObject<HTMLLIElement | null>
-  /** Sıradaki kartın gerçek yapışma noktasına ilerleyişi (0 → 1); useNavbarShift yazar. */
+
   progress: MotionValue<number>
 }
 
 function StackCard({ item, index, count, stacked, reduce, selfRef, progress }: StackCardProps) {
   const isLast = index === count - 1
-  // Sıradaki kart görünüm alanının altından yapışma noktasına (navbar gizliyse kaymış konumuna) gelirken bu kart geri çekilir.
+
   const scale = useTransform(progress, [0, 1], [1, 0.96])
   const shade = useTransform(progress, [0, 1], [0, 0.45])
   const animated = stacked && !isLast

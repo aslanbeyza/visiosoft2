@@ -3,10 +3,6 @@ import type { Variants } from 'framer-motion'
 import { revealEase } from '../Reveal/index.ts'
 import type { SectorIconId } from './homeSectorsCopy.ts'
 
-/**
- * Kullanım alanı çizgi ikonları (32px ızgara, 1.5 kontur). Çizgiler üst öğenin "show" durumunda
- * pathLength ile bir kez çizilir; hareket azaltmada üst öğe initial={false} verdiği için tam görünür.
- */
 const icons: Record<SectorIconId, string[]> = {
   street: [
     'M3 27h26',

@@ -23,7 +23,6 @@
   border-bottom: 1px solid var(--color-corp-line);
 }
 
-/* M12: satır görünürken üst kenarında lacivert çizgi süpürülür. */
 .sweep {
   position: absolute;
   top: -1px;

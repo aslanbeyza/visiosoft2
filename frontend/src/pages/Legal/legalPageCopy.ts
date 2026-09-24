@@ -1,6 +1,6 @@
-/** Yasal sayfaların çerçeve metinleri. Madde metinlerinin kendisi legalCopy.ts içindedir. */
+
 export const legalPageCopy = {
-  // "Yasal Bilgiler" sayfasında başlığı tekrar etmemesi için genel ad kullanılır.
+
   eyebrow: 'Yasal metinler',
   indexLabel: 'Yasal metinler',
   indexCaption: 'Tüm yasal metinler',
@@ -9,7 +9,7 @@ export const legalPageCopy = {
   contactTitle: 'Sorularınız mı var?',
   contactBody: 'Yasal metinlerle ilgili taleplerinizi e-posta ile iletebilirsiniz.',
   contactAction: 'E-posta gönderin',
-  /** Belge dizininde görünen sıra; rota adları legalCopy anahtarlarıyla aynıdır. */
+
   documents: [
     { route: 'legal.privacy', label: 'Gizlilik Politikası' },
     { route: 'legal.terms', label: 'Kullanım Şartları' },
@@ -18,7 +18,7 @@ export const legalPageCopy = {
     { route: 'legal.return-policy', label: 'İade Politikası' },
     { route: 'legal.legal', label: 'Yasal Bilgiler' },
   ],
-  /** Hero açıklamaları; mevcut madde metinlerinden özetlenmiştir. */
+
   leads: {
     'legal.privacy':
       'Web sitemizi ve hizmetlerimizi kullandığınızda verilerinizin nasıl toplandığını, kullanıldığını ve korunduğunu açıklar.',

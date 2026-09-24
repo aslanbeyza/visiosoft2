@@ -12,7 +12,6 @@ import styles from './LegalBody.module.css'
 
 type LegalBlock = LegalPage['blocks'][number]
 
-/** Metindeki e-posta adreslerini mailto bağlantısına çevirir. */
 function withLinks(text: string): ReactNode {
   const parts = text.split(/([\w.+-]+@[\w-]+(?:\.[\w-]+)+)/)
   if (parts.length === 1) return text
@@ -27,7 +26,6 @@ function withLinks(text: string): ReactNode {
   )
 }
 
-/** Blokları h2 başlıklarından bölümlere ayırır; her bölüm ayrı belirir. */
 function toChunks(blocks: LegalBlock[]) {
   const chunks: LegalBlock[][] = []
   for (const block of blocks) {

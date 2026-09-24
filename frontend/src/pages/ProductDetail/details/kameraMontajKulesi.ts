@@ -18,7 +18,7 @@ export const kameraMontajKulesiDetail: ProductDetailData = {
   hero: {
     kind: 'image',
     image: cardImage('kamera-montaj-kulesi', 'Visio Kamera Montaj Kulesi: kırmızı üst tabla, kırmızı panelli beyaz gövde ve beyaz sabitleme tabanı'),
-    // Kart görselinde kulenin tabanı kutunun %87,9'unda biter.
+
     baseGap: 12.1,
   },
   heroMeta: false,

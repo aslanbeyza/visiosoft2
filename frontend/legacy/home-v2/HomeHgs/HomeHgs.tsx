@@ -19,7 +19,6 @@ type ConnectorProps = {
   drawn: boolean
 }
 
-/** İki düğüm arasındaki SVG yol; kaydırma ilerledikçe pathLength ile çizilir. */
 function Connector({ progress, index, count, drawn }: ConnectorProps) {
   const pathLength = useTransform(progress, [index / (count - 1), (index + 1) / (count - 1)], [0, 1])
 
@@ -41,7 +40,6 @@ export default function HomeHgs() {
   const { scrollYProgress } = useScroll({ target: flowRef, offset: ['start 0.75', 'end 0.6'] })
   const [reached, setReached] = useState(0)
 
-  // Yalnızca yanan düğüm sayısı değiştiğinde state güncellenir.
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
     const next = value <= 0.001 ? 0 : Math.min(count, Math.floor(value * (count - 1) + 0.001) + 1)
     if (next !== reached) setReached(next)

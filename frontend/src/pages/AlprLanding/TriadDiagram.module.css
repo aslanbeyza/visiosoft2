@@ -94,7 +94,6 @@
   font-weight: 650;
 }
 
-/* Kart vurgusu: seçili düğüm ve bağlantısı öne çıkar, diğerleri geri çekilir */
 .svg:not([data-active='none']) .node,
 .svg:not([data-active='none']) .link {
   opacity: 0.4;
@@ -125,7 +124,6 @@
   stroke: var(--color-navy-600);
 }
 
-/* Tek sütunlu yerleşimde (tablet) şema paneli doldurup ilk ekranı kaplamasın. */
 @media (max-width: 1023px) {
   .svg {
     max-width: 30rem;
@@ -133,7 +131,6 @@
   }
 }
 
-/* Dar ekranlarda SVG küçülür; metinleri okunur boyutta tut */
 @media (max-width: 639px) {
   .nodeLabel {
     font-size: 23px;

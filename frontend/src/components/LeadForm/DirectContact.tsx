@@ -18,13 +18,12 @@ const ICONS = {
 } as const
 
 type DirectContactProps = {
-  /** İletişim sayfasında kendini gösteren bağlantıyı kapatır. */
+
   showContactLink?: boolean
-  /** WhatsApp kutucuğunda numara yerine gösterilecek metin (ör. "WhatsApp"). */
+
   whatsappValue?: string
 }
 
-/** Formu doldurmak istemeyenler için WhatsApp ve e-posta kutucukları (+ isteğe bağlı İletişim bağlantısı). */
 export default function DirectContact({ showContactLink = true, whatsappValue }: DirectContactProps) {
   const reduce = Boolean(useReducedMotion())
   const { config } = useLocale()

@@ -18,10 +18,6 @@ type DetailHeroProps = {
   data: ProductDetailData
 }
 
-/**
- * Kahraman: kiosk/TIR’da kaydırmalı patlatma; diğer models/products ürünlerinde
- * aynı stüdyoda tam ekran döner 3B; model yoksa klasik künye + foto.
- */
 export default function DetailHero({ data }: DetailHeroProps) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())

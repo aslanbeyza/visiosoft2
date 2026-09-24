@@ -15,10 +15,6 @@ type FlagshipDetailsProps = {
 const pad = (value: number) => String(value).padStart(2, '0')
 const DURATION = 0.38
 
-/**
- * Vitrin metni: sayaç, kategori, ad, tam açıklama, üç etiket ve ürün sayfası CTA'sı.
- * Etkin olmayan paneller erişilebilirlik ağacından çıkar.
- */
 export default function FlagshipDetails({ items, active }: FlagshipDetailsProps) {
   const reduce = Boolean(useReducedMotion())
   const path = usePath()

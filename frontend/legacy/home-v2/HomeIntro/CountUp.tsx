@@ -5,9 +5,9 @@ import styles from './HomeIntro.module.css'
 
 type CountUpProps = {
   value: number
-  /** Sayacın başladığı değer. */
+
   from?: number
-  /** Yıl gibi değerlerde binlik ayırıcı kullanılmaz. */
+
   grouping?: boolean
   className?: string
 }
@@ -15,7 +15,6 @@ type CountUpProps = {
 const format = (value: number, grouping: boolean) =>
   Math.round(value).toLocaleString('tr-TR', { useGrouping: grouping })
 
-/** Görünüme girince bir kez sayan gerçek sayı. Değer React state'i yerine motion value ile güncellenir. */
 export default function CountUp({ value, from = 0, grouping = true, className }: CountUpProps) {
   const reduce = useReducedMotion()
   const ref = useRef<HTMLSpanElement>(null)

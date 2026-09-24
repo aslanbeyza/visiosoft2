@@ -1,4 +1,4 @@
-/** /teklif-al metinleri; ifadeler sitedeki mevcut Türkçe metinlerden alınmıştır. */
+
 export const quoteCopy = {
   seo: {
     title: 'Teklif Al - Visiosoft',
@@ -13,7 +13,7 @@ export const quoteCopy = {
     successTitle: 'Teklif talebiniz alındı',
     messageExample: 'Otopark kapasitesi, giriş-çıkış sayısı vb.',
   },
-  /** AlprLanding "Keşiften Operasyona" süreç adımları. */
+
   steps: [
     { title: 'Ücretsiz Keşif', description: 'Sahanızı inceler, maliyetsiz ilk kapsamı netleştiririz.' },
     { title: 'Teklif & Sözleşme (Online)', description: 'Ticari şartlar şeffaf şekilde iletilir ve online tamamlanır.' },

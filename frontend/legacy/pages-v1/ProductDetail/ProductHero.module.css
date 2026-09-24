@@ -17,8 +17,6 @@
   min-width: 0;
 }
 
-/* Künye */
-
 .breadcrumb ol {
   display: flex;
   flex-wrap: wrap;
@@ -64,8 +62,6 @@
   height: 0.85rem;
   color: #b3b8c7;
 }
-
-/* Başlık bloğu */
 
 .eyebrow {
   display: inline-flex;
@@ -148,8 +144,6 @@
   margin-top: 2.25rem;
 }
 
-/* Ürün sahnesi */
-
 .visual {
   min-width: 0;
 }
@@ -195,7 +189,6 @@
   user-select: none;
 }
 
-/* Zemin gölgesi: taban plakasının altında yumuşak elips. */
 .floor {
   position: absolute;
   left: -70%;
@@ -206,8 +199,6 @@
   background: radial-gradient(closest-side, rgb(15 20 48 / 0.3), rgb(15 20 48 / 0.08) 60%, transparent);
   transform-origin: center;
 }
-
-/* Ölçü çizgileri */
 
 .dims {
   position: absolute;
@@ -246,7 +237,6 @@
   pointer-events: none;
 }
 
-/* Yükseklik etiketi dikey çizginin solunda, aşağıdan yukarı okunur. */
 .labelHeight {
   right: calc(100% + 26px + 0.6rem);
   translate: 0 -50%;

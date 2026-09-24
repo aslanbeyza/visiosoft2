@@ -1,4 +1,4 @@
-/** Ana sayfa 4.5 — Kullanım alanları metinleri (HOME3.md §4.5, değiştirmeden). */
+
 export type SectorIconId = 'street' | 'mall' | 'hospital' | 'campus' | 'residence' | 'truck'
 
 export type SectorImage = {
@@ -13,7 +13,7 @@ export type SectorItem = {
   description: string
   refs?: string
   route: string
-  /** Hedef sayfanın menüdeki adı; bağlantının erişilebilir adına eklenir (başlık ile hedef farklı olabilir). */
+
   destination: string
   image: SectorImage
 }
@@ -23,7 +23,7 @@ export const homeSectorsCopy = {
   title: 'Aynı altyapı, farklı işletmeler.',
   refsLabel: 'Referanslar',
   more: 'İncele',
-  /** Ekran okuyucuda "Başlık — Hedef sayfası" biçimi. */
+
   destinationSuffix: 'sayfası',
   items: [
     {

@@ -9,7 +9,7 @@
   padding: 3.5rem 0 4.5rem;
   background: #f4f5f7;
   color: var(--ink);
-  /* Sabit navbar bölüm başlığının üzerine binmesin. */
+
   scroll-margin-top: 5.5rem;
 }
 
@@ -23,8 +23,6 @@
   width: min(80rem, calc(100% - 2rem));
   margin: 0 auto;
 }
-
-/* Metin */
 
 .copy {
   grid-area: copy;
@@ -120,8 +118,6 @@
   outline-offset: 3px;
 }
 
-/* Sahne */
-
 .sceneColumn {
   grid-area: scene;
   width: 100%;
@@ -139,10 +135,6 @@
   container-type: size;
 }
 
-/*
- * Sahne katmanı sabit orana sahiptir (fotoğrafla aynı); kutuyu "cover" mantığıyla doldurur.
- * Böylece kiosk, gölge ve bilgi noktaları her ekran oranında fotoğraftaki yerinde kalır.
- */
 .stage {
   --stage-ratio: calc(1280 / 1016);
   --focus-x: 0;
@@ -165,7 +157,6 @@
   object-fit: cover;
 }
 
-/* Fotoğraf ~1,8 m yükseklikten çekildi: 1,8 m'lik kioskun üst kenarı ufuk çizgisine denk gelir. */
 .kiosk {
   position: absolute;
   top: 22.24%;
@@ -175,7 +166,6 @@
   height: 64.37%;
 }
 
-/* Kapalı havada yumuşak temas gölgesi. */
 .kioskShadow {
   position: absolute;
   top: 82.6%;
@@ -212,8 +202,6 @@
   background: var(--success);
   box-shadow: 0 0 0 3px rgb(18 128 92 / 0.16);
 }
-
-/* Bilgi noktaları (masaüstü) */
 
 .hotspot {
   position: absolute;
@@ -265,7 +253,6 @@
   transition: background-color 0.25s ease;
 }
 
-/* İşlem akışında sırası gelen nokta: sakin bir halka. */
 .hotspotDot::before {
   content: '';
   position: absolute;
@@ -318,8 +305,6 @@
   translate: -50% 0;
 }
 
-/* Bilgi noktaları (mobil): listedeki kartlarla aynı numara */
-
 .marker {
   position: absolute;
   z-index: 2;
@@ -351,8 +336,6 @@
   background: var(--navy);
   color: #fff;
 }
-
-/* Kart içeriği (bilgi noktası kartı ve mobil liste) */
 
 .cardIndex {
   color: var(--navy);
@@ -392,8 +375,6 @@
   text-underline-offset: 3px;
 }
 
-/* İşlem akışı */
-
 .flow {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -415,7 +396,6 @@
   padding-top: 0.8rem;
 }
 
-/* Adım çizgisi: aktif adımda lacivert dolar, tamamlanınca yeşile döner. */
 .flowStep::before,
 .flowStep::after {
   content: '';
@@ -506,8 +486,6 @@
 .flowStep[data-state='active'] .flowLabel {
   font-weight: 600;
 }
-
-/* Mobil özellik listesi */
 
 .featureList {
   display: grid;

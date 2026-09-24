@@ -10,10 +10,8 @@ import { usePath } from '../../hooks/usePath/index.ts'
 import { alprCopy } from './alprCopy.ts'
 import styles from './ContactFinale.module.css'
 
-// 24 saatlik kadran: her saat bir çentik
 const ticks = Array.from({ length: 24 }, (_, hour) => hour)
 
-/** Kapanış: iletişim kanalları ve bir kez çizilen 24 saatlik kadran. */
 export default function ContactFinale() {
   const path = usePath()
   const { config } = useLocale()

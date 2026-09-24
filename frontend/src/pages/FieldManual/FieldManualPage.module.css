@@ -1,4 +1,4 @@
-/* Künye alanı veri gelmeden de yer kaplar; hero içeriği kaymaz. */
+
 .metaSlot[data-pending='true'] {
   min-height: 3.25rem;
 }

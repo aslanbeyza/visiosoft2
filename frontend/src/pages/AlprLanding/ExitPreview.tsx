@@ -8,7 +8,6 @@ import styles from './ExitPreview.module.css'
 
 const base = '/img/pages/otopark-cikis'
 
-/** Gerçek otopark çıkışı fotoğrafı: görseldeki ekipmanlar numaralı işaretlerle ve eşleşen açıklama listesiyle gösterilir. */
 export default function ExitPreview() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

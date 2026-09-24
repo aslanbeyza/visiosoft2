@@ -5,7 +5,6 @@ import { RECORD_INDEX, flowSteps } from './flowData.ts'
 import { homeSystemFlowCopy as text } from './homeSystemFlowCopy.ts'
 import styles from './HomeSystemFlow.module.css'
 
-/** Hareket azaltma: bariyeri açık statik sahne, tüm adımlar ve oturumlar ekranı birlikte görünür. */
 export default function FlowStatic() {
   return (
     <div className={styles.static}>

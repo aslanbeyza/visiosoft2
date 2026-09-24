@@ -1,12 +1,4 @@
-/**
- * Kullanım:
- * <LogoWall variant="grid" label="Referanslar" showNames logos={references.map((r) => ({ src: r.url, alt: r.name, href: r.website }))} />
- * <LogoWall variant="marquee" logos={…} />
- * grid: sabit boyutlu karolar ortalanır, satırlar dengelenir (6 logo dar alanda 3 + 3); hücreler sırayla belirir,
- * kenarlık köşeden açılır; logolar optik alanına göre sığdırılır. Varsayılan: gri (%85), üzerine gelince ya da odakta renklenir.
- * color: gri katman yok, logolar her zaman renkli.
- * marquee: iki ters yönlü satır; yalnızca görünürken kayar, üzerine gelince ve düğmeyle durur; hareket azaltmada ızgaraya döner.
- */
+
 import { useRef, useState, useSyncExternalStore } from 'react'
 import type { CSSProperties } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
@@ -27,17 +19,16 @@ export type Logo = {
 export type LogoWallProps = {
   logos: Logo[]
   variant?: 'grid' | 'marquee'
-  /** Listenin erişilebilir adı. */
+
   label?: string
   tone?: 'light' | 'dark'
-  /** Logonun altında adını da yazar. */
+
   showNames?: boolean
-  /** Gri katmanı atlar; logolar her zaman renkli durur. */
+
   color?: boolean
   className?: string
 }
 
-/** Logo başına kayma süresi (sn); satır uzunluğu değişse de hız aynı kalır. */
 const SECONDS_PER_LOGO = 3.4
 
 const subscribeVisibility = (callback: () => void) => {
@@ -45,7 +36,6 @@ const subscribeVisibility = (callback: () => void) => {
   return () => document.removeEventListener('visibilitychange', callback)
 }
 
-/** Sekme arka plandayken kayma durur. */
 const usePageVisible = () =>
   useSyncExternalStore(
     subscribeVisibility,
@@ -63,21 +53,15 @@ const cellVariants: Variants = {
   }),
 }
 
-/** Gerçek CSS kenarlığı sol üst köşeden açılır (clip-path); bittiğinde hiç kırpmaz, köşede boşluk kalmaz. */
 const borderVariants: Variants = {
   hidden: { clipPath: 'inset(0% 100% 100% 0%)' },
   show: { clipPath: 'inset(0% 0% 0% 0%)', transition: { duration: 1.1, ease: revealEase } },
 }
 
-/** Yüklenince (ya da önbellekten hazır gelince) logoyu optik alanına göre yerleştirir. */
 const fitOnReady = (img: HTMLImageElement | null) => {
   if (img?.complete && img.naturalWidth) fitLogo(img)
 }
 
-/**
- * Gri ve renkli iki katman aynı dosyadır (tek indirme); üzerine gelince yalnızca renkli katmanın opaklığı değişir.
- * Renkli katman ekran okuyucudan gizlidir.
- */
 function LogoImage({ logo, decorative = false, color = false }: { logo: Logo; decorative?: boolean; color?: boolean }) {
   const shared = {
     src: logo.src,
@@ -109,7 +93,6 @@ type TileProps = {
   color?: boolean
 }
 
-/** Logo kutusu: bağlantı varsa <a>, yoksa <div>. Ad, görselin alt metnini yinelediği için ekran okuyucudan gizlidir. */
 function Tile({ logo, showNames, decorative = false, drawn = false, color = false }: TileProps) {
   const inner = (
     <span className={styles.logoBox}>
@@ -144,7 +127,7 @@ function Tile({ logo, showNames, decorative = false, drawn = false, color = fals
 
 function Grid({ logos, label, showNames, reduce, color }: { logos: Logo[]; label?: string; showNames: boolean; reduce: boolean; color: boolean }) {
   return (
-    // --n: satırları dengelemek için logo sayısı (ör. 6 logo, 4'lük alanda 3 + 3 ortalanır).
+
     <ul className={styles.grid} role="list" aria-label={label} style={{ '--n': logos.length } as CSSProperties}>
       {logos.map((logo, index) => (
         <motion.li
@@ -190,7 +173,7 @@ function Marquee({ logos, label, showNames, color }: { logos: Logo[]; label?: st
                   </li>
                 ))}
               </ul>
-              {/* Kesintisiz döngü için aynı liste ikinci kez; ekran okuyucudan gizli. */}
+              {}
               <ul className={styles.list} aria-hidden="true">
                 {row.map((logo) => (
                   <li key={`${logo.src}-${logo.alt}`} className={styles.marqueeCell}>

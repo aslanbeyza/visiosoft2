@@ -10,7 +10,6 @@ import styles from './PlakaTech.module.css'
 const copy = plakaCopy.tech
 const stats: StatItem[] = copy.stats
 
-/** Teknoloji bölümü (gece tonu): büyük başlık, kelime kelime beliren bildiri, sayaçlı değerler. */
 export default function PlakaTech() {
   const reduce = Boolean(useReducedMotion())
 

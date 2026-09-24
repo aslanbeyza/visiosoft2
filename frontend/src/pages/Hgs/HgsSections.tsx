@@ -10,7 +10,6 @@ import styles from './HgsSections.module.css'
 const { methods, advantages, flow, sectors } = hgsPageCopy
 const headingId = (id: string) => `${id}-baslik`
 
-/** Ödeme yöntemleri: kart ızgarası, dört yöntem. */
 export function HgsMethods() {
   return (
     <Section id={methods.id} tone="paper" labelledBy={headingId(methods.id)}>
@@ -27,7 +26,6 @@ export function HgsMethods() {
   )
 }
 
-/** Avantajlar: solda başlık ve yedek tahsilat hikâyesi, sağda iki sütunlu avantaj listesi. */
 export function HgsAdvantages() {
   const { fallbackStory } = advantages
 
@@ -63,7 +61,6 @@ export function HgsAdvantages() {
   )
 }
 
-/** Nasıl çalışır: lacivert bant, kaydırmayla dolan adım çizgisi. */
 export function HgsFlow() {
   return (
     <Section id={flow.id} tone="navy" labelledBy={headingId(flow.id)}>
@@ -84,7 +81,6 @@ export function HgsFlow() {
   )
 }
 
-/** Kimler için: kutusuz, çizgili altı sektör. */
 export function HgsSectors() {
   return (
     <Section id={sectors.id} tone="paper" labelledBy={headingId(sectors.id)}>

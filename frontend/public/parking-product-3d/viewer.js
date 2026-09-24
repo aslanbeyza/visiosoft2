@@ -1,4 +1,4 @@
-// Model Viewer Progress Bar Handler
+
 const modelViewers = document.querySelectorAll('model-viewer');
 modelViewers.forEach((modelViewer) => {
     const progressBar = modelViewer.querySelector('.progress-bar');

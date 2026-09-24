@@ -6,12 +6,6 @@ import TextReveal from '../../components/TextReveal/index.ts'
 import { usePageVisible } from '../../hooks/usePageVisible/index.ts'
 import styles from './GreetingHero.module.css'
 
-/**
- * İletişim kahramanı: büyük selamlama cümleleri kelime kelime yükselerek sırayla değişir.
- * Başlığın altındaki ince çizgi bir sonraki selamlamaya kalan süreyi gösterir; çizgi bitince (animationend)
- * sıradaki cümleye geçilir. Döngü yalnızca görünümde ve sekme görünürken çalışır, düğmeyle duraklatılır.
- * Ekran okuyucu sabit başlığı okur; hareket azaltmada ilk selamlama sabit kalır.
- */
 export type GreetingHeroProps = {
   eyebrow: string
   srTitle: string
@@ -25,7 +19,6 @@ export type GreetingHeroProps = {
 
 const WORD_STAGGER = 0.06
 
-/** "Merhaba, sizi dinliyoruz." → ["Merhaba,", "sizi dinliyoruz."]; virgül yoksa tüm cümle ilk parçadır. */
 function splitGreeting(text: string): [string, string] {
   const at = text.indexOf(', ')
   return at < 0 ? [text, ''] : [text.slice(0, at + 1), text.slice(at + 2)]
@@ -63,8 +56,7 @@ export default function GreetingHero({ eyebrow, srTitle, greetings, lead, pauseL
           <h1 id={titleId} className={styles.title}>
             <span className={styles.srOnly}>{`${srTitle}. ${greetings[0] ?? ''}`}</span>
             <span className={styles.visual} aria-hidden="true">
-              {/* Görünmez kopyalar aynı hücrede üst üste durur; kutu en uzun selamlama kadar olur, sayfa zıplamaz.
-                  Dar ekranda selam sözcüğünden sonra satır kırılır, böylece tüm selamlamalar aynı satır sayısını korur. */}
+              {}
               {cycling
                 ? greetings.map((text) => {
                     const [head, tail] = splitGreeting(text)

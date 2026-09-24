@@ -2,7 +2,6 @@ import type { ReactNode, SVGProps } from 'react'
 
 type IconProps = Omit<SVGProps<SVGSVGElement>, 'children' | 'viewBox' | 'fill' | 'stroke'>
 
-// FeatureGrid ikonlarıyla aynı ölçü: 24px görünüm kutusu, 1,6 çizgi, currentColor.
 function Svg({ children, ...props }: IconProps & { children: ReactNode }) {
   return (
     <svg

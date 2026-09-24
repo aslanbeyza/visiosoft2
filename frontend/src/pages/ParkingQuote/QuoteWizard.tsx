@@ -14,7 +14,6 @@ import styles from './QuoteWizard.module.css'
 const PANEL_ID = 'onerilen-paket'
 const TOTAL = quoteCopy.steps.length
 
-/** 3 adımlı teklif sihirbazı + canlı "Önerilen Paket" paneli. */
 export default function QuoteWizard() {
   const reduce = Boolean(useReducedMotion())
   const [step, setStep] = useState(0)

@@ -7,21 +7,20 @@ import { revealEase } from '../Reveal/index.ts'
 import styles from './LeadLayout.module.css'
 
 export type LeadLayoutProps = {
-  /** Hero'daki "Forma geçin" bağlantısının hedefi. */
+
   id: string
   eyebrow: string
   title: string
   lead?: string
-  /** Sayfanın ilk bölümüyse h1 (ör. iletişim). */
+
   headingAs?: 'h1' | 'h2'
-  /** İlk ekranda form için üst boşluğu kısaltır. */
+
   spacing?: 'md' | 'lg'
-  /** LeadForm; başlık kimliği formun erişilebilir adı için verilir. */
+
   children: ReactNode
   aside: ReactNode
 }
 
-/** Form bölümü: tek kartta solda form, sağda "sonraki adımlar" ve doğrudan iletişim. */
 export default function LeadLayout({
   id,
   eyebrow,

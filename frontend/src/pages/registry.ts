@@ -1,11 +1,5 @@
 import type { ComponentType } from 'react'
 
-/**
- * Kullanım: `const Home = lazy(pages.home)` · `preloadRoute('hardware-products.kiosk')`
- * Tüm sayfalar buradan tembel yüklenir; rota adı → sayfa parçası eşlemesi ile niyet anında ön yükleme yapılır.
- * `Marketing` bir sayfa değil dağıtıcıdır (Router içinde statik); burada yalnızca gerçek sayfalar ve içerik yedeği vardır.
- */
-
 type PageModule = { default: ComponentType<any> }
 type Loader = () => Promise<PageModule>
 
@@ -44,13 +38,12 @@ export const pages = {
   sitemap: () => import('./Sitemap/index.ts'),
   softwareProducts: () => import('./SoftwareProducts/index.ts'),
   websitePricing: () => import('./WebsitePricing/index.ts'),
-  /** Tanımlı şablonu olmayan pazarlama rotaları için genel içerik sayfası. */
+
   contentPage: () => import('../components/ContentPage/index.ts'),
 } satisfies Record<string, Loader>
 
 export type PageKey = keyof typeof pages
 
-/** Rota adı (src/lib/routes.ts) → sayfa parçası. Router/Marketing dağıtımıyla birebir aynıdır. */
 const routePages: Record<string, PageKey> = {
   home: 'home',
   'software-products': 'softwareProducts',
@@ -105,7 +98,6 @@ const routePages: Record<string, PageKey> = {
 
 const loaded = new Map<PageKey, Promise<PageModule>>()
 
-/** Sayfa parçasını indirir; aynı parça yalnızca bir kez istenir, hata durumunda tekrar denenebilir. */
 export function preloadPage(key: PageKey): Promise<PageModule> {
   const cached = loaded.get(key)
   if (cached) return cached
@@ -117,7 +109,6 @@ export function preloadPage(key: PageKey): Promise<PageModule> {
   return promise
 }
 
-/** Rota adına karşılık gelen sayfa parçasını ön yükler; bilinmeyen rota 404 sayfasını getirir. */
 export function preloadRoute(routeName: string): Promise<PageModule> {
   return preloadPage(routePages[routeName] ?? 'notFound')
 }

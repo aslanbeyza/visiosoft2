@@ -22,7 +22,6 @@
   position: relative;
 }
 
-/* M12: satır açılırken üst çizgi soldan sağa süpürür; lacivert uç hover'da uzar. */
 .sweep {
   position: absolute;
   inset: 0 0 auto;

@@ -5,7 +5,6 @@ import { usePath } from '../../hooks/usePath/index.ts'
 import { homeProofCopy as text } from './homeProofCopy.ts'
 import styles from './HomeProof.module.css'
 
-/** İnce referans şeridi: etiket ve tümü bağlantısı üstte, logolar altta kayar. */
 export default function HomeProof() {
   const path = usePath()
 

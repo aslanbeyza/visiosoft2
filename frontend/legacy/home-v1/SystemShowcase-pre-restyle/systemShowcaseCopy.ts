@@ -6,10 +6,10 @@ export type SceneFeature = {
   description: string
   linkLabel: string
   route: string
-  /** Sahne görseli üzerindeki konum (yüzde). */
+
   x: number
   y: number
-  /** Açıklama kartının noktaya göre açılacağı yön. */
+
   placement: 'right' | 'bottom'
 }
 
@@ -78,7 +78,6 @@ export const systemShowcaseCopy = {
   ] satisfies FlowStep[],
 }
 
-/** İşlem akışı zamanlaması (ms). */
 export const flowTiming = {
   start: 800,
   step: 1800,
@@ -88,10 +87,6 @@ export const flowTiming = {
 const field = '/img/showcase/field-exit'
 const kiosk = '/img/showcase/kiosk'
 
-/**
- * Sahne katmanları. Arka plan gerçek bir otopark çıkışının fotoğrafıdır (plaka bulanıklaştırıldı);
- * kiosk, ürün görselinden arka planı ayrılarak aynı perspektifte yerleştirildi.
- */
 export const sceneImages = {
   field: {
     alt: 'Otopark çıkış şeridi: direkteki plaka tanıma kamerası, LED bilgi ekranı ve bariyer kolu',

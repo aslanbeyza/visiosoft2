@@ -11,7 +11,6 @@ type DetailSpecsProps = {
   copy: ProductCopy
 }
 
-/** Teknik özet ve kullanım alanları: iki liste arasında ayraç çizgisi çizilir, onay işaretleri sırayla belirir. */
 export default function DetailSpecs({ copy }: DetailSpecsProps) {
   const summaryId = useId()
   const useCasesId = useId()

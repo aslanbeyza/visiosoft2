@@ -46,7 +46,6 @@
   background: var(--sr-accent);
 }
 
-/* Görsel sıra: değer, etiket, not (dl semantiği dt → dd olarak kalır). */
 .value {
   order: -1;
   display: flex;
@@ -68,7 +67,6 @@
   line-height: 1.15;
 }
 
-/* CountUp'ın kendi inline kuralını yükleme sırasından bağımsız olarak ezer. */
 .grid .count {
   display: inline-flex;
   align-items: baseline;

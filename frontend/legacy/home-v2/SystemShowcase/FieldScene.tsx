@@ -23,12 +23,12 @@ function useMediaQuery(query: string) {
 
 type FieldSceneProps = {
   features: SceneFeature[]
-  /** İşlem akışında o an yürütülen adımın bilgi noktası. */
+
   highlightId: FeatureId | null
   revealed: boolean
-  /** Sahne yakınlaştığında görseller beklemeden yüklenir. */
+
   eager: boolean
-  /** Bilgi noktası kartı açılıp kapandığında haber verir (akış açıkken durur). */
+
   onCardOpenChange: (open: boolean) => void
 }
 
@@ -39,10 +39,9 @@ export default function FieldScene({ features, highlightId, revealed, eager, onC
   const frameRef = useRef<HTMLDivElement>(null)
   const buttonRefs = useRef(new Map<FeatureId, HTMLButtonElement>())
   const [openId, setOpenId] = useState<FeatureId | null>(null)
-  // Mobilde kartlar sahnenin altında listelenir; bilgi noktası kartı yalnızca masaüstünde açılır.
+
   const activeId = wide ? openId : null
 
-  // Sahne kaydırılırken fotoğraf ve kiosk birlikte çok az kayar; ürün zeminden kopmaz.
   const { scrollYProgress } = useScroll({ target: frameRef, offset: ['start end', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['1.5%', '-1.5%'])
   const parallax = wide && !reduce
@@ -52,7 +51,6 @@ export default function FieldScene({ features, highlightId, revealed, eager, onC
     onCardOpenChange(cardOpen)
   }, [cardOpen, onCardOpenChange])
 
-  // Açık kart Esc ile veya bilgi noktaları dışına tıklanınca kapanır.
   useEffect(() => {
     if (!activeId) return
 
@@ -127,7 +125,7 @@ export default function FieldScene({ features, highlightId, revealed, eager, onC
             <span
               key={feature.id}
               className={styles.marker}
-              // Gecikme yalnızca giriş (opacity) için; vurgu rengi akışla aynı anda değişir.
+
               style={{ left: `${feature.x}%`, top: `${feature.y}%`, transitionDelay: `${0.3 + index * 0.12}s, 0s, 0s` }}
               data-revealed={revealed}
               data-current={highlightId === feature.id}

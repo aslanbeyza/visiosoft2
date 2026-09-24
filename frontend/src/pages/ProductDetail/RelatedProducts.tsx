@@ -18,7 +18,6 @@ type RelatedProductsProps = {
 
 type Edges = { atStart: boolean; atEnd: boolean }
 
-/** Diğer donanım ürünleri: kaydırmalı, yakalamalı kart şeridi ve önceki/sonraki düğmeleri. */
 export default function RelatedProducts({ current, copy = detailCopy.related }: RelatedProductsProps) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
@@ -29,7 +28,6 @@ export default function RelatedProducts({ current, copy = detailCopy.related }: 
   const [edges, setEdges] = useState<Edges>({ atStart: true, atEnd: false })
   const items = relatedProductsFor(current)
 
-  // Yalnızca kenar durumu değiştiğinde state güncellenir.
   const updateEdges = useCallback(() => {
     const rail = railRef.current
     if (!rail) return
@@ -50,7 +48,7 @@ export default function RelatedProducts({ current, copy = detailCopy.related }: 
   }, [updateEdges])
 
   const scrollByPage = (direction: -1 | 1) => {
-    // Düğmeler odağı kaybetmesin diye disabled yerine aria-disabled kullanılır; kenardayken işlem yapılmaz.
+
     if ((direction < 0 && edgesRef.current.atStart) || (direction > 0 && edgesRef.current.atEnd)) return
     const rail = railRef.current
     const card = rail?.querySelector<HTMLElement>('li')

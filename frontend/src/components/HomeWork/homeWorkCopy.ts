@@ -1,4 +1,4 @@
-/** Tamamlanan işler: mevcut referans metinlerinden, uydurma sonuç yok. */
+
 export const homeWorkCopy = {
   titleId: 'isler-title',
   eyebrow: 'Tamamlanan işler',

@@ -2,7 +2,6 @@ type WhatsAppGlyphProps = {
   className?: string
 }
 
-/** Tek renkli WhatsApp simgesi; rengi `currentColor` ile üst öğeden alır. */
 export default function WhatsAppGlyph({ className }: WhatsAppGlyphProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true" focusable="false">

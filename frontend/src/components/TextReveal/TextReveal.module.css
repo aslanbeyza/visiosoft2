@@ -12,10 +12,6 @@
   display: block;
 }
 
-/*
- * Kırpma kutusu: overflow yerine clip-path. Alt dolgu y, g, ç, ş kuyruklarını kesmesin
- * (sıkı satır aralığında "otomasyonu" yoksa "otomasvonu" gibi okunur). Animasyon bitince clip kalkar.
- */
 .frag {
   display: inline-block;
   margin: -0.18em -0.05em -0.32em;

@@ -10,10 +10,6 @@ type ConvertDiagramProps = {
   nodes: DiagramNode[]
 }
 
-/**
- * Dönüşüm şeması: mevcut plaka tanıma → HGS Park → ödeme merkezi. Kırpılmamış kök görünüme girince düğümler
- * sırayla yükselir, aralarındaki bağlantı çizgileri çizilir (M3). Hareket azaltmada tam hâlde görünür.
- */
 export default function ConvertDiagram({ label, nodes }: ConvertDiagramProps) {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

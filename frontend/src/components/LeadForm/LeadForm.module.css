@@ -8,10 +8,6 @@
   min-width: 0;
 }
 
-/*
- * İki sütunlu satırlarda yalnızca bir alanın ipucu olduğunda kutular kaymasın:
- * alanlar satırın 4 izini (etiket / ipucu / kutu / hata) subgrid ile paylaşır.
- */
 @media (min-width: 640px) {
   .pair {
     grid-template-rows: repeat(4, auto);

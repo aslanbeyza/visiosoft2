@@ -26,12 +26,8 @@ const usePageVisible = () =>
     () => true,
   )
 
-/**
- * Ekran görüntüsü katmanları üst üste durur. Yeni sekme soldan sağa açılarak (clip-path) bir önceki
- * görüntünün üzerine gelir; önceki görüntü altta kalır, diğerleri anında kapalı konuma döner.
- */
 const layerVariants: Variants = {
-  // Keyframe'ler, bir önceki sekmeye geri dönüldüğünde de açılışın kapalı konumdan başlamasını sağlar.
+
   active: {
     clipPath: ['inset(0% 100% 0% 0%)', 'inset(0% 0% 0% 0%)'],
     opacity: [0, 1],
@@ -52,10 +48,6 @@ const shotVariants: Variants = {
   idle: { scale: 1.05, transition: { duration: 0 } },
 }
 
-/**
- * Kapalı sekmelerin katmanları tamamen kırpılı olduğu için tarayıcı lazy görselleri hiç yüklemez;
- * bölüme yaklaşınca (eager) hepsi önceden yüklenir, sekme değişiminde boş kare görünmez.
- */
 function ShotPicture({ tab, eager = false }: { tab: SoftwareTab; eager?: boolean }) {
   return (
     <Picture
@@ -89,7 +81,7 @@ export default function HomeSoftware() {
   const [focused, setFocused] = useState(false)
 
   const inView = useInView(rootRef, { amount: 0.35 })
-  // Çerçevenin açılışı kırpılmamış kaptan tetiklenir; kırpılmış öğe kendi görünürlüğünü algılayamaz.
+
   const mediaInView = useInView(mediaRef, { once: true, amount: 0.25 })
   const mediaNearby = useInView(mediaRef, { once: true, margin: '600px 0px' })
   const pageVisible = usePageVisible()
@@ -111,8 +103,6 @@ export default function HomeSoftware() {
     [active, progress],
   )
 
-  // Otomatik ilerleme: yalnızca görünürken, üzerine gelinmemiş/odaklanılmamışken ve hareket azaltılmamışken.
-  // Duraklatılınca ilerleme çubuğu kaldığı yerde bekler, devam edince kalan süreden sürer.
   useEffect(() => {
     if (!running) return
     const remaining = Math.max(0, 1 - progress.get())
@@ -152,7 +142,7 @@ export default function HomeSoftware() {
         className={styles.root}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        // Oynat/duraklat düğmesine odak döngüyü duraklatmaz; aksi halde "Oynat" sonrası ilerleme donuk kalır.
+
         onFocus={(event) => setFocused(!toggleRef.current?.contains(event.target))}
         onBlur={onBlur}
       >

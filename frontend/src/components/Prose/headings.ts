@@ -5,10 +5,6 @@ import type { ProseHeading } from './sanitize.ts'
 
 const EMPTY: ProseHeading[] = []
 
-/**
- * React çocukları olarak verilen içerikte h2/h3 başlıkları DOM'dan okur (id'siz olanlara id atar).
- * Dış depo olarak DOM izlenir (MutationObserver); effect içinde state yazılmaz.
- */
 export function useDomHeadings(ref: RefObject<HTMLElement | null>, enabled: boolean): ProseHeading[] {
   const cache = useRef<{ key: string; list: ProseHeading[] }>({ key: '', list: EMPTY })
 
@@ -44,10 +40,6 @@ export function useDomHeadings(ref: RefObject<HTMLElement | null>, enabled: bool
   return useSyncExternalStore(subscribe, getSnapshot, () => EMPTY)
 }
 
-/**
- * Görünümdeki başlığı IntersectionObserver ile izler (kaydırma dinleyicisi yok).
- * Birden çok başlık görünüyorsa belge sırasındaki ilki; hiçbiri görünmüyorsa üstte kalan sonuncusu etkin sayılır.
- */
 export function useActiveHeading(ids: string[], enabled: boolean): string | null {
   const [active, setActive] = useState<string | null>(null)
   const key = ids.join('\n')

@@ -2,7 +2,6 @@ import type { ParkingFlowStep } from '../../components/ParkingFlow/index.ts'
 
 export type PlateCondition = 'gece' | 'yagmur' | 'kar' | 'sis' | 'camur'
 
-// Plaka Tanıma (/plaka-tanima) sayfa metinleri. Rakamlar mevcut site metninden alınmıştır.
 export const plakaCopy = {
   seo: {
     title: 'Plaka Tanıma Sistemi | %99 Üzeri Doğruluk | Visiosoft',

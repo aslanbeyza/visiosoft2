@@ -84,7 +84,6 @@
   gap: 0.5rem;
 }
 
-/* Boş yuva: soluk ikon kutusu + iki satır iskeleti, dolacak bileşeni ima eder. */
 .ghost {
   display: block;
   height: 3.1rem;

@@ -5,10 +5,6 @@ import { blogCopy as copy } from './blogCopy.ts'
 import type { BlogIndexState } from './useBlogIndex.ts'
 import styles from './BlogMasthead.module.css'
 
-/**
- * Hero altındaki gazete künyesi: üst ve alt çizgi ortadan dışa doğru çizilir; aralarında yayın adı,
- * gerçek yazı sayısı ve son yazının tarihi belirir (veri gelince). Satır yüksekliği baştan ayrılır, kayma olmaz.
- */
 export default function BlogMasthead({ state }: { state: BlogIndexState }) {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

@@ -14,7 +14,6 @@ type ReportDeckProps = { cards: DeckCard[] }
 
 type Fan = { x: number; y: number; r: number }
 
-// Yelpaze konumları (kart boyutuna göre %); arkadaki kart sol üstte, öndeki sağ altta durur.
 const FAN: Fan[] = [
   { x: -21, y: -30, r: -5 },
   { x: -7, y: -10, r: -1.5 },
@@ -22,7 +21,6 @@ const FAN: Fan[] = [
   { x: 21, y: 30, r: 5 },
 ]
 
-// Dar ekranda kartlar geniş kalır ve dikey bir desteye dizilir; arkadakilerin yalnızca başlık şeridi görünür.
 const FAN_NARROW: Fan[] = [
   { x: -3, y: -36, r: -1.6 },
   { x: -1, y: -12, r: -0.5 },
@@ -37,7 +35,7 @@ function Card({ card, index, count, show, narrow, progress }: CardProps) {
   const fans = narrow ? FAN_NARROW : FAN
   const fan = fans[index] ?? fans[fans.length - 1]
   const spread = index - (count - 1) / 2
-  // Hero ekrandan çıkarken kartlar birbirinden biraz daha açılır (dar ekranda yalnızca dikeyde, az).
+
   const scrollX = useTransform(progress, [0, 1], ['0%', `${spread * (narrow ? 0 : 5)}%`])
   const scrollY = useTransform(progress, [0, 1], ['0%', `${spread * (narrow ? 4 : 9)}%`])
   const scrollR = useTransform(progress, [0, 1], [0, spread * (narrow ? 0.4 : 1.2)])
@@ -51,7 +49,7 @@ function Card({ card, index, count, show, narrow, progress }: CardProps) {
       <motion.div
         className={styles.card}
         data-front={index === count - 1}
-        // Azaltılmış harekette kart doğrudan yelpaze konumuna oturur; genişlik değişirse de anında yeni konuma geçer.
+
         initial={reduce ? false : { opacity: 0, x: '0%', y: '12%', rotate: 0 }}
         animate={
           reduce
@@ -79,7 +77,7 @@ function Card({ card, index, count, show, narrow, progress }: CardProps) {
             </span>
           ))}
         </span>
-        {/* Kart altı: gerçek çıktı formatları (uydurma değer yok). */}
+        {}
         <span className={styles.foot}>
           <span className={styles.format}>Excel</span>
           <span className={styles.format}>PDF</span>
@@ -92,7 +90,6 @@ function Card({ card, index, count, show, narrow, progress }: CardProps) {
   )
 }
 
-/** Hero anı: rapor kartları desteden yelpaze gibi açılır; sayfa kaydıkça aralarındaki açıklık büyür. */
 export default function ReportDeck({ cards }: ReportDeckProps) {
   const reduce = Boolean(useReducedMotion())
   const stageRef = useRef<HTMLDivElement>(null)

@@ -50,7 +50,6 @@
   transform-origin: left center;
 }
 
-/* Bölüm numarası CSS sayacıyla üretilir; içindekiler metnine karışmaz. */
 .body {
   counter-reset: chapter;
 }

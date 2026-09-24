@@ -58,10 +58,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/*
- * Kaydırıcı: tarayıcıların kendi görünümü lacivert paletle uyuşmadığı için parça parça yazıldı.
- * WebKit ve Firefox ayrı sözde öğeler kullanır, aynı ölçüler iki kez verilir.
- */
 .range {
   width: 100%;
   height: 1.5rem;

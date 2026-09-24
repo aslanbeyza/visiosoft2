@@ -31,7 +31,6 @@ type PackageListProps = {
   items: PackageItem[]
 }
 
-/** Önerilen paket listesi: bileşenler seçim yapıldıkça sağdan kayarak eklenir, onay işareti çizilir. */
 export default function PackageList({ items }: PackageListProps) {
   const reduce = Boolean(useReducedMotion())
 

@@ -9,7 +9,6 @@ import styles from './AboutTeam.module.css'
 
 const copy = aboutPageCopy.team
 
-/** Ekip: metin ve uzmanlık etiketleri solda, ekip fotoğrafı sağda perdeyle açılır ve yavaşça kayar. */
 export default function AboutTeam({ id }: { id: string }) {
   const headingId = `${id}-baslik`
 

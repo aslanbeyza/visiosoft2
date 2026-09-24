@@ -36,7 +36,6 @@ const sweepVariants: Variants = {
   show: { scaleX: [0, 1, 1], opacity: [1, 1, 0], transition: { duration: 1.1, times: [0, 0.55, 1], ease: 'easeOut' } },
 }
 
-/** Nötr izleme ekranı: sayı, plaka veya tutar içermez; kamera karesi çizilir, cihaz satırları süpürülerek gelir. */
 export default function StatusBoard({ title, note, camera, pause, play, rows }: Props) {
   const reduce = Boolean(useReducedMotion())
   const visible = usePageVisible()

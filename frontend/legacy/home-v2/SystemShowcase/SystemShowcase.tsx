@@ -39,7 +39,7 @@ export default function SystemShowcase() {
   const sceneRef = useRef<HTMLDivElement>(null)
   const revealed = useInView(sceneRef, { once: true, amount: 0.3 })
   const inView = useInView(sceneRef, { amount: 0.25 })
-  // Görseller kırpılmış açılışın içinde; yükleme kırpılmamış sütun yaklaşınca başlar.
+
   const nearby = useInView(sceneRef, { once: true, margin: '800px 0px' })
   const pageVisible = usePageVisible()
 
@@ -52,8 +52,6 @@ export default function SystemShowcase() {
   const running = !reduce && inView && pageVisible && !paused && !hovered && !focused && !cardOpen
   const remainingRef = useRef<number | null>(null)
 
-  // Adımlar sırayla tamamlanır, kısa bir bekleyişten sonra akış baştan başlar. Sahne görünmezken durur.
-  // Durunca kalan süre saklanır; devam edince adım, çizgisiyle birlikte kaldığı yerden sürer.
   useEffect(() => {
     if (!running) return
     const delay =
@@ -71,7 +69,6 @@ export default function SystemShowcase() {
     }
   }, [progress, running, stepCount])
 
-  // Hareket azaltma tercihinde akış animasyonsuz, tamamlanmış hâliyle gösterilir.
   const shownProgress = reduce ? stepCount : progress
   const highlightId = shownProgress >= 0 && shownProgress < stepCount ? text.steps[shownProgress].featureId : null
 
@@ -115,8 +112,8 @@ export default function SystemShowcase() {
           className={styles.sceneColumn}
           style={{ '--flow-step': `${flowTiming.step}ms` } as CSSProperties}
         >
-          {/* Tamamen kırpılmış öğe IntersectionObserver'da hiç görünmez; tetik kırpılmamış sütundan (sceneRef) gelir. */}
-          {/* Sahnenin üzerine gelinince, odaklanınca ya da bir kart açıkken akış durur. */}
+          {}
+          {}
           <motion.div
             className={styles.sceneReveal}
             initial={reduce ? false : { clipPath: 'inset(0% 0% 100% 0%)' }}

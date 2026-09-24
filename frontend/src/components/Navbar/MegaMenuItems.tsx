@@ -11,7 +11,6 @@ type ItemProps = {
   onNavigate: () => void
 }
 
-/** Donanım kartı: kartın tamamı tek bağlantı; görsel 4/3 kutuda contain ile tabana oturur. */
 export function HardwareCard({ link, to, active, onNavigate }: ItemProps) {
   const { image } = link
 
@@ -42,7 +41,6 @@ export function HardwareCard({ link, to, active, onNavigate }: ItemProps) {
   )
 }
 
-/** Yazılım bağlantısı: ikon karosu, ad + kısa açıklama; üzerine gelince ok belirir. */
 export function SoftwareLink({ link, to, active, onNavigate }: ItemProps) {
   return (
     <Link to={to} className={styles.row} data-active={active} aria-current={active ? 'page' : undefined} onClick={onNavigate}>

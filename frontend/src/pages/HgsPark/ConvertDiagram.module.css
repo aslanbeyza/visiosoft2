@@ -56,7 +56,6 @@
   line-height: 1.3;
 }
 
-/* Bağlantı: dar ekranda düğümün altında dikey, ≥640px yan yana düğümler arasında yatay. */
 .link {
   position: absolute;
   top: 100%;
@@ -98,7 +97,6 @@
   opacity: 1;
 }
 
-/* ≥1024: başlık sütununun yanında dikey akış; düğümler genişler, bağlantılar aşağı iner. */
 @media (min-width: 1024px) {
   .nodes {
     gap: 3rem;

@@ -8,10 +8,6 @@ import { homeSystemFlowCopy as text } from './homeSystemFlowCopy.ts'
 import { useAutoAdvance } from './useAutoAdvance.ts'
 import styles from './HomeSystemFlow.module.css'
 
-/**
- * <1024px (sabitleme yok): sahne üstte, adımlar altta. Görünürken adımlar sırayla ilerler;
- * duraklat düğmesi ve adıma dokunma döngüyü durdurur.
- */
 export default function FlowCompact() {
   const rootRef = useRef<HTMLDivElement>(null)
   const inView = useInView(rootRef, { amount: 0.35 })

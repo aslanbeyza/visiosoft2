@@ -4,13 +4,12 @@ import styles from './PlateScan.module.css'
 
 type PlateOverlaysProps = {
   condition: PlateCondition
-  /** SVG desen kimliklerini örneğe özgü yapmak için önek. */
+
   uid: string
   layer: 'back' | 'front'
   reduce: boolean
 }
 
-// Çamur lekeleri: plakanın alt kenarı ve köşelerinde düzensiz izler.
 const mud = [
   'M126 222c12-9 30-4 36 4s-4 14-18 14-26-8-18-18Z',
   'M470 234c10-12 34-10 44-2 8 6 2 12-12 12h-26c-8 0-10-4-6-10Z',
@@ -19,10 +18,6 @@ const mud = [
   'M222 236c4-3 10-3 12 1s-2 6-6 6-8-4-6-7Z',
 ]
 
-/**
- * Koşul katmanları. back: sahne ile plaka arasında (gece karartması, kızılötesi aydınlatma).
- * front: plakanın üstünde (yağmur, kar, sis, çamur). Geçişler yalnızca opaklıkla yapılır.
- */
 export default function PlateOverlays({ condition, uid, layer, reduce }: PlateOverlaysProps) {
   const show = (id: PlateCondition) => ({
     initial: false as const,

@@ -9,7 +9,6 @@ import { useZoneMini } from './useZoneMini.ts'
 import { homeSoftwareCopy as text } from './homeSoftwareCopy.ts'
 import styles from './HomeSoftware.module.css'
 
-/** Laptop ve telefon aynı Zone kaydını paylaşır; çerçeve PNG ekran deliğinin üstündedir. */
 export default function ZoneStage() {
   const reduce = useReducedMotion()
   const zone = useZoneMini()

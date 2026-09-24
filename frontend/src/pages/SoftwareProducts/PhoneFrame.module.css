@@ -1,7 +1,4 @@
-/*
- * Çerçeve 726 × 1444; şeffaf ekran alanı x 52, y 47, 623 × 1351, köşe yarıçapı 58 (screens.json phoneFrame.screen).
- * Uygulama ekranları (780 × 1692) bu alanla aynı en-boy oranındadır; kırpılmadan oturur.
- */
+
 .phone {
   position: relative;
   width: 100%;

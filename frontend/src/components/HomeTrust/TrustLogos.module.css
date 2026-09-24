@@ -41,7 +41,6 @@
   overflow: hidden;
 }
 
-/* İki katman üst üste: filtreler sabittir, hover'da yalnızca opaklık geçişi olur. */
 .img {
   position: absolute;
   max-width: none;
@@ -165,8 +164,6 @@ a.tile:focus-visible .colour {
     animation: none;
   }
 }
-
-/* Tek satır kayan şerit */
 
 .marquee {
   margin-top: 0;

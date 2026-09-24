@@ -3,10 +3,6 @@ import Button from '../Button/index.ts'
 import { RevealGroup, RevealItem, revealEase } from '../Reveal/index.ts'
 import styles from './CtaBand.module.css'
 
-/**
- * Eylem: iç rota (`to`) ya da bağlantı (`href`; `external` ile yeni sekmede, ekran okuyucu notuyla).
- * `secondary={{ label: 'WhatsApp', href: 'https://wa.me/…', external: true }}`
- */
 export type CtaAction = { label: string } & (
   | { to: string; href?: undefined; external?: undefined }
   | { href: string; external?: boolean; to?: undefined }
@@ -20,10 +16,6 @@ type CtaBandProps = {
   secondary?: CtaAction
 }
 
-/**
- * Sayfa sonlarındaki koyu lacivert dönüşüm bandı.
- * `data-page-cta`: sayfada bu bant varken Footer aynı iki düğmeyi tekrar göstermez (Footer.module.css).
- */
 export default function CtaBand({ eyebrow, title, description, primary, secondary }: CtaBandProps) {
   const reduce = useReducedMotion()
 

@@ -13,7 +13,6 @@ import HeroTerminal from './HeroTerminal.tsx'
 import LayerFlow from './LayerFlow.tsx'
 import styles from './DevelopersPage.module.css'
 
-// Sayfa beyaz / yüzey ağırlıklı; lacivert yalnızca CTA bandında vurgu olarak kalır.
 const layers = [
   { id: 'gate-sdk', tone: 'paper', data: copy.gate },
   { id: 'zone-api', tone: 'surface', data: copy.zone },

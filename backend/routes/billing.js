@@ -2,7 +2,6 @@ import express from "express";
 
 const router = express.Router();
 
-// Billing modülü Laravel'de boş iskeletti. PayTR iframe Website config'te duruyor.
 router.get("/api/billing/status", (req, res) => {
   res.json({
     data: {

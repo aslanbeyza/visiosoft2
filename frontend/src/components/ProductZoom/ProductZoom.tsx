@@ -31,12 +31,12 @@ export type ProductZoomDetail = {
   title: string
   description: string
   box: ZoomBox
-  /** İşaretçinin yeri (görsele göre yüzde); verilmezse detay kutusunun merkezi. */
+
   marker?: { x: number; y: number }
 }
 
 export type ProductZoomImage = {
-  /** Yakınlaşmada netlik için yüksek çözünürlüklü kaynak. */
+
   src: string
   avif?: string
   width: number
@@ -44,7 +44,6 @@ export type ProductZoomImage = {
   alt: string
 }
 
-/** Görselin üzerine yerleşen DOM katmanı (ör. kiosk ekran arayüzü); yakınlaşmada vektörel olarak net kalır. */
 export type ProductZoomOverlay = {
   id: string
   box: ZoomBox
@@ -59,28 +58,20 @@ type ProductZoomProps = {
   details: ProductZoomDetail[]
   overlays?: ProductZoomOverlay[]
   tone?: 'light' | 'dark'
-  /**
-   * Hareket azaltma tercihindeki statik düzende genel bakış açıklamasının yerine geçer.
-   * Genel bakış metni kaydırmaya atıf yapıyorsa kaydırmadan söz etmeyen bir metin verin.
-   */
+
   staticLead?: string
-  /** En fazla yakınlaşma oranı; düşük çözünürlüklü kaynaklarda 2–2,5 kullanın. */
+
   maxScale?: number
-  /**
-   * Netlik sınırı (isteğe bağlı, varsayılan kapalı): açıkken kaynak görsel, görsel pikseli başına ~1,5 cihaz pikselinden fazla
-   * büyütülmez (sahne boyutu ve cihaz piksel oranından hesaplanır); statik karolar da buna göre daralır. Yalnızca dar kaynaklı
-   * görsellerde (ör. kiosk ana görseli) açın; teknik çizimler gibi maxScale ile sınırlanan kaynaklarda kapalı bırakın.
-   */
+
   sharpCap?: boolean
-  /** Her karenin kaydırma payı (svh); sabitlenen bölümü kısaltmak için düşürün. */
+
   frameLength?: number
-  /** Görsel altyazısı (isteğe bağlı; ör. "demo verisi"); MediaFrame altyazısıyla aynı biçimde görselin altında gösterilir. */
+
   caption?: string
 }
 
 const pad = (value: number) => String(value).padStart(2, '0')
 
-/** Genel bakış 1. adımdır: "01 / 05" … "05 / 05". */
 const stepLabel = (step: number, total: number) => `Adım ${step} / ${total}`
 
 function Counter({ step, total }: { step: number; total: number }) {
@@ -104,10 +95,6 @@ const boxStyle = (box: ZoomBox): CSSProperties => ({
   height: `${box.h}%`,
 })
 
-/**
- * Kaydırdıkça ürün görselinin detay alanlarına yakınlaşan sabitlenmiş bölüm.
- * Hareket azaltma tercihinde detaylar kırpılmış görseller hâlinde statik listelenir.
- */
 export default function ProductZoom(props: ProductZoomProps) {
   const reduce = useReducedMotion()
   return reduce ? <StaticZoom {...props} /> : <ScrollZoom {...props} />
@@ -145,7 +132,6 @@ function Overlays({ overlays }: { overlays?: ProductZoomOverlay[] }) {
   )
 }
 
-/** Altyazı varsa figure + figcaption (MediaFrame ile aynı yapı), yoksa yalın kapsayıcı. */
 function Figure({ caption, className, children }: { caption?: string; className: string; children: ReactNode }) {
   if (!caption) return <div className={className}>{children}</div>
   return (
@@ -178,30 +164,30 @@ function ScrollZoom({
   const viewport = useRef<StageViewport | null>(null)
   const activeRef = useRef(0)
   const [active, setActive] = useState(0)
-  // Bekleme sayacı: bir detay karesinde durulduğunda artar; işaretçi halkası her beklemede yalnızca bir kez nabız atar.
+
   const holdingRef = useRef(false)
   const [hold, setHold] = useState({ on: false, count: 0 })
 
   const items = [{ id: 'overview', ...overview }, ...details]
   const frameCount = items.length
-  // Yatay (opak) görseller sahneyi oranıyla boyutlandırır ve yakınlaşmada sahneyi kaplar; dikey kesitler (kiosk) sahneyi doldurur.
+
   const fit = image.width >= image.height ? 'image' : 'fill'
 
   const scale = useMotionValue(1)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const focusOpacity = useMotionValue(0)
-  // Kaydırma sınırı görseli kaydırdığında köşe işaretleri de aynı fark kadar kayar; detayın üzerinde kalır.
+
   const focusX = useMotionValue(0)
   const focusY = useMotionValue(0)
   const focusWidth = useMotionValue(0)
   const focusHeight = useMotionValue(0)
-  // Köşeler sabit boyutlu; çerçeve yalnızca transform ile açılıp kapanır (width/height canlandırılmaz).
+
   const cornerRight = useTransform(focusWidth, (value) => value / 2)
   const cornerLeft = useTransform(focusWidth, (value) => -value / 2)
   const cornerBottom = useTransform(focusHeight, (value) => value / 2)
   const cornerTop = useTransform(focusHeight, (value) => -value / 2)
-  // İşaretçi tuvalin içinde kamerayla gezer; ters ölçekle ekranda sabit boyutta kalır.
+
   const markerScale = useTransform(scale, (value) => 1 / value)
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] })
@@ -213,10 +199,10 @@ function ScrollZoom({
 
       const point = timelineAt(progress, frameCount)
       const boxes = [null, ...details.map((detail) => detail.box)]
-      // İsteğe bağlı netlik sınırı: görsel, cihaz piksel oranına göre en fazla ~1,5 cihaz pikseli / görsel pikseli büyütülür.
+
       const limit = sharpCap ? sharpScaleLimit(g, image.width, window.devicePixelRatio || 1, maxScale) : maxScale
       const view = viewport.current
-      // Yatay görselde detay karesi en az görselin sahneyi kapladığı ölçekte olur (limit izin verdiği sürece); kenarda bant kalmaz.
+
       const floor = (box: ZoomBox | null) => (fit === 'image' ? coverScaleFloor(box, g, view) : 1)
       const from = frameForBox(boxes[point.from], g, 0.72, limit, floor(boxes[point.from]))
       const to = frameForBox(boxes[point.to], g, 0.72, limit, floor(boxes[point.to]))
@@ -230,7 +216,6 @@ function ScrollZoom({
       focusX.set(placed.x - transform.x)
       focusY.set(placed.y - transform.y)
 
-      // Detay çerçevesi: bekleme sırasında görünür, kareler arası geçişte söner.
       const fromDetail = point.from > 0
       const toDetail = point.to > 0
       const opacity = point.t < 0.5 ? (fromDetail ? 1 - point.t * 2 : 0) : toDetail ? point.t * 2 - 1 : 0
@@ -265,7 +250,7 @@ function ScrollZoom({
       viewport.current = view
         ? { width: view.clientWidth, height: view.clientHeight, canvasLeft: canvas.offsetLeft, canvasTop: canvas.offsetTop }
         : null
-      // Katmanlar, "contain" ile yerleşen görselin tam dikdörtgenine oturur.
+
       const frame = frameRef.current
       if (frame) {
         frame.style.left = `${g.offsetX}px`
@@ -302,7 +287,7 @@ function ScrollZoom({
       aria-labelledby={titleId}
     >
       <div className={styles.sticky}>
-        {/* Dar ekranda sıra: başlık → sahne → sayaç/metin; geniş ekranda başlık ve metin solda, sahne sağda. */}
+        {}
         <div
           className={styles.layout}
           data-fit={fit}
@@ -332,7 +317,7 @@ function ScrollZoom({
                         data-holding={hold.on}
                         style={{ left: `${marker.x}%`, top: `${marker.y}%`, scale: markerScale, opacity: focusOpacity }}
                       >
-                        {/* Halka her beklemede iki kez 1 → 1,15 büyüyüp söner, sonra durur (CSS, sonlu tekrar). */}
+                        {}
                         <span key={hold.count} className={styles.markerRing} />
                         <span className={styles.markerDot} />
                       </motion.span>
@@ -363,10 +348,7 @@ function ScrollZoom({
 
           <div className={styles.copy}>
             <div className={styles.callout}>
-              {/*
-               * Görünmez ölçü kopyaları: tüm kareler aynı hücrede üst üste durur, kutu en uzun metnin yüksekliğini alır.
-               * Metin uzunluğu kareden kareye değişse de başlık ve sahne yerinden oynamaz.
-               */}
+              {}
               {items.map((item, index) => (
                 <div key={item.id} className={styles.calloutSizer} aria-hidden="true">
                   <span className={styles.counter}>
@@ -400,7 +382,7 @@ function ScrollZoom({
                     aria-current={active === index ? 'step' : undefined}
                     onClick={() => goTo(index)}
                   >
-                    {/* Dar ekranda görünen sabit genişlikli çubuk; etkin adımda iç dolgu scaleX ile açılır. */}
+                    {}
                     <span className={styles.stepBar} aria-hidden="true">
                       <span className={styles.stepFill} />
                     </span>
@@ -409,7 +391,7 @@ function ScrollZoom({
                     </span>
                     <span className={styles.srOnly}>{`${stepLabel(index + 1, frameCount)}: `}</span>
                     <span className={styles.stepLabel}>{item.title}</span>
-                    {/* Ekran okuyucular tüm karelerin açıklamasına kaydırmadan ulaşır. */}
+                    {}
                     <span className={styles.stepText}>{item.description}</span>
                   </button>
                 </li>
@@ -475,7 +457,7 @@ function StaticZoom({
           <ol className={styles.tiles} data-sharp={sharpCap}>
             {details.map((detail, index) => {
               const crop = tileCrop(detail.box, image.width, image.height)
-              // Karoda görünebilecek katmanlar (ör. kiosk ekranı); diğerleri hiç çizilmez.
+
               const tileOverlays = overlays?.filter((overlay) => overlaps(overlay.box, crop.maxWindow))
               return (
                 <li
@@ -489,7 +471,7 @@ function StaticZoom({
                     } as CSSProperties
                   }
                 >
-                  {/* Tüm karolar aynı oranda; netlik sınırı açıksa karo ve metni cihaz piksel oranına göre daralır (CSS). */}
+                  {}
                   <div className={styles.crop}>
                     <div
                       className={styles.cropFrame}

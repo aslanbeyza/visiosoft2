@@ -25,13 +25,13 @@ const fadeIn: Variants = {
 
 type BayDiagramProps = {
   active: ViolationId | null
-  /** Hover/tıklamada nabız animasyonunu yeniden tetikler. */
+
   pulseKey: number
-  /** Görünüme girince çizim başlar. */
+
   play: boolean
   reduce: boolean
   label: string
-  /** Rozete tıklanınca seçim. Aynı seçim listede de var; plan onun ikinci, isteğe bağlı yüzü. */
+
   onSelect: (id: ViolationId) => void
   onPreview: (id: ViolationId | null) => void
   className?: string
@@ -40,14 +40,9 @@ type BayDiagramProps = {
 const marked = scenarios.find((s) => s.id === 'marked')?.zone ?? { x: 582, y: 24, w: 78, h: 128 }
 const slotCenter = (k: number) => SLOT.x0 + k * SLOT.w + SLOT.w / 2
 const bottomBack = SLOT.bottomY + SLOT.depth
-/** Rozet numarası listedeki sıradan gelir; iki taraf tek kaynağı paylaşsın diye burada da o sıra okunur. */
+
 const numberOf = (id: ViolationId) => violationsCopy.violations.findIndex((v) => v.id === id) + 1
 
-/**
- * Özgün park alanı planı (üstten): slot çizgileri çizilir, zemin işaretleri belirir, araçlar slotlarına girer.
- * Her ihlal bölgesi numaralı bir rozet taşır; `active` o bölgeyi köşe parantezleriyle çerçeveler, rozetini
- * ve aracını lacivertle doldurur, diğer araçları soldurur.
- */
 export default function BayDiagram({ active, pulseKey, play, reduce, label, onSelect, onPreview, className = '' }: BayDiagramProps) {
   const clipId = `${useId().replace(/:/g, '')}-hatch`
   const state: Transition = reduce ? { duration: 0 } : { duration: 0.55, ease: revealEase }
@@ -136,11 +131,7 @@ export default function BayDiagram({ active, pulseKey, play, reduce, label, onSe
           />
         )),
       )}
-      {/*
-        Numara rozetleri her zaman görünür: plan tek başına "burada sekiz işaretli durum var" der.
-        Tıklanabilirler, ama aynı sekiz seçim listede gerçek buton olarak da var; bu yüzden rozetler
-        sekme sırasına girmez (svg role="img") ve klavye kullanıcısı aynı işi listeden yapar.
-      */}
+      {}
       {scenarios.map((s) => {
         const pin = pinPoint(s)
         const live = active === s.id

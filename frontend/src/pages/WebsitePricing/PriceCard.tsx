@@ -25,7 +25,6 @@ const rule: Variants = {
   show: { scaleX: 1, transition: { duration: 1, ease: revealEase } },
 }
 
-/** Başlangıç fiyatı kartı: kart yükselir, fiyat sayılır, üç öne çıkan başlığın onay işaretleri sırayla çizilir. */
 export default function PriceCard() {
   const reduce = Boolean(useReducedMotion())
   const ref = useRef<HTMLDivElement>(null)

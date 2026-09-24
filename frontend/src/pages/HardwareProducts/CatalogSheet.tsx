@@ -25,7 +25,6 @@ const clip: Variants = {
 }
 const settle: Variants = { hidden: { scale: 1.08 }, show: { scale: 1, transition: { duration: 1.2, ease: revealEase } } }
 
-/** Katalogda tek ürün = tek A4 sayfası. Açılış kırpılmamış article'dan tetiklenir; baskıda tüm hareket sıfırlanır. */
 export default function CatalogSheet({ item, page, total }: CatalogSheetProps) {
   const reduce = useReducedMotion()
   const path = usePath()

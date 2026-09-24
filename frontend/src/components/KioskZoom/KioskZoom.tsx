@@ -4,17 +4,12 @@ import KioskScreen from './KioskScreen.tsx'
 
 type KioskZoomProps = {
   tone?: 'light' | 'dark'
-  /** Her durum için kaydırma uzunluğu (svh); verilmezse ProductZoom varsayılanı kullanılır. */
+
   frameLength?: number
 }
 
-/** Kiosk ürün sayfasındaki yakın plan bölüm kimliği. */
 export const KIOSK_ZOOM_ID = 'yakindan-inceleyin'
 
-/**
- * Kiosk için hazır yakınlaşma bölümü: ürün görseli, detay kareleri ve ekrandaki ödeme arayüzü.
- * ProductZoom bir `id` almadığı için sabit kimlik stilsiz bir sarmalayıcıda durur; yapışkan (sticky) düzeni etkilemez.
- */
 export default function KioskZoom({ tone = 'light', frameLength }: KioskZoomProps) {
   return (
     <div id={KIOSK_ZOOM_ID}>
@@ -28,7 +23,7 @@ export default function KioskZoom({ tone = 'light', frameLength }: KioskZoomProp
         overlays={[{ id: 'screen', box: kioskScreenBox, node: <KioskScreen /> }]}
         tone={tone}
         frameLength={frameLength}
-        // 545 px genişliğindeki ana görsel yüksek piksel oranlı ekranlarda bulanıklaşmasın.
+
         sharpCap
       />
     </div>

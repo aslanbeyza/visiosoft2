@@ -3,7 +3,6 @@ import type { AdvantageIconName, MethodIconName, SectorIconName } from './hgsPag
 
 type IconName = SectorIconName | MethodIconName | AdvantageIconName
 
-/* 24px ızgara, 1,6 çizgi; FeatureGrid simgeleriyle aynı dil. */
 const paths: Record<IconName, string[]> = {
   hgs: ['M4 14.5a8 8 0 0 1 16 0', 'M7.5 14.5a4.5 4.5 0 0 1 9 0', 'M12 14.5h.01', 'M5 19h14'],
   card: ['M3.5 6.5h17v11h-17z', 'M3.5 10h17', 'M7 14.5h3'],

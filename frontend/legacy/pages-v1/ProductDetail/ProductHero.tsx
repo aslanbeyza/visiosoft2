@@ -12,7 +12,6 @@ type ProductHeroProps = {
   data: ProductDetailData
 }
 
-/** Ürün kahramanı: künye, kısa bilgi ve ölçü çizgileriyle birlikte yükselen ürün görseli. */
 export default function ProductHero({ data }: ProductHeroProps) {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
@@ -148,7 +147,6 @@ type StrokeProps = {
   duration?: number
 }
 
-/** pathLength ile çizilen ölçü çizgisi. */
 function Stroke({ reduce, delay, duration = 0.8, ...line }: StrokeProps) {
   return (
     <motion.line
@@ -160,7 +158,6 @@ function Stroke({ reduce, delay, duration = 0.8, ...line }: StrokeProps) {
   )
 }
 
-/** Kesik uzatma çizgisi; dash dizisi korunur, yalnızca opaklıkla belirir. */
 function Extension({ reduce, delay, ...line }: Omit<StrokeProps, 'duration'>) {
   return (
     <motion.line
@@ -172,15 +169,10 @@ function Extension({ reduce, delay, ...line }: Omit<StrokeProps, 'duration'>) {
   )
 }
 
-// Çizgilerin görsel kutusundan uzaklığı (px). SVG'de viewBox olmadığı için birimler CSS pikselidir.
 const H_LINE = -26
 const W_LINE = -22
 const TICK = 7
 
-/**
- * Ölçü çizgileri görselin kendi kutusuna yerleşir: SVG kutuyu tam kaplar, yüzdeler kutuya göre çözülür.
- * Böylece ekran boyutu değişse de çizgiler ürünün kenarlarıyla hizalı kalır.
- */
 function DimensionLines({ dimensions, reduce }: { dimensions: HeroDimensions; reduce: boolean }) {
   const { height, width } = dimensions
   const base = 1.25
@@ -189,14 +181,14 @@ function DimensionLines({ dimensions, reduce }: { dimensions: HeroDimensions; re
   return (
     <>
       <svg className={styles.dims} aria-hidden="true" focusable="false">
-        {/* Yükseklik */}
+        {}
         <Extension className={styles.extension} x1={H_LINE + TICK} y1={pct(height.span.from)} x2={pct(height.edges[0])} y2={pct(height.span.from)} reduce={reduce} delay={base} />
         <Extension className={styles.extension} x1={H_LINE + TICK} y1={pct(height.span.to)} x2={pct(height.edges[1])} y2={pct(height.span.to)} reduce={reduce} delay={base} />
         <Stroke className={styles.tick} x1={H_LINE - TICK} y1={pct(height.span.from)} x2={H_LINE + TICK} y2={pct(height.span.from)} reduce={reduce} delay={base + 0.1} duration={0.3} />
         <Stroke className={styles.line} x1={H_LINE} y1={pct(height.span.to)} x2={H_LINE} y2={pct(height.span.from)} reduce={reduce} delay={base + 0.15} duration={1} />
         <Stroke className={styles.tick} x1={H_LINE - TICK} y1={pct(height.span.to)} x2={H_LINE + TICK} y2={pct(height.span.to)} reduce={reduce} delay={base + 0.1} duration={0.3} />
 
-        {/* Genişlik */}
+        {}
         <Extension className={styles.extension} x1={pct(width.span.from)} y1={W_LINE + TICK} x2={pct(width.span.from)} y2={pct(width.edges[0])} reduce={reduce} delay={base + 0.55} />
         <Extension className={styles.extension} x1={pct(width.span.to)} y1={W_LINE + TICK} x2={pct(width.span.to)} y2={pct(width.edges[1])} reduce={reduce} delay={base + 0.55} />
         <Stroke className={styles.tick} x1={pct(width.span.from)} y1={W_LINE - TICK} x2={pct(width.span.from)} y2={W_LINE + TICK} reduce={reduce} delay={base + 0.6} duration={0.3} />

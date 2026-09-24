@@ -5,7 +5,6 @@ import type { ProductCopy } from '../../HardwareProduct/products.ts'
 
 const product = products.visiobox
 
-/** Ölçüsü products.ts'te bulunmayan ürünlerde künye satırları ölçü bandında gösterilir. */
 export const metaFigures = (copy: ProductCopy): KeyFigure[] =>
   copy.meta.map((item, index) => ({ id: `meta-${index}`, label: item.label, text: item.value }))
 
@@ -66,17 +65,10 @@ export const visioboxDetail: ProductDetailData = {
     device: 'controlBox',
     deviceLabel: product.copy.name,
   },
-  drawing: {
-    image: drawingImage('visiobox', 1228, 857, drawingAlt),
-    text: 'Box Lite ve Box Pro seçeneklerinin üst, ön ve alt görünüşleri, izometrik görünümleri ve arka yüzeydeki montaj aparatları tek paftada yer alır.',
-    note: 'Çizimdeki etiket alanı ürün tanıtım örneğidir.',
-    dimensions: [],
-  },
 }
 
 const toger = products.togerbox
 
-/** Togerbox, Visiobox verisini kendi adı ve kısa tanımıyla kullanır; yakın inceleme ürün görsellerinden oluşur. */
 export const togerboxDetail: ProductDetailData = {
   ...visioboxDetail,
   slug: 'togerbox',
@@ -97,7 +89,7 @@ export const togerboxDetail: ProductDetailData = {
     eyebrow: detailCopy.zoomEyebrow,
     title: 'Kapak, bağlantı yüzeyi ve montaj.',
     lead: 'Kilitli ön kapaktan kablo girişlerine ve arka yüzeydeki montaj aparatlarına kadar kutunun sahada kullanılan yüzleri.',
-    // Kahramandaki görünüm ve bölümdeki tam pafta tekrarlanmaz: ön görünüş kırpması, bağlantı yüzeyi yakın planı ve montaj.
+
     items: [
       {
         id: 'front',

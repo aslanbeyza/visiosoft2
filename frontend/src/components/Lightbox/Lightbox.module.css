@@ -1,4 +1,4 @@
-/* Dialog gövdesi (flush) ızgara olur; sahne tüm alanı doldurur ve kaydırma çubuğu çıkmaz. */
+
 .body[data-flush='true'] {
   display: grid;
   overflow: hidden;

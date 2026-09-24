@@ -1,7 +1,4 @@
-/**
- * Otopark alanına özgü çizgi ikonlar (24px viewBox, 1.6 kontur, currentColor).
- * Kullanım: <CameraIcon /> ya da ad ile <FeatureIcon name="kiosk" />. Boyut CSS ile verilir (width/height).
- */
+
 import type { ReactNode, SVGProps } from 'react'
 
 export type IconProps = Omit<SVGProps<SVGSVGElement>, 'children' | 'viewBox' | 'fill' | 'stroke'>
@@ -201,7 +198,6 @@ const icons = {
 
 export type FeatureIconName = keyof typeof icons
 
-/** Veri dosyalarında ad ile saklanan ikonlar için: <FeatureIcon name="camera" />. */
 export function FeatureIcon({ name, ...rest }: IconProps & { name: FeatureIconName }) {
   const Icon = icons[name]
   return <Icon {...rest} />

@@ -26,7 +26,6 @@
   transform-origin: left center;
 }
 
-/* vw + svh: dar ve kısa ekranlarda başlık birlikte küçülür, breakpoint yok. */
 .title {
   margin: clamp(0.5rem, 0.55svh + 0.3rem, 1.25rem) 0 0;
   color: #fff;
@@ -65,10 +64,6 @@
   background: rgb(6 8 34 / 0.28);
 }
 
-/*
-  Kısa viewport’ta kanıt satırı akışkan şekilde kaybolur (opacity + max-height),
-  böylece ayrı “mobil gizle” media query gerekmez.
-*/
 .proofWrap {
   margin-top: clamp(0rem, calc(100svh - 46rem), 2rem);
   max-height: clamp(0rem, calc(100svh - 44rem), 4.5rem);
@@ -76,7 +71,6 @@
   opacity: clamp(0, calc((100svh - 44rem) / 5rem), 1);
 }
 
-/* Negatif kenar = nokta (0,25rem) + iç boşluk (0,875rem): satır başındaki nokta kırpılır. */
 .proof {
   display: flex;
   flex-wrap: wrap;

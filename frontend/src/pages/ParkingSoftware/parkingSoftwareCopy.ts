@@ -1,6 +1,5 @@
 import type { FeatureIconName } from '../../components/FeatureGrid/index.ts'
 
-// Otopark Yazılımı sayfası metinleri — mevcut sayfa ve SSS verisinden alınmıştır.
 export const parkingSoftwareCopy = {
   seoTitle: 'Otopark Yazılımı | Park Yönetim Sistemi | Visiosoft',
   hero: {

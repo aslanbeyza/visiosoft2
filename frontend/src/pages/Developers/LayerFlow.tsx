@@ -9,14 +9,10 @@ type LayerFlowProps = {
   hub: string
   channel: string
   outputs: string[]
-  /** Bulunduğu bölümün zemini; açık bölümde çizgi ve kutular koyu renge döner. */
+
   tone?: 'light' | 'dark'
 }
 
-/**
- * Katman şeması: kaynaklar → merkez (SDK/API) → kanal → hedefler.
- * Bağlantılar sırayla çizilir; dar ekranda dikey akar. Tüm metin gerçek DOM'dur.
- */
 export default function LayerFlow({ label, inputs, hub, channel, outputs, tone = 'dark' }: LayerFlowProps) {
   const reduce = Boolean(useReducedMotion())
   const rootRef = useRef<HTMLDivElement>(null)

@@ -56,7 +56,6 @@ type NavIconProps = {
   className?: string
 }
 
-/** Navbar'daki tüm çizgi ikonlar: 24'lük ızgara, 1.6 kalınlık, currentColor. */
 export default function NavIcon({ name, className }: NavIconProps) {
   return (
     <svg
