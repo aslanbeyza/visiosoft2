@@ -4,14 +4,12 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-mot
 import DeviceFrame from '../DeviceFrame/index.ts'
 import type { DeviceKind } from '../DeviceFrame/index.ts'
 import { revealEase } from '../Reveal/index.ts'
-import ZoneMini from './ZoneMini.tsx'
-import { useZoneMini } from './useZoneMini.ts'
+import PanelTour from './PanelTour.tsx'
 import { homeSoftwareCopy as text } from './homeSoftwareCopy.ts'
 import styles from './HomeSoftware.module.css'
 
 export default function ZoneStage() {
   const reduce = useReducedMotion()
-  const zone = useZoneMini()
   const mediaRef = useRef<HTMLDivElement>(null)
   const mediaInView = useInView(mediaRef, { once: true, amount: 0.2 })
   const [onboard, setOnboard] = useState(true)
@@ -25,7 +23,7 @@ export default function ZoneStage() {
         onPointerDown={() => setOnboard(false)}
       >
         <DeviceChrome kind="phone" title={text.phoneLabel} visible={mediaInView} reduce={Boolean(reduce)}>
-          <ZoneMini layout="phone" zone={zone} />
+          <PanelTour layout="phone" />
         </DeviceChrome>
         <DeviceChrome
           kind="laptop"
@@ -34,7 +32,7 @@ export default function ZoneStage() {
           reduce={Boolean(reduce)}
           onboard={onboard && mediaInView}
         >
-          <ZoneMini layout="desktop" zone={zone} />
+          <PanelTour layout="desktop" />
         </DeviceChrome>
       </div>
       <p className={styles.caption}>{text.note}</p>
