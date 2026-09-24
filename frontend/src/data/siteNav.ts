@@ -102,13 +102,12 @@ export const primaryNav: NavItem[] = [
   { key: 'software', label: 'Park Yazılım', route: 'software-products', menu: softwareMenu },
   { key: 'hardware', label: 'Donanım', route: 'hardware-products', menu: hardwareMenu },
   { key: 'services', label: 'Hizmetlerimiz', route: 'services' },
-  { key: 'about', label: 'Hakkımızda', route: 'team' },
-  { key: 'contact', label: 'İletişim', route: 'contact' },
 ]
 
 export const navCta = {
   primary: { label: 'Demo ve Teklif Al', route: 'quote.index' },
   secondary: { label: 'Ücretsiz Keşif', route: 'discovery.show' },
+  contact: { label: 'İletişim', route: 'contact' },
 }
 
 export type FooterGroup = { title: string; links: { route: string; label: string }[] }

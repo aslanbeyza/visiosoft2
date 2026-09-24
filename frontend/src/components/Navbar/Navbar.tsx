@@ -378,14 +378,6 @@ export default function Navbar() {
           </nav>
 
           <div className={styles.actions}>
-            <Link
-              to={path(navCta.secondary.route)}
-              className={styles.textLink}
-              aria-current={navCta.secondary.route === current ? 'page' : undefined}
-              onClick={closeAll}
-            >
-              {navCta.secondary.label}
-            </Link>
             <span className={styles.ctaWrap}>
               <Button to={path(navCta.primary.route)} variant={overHero ? 'light' : 'primary'} onClick={closeAll}>
                 {navCta.primary.label}
