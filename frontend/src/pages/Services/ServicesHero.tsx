@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Button from '../../components/Button/index.ts'
 import { revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
+import { navCta } from '../../data/siteNav.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import EkgStrip from './EkgStrip.tsx'
 import { servicesCopy } from './servicesCopy.ts'
@@ -42,11 +43,11 @@ export default function ServicesHero() {
               {copy.lead}
             </motion.p>
             <motion.div className={styles.actions} {...rise(0.6)}>
-              <Button to={path('discovery.show')} size="lg" arrow>
-                {copy.primary}
+              <Button to={path(navCta.primary.route)} size="lg" arrow>
+                {navCta.primary.label}
               </Button>
-              <Button to={path('quote.index')} variant="secondary" size="lg">
-                {copy.secondary}
+              <Button to={path(navCta.quickQuote.route)} variant="secondary" size="lg">
+                {navCta.quickQuote.label}
               </Button>
             </motion.div>
           </div>

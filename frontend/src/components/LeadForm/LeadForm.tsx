@@ -1,10 +1,11 @@
+import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { submitLead } from '../../services/index.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
 import { useTurnstile } from '../../hooks/useTurnstile/index.ts'
-import { Field, Form, FormRow, TextInput, Textarea } from '../Form/index.ts'
+import { ChoiceCardGroup, Field, Form, FormRow, TextInput, Textarea } from '../Form/index.ts'
 import { revealEase } from '../Reveal/index.ts'
 import { buildLeadBody } from './buildLeadBody.ts'
 import type { LeadExtraFields, LeadKind } from './buildLeadBody.ts'
@@ -20,6 +21,8 @@ export type LeadFormProps = {
   successBody?: string
 
   messageExample?: string
+  /** Lets the visitor pick what the request is about; the chosen kind is sent instead of `kind` (discovery adds the address field). */
+  topics?: { legend: string; options: { kind: LeadKind; label: string }[]; initial?: LeadKind }
 
   label?: string
   id?: string
@@ -40,13 +43,32 @@ function Row({ children }: { children: ReactNode }) {
   )
 }
 
-export default function LeadForm({ kind, extraFields, submitLabel, successTitle, successBody, messageExample, label, id, className }: LeadFormProps) {
+export default function LeadForm({
+  kind,
+  extraFields,
+  submitLabel,
+  successTitle,
+  successBody,
+  messageExample,
+  topics,
+  label,
+  id,
+  className,
+}: LeadFormProps) {
   const reduce = Boolean(useReducedMotion())
   const { config } = useLocale()
   const siteKey = config?.turnstile_site_key || undefined
   const { ref: turnstileRef, token, ready, error: turnstileFailed, reset: resetTurnstile } = useTurnstile(siteKey)
 
-  const onSubmit = (data: FormData) => submitLead(kind, buildLeadBody(data, extraFields, token))
+  const [leadKind, setLeadKind] = useState<LeadKind>(topics?.initial ?? kind)
+  const leadFields: LeadExtraFields | undefined = leadKind === 'discovery' ? 'address' : extraFields
+  const topicOptions = topics?.options.map((option) => ({ value: option.kind, label: option.label })) ?? []
+  const selectTopic = (value: string) => {
+    const option = topics?.options.find((item) => item.kind === value)
+    if (option) setLeadKind(option.kind)
+  }
+
+  const onSubmit = (data: FormData) => submitLead(leadKind, buildLeadBody(data, leadFields, token))
 
   const note = siteKey && turnstileFailed ? copy.turnstileError : siteKey && !ready ? copy.turnstileWaiting : copy.required
 
@@ -79,6 +101,11 @@ export default function LeadForm({ kind, extraFields, submitLabel, successTitle,
         whileInView="show"
         viewport={{ once: true, amount: 0.15 }}
       >
+        {topics ? (
+          <Row>
+            <ChoiceCardGroup type="radio" name="topic" legend={topics.legend} options={topicOptions} value={leadKind} onChange={selectTopic} columns={3} />
+          </Row>
+        ) : null}
         <Row>
           <FormRow columns={2} className={styles.pair}>
             <Field label={copy.fields.name} name="name" required className={styles.pairField}>
@@ -99,14 +126,14 @@ export default function LeadForm({ kind, extraFields, submitLabel, successTitle,
             </Field>
           </FormRow>
         </Row>
-        {extraFields === 'address' ? (
+        {leadFields === 'address' ? (
           <Row>
             <Field label={copy.fields.address} name="address" required>
               <Textarea name="address" rows={2} autoComplete="street-address" placeholder={copy.examples.address} />
             </Field>
           </Row>
         ) : null}
-        {extraFields === 'parking' ? (
+        {leadFields === 'parking' ? (
           <Row>
             <ParkingFields />
           </Row>

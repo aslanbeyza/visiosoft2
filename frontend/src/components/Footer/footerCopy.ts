@@ -5,6 +5,7 @@ export const footerCopy = {
   statement: 'Plaka tanıma, ödeme, bariyer ve otopark yazılımını tek altyapıda geliştiriyoruz.',
   contactTitle: 'İletişim',
   whatsappLabel: 'WhatsApp',
+  callLabel: 'Arayın',
   emailLabel: 'E-posta',
   allContact: 'Tüm iletişim bilgileri',
   newTab: '(yeni sekmede açılır)',

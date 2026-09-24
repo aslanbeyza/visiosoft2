@@ -11,8 +11,6 @@ export const servicesCopy = {
     eyebrow: 'Hizmetlerimiz',
     title: ['Yanınızda', '7/24.'],
     lead: 'Saha ve müşteri destek ekiplerimizle tek bir muhatabınız var. İşimizi şansa bırakmayız.',
-    primary: 'Keşife Gelelim',
-    secondary: 'Sipariş Ver',
     pulseLabel: 'Hizmet ritmi',
     pause: 'Animasyonu duraklat',
     play: 'Animasyonu oynat',
@@ -31,7 +29,7 @@ export const servicesCopy = {
     lead: 'Mühendislerimiz alanınızı analiz eder, en verimli donanım yerleşimini planlar ve anahtar teslim kurulum yapar.',
     label: 'Keşiften desteğe hizmet adımları',
     steps: [
-      { icon: 'map', title: 'Ücretsiz keşif', description: 'Alanınız yerinde analiz edilir; giriş-çıkış noktaları ve ihtiyaçlarınız netleşir.' },
+      { icon: 'map', title: 'Ücretsiz online keşif', description: 'Alanınız online görüşmede analiz edilir; giriş-çıkış noktaları ve ihtiyaçlarınız netleşir.' },
       { icon: 'settings', title: 'Yerleşim planı', description: 'Kamera, kiosk ve bariyer için en verimli donanım yerleşimi planlanır.' },
       { icon: 'barrier', title: 'Anahtar teslim kurulum', description: 'Donanım ve yazılım sahada kurulur, sisteminiz çalışır durumda teslim edilir.' },
       { icon: 'support', title: '7/24 destek', description: 'Saha ve müşteri destek ekiplerimiz kurulumdan sonra da yanınızdadır.' },
@@ -98,6 +96,6 @@ export const servicesCopy = {
     title: 'Geleceğe Park Et.',
     description: 'Keşif, kurulum, 7/24 destek ve bakım hizmetleri için bizimle iletişime geçin.',
     primary: 'Hemen Başvur',
-    secondary: 'Keşife Gelelim',
+    secondary: 'Ücretsiz Online Keşif',
   },
 }

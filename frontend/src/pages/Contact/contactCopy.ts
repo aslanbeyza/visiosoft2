@@ -1,25 +1,63 @@
 export const contactCopy = {
   seoTitle: 'İletişim | Visiosoft',
   seoDescription:
-    'Visiosoft ile iletişime geçin: iletişim formu, WhatsApp ve e-posta, şirket bilgileri ve online görüşme planlama.',
-  newTab: '(yeni sekmede açılır)',
+    'Visiosoft ile iletişime geçin: WhatsApp, telefon ve e-posta bilgileri, showroom, depo, Living LAB ve Teknopark lokasyonları, şirket bilgileri ve online görüşme planlama.',
 
-  form: {
-    id: 'iletisim-formu',
+  hero: {
     eyebrow: 'İletişim',
-    title: 'Bize yazın.',
-    lead: 'Satış, destek veya operasyon için formu doldurun. WhatsApp ve e-posta da açık.',
-    submit: 'Mesaj gönder',
-    successTitle: 'Mesajınız alındı',
-    successBody: 'Satış ve destek ekibimiz en kısa sürede sizinle iletişime geçecektir.',
-    messageExample: 'Konunuz, saha ihtiyacı veya sorularınız…',
+    /** Fixed title for screen readers; the visible title cycles through the greetings. */
+    srTitle: 'İletişim',
+    /** Kept short so each greeting fits one line from 36rem up; narrower screens break after "Merhaba,". */
+    greetings: ['Merhaba, nasılsınız?', 'Merhaba, sizi dinliyoruz.', 'Merhaba, buradayız.'],
+    lead: 'Satış, destek ve operasyon ekibimize tek yerden ulaşın.',
   },
 
-  steps: [
-    { title: 'Mesajınız', description: 'Formu gönderirsiniz; talep kayıt altına alınır.' },
-    { title: 'İlk dönüş', description: 'Ekibimiz aynı gün içinde size ulaşır.' },
-    { title: 'Yönlendirme', description: 'Teklif, keşif veya destek için doğru kişiyle devam ederiz.' },
-  ],
+  channels: {
+    id: 'iletisim-kanallari',
+    label: 'Doğrudan ulaşın',
+    newTab: '(yeni sekmede açılır)',
+    whatsapp: {
+      eyebrow: 'Satış & WhatsApp Hattı',
+      description: 'Hızlı teklif, demo ve satış soruları',
+      action: 'WhatsApp ile yazın',
+      callAction: 'Arayın',
+    },
+    dealer: {
+      eyebrow: 'Bayi Kanal Yöneticisi',
+      name: 'Cihan Topaç',
+      phoneDisplay: '+90 530 392 34 68',
+      phoneHref: 'tel:+905303923468',
+      description: 'Partnerlik, bayi ve saha iş birlikleri',
+      action: 'Arayın',
+    },
+    email: {
+      eyebrow: 'Satış ve Destek',
+      description: 'Genel iletişim ve destek talepleri',
+      action: 'E-posta gönderin',
+    },
+  },
+
+  locations: {
+    id: 'lokasyonlar',
+    eyebrow: 'Lokasyonlar',
+    title: 'Showroom, depo, Living LAB ve Teknopark.',
+    lead: 'Showroom ve depo Şişli’deki Perpa Ticaret Merkezi’nde; Living LAB ve Teknopark Başakşehir’de.',
+    listLabel: 'Lokasyon listesi',
+    directions: 'Yol tarifi al',
+    map: {
+      title: 'Lokasyonlarımız haritada',
+      description: 'Harita OpenStreetMap üzerinden yüklenir; düğmeye bastığınızda bu hizmete bağlanılır.',
+      load: 'Haritayı yükle',
+      open: 'OpenStreetMap’te aç',
+      src: 'https://www.openstreetmap.org/export/embed.html?bbox=28.78%2C41.05%2C28.99%2C41.11&layer=mapnik',
+      href: 'https://www.openstreetmap.org/#map=13/41.0800/28.8850',
+    },
+  },
+
+  cta: {
+    title: 'Otoparkınız için ilk adımı atın.',
+    description: 'Keşif ücretsiz ve online yapılır. Giriş-çıkış, tarife ve donanım ihtiyacı görüşmede netleşir.',
+  },
 
   corporate: {
     id: 'sirket-bilgileri',

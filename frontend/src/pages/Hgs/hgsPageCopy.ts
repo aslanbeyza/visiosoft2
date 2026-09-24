@@ -68,8 +68,6 @@ export const hgsPageCopy = {
     eyebrow: 'HGS ile insansız otopark',
     title: ['Maksimum gelir.', 'Minimum bekleme.'],
     lead: 'Araçları HGS ile tanıyın, ödemeyi otomatik alın, gerektiğinde POS veya QR senaryosuna geçin. Tüm otopark akışını tek kontrol katmanından yönetin.',
-    primary: 'Teklif Al',
-    secondary: 'Ücretsiz Keşif',
     outcomesLabel: 'Sonuçlar',
     outcomes: ['Bekleme yok', 'Sabit gişe bağımlılığı yok', 'Tahsilatta kör nokta yok'],
     factsLabel: 'Öne çıkanlar',

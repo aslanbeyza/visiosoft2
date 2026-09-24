@@ -6,6 +6,7 @@ import Button from '../../components/Button/index.ts'
 import ChipList from '../../components/ChipList/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
 import { revealEase } from '../../components/Reveal/index.ts'
+import { navCta } from '../../data/siteNav.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import { hgsPageCopy } from './hgsPageCopy.ts'
 import styles from './HgsHero.module.css'
@@ -85,11 +86,11 @@ export default function HgsHero() {
       aside={<ChipList items={hero.outcomes} label={hero.outcomesLabel} className={styles.outcomes} />}
       actions={
         <>
-          <Button to={path('quote.index')} size="lg" arrow>
-            {hero.primary}
+          <Button to={path(navCta.primary.route)} size="lg" arrow>
+            {navCta.primary.label}
           </Button>
-          <Button to={path('discovery.show')} variant="secondary" size="lg">
-            {hero.secondary}
+          <Button to={path(navCta.quickQuote.route)} variant="secondary" size="lg">
+            {navCta.quickQuote.label}
           </Button>
         </>
       }

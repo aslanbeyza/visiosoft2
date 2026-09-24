@@ -205,6 +205,4 @@ export const ctaCopy = {
   eyebrow: 'Park Yazılım',
   title: 'Otoparkınız için doğru kurguyu birlikte planlayalım.',
   description: 'Sahanızı dinleyelim; yazılım, donanım ve tahsilat kurgusunu sizinle birlikte netleştirelim.',
-  primary: { label: 'Teklif Al', route: 'quote.index' },
-  secondary: { label: 'Ücretsiz Keşif', route: 'discovery.show' },
 }

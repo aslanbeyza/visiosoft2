@@ -5,6 +5,7 @@ import Button from '../../components/Button/index.ts'
 import CardGrid, { LinkCard } from '../../components/CardGrid/index.ts'
 import Reveal, { revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
+import { navCta } from '../../data/siteNav.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import TriadDiagram from './TriadDiagram.tsx'
 import { alprCopy as copy } from './alprCopy.ts'
@@ -52,11 +53,11 @@ export default function AlprHero() {
               {copy.subtitle}
             </Reveal>
             <Reveal className={styles.actions} delay={0.6} y={16}>
-              <Button to={path('quote.index')} size="lg" arrow>
-                {copy.quote}
+              <Button to={path(navCta.primary.route)} size="lg" arrow>
+                {navCta.primary.label}
               </Button>
-              <Button to={path('discovery.show')} size="lg" variant="secondary">
-                {copy.discovery}
+              <Button to={path(navCta.quickQuote.route)} size="lg" variant="secondary">
+                {navCta.quickQuote.label}
               </Button>
             </Reveal>
           </div>

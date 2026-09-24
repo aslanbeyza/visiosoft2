@@ -5,6 +5,7 @@ import PageHero from '../../components/PageHero/index.ts'
 import Seo from '../../components/Seo/index.ts'
 import SubNav from '../../components/SubNav/index.ts'
 import { company } from '../../data/company.ts'
+import { navCta } from '../../data/siteNav.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import CatalogSheet from './CatalogSheet.tsx'
 import { catalogCopy, catalogSeo } from './catalogCopy.ts'
@@ -109,8 +110,8 @@ export default function HardwareCatalog() {
           eyebrow={ctaCopy.eyebrow}
           title={ctaCopy.title}
           description={ctaCopy.description}
-          primary={{ label: ctaCopy.primary, to: path('discovery.show') }}
-          secondary={{ label: ctaCopy.secondary, to: path('quote.index') }}
+          primary={{ label: navCta.primary.label, to: path(navCta.primary.route) }}
+          secondary={{ label: navCta.quickQuote.label, to: path(navCta.quickQuote.route) }}
         />
       </div>
     </>

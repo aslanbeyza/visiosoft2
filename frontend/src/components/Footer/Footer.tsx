@@ -4,10 +4,11 @@ import { Link, NavLink } from 'react-router-dom'
 import Button from '../Button/index.ts'
 import Reveal, { RevealGroup, RevealItem, revealEase } from '../Reveal/index.ts'
 import WhatsAppGlyph from '../WhatsAppButton/WhatsAppGlyph.tsx'
-import { company, whatsappUrl } from '../../data/company.ts'
+import { company, phoneUrl, whatsappUrl } from '../../data/company.ts'
 import { footerGroups, legalLinks, navCta } from '../../data/siteNav.ts'
 import type { FooterGroup } from '../../data/siteNav.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
+import { PHONE_QUERY } from '../../hooks/useMediaQuery/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import { footerCopy } from './footerCopy.ts'
 import { useMediaQuery } from './useMediaQuery.ts'
@@ -23,6 +24,7 @@ const iconPaths = {
   external: 'M7 17 17 7M8 7h9v9',
   chevron: 'm6 9 6 6 6-6',
   mail: 'M3.5 6h17v12h-17zM4 6.5l8 6.5 8-6.5',
+  phone: 'M6.6 3.8 9.3 4.4l1 4-2 1.3a10.6 10.6 0 0 0 6 6l1.3-2 4 1 .6 2.7a2 2 0 0 1-2 2.3A16.6 16.6 0 0 1 4.3 5.8a2 2 0 0 1 2.3-2Z',
   pin: 'M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11zM12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
 } as const
 
@@ -81,6 +83,7 @@ export default function Footer() {
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
   const columns = useMediaQuery(COLUMNS_QUERY)
+  const isPhone = useMediaQuery(PHONE_QUERY)
   const footerRef = useRef<HTMLElement>(null)
 
   // Dev logo, alt bilgi görünür olduğu andan sayfa sonuna kadar alt kenardan yükselir.
@@ -120,8 +123,8 @@ export default function Footer() {
               <Button to={path(navCta.primary.route)} variant="light" arrow>
                 {navCta.primary.label}
               </Button>
-              <Button to={path(navCta.secondary.route)} variant="outlineLight">
-                {navCta.secondary.label}
+              <Button to={path(navCta.contact.route)} variant="outlineLight">
+                {navCta.contact.label}
               </Button>
             </div>
           </RevealItem>
@@ -130,19 +133,32 @@ export default function Footer() {
             <h3 className={styles.heading}>{footerCopy.contactTitle}</h3>
             <ul className={styles.channels}>
               <li>
-                <a className={styles.channel} href={whatsappUrl(waId)} target="_blank" rel="noopener noreferrer">
-                  <span className={styles.channelIcon} aria-hidden="true">
-                    <WhatsAppGlyph className={styles.channelGlyph} />
-                  </span>
-                  <span className={styles.channelText}>
-                    <span className={styles.channelLabel}>{footerCopy.whatsappLabel}</span>{' '}
-                    <span className={styles.channelValue}>
-                      {waDisplay}
-                      <Icon name="external" className={styles.channelArrow} />
+                {/* On phones the floating WhatsApp button is already on screen, so the footer line calls instead. */}
+                {isPhone ? (
+                  <a className={styles.channel} href={phoneUrl(waId)}>
+                    <span className={styles.channelIcon} aria-hidden="true">
+                      <Icon name="phone" className={styles.channelGlyph} />
                     </span>
-                  </span>
-                  <span className={styles.srOnly}> {footerCopy.newTab}</span>
-                </a>
+                    <span className={styles.channelText}>
+                      <span className={styles.channelLabel}>{footerCopy.callLabel}</span>{' '}
+                      <span className={styles.channelValue}>{waDisplay}</span>
+                    </span>
+                  </a>
+                ) : (
+                  <a className={styles.channel} href={whatsappUrl(waId)} target="_blank" rel="noopener noreferrer">
+                    <span className={styles.channelIcon} aria-hidden="true">
+                      <WhatsAppGlyph className={styles.channelGlyph} />
+                    </span>
+                    <span className={styles.channelText}>
+                      <span className={styles.channelLabel}>{footerCopy.whatsappLabel}</span>{' '}
+                      <span className={styles.channelValue}>
+                        {waDisplay}
+                        <Icon name="external" className={styles.channelArrow} />
+                      </span>
+                    </span>
+                    <span className={styles.srOnly}> {footerCopy.newTab}</span>
+                  </a>
+                )}
               </li>
               <li>
                 <a className={styles.channel} href={`mailto:${company.email}`}>

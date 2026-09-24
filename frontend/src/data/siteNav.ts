@@ -104,9 +104,10 @@ export const primaryNav: NavItem[] = [
   { key: 'services', label: 'Hizmetlerimiz', route: 'services' },
 ]
 
+/** Site-wide lead actions: one combined discovery + quote page, and the 3-step quote engine as the fast path. */
 export const navCta = {
-  primary: { label: 'Demo ve Teklif Al', route: 'quote.index' },
-  secondary: { label: 'Ücretsiz Keşif', route: 'discovery.show' },
+  primary: { label: 'Ücretsiz Keşif ve Teklif', route: 'quote.index' },
+  quickQuote: { label: '3 Soruda Teklif', route: 'parking-quote-engine.index' },
   contact: { label: 'İletişim', route: 'contact' },
 }
 
@@ -150,8 +151,8 @@ export const footerGroups: FooterGroup[] = [
   {
     title: 'Destek',
     links: [
-      { route: 'quote.index', label: 'Teklif Al' },
-      { route: 'discovery.show', label: 'Ücretsiz Keşif' },
+      { route: navCta.primary.route, label: navCta.primary.label },
+      { route: navCta.quickQuote.route, label: navCta.quickQuote.label },
       { route: 'field-manual', label: 'Saha Kullanım Kılavuzu' },
       { route: 'glossary', label: 'Otopark Terimleri' },
       { route: 'bank-accounts', label: 'Banka Hesapları' },

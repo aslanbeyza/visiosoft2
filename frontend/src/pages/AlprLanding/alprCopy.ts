@@ -8,8 +8,6 @@ export const alprCopy = {
   eyebrow: 'Uçtan uca otopark çözümü',
   headline: 'Otopark yönetmek için 3 şey gerekir.',
   subtitle: 'Bu üç bileşeni tek satış modeliyle birleştiriyoruz.',
-  quote: 'Teklif Al',
-  discovery: 'Ücretsiz Keşif',
   contact: 'İletişim',
   subNav: [
     { id: 'surec', label: 'Süreç' },
@@ -55,7 +53,7 @@ export const alprCopy = {
     intro: 'Hızlı başlamak ve sürdürülebilir işletim için sade süreç.',
     metrics: ['Hızlı keşif planlaması', 'Planlı kurulum takvimi', '7/24 izleme ve destek'],
     steps: [
-      { title: 'Ücretsiz Keşif', description: 'Sahanızı inceler, maliyetsiz ilk kapsamı netleştiririz.', action: 'Ücretsiz Keşif', route: 'discovery.show' },
+      { title: 'Ücretsiz Online Keşif', description: 'Otoparkınızı online görüşmede inceler, maliyetsiz ilk kapsamı netleştiririz.', action: 'Ücretsiz Online Keşif', route: 'discovery.show' },
       { title: 'Teklif ve Sözleşme', description: 'Ticari şartlar şeffaf şekilde iletilir ve online tamamlanır.', action: 'Teklif Al', route: 'quote.index' },
       { title: 'Operasyon', description: 'Canlıya alır, otopark süreçlerinizi sürekli izler ve destekleriz.', action: 'Hizmetlerimiz', route: 'services' },
     ],

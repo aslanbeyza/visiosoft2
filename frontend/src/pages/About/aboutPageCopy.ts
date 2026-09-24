@@ -54,8 +54,8 @@ export const aboutPageCopy = {
 
   cta: {
     title: 'Sahanızı birlikte planlayalım.',
-    description: 'Keşif ücretsizdir. Giriş-çıkış, tarife ve donanım ihtiyacı yerinde netleşir.',
+    description: 'Keşif ücretsiz ve online yapılır. Giriş-çıkış, tarife ve donanım ihtiyacı görüşmede netleşir.',
     primary: 'İletişime geç',
-    secondary: 'Ücretsiz keşif',
+    secondary: 'Ücretsiz online keşif',
   },
 }

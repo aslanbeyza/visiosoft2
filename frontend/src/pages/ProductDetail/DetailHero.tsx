@@ -6,6 +6,7 @@ import KioskExplode from '../../components/KioskExplode/index.ts'
 import { explodeVariantFor } from '../../components/KioskExplode/explodeVariants.ts'
 import { RevealGroup, RevealItem, revealEase } from '../../components/Reveal/index.ts'
 import TextReveal from '../../components/TextReveal/index.ts'
+import { navCta } from '../../data/siteNav.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import HeroStage from './HeroStage.tsx'
 import ProductViewer from './ProductViewer.tsx'
@@ -81,11 +82,11 @@ export default function DetailHero({ data }: DetailHeroProps) {
             ) : null}
 
             <RevealItem className={styles.actions}>
-              <Button to={path('discovery.show')} size="lg" arrow>
-                {detailCopy.actions.discovery}
+              <Button to={path(navCta.primary.route)} size="lg" arrow>
+                {navCta.primary.label}
               </Button>
-              <Button to={path('quote.index')} variant="secondary" size="lg">
-                {detailCopy.actions.quote}
+              <Button to={path(navCta.quickQuote.route)} variant="secondary" size="lg">
+                {navCta.quickQuote.label}
               </Button>
             </RevealItem>
           </RevealGroup>

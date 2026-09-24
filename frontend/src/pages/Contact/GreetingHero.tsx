@@ -11,8 +11,6 @@ export type GreetingHeroProps = {
   srTitle: string
   greetings: string[]
   lead: string
-  pauseLabel: string
-  playLabel: string
   actions?: ReactNode
   aside?: ReactNode
 }
@@ -24,17 +22,16 @@ function splitGreeting(text: string): [string, string] {
   return at < 0 ? [text, ''] : [text.slice(0, at + 1), text.slice(at + 2)]
 }
 
-export default function GreetingHero({ eyebrow, srTitle, greetings, lead, pauseLabel, playLabel, actions, aside }: GreetingHeroProps) {
+export default function GreetingHero({ eyebrow, srTitle, greetings, lead, actions, aside }: GreetingHeroProps) {
   const reduce = Boolean(useReducedMotion())
   const titleId = useId()
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { amount: 0.2 })
   const visible = usePageVisible()
   const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
 
   const cycling = !reduce && greetings.length > 1
-  const running = cycling && !paused && inView && visible
+  const running = cycling && inView && visible
   const greeting = greetings[cycling ? index : 0] ?? ''
   const [head, tail] = splitGreeting(greeting)
 
@@ -107,16 +104,6 @@ export default function GreetingHero({ eyebrow, srTitle, greetings, lead, pauseL
                   onAnimationEnd={() => setIndex((current) => (current + 1) % greetings.length)}
                 />
               </span>
-              <button
-                type="button"
-                className={styles.toggle}
-                onClick={() => setPaused((value) => !value)}
-                aria-label={paused ? playLabel : pauseLabel}
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  {paused ? <path d="M8 5.5v13l10.5-6.5L8 5.5Z" /> : <path d="M8.5 5.5v13M15.5 5.5v13" />}
-                </svg>
-              </button>
             </div>
           ) : null}
 

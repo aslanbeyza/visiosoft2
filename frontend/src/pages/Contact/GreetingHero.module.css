@@ -135,39 +135,6 @@
   }
 }
 
-.toggle {
-  display: inline-grid;
-  place-items: center;
-  flex: none;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid var(--color-corp-line);
-  border-radius: 999px;
-  background: #fff;
-  color: var(--color-corp-ink);
-  cursor: pointer;
-  transition: border-color 0.35s var(--ease-apple);
-}
-
-.toggle:hover {
-  border-color: var(--color-navy-600);
-}
-
-.toggle:focus-visible {
-  outline: 2px solid var(--color-navy-600);
-  outline-offset: 3px;
-}
-
-.toggle svg {
-  width: 0.95rem;
-  height: 0.95rem;
-  fill: currentColor;
-  stroke: currentColor;
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .lead {
   max-width: 38rem;
   margin: clamp(1.5rem, 3vw, 2rem) 0 0;
@@ -200,9 +167,5 @@
   .caret,
   .progress {
     animation: none;
-  }
-
-  .toggle {
-    transition: none;
   }
 }

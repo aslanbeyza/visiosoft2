@@ -7,6 +7,7 @@ import ScrollStack from '../../components/ScrollStack/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
 import Seo from '../../components/Seo/index.ts'
+import { navCta } from '../../data/siteNav.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import HubOnStreetSection from './HubOnStreetSection.tsx'
 import MonitorSection from './MonitorSection.tsx'
@@ -80,8 +81,8 @@ export default function SoftwareHub() {
         eyebrow={ctaCopy.eyebrow}
         title={ctaCopy.title}
         description={ctaCopy.description}
-        primary={{ label: ctaCopy.primary.label, to: path(ctaCopy.primary.route) }}
-        secondary={{ label: ctaCopy.secondary.label, to: path(ctaCopy.secondary.route) }}
+        primary={{ label: navCta.primary.label, to: path(navCta.primary.route) }}
+        secondary={{ label: navCta.quickQuote.label, to: path(navCta.quickQuote.route) }}
       />
     </>
   )

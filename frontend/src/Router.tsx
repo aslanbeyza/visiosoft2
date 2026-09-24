@@ -8,9 +8,8 @@ import { pages } from './pages/registry.ts'
 
 const Home = lazy(pages.home)
 const SoftwareProducts = lazy(pages.softwareProducts)
-const Contact = lazy(pages.contact)
 const Quote = lazy(pages.quote)
-const Discovery = lazy(pages.discovery)
+const Contact = lazy(pages.contact)
 const ParkingQuote = lazy(pages.parkingQuote)
 const BlogIndex = lazy(pages.blogIndex)
 const BlogShow = lazy(pages.blogShow)
@@ -19,6 +18,11 @@ const Glossary = lazy(pages.glossary)
 const Sitemap = lazy(pages.sitemap)
 const Payment = lazy(pages.payment)
 const NotFound = lazy(pages.notFound)
+
+/** Discovery has no page of its own: it lands on the lead form with that topic selected. */
+function LeadTopicRedirect({ topic }: { topic: 'discovery' }) {
+  return <Navigate to={pathFor('quote.index')} replace state={{ topic }} />
+}
 
 function LegacyLocaleRedirect() {
   const { pathname } = useLocation()
@@ -35,7 +39,7 @@ export default function AppRouter() {
             <Route path={pathFor('software-products')} element={<SoftwareProducts />} />
             <Route path={pathFor('contact')} element={<Contact />} />
             <Route path={pathFor('quote.index')} element={<Quote />} />
-            <Route path={pathFor('discovery.show')} element={<Discovery />} />
+            <Route path={pathFor('discovery.show')} element={<LeadTopicRedirect topic="discovery" />} />
             <Route path={pathFor('parking-quote-engine.index')} element={<ParkingQuote />} />
             <Route path={pathFor('blog.index')} element={<BlogIndex />} />
             <Route path={`${pathFor('blog.index')}/:slug`} element={<BlogShow />} />

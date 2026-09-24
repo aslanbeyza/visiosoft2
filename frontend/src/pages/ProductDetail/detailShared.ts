@@ -5,7 +5,6 @@ import type { DetailImage } from './detailTypes.ts'
 
 export const detailCopy = {
   breadcrumb: { home: 'Ana sayfa', category: 'Donanım', categoryRoute: 'hardware-products' },
-  actions: { discovery: 'Ücretsiz Keşif İste', quote: 'Teklif Al' },
   figures: {
     dimensions: 'Temel ölçüler',
     profile: 'Ürün künyesi',

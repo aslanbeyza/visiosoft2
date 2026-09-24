@@ -32,5 +32,8 @@ export const company = {
   ],
 }
 
+/** The WhatsApp sales line is also a phone line; used on phones, where the floating WhatsApp button is already on screen. */
+export const phoneUrl = (waId: string = company.whatsapp.waId) => `tel:+${waId}`
+
 export const whatsappUrl = (waId: string = company.whatsapp.waId, message: string = company.whatsapp.message) =>
   `https://wa.me/${waId}?text=${encodeURIComponent(message)}`

@@ -74,6 +74,4 @@ export const ctaCopy = {
   eyebrow: 'Projeye özel teklif',
   title: 'Sahanız için doğru donanımı birlikte seçelim.',
   description: 'İhtiyaca uygun konfigürasyon ve kurulum için ekibimizle iletişime geçin.',
-  primary: 'Ücretsiz Keşif İste',
-  secondary: 'Teklif Al',
 }

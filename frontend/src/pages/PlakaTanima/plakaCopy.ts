@@ -12,8 +12,6 @@ export const plakaCopy = {
     eyebrow: 'Plaka Tanıma',
     title: ['Kusursuz', 'tanıma.'],
     lead: 'Zorlu koşullarda bile %99 üzeri doğruluk. Araç yaklaşır, kamera plakayı okur, kayıt doğrulanır ve bariyer açılır.',
-    primary: 'Teklif Al',
-    secondary: 'Ücretsiz Keşif İste',
     flowLabel: 'Plaka tanıma ile otopark geçiş akışı',
   },
   flowSteps: [
