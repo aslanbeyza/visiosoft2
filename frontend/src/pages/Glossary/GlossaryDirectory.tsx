@@ -5,25 +5,21 @@ import { Field, TextInput } from '../../components/Form/index.ts'
 import Reveal from '../../components/Reveal/index.ts'
 import { EmptyState } from '../../components/States/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
-import { glossaryCopy as copy, topicLabels, topicOrder } from './glossaryCopy.ts'
-import type { TopicKey } from './glossaryCopy.ts'
-import { fold, glossaryTerms, groupByLetter, letterId, topicCounts } from './terms.ts'
+import { glossaryCopy as copy, topicLabels } from './glossaryCopy.ts'
+import { fold, glossaryTerms, groupByLetter, letterId } from './terms.ts'
 import type { GlossaryTerm } from './terms.ts'
 import styles from './GlossaryDirectory.module.css'
-
-type Filter = TopicKey | 'all'
 
 function termHaystack(term: GlossaryTerm) {
   return [term.term, term.definition, topicLabels[term.topic], ...(term.also ?? [])].map(fold).join(' ')
 }
 
-/** Arama, konu süzgeci ve harf atlamalı terim dizini. */
+/** Arama ve harf atlamalı terim dizini. */
 export default function GlossaryDirectory() {
   const path = usePath()
   const { hash } = useLocation()
   const activeId = decodeURIComponent(hash.replace(/^#/, ''))
   const [query, setQuery] = useState('')
-  const [filter, setFilter] = useState<Filter>('all')
 
   useLayoutEffect(() => {
     if (!activeId) return
@@ -32,21 +28,16 @@ export default function GlossaryDirectory() {
 
   const visible = useMemo(() => {
     const needle = fold(query.trim())
-    return glossaryTerms.filter((term) => {
-      if (filter !== 'all' && term.topic !== filter) return false
-      if (needle && !termHaystack(term).includes(needle)) return false
-      return true
-    })
-  }, [filter, query])
+    if (!needle) return glossaryTerms
+    return glossaryTerms.filter((term) => termHaystack(term).includes(needle))
+  }, [query])
 
   const groups = useMemo(() => groupByLetter(visible), [visible])
   const querying = fold(query.trim()).length > 0
-  const searching = querying || filter !== 'all'
   const showLetters = !querying && groups.length > 1
 
   const reset = () => {
     setQuery('')
-    setFilter('all')
   }
 
   return (
@@ -65,25 +56,6 @@ export default function GlossaryDirectory() {
           />
         </Field>
 
-        <div role="group" aria-label={copy.filterLabel} className={styles.filters}>
-          <button type="button" className={styles.chip} aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>
-            <span>{copy.all}</span>
-            <span className={styles.count}>{glossaryTerms.length}</span>
-          </button>
-          {topicOrder.map((key) => (
-            <button
-              key={key}
-              type="button"
-              className={styles.chip}
-              aria-pressed={filter === key}
-              onClick={() => setFilter(key)}
-            >
-              <span>{topicLabels[key]}</span>
-              <span className={styles.count}>{topicCounts[key]}</span>
-            </button>
-          ))}
-        </div>
-
         {showLetters ? (
           <nav className={styles.letters} aria-label={copy.lettersLabel}>
             {groups.map((group) => (
@@ -96,7 +68,6 @@ export default function GlossaryDirectory() {
 
         <p className={styles.status} aria-live="polite">
           {copy.result(visible.length)}
-          {searching ? ` · ${filter === 'all' ? copy.all : topicLabels[filter]}` : null}
         </p>
       </Reveal>
 

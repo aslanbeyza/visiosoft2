@@ -1,28 +1,22 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { Link, NavLink } from 'react-router-dom'
-import Button from '../Button/index.ts'
+import { NavLink } from 'react-router-dom'
 import Reveal, { RevealGroup, RevealItem, revealEase } from '../Reveal/index.ts'
 import WhatsAppGlyph from '../WhatsAppButton/WhatsAppGlyph.tsx'
 import { company, whatsappUrl } from '../../data/company.ts'
-import { footerGroups, legalLinks, navCta } from '../../data/siteNav.ts'
+import { footerGroups, legalLinks } from '../../data/siteNav.ts'
 import type { FooterGroup } from '../../data/siteNav.ts'
 import { useLocale } from '../../hooks/useLocale/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import { footerCopy } from './footerCopy.ts'
-import { useMediaQuery } from './useMediaQuery.ts'
 import styles from './Footer.module.css'
 
 const LOGO_SRC = '/img/visiosoft_logo.svg'
-/** Bu genişliğin altında bağlantı grupları akordeon olur. */
-const COLUMNS_QUERY = '(min-width: 640px)'
 
 const iconPaths = {
-  arrowRight: 'M5 12h14M13 6l6 6-6 6',
   arrowUp: 'M12 19V5M6 11l6-6 6 6',
-  external: 'M7 17 17 7M8 7h9v9',
-  chevron: 'm6 9 6 6 6-6',
   mail: 'M3.5 6h17v12h-17zM4 6.5l8 6.5 8-6.5',
+  phone: 'M22 16.9v2.6a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h2.6a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L7.7 9.5a16 16 0 0 0 6.8 6.8l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z',
   pin: 'M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11zM12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
 } as const
 
@@ -80,7 +74,6 @@ export default function Footer() {
   const { config } = useLocale()
   const path = usePath()
   const reduce = Boolean(useReducedMotion())
-  const columns = useMediaQuery(COLUMNS_QUERY)
   const footerRef = useRef<HTMLElement>(null)
 
   // Dev logo, alt bilgi görünür olduğu andan sayfa sonuna kadar alt kenardan yükselir.
@@ -98,95 +91,44 @@ export default function Footer() {
   }
 
   return (
-    <footer ref={footerRef} className={styles.footer}>
+    <footer id="site-footer" ref={footerRef} className={styles.footer}>
       <div className={styles.inner}>
         <h2 className={styles.srOnly}>{footerCopy.title}</h2>
 
-        <RevealGroup className={styles.top} stagger={0.12}>
-          <RevealItem className={styles.brand}>
-            <Link to={path('home')} className={styles.brandLink}>
-              <img
-                className={styles.brandLogo}
-                src={LOGO_SRC}
-                alt={footerCopy.homeLabel}
-                width={120}
-                height={28}
-                loading="lazy"
-                decoding="async"
-              />
-            </Link>
-            <p className={styles.statement}>{footerCopy.statement}</p>
-            <div className={styles.actions}>
-              <Button to={path(navCta.primary.route)} variant="light" arrow>
-                {navCta.primary.label}
-              </Button>
-              <Button to={path(navCta.secondary.route)} variant="outlineLight">
-                {navCta.secondary.label}
-              </Button>
-            </div>
-          </RevealItem>
-
-          <RevealItem className={styles.contact}>
-            <h3 className={styles.heading}>{footerCopy.contactTitle}</h3>
-            <ul className={styles.channels}>
-              <li>
-                <a className={styles.channel} href={whatsappUrl(waId)} target="_blank" rel="noopener noreferrer">
-                  <span className={styles.channelIcon} aria-hidden="true">
-                    <WhatsAppGlyph className={styles.channelGlyph} />
-                  </span>
-                  <span className={styles.channelText}>
-                    <span className={styles.channelLabel}>{footerCopy.whatsappLabel}</span>{' '}
-                    <span className={styles.channelValue}>
-                      {waDisplay}
-                      <Icon name="external" className={styles.channelArrow} />
-                    </span>
-                  </span>
-                  <span className={styles.srOnly}> {footerCopy.newTab}</span>
-                </a>
-              </li>
-              <li>
-                <a className={styles.channel} href={`mailto:${company.email}`}>
-                  <span className={styles.channelIcon} aria-hidden="true">
-                    <Icon name="mail" className={styles.channelGlyph} />
-                  </span>
-                  <span className={styles.channelText}>
-                    <span className={styles.channelLabel}>{footerCopy.emailLabel}</span>{' '}
-                    <span className={styles.channelValue}>{company.email}</span>
-                  </span>
-                </a>
-              </li>
-            </ul>
-            <Link to={path('contact')} className={styles.more}>
-              <span className={styles.moreText}>{footerCopy.allContact}</span>
-              <Icon name="arrowRight" className={styles.moreArrow} />
-            </Link>
-          </RevealItem>
-        </RevealGroup>
-
         <nav className={styles.nav} aria-label={footerCopy.navLabel}>
-          <Rule reduce={reduce} />
           <RevealGroup className={styles.groups} stagger={0.08}>
             {footerGroups.map((group) => (
               <RevealItem key={group.title} className={styles.group}>
-                {columns ? (
-                  <>
-                    <h3 className={styles.heading}>{group.title}</h3>
-                    <GroupLinks group={group} />
-                  </>
-                ) : (
-                  <details className={styles.details}>
-                    <summary className={styles.summary}>
-                      <span className={styles.summaryInner}>
-                        {group.title}
-                        <Icon name="chevron" className={styles.chevron} />
-                      </span>
-                    </summary>
-                    <GroupLinks group={group} />
-                  </details>
-                )}
+                <h3 className={styles.heading}>{group.title}</h3>
+                <GroupLinks group={group} />
               </RevealItem>
             ))}
           </RevealGroup>
+          <ul className={styles.reach} aria-label={footerCopy.contactTitle}>
+            <li>
+              <a className={styles.reachLink} href={`tel:+${waId}`}>
+                <Icon name="phone" className={styles.reachIcon} />
+                <span className={styles.reachTip}>{waDisplay}</span>
+                <span className={styles.srOnly}>{footerCopy.phoneLabel}</span>
+              </a>
+            </li>
+            <li>
+              <a className={styles.reachLink} href={whatsappUrl(waId)} target="_blank" rel="noopener noreferrer">
+                <WhatsAppGlyph className={styles.reachIcon} />
+                <span className={styles.reachTip}>{waDisplay}</span>
+                <span className={styles.srOnly}>
+                  {footerCopy.whatsappLabel} {footerCopy.newTab}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a className={styles.mailField} href={`mailto:${company.email}`}>
+                <Icon name="mail" className={styles.reachIcon} />
+                <span>{company.email}</span>
+                <span className={styles.srOnly}>{footerCopy.emailLabel}</span>
+              </a>
+            </li>
+          </ul>
         </nav>
 
         <div className={styles.locations}>

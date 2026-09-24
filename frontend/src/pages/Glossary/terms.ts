@@ -1,4 +1,4 @@
-import { topicOrder, type TopicKey } from './glossaryCopy.ts'
+import type { TopicKey } from './glossaryCopy.ts'
 
 export type GlossaryTerm = {
   id: string
@@ -283,10 +283,6 @@ const items: GlossaryTerm[] = [
 ]
 
 export const glossaryTerms = [...items].sort((a, b) => collator.compare(a.term, b.term))
-
-export const topicCounts = Object.fromEntries(
-  topicOrder.map((key) => [key, glossaryTerms.filter((item) => item.topic === key).length]),
-) as Record<TopicKey, number>
 
 export type TermGroup = { letter: string; items: GlossaryTerm[] }
 

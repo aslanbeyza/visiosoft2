@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { revealEase } from '../Reveal/index.ts'
 import { company, whatsappUrl } from '../../data/company.ts'
@@ -11,8 +12,29 @@ const NEW_TAB = '(yeni sekmede açılır)'
 /** Sağ altta sabit WhatsApp bağlantısı; numara backend config'ten, yoksa şirket bilgisinden gelir. */
 export default function WhatsAppButton() {
   const { config } = useLocale()
-  const reduce = useReducedMotion()
+  const reduce = Boolean(useReducedMotion())
   const waId = config?.whatsapp_wa_id || company.whatsapp.waId
+  const [isFooterVisible, setIsFooterVisible] = useState(false)
+  const hasEntered = useRef(false)
+
+  useLayoutEffect(() => {
+    const footer = document.getElementById('site-footer')
+    if (!footer) return
+
+    const mark = () => {
+      const rect = footer.getBoundingClientRect()
+      setIsFooterVisible(rect.top < window.innerHeight && rect.bottom > 0)
+    }
+    mark()
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsFooterVisible(entry.isIntersecting)
+    })
+    observer.observe(footer)
+    return () => observer.disconnect()
+  }, [])
+
+  if (isFooterVisible) hasEntered.current = true
 
   return (
     <motion.a
@@ -21,9 +43,16 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${LABEL} ${NEW_TAB}`}
+      aria-hidden={isFooterVisible || undefined}
+      tabIndex={isFooterVisible ? -1 : undefined}
+      style={{ pointerEvents: isFooterVisible ? 'none' : 'auto' }}
       initial={reduce ? false : { opacity: 0, scale: 0.6 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1.2, duration: 0.6, ease: revealEase }}
+      animate={{ opacity: isFooterVisible ? 0 : 1, scale: isFooterVisible ? 0.94 : 1 }}
+      transition={{
+        duration: reduce ? 0 : isFooterVisible ? 0.28 : 0.55,
+        delay: isFooterVisible || hasEntered.current || reduce ? 0 : 1.2,
+        ease: revealEase,
+      }}
     >
       <span className={styles.labelWrap} aria-hidden="true">
         <span className={styles.label}>{LABEL}</span>

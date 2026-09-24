@@ -9,13 +9,11 @@ export const glossaryCopy = {
   count: (n: number) => `${n} terim`,
   searchLabel: 'Terim ara',
   searchPlaceholder: 'Plaka tanıma, HGS, kiosk…',
-  filterLabel: 'Konu süzgeci',
-  all: 'Tümü',
   lettersLabel: 'Harfe göre atla',
   result: (n: number) => (n === 1 ? '1 terim' : `${n} terim`),
   emptyTitle: 'Bu aramaya uyan terim yok',
-  emptyBody: 'Başka bir kelime deneyin ya da süzgeci temizleyin. Aradığınız saha terimi listede yoksa ekibimize sorun.',
-  clear: 'Süzgeci temizle',
+  emptyBody: 'Başka bir kelime deneyin. Aradığınız saha terimi listede yoksa ekibimize sorun.',
+  clear: 'Aramayı temizle',
   related: 'İlgili sayfa',
   also: 'Ayrıca',
 } as const
@@ -29,5 +27,3 @@ export const topicLabels = {
 } as const
 
 export type TopicKey = keyof typeof topicLabels
-
-export const topicOrder: TopicKey[] = ['recognition', 'hardware', 'payment', 'software', 'field']
