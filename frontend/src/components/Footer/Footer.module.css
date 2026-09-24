@@ -1,7 +1,7 @@
 /* Kurumsal alt bilgi: en koyu lacivert zemin, beyaz metin, 1px ayraçlar, alt kenarda dev ve soluk logo. */
 .footer {
-  --footer-width: min(80rem, calc(100% - clamp(1.25rem, 4vw, 3rem)));
-  --footer-gap: clamp(1.25rem, 3vw, 2.5rem);
+  --footer-width: min(80rem, calc(100% - 2rem));
+  --footer-gap: 2rem;
   --footer-line: rgb(255 255 255 / 0.12);
   --footer-text: rgb(255 255 255 / 0.7);
   --footer-muted: rgb(255 255 255 / 0.56);
@@ -10,7 +10,7 @@
   isolation: isolate;
   overflow: hidden;
   /* Alt boşluk logonun yaklaşık yarı yüksekliği kadardır (logo oranı 385 / 1648); mobilde WhatsApp düğmesine yer bırakır. */
-  padding-block: clamp(2.5rem, 5vw, 3.5rem) max(6.5rem, calc(var(--footer-width) * 0.117));
+  padding-block: clamp(4rem, 8vw, 6.5rem) max(6.5rem, calc(var(--footer-width) * 0.117));
   border-top: 1px solid rgb(255 255 255 / 0.06);
   background: var(--color-navy-950);
   color: #fff;
@@ -45,105 +45,194 @@
 }
 
 .heading {
-  margin: 0 0 0.7rem;
+  margin: 0 0 1.25rem;
   color: var(--color-navy-300);
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   line-height: 1.4;
   text-transform: uppercase;
 }
 
-.reach {
+/* Üst satır: marka ve iletişim */
+.top {
+  display: grid;
+  gap: 3rem;
+  padding-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+
+.brand,
+.contact {
+  min-width: 0;
+}
+
+/* 28px logo, 44px dokunma hedefi içinde dikey ortalanır; aşağıdaki cümle aralığı bu farkı dengeler. */
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  border-radius: 0.25rem;
+}
+
+.brandLogo {
+  display: block;
+  width: auto;
+  height: 1.75rem;
+  filter: brightness(0) invert(1);
+}
+
+.statement {
+  max-width: 24ch;
+  margin: 1.25rem 0 0;
+  color: #fff;
+  font-size: clamp(1.45rem, 1.2vw + 1.05rem, 2.125rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.22;
+  text-wrap: balance;
+}
+
+.actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.35rem;
-  margin: 0.75rem 0 0;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+/*
+ * Sayfa kendi çağrı bandıyla bitiyorsa (CtaBand / HomeCta → data-page-cta) aynı iki düğme footer'da tekrarlanmaz.
+ * Footer MainLayout'ta main'in kardeşidir; yalnızca sayfa içeriğindeki bant sayılır. :has desteklenmezse düğmeler görünür kalır.
+ */
+:global(#main-content):has([data-page-cta]) ~ .footer .actions {
+  display: none;
+}
+
+/* Düğmeler kalkınca marka bloğu yalnızca logo + cümledir; aralıklar sıkılaşır, üst satır boş görünmez. */
+:global(#main-content):has([data-page-cta]) ~ .footer .statement {
+  margin-top: 1rem;
+}
+
+:global(#main-content):has([data-page-cta]) ~ .footer .top {
+  row-gap: 2.5rem;
+}
+
+.channels {
+  display: grid;
+  gap: 1.25rem var(--footer-gap);
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.reachLink {
-  position: relative;
+.channel {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.875rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.channelIcon {
   display: grid;
   place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 999px;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--footer-line);
+  border-radius: 0.5rem;
+  transition:
+    border-color 0.35s var(--ease-apple),
+    background-color 0.35s var(--ease-apple);
+}
+
+.channelGlyph {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.channelText {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.channelLabel {
   color: var(--footer-muted);
-  text-decoration: none;
-  transition: color 0.3s var(--ease-apple), background-color 0.3s var(--ease-apple);
-}
-
-.reachIcon {
-  width: 1.05rem;
-  height: 1.05rem;
-}
-
-.reachTip {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 0.35rem);
-  z-index: 1;
-  color: #fff;
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(0.15rem);
-  transition: opacity 0.25s var(--ease-apple), transform 0.25s var(--ease-apple);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
-.reachLink:hover,
-.reachLink:focus-visible {
-  color: #fff;
+.channelValue {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.channelArrow {
+  display: inline-block;
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-left: 0.35rem;
+  color: var(--footer-muted);
+  vertical-align: -0.08em;
+  transition:
+    transform 0.35s var(--ease-apple),
+    color 0.35s var(--ease-apple);
+}
+
+.channel:hover .channelIcon {
+  border-color: rgb(154 161 227 / 0.6);
   background: rgb(255 255 255 / 0.06);
 }
 
-.reachLink:hover .reachTip,
-.reachLink:focus-visible .reachTip {
-  opacity: 1;
-  transform: none;
+.channel:hover .channelArrow {
+  color: #fff;
+  transform: translate(2px, -2px);
 }
 
-.mailField {
+.more {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  height: 2.25rem;
-  max-width: 100%;
-  padding: 0 0.35rem;
-  border: 0;
-  border-radius: 0.5rem;
-  color: var(--footer-muted);
-  font-size: 0.8125rem;
-  letter-spacing: -0.01em;
-  line-height: 1;
+  min-height: 2.75rem;
+  margin-top: 1.25rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
   text-decoration: none;
-  transition: color 0.3s var(--ease-apple), background-color 0.3s var(--ease-apple);
 }
 
-.mailField:hover,
-.mailField:focus-visible {
-  color: #fff;
-  background: rgb(255 255 255 / 0.06);
+.moreText {
+  position: relative;
+}
+
+.moreArrow {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.more:hover .moreArrow {
+  transform: translateX(3px);
 }
 
 /* Bağlantı grupları */
 .nav {
   position: relative;
-  padding-bottom: 1.75rem;
+  padding-bottom: 2.5rem;
 }
 
 .groups {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-  gap: clamp(1.25rem, 3vw, 1.75rem) clamp(1rem, 2.5vw, 1.5rem);
 }
 
 .group {
@@ -163,16 +252,17 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  min-height: 2.5rem;
-  padding-block: 0.2rem;
+  min-height: 2.75rem;
+  padding-block: 0.3rem;
   color: var(--footer-text);
-  font-size: clamp(0.875rem, 0.82rem + 0.2vw, 0.9375rem);
+  font-size: 0.9375rem;
   line-height: 1.45;
   text-decoration: none;
   transition: color 0.35s var(--ease-apple);
 }
 
-.link::after {
+.link::after,
+.moreText::after {
   content: '';
   position: absolute;
   right: 0;
@@ -185,11 +275,16 @@
   transition: transform 0.45s var(--ease-apple);
 }
 
+.moreText::after {
+  bottom: -0.1rem;
+}
+
 .link:hover {
   color: #fff;
 }
 
-.link:hover::after {
+.link:hover::after,
+.more:hover .moreText::after {
   transform: scaleX(1);
   transform-origin: left center;
 }
@@ -201,6 +296,66 @@
 .link[aria-current='page']::after {
   background: var(--color-navy-300);
   transform: scaleX(1);
+}
+
+/* 640px altı: akordeon */
+.details {
+  border-bottom: 1px solid var(--footer-line);
+}
+
+.summary {
+  display: block;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summaryInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.5rem;
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.chevron {
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--footer-muted);
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.details[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.details .links {
+  padding-bottom: 1.25rem;
+}
+
+.details[open] .links {
+  animation: fold-in 0.45s var(--ease-apple) both;
+}
+
+@keyframes fold-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Lokasyonlar */
@@ -215,8 +370,7 @@
 
 .locationList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-  gap: clamp(1.25rem, 3vw, 1.75rem) var(--footer-gap);
+  gap: 1.5rem var(--footer-gap);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -265,18 +419,12 @@
 }
 
 .bottomGrid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  gap: 1rem;
   align-items: center;
-  justify-content: space-between;
-  gap: clamp(0.75rem, 2vw, 1.25rem) clamp(1.25rem, 3vw, 2.5rem);
   color: var(--footer-muted);
   font-size: 0.8125rem;
   line-height: 1.5;
-}
-
-.legalNav {
-  flex: 1 1 16rem;
 }
 
 .copyright {
@@ -302,7 +450,7 @@
 .toTop {
   display: inline-flex;
   align-items: center;
-  margin-left: auto;
+  justify-self: start;
   gap: 0.5rem;
   min-height: 2.75rem;
   padding: 0 0.9rem;
@@ -359,9 +507,11 @@
 }
 
 /* Klavye odağı: koyu zeminde beyaz halka */
-.reachLink:focus-visible,
-.mailField:focus-visible,
+.brandLink:focus-visible,
+.channel:focus-visible,
+.more:focus-visible,
 .link:focus-visible,
+.summary:focus-visible,
 .toTop:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
@@ -371,12 +521,111 @@
   border-radius: 0.25rem;
 }
 
+@media (min-width: 640px) {
+  .channels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .nav {
+    padding-block: clamp(2.75rem, 5vw, 4rem);
+  }
+
+  .groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.75rem var(--footer-gap);
+  }
+
+  .locationList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem var(--footer-gap);
+  }
+
+  .bottomGrid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 2rem;
+  }
+
+  .copyright {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .toTop {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .legalNav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer {
+    --footer-width: min(80rem, calc(100% - 3rem));
+    --footer-gap: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .top {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: end;
+    column-gap: var(--footer-gap);
+  }
+
+  .brand,
+  .contact {
+    grid-column: span 2;
+  }
+
+  .groups {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .locationList {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .bottomGrid {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 2.5rem;
+  }
+
+  .legalNav {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .toTop {
+    grid-column: 3;
+  }
+}
+
+/* 1024–1279px arası iletişim sütunu dar kalır; kanallar tek sütuna iner ki e-posta ve numara bölünmesin. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .channels {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .channelIcon,
+  .channelArrow,
+  .moreArrow,
   .link,
   .link::after,
+  .moreText::after,
+  .chevron,
   .toTop,
   .toTopIcon {
     transition: none;
+  }
+
+  .details[open] .links {
+    animation: none;
   }
 }
 
