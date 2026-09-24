@@ -1,6 +1,6 @@
 import Hero from '../../components/HeroGate/index.ts'
-import HomeAssurance from '../../components/HomeAssurance/index.ts'
 import HomeCta from '../../components/HomeCta/index.ts'
+import HomeReady from '../../components/HomeReady/index.ts'
 import HomeField from '../../components/HomeField/index.ts'
 import HomeProof from '../../components/HomeProof/index.ts'
 import HomeSectors from '../../components/HomeSectors/index.ts'
@@ -24,7 +24,7 @@ export default function Home() {
       <HomeZone />
       <HomeSectors />
       <HomeCta />
-      <HomeAssurance />
+      <HomeReady />
     </>
   )
 }
