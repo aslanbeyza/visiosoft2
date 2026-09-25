@@ -7,10 +7,6 @@ export const parkingFlowCopy = {
   sceneDescription:
     'Şerit üzerinde ilerleyen araç, direkteki plaka tanıma kamerası ve kontrol kutusu, LED bilgi paneli, ödeme kioskı ve bariyer kolu.',
   stepsLabel: 'Akış adımları',
-  pause: 'Animasyonu duraklat',
-  play: 'Animasyonu oynat',
-  pauseShort: 'Duraklat',
-  playShort: 'Oynat',
   highlightPrefix: 'Vurgulanan cihaz',
   devices: {
     camera: 'Plaka tanıma kamerası',

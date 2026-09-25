@@ -43,10 +43,10 @@
 
 .ripple {
   position: absolute;
-  top: -0.15rem;
-  left: -0.15rem;
-  width: 1.35rem;
-  height: 1.35rem;
+  top: -0.25rem;
+  left: -0.25rem;
+  width: 1.4rem;
+  height: 1.4rem;
   border-radius: 50%;
   background: rgb(14 165 233 / 0.35);
   box-shadow: 0 0 0 2px rgb(14 165 233 / 0.45);
@@ -59,46 +59,48 @@
   filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.45));
 }
 
+.label {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.15rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: #0ea5e9;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgb(0 0 0 / 0.3);
+}
+
 .cursorIcon {
   display: block;
-  width: 1.55rem;
-  height: 1.55rem;
+  width: 1.6rem;
+  height: 1.6rem;
   fill: #fff;
   stroke: #111;
   stroke-width: 1.2;
   stroke-linejoin: round;
 }
 
-.caption {
-  max-width: 36rem;
-  margin: 1.15rem auto 0;
-  color: rgb(255 255 255 / 0.5);
-  font-size: 0.82rem;
-  line-height: 1.5;
-  text-align: center;
-}
-
-/* Desktop: one product shot. Laptop behind, phone in front of its left edge; sizes are percentages of the stage,
-   so the phone stays about a quarter of the laptop's width at every screen size. */
+/* Desktop: phone and laptop side by side, bottoms aligned; the phone column is a share of the stage,
+   so the phone stays slightly shorter than the laptop at every screen size. */
 @media (min-width: 1024px) {
   .stage {
-    display: block;
+    grid-template-columns: 24% minmax(0, 1fr);
+    align-items: end;
+    column-gap: clamp(1rem, 2.5vw, 2rem);
     width: 100%;
     max-width: 70rem;
     margin-inline: auto;
   }
 
-  .device[data-kind='laptop'] {
-    width: 84%;
-    max-width: none;
-    margin-left: auto;
+  .device[data-kind='phone'] {
+    width: 100%;
   }
 
-  .device[data-kind='phone'] {
-    position: absolute;
-    bottom: 0;
-    left: 3%;
-    z-index: 2;
-    width: 21%;
+  .device[data-kind='laptop'] {
+    max-width: none;
   }
 }

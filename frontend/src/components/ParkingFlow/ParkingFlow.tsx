@@ -59,13 +59,11 @@ export type ParkingFlowProps = {
   autoDuration?: number
 
   barrier?: 'auto' | 'closed'
-
-  /** Otomatik döngüde Duraklat / Oynat düğmesi (varsayılan açık). */
-  showPause?: boolean
 }
 
 const TAIL_SECONDS = 1.2
 const REPEAT_DELAY_MS = 900
+const STEP_HOLD_MS = 4000
 const pad = (value: number) => String(value).padStart(2, '0')
 
 const colors = {
@@ -93,7 +91,6 @@ export default function ParkingFlow({
   scrollLength = 1.6,
   autoDuration = 2.2,
   barrier = 'auto',
-  showPause = true,
 }: ParkingFlowProps) {
   const reduce = Boolean(useReducedMotion())
   const wide = useMediaQuery('(min-width: 1024px)')
@@ -184,8 +181,7 @@ export default function ParkingFlow({
     return Math.min(count - 1, internalActive)
   }, [mode, active, ids, count, internalActive])
 
-  const [paused, setPaused] = useState(false)
-  const running = mode === 'auto' && !reduce && inView && pageVisible && !paused && count > 0
+  const running = mode === 'auto' && !reduce && inView && pageVisible && count > 0
   const loop = useRef<Loop>({ controls: null, timer: undefined })
 
   const stopLoop = useCallback(() => {
@@ -250,9 +246,18 @@ export default function ParkingFlow({
     const target = progressForStep(index, count, id)
     if (mode === 'auto') {
       stopLoop()
-      setPaused(true)
-      if (reduce) progress.set(target)
-      else animate(progress, target, { duration: 0.9, ease: revealEase })
+      if (reduce) {
+        progress.set(target)
+        return
+      }
+      // Hold on the chosen step, then let the loop carry on from there.
+      loop.current.controls = animate(progress, target, {
+        duration: 0.9,
+        ease: revealEase,
+        onComplete: () => {
+          loop.current.timer = window.setTimeout(() => startLoop(target), STEP_HOLD_MS)
+        },
+      })
       return
     }
 
@@ -341,22 +346,9 @@ export default function ParkingFlow({
         ) : null}
         <p className={styles.srOnly}>{text.sceneDescription}</p>
 
-        {caption || (mode === 'auto' && !reduce && showPause) ? (
+        {caption ? (
           <div className={styles.footer}>
-            {caption ? <figcaption className={styles.caption}>{caption}</figcaption> : <span />}
-            {mode === 'auto' && !reduce && showPause ? (
-              <button
-                type="button"
-                className={styles.toggle}
-                aria-label={paused ? text.play : text.pause}
-                onClick={() => setPaused((value) => !value)}
-              >
-                <svg viewBox="0 0 16 16" className={styles.toggleIcon} fill="currentColor" aria-hidden="true">
-                  {paused ? <path d="M5 3.2v9.6L12.6 8z" /> : <path d="M4.5 3h2.2v10H4.5zM9.3 3h2.2v10H9.3z" />}
-                </svg>
-                <span aria-hidden="true">{paused ? text.playShort : text.pauseShort}</span>
-              </button>
-            ) : null}
+            <figcaption className={styles.caption}>{caption}</figcaption>
           </div>
         ) : null}
 

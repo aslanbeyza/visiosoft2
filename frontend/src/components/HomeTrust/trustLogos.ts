@@ -20,8 +20,8 @@ const curated: CuratedLogo[] = [
   { file: 'Sarıyer Belediyesi.png', size: [139, 125], crop: [14, 13, 112, 102], width: 36 },
   { file: 'eyupsultan belediyesi.png', size: [111, 175], crop: [14, 13, 83, 148], width: 20 },
   { file: 'Buyukcekmece Belediyesi.png', size: [138, 126], crop: [10, 14, 114, 98], width: 36 },
-  { file: 'YTÜ.png', size: [123, 67], crop: [14, 12, 96, 42], width: 54 },
-  { file: 'ytü Yıldız teknopark.png', size: [134, 54], crop: [14, 14, 106, 26], width: 66 },
+  { file: 'YTÜ.png', size: [480, 96], crop: [0, 0, 480, 96], width: 72 },
+  { file: 'ytü Yıldız teknopark.png', size: [480, 121], crop: [0, 0, 480, 121], width: 66 },
   { file: 'Crowne Plaza.png', size: [141, 72], crop: [13, 14, 114, 45], width: 60 },
   { file: 'İstanbul Akvaryum.png', size: [121, 93], crop: [13, 14, 94, 65], width: 44 },
 

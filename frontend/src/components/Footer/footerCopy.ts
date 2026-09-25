@@ -1,17 +1,11 @@
-/** Alt bilginin Türkçe metinleri. Bağlantılar `siteNav.ts`, iletişim bilgileri `company.ts` içindedir. */
+/** Footer texts. Links live in `siteNav.ts`, contact details in `company.ts`. */
 export const footerCopy = {
   title: 'Site alt bilgisi',
-  homeLabel: 'Visiosoft ana sayfa',
-  statement: 'Plaka tanıma, ödeme, bariyer ve otopark yazılımını tek altyapıda geliştiriyoruz.',
-  contactTitle: 'İletişim',
+  contactLead: 'Satış ve destek',
   whatsappLabel: 'WhatsApp',
-  callLabel: 'Arayın',
-  emailLabel: 'E-posta',
-  allContact: 'Tüm iletişim bilgileri',
   newTab: '(yeni sekmede açılır)',
   navLabel: 'Alt bilgi menüsü',
-  locationsTitle: 'Lokasyonlarımız',
+  companyFacts: 'Şirket bilgileri',
   legalLabel: 'Yasal bağlantılar',
   rights: 'Tüm hakları saklıdır.',
-  backToTop: 'Başa dön',
 } as const

@@ -420,40 +420,6 @@
   font-size: 0.8rem;
 }
 
-.pause {
-  display: inline-flex;
-  flex: none;
-  align-items: center;
-  gap: 0.4rem;
-
-  min-height: 2.75rem;
-  padding: 0 0.95rem;
-  border: 1px solid var(--color-corp-line);
-  border-radius: 0.5rem;
-  background: #fff;
-  color: var(--color-corp-ink);
-  font: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color 0.35s var(--ease-apple);
-}
-
-.pause svg {
-  width: 0.9rem;
-  height: 0.9rem;
-  fill: currentColor;
-}
-
-.pause:hover {
-  border-color: var(--color-navy-300);
-}
-
-.pause:focus-visible {
-  outline: 2px solid var(--color-navy-600);
-  outline-offset: 3px;
-}
-
 @media (min-width: 768px) {
   .box {
     aspect-ratio: 1000 / 600;
@@ -560,8 +526,7 @@
   .tab,
   .mark,
   .wire,
-  .node,
-  .pause {
+  .node {
     transition: none;
   }
 }

@@ -23,7 +23,6 @@ export default function DetailPlacement({ placement }: DetailPlacementProps) {
           steps={parkingFlowSteps}
           mode="auto"
           pin={false}
-          showPause={false}
           highlight={placement.device}
           highlightLabel={placement.deviceLabel}
           tone="dark"

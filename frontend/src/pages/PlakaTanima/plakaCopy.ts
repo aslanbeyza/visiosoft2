@@ -39,7 +39,6 @@ export const plakaCopy = {
     figureLabel: 'Plaka okuma çizimi',
     figureDescription: (condition: string) =>
       `${condition} koşulunda kamera görüntüsündeki plaka bulunur, karakterler okunur ve kayıt onaylanır.`,
-    note: 'Temsilî çizim; plaka karakterleri gizlenmiştir.',
   },
   speed: {
     eyebrow: 'Performans',

@@ -359,13 +359,6 @@
   background: var(--color-success);
 }
 
-.caption {
-  margin-top: 0.9rem;
-  color: var(--color-corp-muted);
-  font-size: 0.78rem;
-  line-height: 1.5;
-}
-
 .srOnly {
   position: absolute;
   width: 1px;

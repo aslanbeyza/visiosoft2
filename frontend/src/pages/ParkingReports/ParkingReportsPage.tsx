@@ -1,7 +1,7 @@
 import Button from '../../components/Button/index.ts'
 import ChipList from '../../components/ChipList/index.ts'
 import CountUp from '../../components/CountUp/index.ts'
-import DeviceFrame from '../../components/DeviceFrame/index.ts'
+import LaptopMockup from '../../components/LaptopMockup/index.ts'
 import Faq from '../../components/Faq/index.ts'
 import FeatureGrid from '../../components/FeatureGrid/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
@@ -88,11 +88,11 @@ export default function ParkingReportsPage() {
           {group.anchor === 'finansal' ? (
             <div className={styles.finance}>
               {onLaptop ? (
-                <DeviceFrame kind="laptop" className={styles.laptop}>
+                <LaptopMockup className={styles.laptop}>
                   <div className={styles.laptopViewport}>
                     <FinanceSummaryDemo className={styles.inScreen} />
                   </div>
-                </DeviceFrame>
+                </LaptopMockup>
               ) : (
                 <FinanceSummaryDemo />
               )}

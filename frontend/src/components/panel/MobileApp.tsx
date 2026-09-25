@@ -790,7 +790,8 @@ function TapHint({ className }: { className?: string }) {
   return (
     <span className={cx('phone-tap-hint pointer-events-none absolute z-20', className)} aria-hidden>
       <span className="phone-tap-ring" />
-      <svg className="phone-tap-hand" viewBox="0 0 32 32" width="28" height="28" fill="currentColor">
+      <span className="phone-tap-label">Dokunun</span>
+      <svg className="phone-tap-hand" viewBox="0 0 32 32" width="40" height="40" fill="currentColor">
         <path d="M14.2 3.2c-.9 0-1.6.7-1.6 1.6v10.2l-2.1-1.5a1.8 1.8 0 0 0-2.5.4l-.3.4a1.8 1.8 0 0 0 .4 2.5l5.6 4.1c.5.4 1.1.6 1.7.6h5.2a3.2 3.2 0 0 0 3.2-3.1V12a1.8 1.8 0 0 0-1.8-1.8h-.2V8.2c0-.9-.7-1.6-1.6-1.6-.3 0-.6.1-.9.2V4.8c0-.9-.7-1.6-1.6-1.6-.3 0-.6.1-.9.2V4.8c0-.9-.7-1.6-1.6-1.6z" />
       </svg>
     </span>

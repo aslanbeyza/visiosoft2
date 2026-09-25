@@ -160,6 +160,50 @@ export const footerGroups: FooterGroup[] = [
   },
 ]
 
+/** Compact footer directory: at most six links per column. The full lists above feed the sitemap page. */
+export const footerColumns: FooterGroup[] = [
+  {
+    title: 'Ürünler',
+    links: [
+      { route: 'alpr.index', label: 'Plaka Tanıma' },
+      { route: 'software-products', label: 'Park Yazılım' },
+      { route: 'hardware-products', label: 'Donanım' },
+      { route: 'hgs', label: 'HGS Ödeme' },
+      { route: 'mobil-abonelik', label: 'Mobil Abonelik' },
+    ],
+  },
+  {
+    title: 'Çözümler',
+    links: [
+      { route: 'end-to-end', label: 'Uçtan Uca Sistem' },
+      { route: 'website-pricing', label: 'Site Otopark Yönetimi' },
+      { route: 'on-street', label: 'Yol Üstü Parklandırma' },
+      { route: 'parking-violations', label: 'İşgaliye ve Park Ceza' },
+      { route: 'parking-reports', label: 'Raporlar' },
+      { route: 'comparison', label: 'Karşılaştırma' },
+    ],
+  },
+  {
+    title: 'Şirket',
+    links: [
+      { route: 'team', label: 'Hakkımızda' },
+      { route: 'references', label: 'Referanslar' },
+      { route: 'services', label: 'Hizmetlerimiz' },
+      { route: 'blog.index', label: 'Blog' },
+      { route: 'contact', label: 'İletişim' },
+    ],
+  },
+  {
+    title: 'Destek',
+    links: [
+      { route: 'field-manual', label: 'Saha Kullanım Kılavuzu' },
+      { route: 'glossary', label: 'Otopark Terimleri' },
+      { route: 'developers', label: 'Geliştiriciler' },
+      { route: 'bank-accounts', label: 'Banka Hesapları' },
+    ],
+  },
+]
+
 export const legalLinks = [
   { route: 'legal.privacy', label: 'Gizlilik Politikası' },
   { route: 'legal.distance-sales', label: 'Mesafeli Satış Sözleşmesi' },

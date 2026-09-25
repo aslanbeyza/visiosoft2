@@ -27,10 +27,6 @@ export const endToEndCopy = {
     kicker: 'HEPSİ BİR ARADA',
     name: 'VISIO',
     sub: 'Otopark ve Şarj Otomasyonu',
-    pause: 'Veri akışı animasyonunu duraklat',
-    play: 'Veri akışı animasyonunu oynat',
-    pauseShort: 'Duraklat',
-    playShort: 'Oynat',
     modulePrefix: 'Modül',
   },
   modules: [

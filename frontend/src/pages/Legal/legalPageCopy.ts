@@ -1,23 +1,9 @@
 
 export const legalPageCopy = {
-
-  eyebrow: 'Yasal metinler',
-  indexLabel: 'Yasal metinler',
-  indexCaption: 'Tüm yasal metinler',
-  headingCount: (count: number) => `${count} başlık`,
-  factsLabel: 'Şirket bilgileri',
+  breadcrumbHome: 'Ana sayfa',
   contactTitle: 'Sorularınız mı var?',
   contactBody: 'Yasal metinlerle ilgili taleplerinizi e-posta ile iletebilirsiniz.',
   contactAction: 'E-posta gönderin',
-
-  documents: [
-    { route: 'legal.privacy', label: 'Gizlilik Politikası' },
-    { route: 'legal.terms', label: 'Kullanım Şartları' },
-    { route: 'legal.sales', label: 'Satış ve İadeler' },
-    { route: 'legal.distance-sales', label: 'Mesafeli Satış Sözleşmesi' },
-    { route: 'legal.return-policy', label: 'İade Politikası' },
-    { route: 'legal.legal', label: 'Yasal Bilgiler' },
-  ],
 
   leads: {
     'legal.privacy':

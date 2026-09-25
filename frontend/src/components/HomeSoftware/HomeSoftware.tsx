@@ -18,30 +18,27 @@ export default function ZoneStage() {
   const [onboard, setOnboard] = useState(true)
 
   return (
-    <>
-      <div
-        ref={mediaRef}
-        className={styles.stage}
-        aria-label={text.devicesLabel}
-        onPointerDown={() => setOnboard(false)}
+    <div
+      ref={mediaRef}
+      className={styles.stage}
+      aria-label={text.devicesLabel}
+      onPointerDown={() => setOnboard(false)}
+    >
+      <DeviceChrome kind="phone" title={text.phoneLabel} visible={mediaInView} reduce={Boolean(reduce)}>
+        <Suspense fallback={null}>
+          <ParkBizPhoneApp />
+        </Suspense>
+      </DeviceChrome>
+      <DeviceChrome
+        kind="laptop"
+        title={text.laptopLabel}
+        visible={mediaInView}
+        reduce={Boolean(reduce)}
+        onboard={onboard && mediaInView}
       >
-        <DeviceChrome kind="phone" title={text.phoneLabel} visible={mediaInView} reduce={Boolean(reduce)}>
-          <Suspense fallback={null}>
-            <ParkBizPhoneApp />
-          </Suspense>
-        </DeviceChrome>
-        <DeviceChrome
-          kind="laptop"
-          title={text.laptopLabel}
-          visible={mediaInView}
-          reduce={Boolean(reduce)}
-          onboard={onboard && mediaInView}
-        >
-          <PartnerPanelTour />
-        </DeviceChrome>
-      </div>
-      <p className={styles.caption}>{text.note}</p>
-    </>
+        <PartnerPanelTour />
+      </DeviceChrome>
+    </div>
   )
 }
 
@@ -104,6 +101,7 @@ function OnboardCursor() {
           <path d="M5.2 3.4 18 13.1l-6.2.4 3.4 7.3-2.4 1.1-3.4-7.2-4.2 3.6z" />
         </svg>
       </motion.span>
+      <span className={styles.label}>{text.interactiveHint}</span>
     </motion.div>
   )
 }

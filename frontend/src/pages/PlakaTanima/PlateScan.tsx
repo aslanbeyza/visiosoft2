@@ -123,10 +123,7 @@ export default function PlateScan() {
             {copy.accuracy}
           </motion.p>
         </motion.div>
-        <figcaption className={styles.caption}>
-          <span className={styles.srOnly}>{copy.figureDescription(condition.label)} </span>
-          {copy.note}
-        </figcaption>
+        <figcaption className={styles.srOnly}>{copy.figureDescription(condition.label)}</figcaption>
       </figure>
     </div>
   )

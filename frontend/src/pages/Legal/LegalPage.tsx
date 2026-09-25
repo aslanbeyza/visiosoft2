@@ -1,16 +1,16 @@
 import PageHero from '../../components/PageHero/index.ts'
 import Seo from '../../components/Seo/index.ts'
+import { usePath } from '../../hooks/usePath/index.ts'
 import LegalBody from './LegalBody.tsx'
-import LegalIndex from './LegalIndex.tsx'
 import { legalPages } from './legalCopy.ts'
 import { legalPageCopy as copy } from './legalPageCopy.ts'
 
 export default function LegalPage({ routeName }: { routeName: string }) {
+  const path = usePath()
   const page = legalPages[routeName]
   if (!page) return null
 
   const lead = copy.leads[routeName] ?? page.description
-  const headingCount = page.blocks.filter((block) => block.type === 'h2').length
 
   return (
     <>
@@ -18,10 +18,9 @@ export default function LegalPage({ routeName }: { routeName: string }) {
       <PageHero
         variant="centered"
         tone="surface"
-        eyebrow={copy.eyebrow}
+        breadcrumbs={[{ label: copy.breadcrumbHome, to: path('home') }, { label: page.title }]}
         title={page.title}
         lead={lead}
-        aside={<LegalIndex active={routeName} headingCount={headingCount} />}
       />
       <LegalBody page={page} />
     </>

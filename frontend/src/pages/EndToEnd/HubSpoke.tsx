@@ -19,11 +19,10 @@ export default function HubSpoke() {
   const inView = useInView(rootRef, { amount: 0.1 })
   const pageVisible = usePageVisible()
   const [active, setActive] = useState(0)
-  const [paused, setPaused] = useState(false)
   const baseId = useId()
 
   const show = drawn || reduce
-  const running = !reduce && drawn && inView && pageVisible && !paused
+  const running = !reduce && drawn && inView && pageVisible
   const current = modules[active]
   const panelId = `${baseId}-panel`
   const tabId = (index: number) => `${baseId}-tab-${index}`
@@ -143,19 +142,6 @@ export default function HubSpoke() {
 
         <div className={styles.controls}>
           <p className={styles.hint}>{hub.hint}</p>
-          {reduce ? null : (
-            <button
-              type="button"
-              className={styles.pause}
-              aria-label={paused ? hub.play : hub.pause}
-              onClick={() => setPaused((value) => !value)}
-            >
-              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                {paused ? <path d="M5 3.5v9l7-4.5z" /> : <path d="M5 3.5h2v9H5zM9 3.5h2v9H9z" />}
-              </svg>
-              <span>{paused ? hub.playShort : hub.pauseShort}</span>
-            </button>
-          )}
         </div>
       </div>
     </div>

@@ -1,5 +1,23 @@
 # React + TypeScript + Vite
 
+## Geçici olarak gizlenen özellikler
+
+### VisiGuide (ana sayfa rehber asistanı)
+
+Ana sayfanın sol alt köşesindeki `<vs-guide>` rehber asistanı şimdilik yayından kaldırıldı; ileride tekrar eklenecek.
+
+- Kod silinmedi: `src/components/VisiGuide/` olduğu gibi duruyor.
+- Yalnızca `src/pages/Home/Home.tsx` içindeki import ve `<VisiGuide />` satırı çıkarıldı.
+- Geri açmak için `Home.tsx`'e şunları ekleyin:
+
+```tsx
+import VisiGuide from '../../components/VisiGuide/index.ts'
+
+// ...
+<HomeReady />
+<VisiGuide />
+```
+
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
 Currently, two official plugins are available:

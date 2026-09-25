@@ -87,6 +87,10 @@
     align-items: start;
   }
 
+  .hero[data-pin='true'] .flowCell {
+    --pf-stage-align: center;
+  }
+
   .hero[data-pin='true'] .copyCell {
     position: sticky;
     top: 0;

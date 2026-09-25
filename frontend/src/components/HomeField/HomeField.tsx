@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
@@ -19,7 +19,7 @@ const ITEMS = [
 const COUNT = ITEMS.length
 const LOOPS = 2
 const SPAN = COUNT * LOOPS
-const STORY = 96
+const STORY = 54
 const SPRING = { stiffness: 92, damping: 26, mass: 0.4 }
 
 function wrapOff(index: number, fly: number, count: number) {
@@ -78,8 +78,6 @@ export default function HomeField() {
   const desktopRef = useRef(isDesktop)
   desktopRef.current = isDesktop
   const storyRef = useRef<HTMLDivElement>(null)
-  const stageRef = useRef<HTMLDivElement>(null)
-  const hintRef = useRef<HTMLParagraphElement>(null)
   const slotRefs = useRef<(HTMLDivElement | null)[]>([])
   const progressRef = useRef(0)
   const { scrollYProgress } = useScroll({ target: storyRef, offset: ['start start', 'end end'] })
@@ -92,7 +90,7 @@ export default function HomeField() {
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
     if (!desktopRef.current) return
     progressRef.current = value
-    setHasScrolled(value > 0.02)
+    setHasScrolled(value > 0.92)
   })
 
   useMotionValueEvent(fly, 'change', (value) => {
@@ -105,24 +103,6 @@ export default function HomeField() {
     setActive((prev) => (prev === next ? prev : next))
     setStepLocal(Math.max(0, Math.min(1, wrapped - next)))
   })
-
-  useLayoutEffect(() => {
-    const stage = stageRef.current
-    const hint = hintRef.current
-    if (!stage || !hint || !isDesktop) return
-    const align = () => {
-      const label = stage.querySelector<HTMLElement>(`[data-state="active"] .${styles.label}`)
-      if (!label) return
-      const stageBox = stage.getBoundingClientRect()
-      const labelBox = label.getBoundingClientRect()
-      const top = labelBox.top - stageBox.top + (labelBox.height - hint.offsetHeight) / 2
-      hint.style.top = `${top}px`
-    }
-    align()
-    const observer = new ResizeObserver(align)
-    observer.observe(stage)
-    return () => observer.disconnect()
-  }, [active, isDesktop])
 
   const prevIndex = (active - 1 + COUNT) % COUNT
   const tickFill = Math.max(stepLocal, 0.08)
@@ -165,10 +145,10 @@ export default function HomeField() {
           style={{ '--story': STORY } as CSSProperties}
         >
           <div className={styles.sticky}>
-            <div ref={stageRef} className={styles.stage}>
+            <div className={styles.stage}>
               <p className={styles.kicker}>{text.eyebrow}</p>
               <h2 id={text.titleId} className={styles.headline}>{text.title}</h2>
-              <p ref={hintRef} className={styles.hint} data-hidden={hasScrolled ? 'true' : 'false'}>
+              <p className={styles.hint} data-hidden={hasScrolled ? 'true' : 'false'}>
                 <span className={styles.chevrons} aria-hidden="true">
                   {[0, 1, 2].map((index) => (
                     <svg key={index} className={styles.chevron} viewBox="0 0 16 8">

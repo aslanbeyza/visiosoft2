@@ -1,25 +1,26 @@
-/* Kurumsal alt bilgi: en koyu lacivert zemin, beyaz metin, 1px ayraçlar, alt kenarda dev ve soluk logo. */
+/* Footer: darkest navy, small muted type, hairline dividers and a large faint wordmark along the bottom edge. */
 .footer {
   --footer-width: min(80rem, calc(100% - 2rem));
-  --footer-gap: 2rem;
   --footer-line: rgb(255 255 255 / 0.12);
-  --footer-text: rgb(255 255 255 / 0.7);
+  --footer-text: rgb(255 255 255 / 0.78);
   --footer-muted: rgb(255 255 255 / 0.56);
 
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  /* Alt boşluk logonun yaklaşık yarı yüksekliği kadardır (logo oranı 385 / 1648); mobilde WhatsApp düğmesine yer bırakır. */
-  padding-block: clamp(4rem, 8vw, 6.5rem) max(6.5rem, calc(var(--footer-width) * 0.117));
+  /* Bottom space ≈ half the wordmark height (logo ratio 385 / 1648) and keeps the legal row clear of the floating buttons. */
+  padding-block: clamp(3rem, 6vw, 4.5rem) max(calc(var(--fab-inset, 1.25rem) + var(--fab-size, 3.25rem) + 1.5rem), calc(var(--footer-width) * 0.117));
   border-top: 1px solid rgb(255 255 255 / 0.06);
   background: var(--color-navy-950);
-  color: #fff;
-  font-size: 0.9375rem;
+  color: var(--footer-text);
+  font-size: 0.8125rem;
   line-height: 1.6;
 }
 
 .inner {
   position: relative;
+  display: grid;
+  gap: clamp(2rem, 4vw, 2.75rem);
   width: var(--footer-width);
   margin-inline: auto;
 }
@@ -36,395 +37,82 @@
   border: 0;
 }
 
-.rule {
-  position: absolute;
-  inset: 0 0 auto;
-  height: 1px;
-  background: var(--footer-line);
-  transform-origin: left center;
+/* Contact line */
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.6rem;
+  margin: 0;
+  padding-bottom: clamp(1.5rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--footer-line);
+  color: var(--footer-muted);
+  font-size: 0.9375rem;
+}
+
+.contactLead {
+  color: #fff;
+  font-weight: 600;
+}
+
+.inline {
+  color: #fff;
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+.inline:hover {
+  text-decoration: underline;
+}
+
+/* Link directory: columns fill the width with no media query (min 9rem per column → 2 on phones, 4 on desktop). */
+.nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+  gap: 2rem clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.column {
+  min-width: 0;
 }
 
 .heading {
-  margin: 0 0 1.25rem;
-  color: var(--color-navy-300);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  line-height: 1.4;
-  text-transform: uppercase;
-}
-
-/* Üst satır: marka ve iletişim */
-.top {
-  display: grid;
-  gap: 3rem;
-  padding-bottom: clamp(3rem, 6vw, 4.5rem);
-}
-
-.brand,
-.contact {
-  min-width: 0;
-}
-
-/* 28px logo, 44px dokunma hedefi içinde dikey ortalanır; aşağıdaki cümle aralığı bu farkı dengeler. */
-.brandLink {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.75rem;
-  border-radius: 0.25rem;
-}
-
-.brandLogo {
-  display: block;
-  width: auto;
-  height: 1.75rem;
-  filter: brightness(0) invert(1);
-}
-
-.statement {
-  max-width: 24ch;
-  margin: 1.25rem 0 0;
+  margin: 0 0 0.75rem;
   color: #fff;
-  font-size: clamp(1.45rem, 1.2vw + 1.05rem, 2.125rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.22;
-  text-wrap: balance;
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 2rem;
-}
-
-/*
- * Sayfa kendi çağrı bandıyla bitiyorsa (CtaBand / HomeCta → data-page-cta) aynı iki düğme footer'da tekrarlanmaz.
- * Footer MainLayout'ta main'in kardeşidir; yalnızca sayfa içeriğindeki bant sayılır. :has desteklenmezse düğmeler görünür kalır.
- */
-:global(#main-content):has([data-page-cta]) ~ .footer .actions {
-  display: none;
-}
-
-/* Düğmeler kalkınca marka bloğu yalnızca logo + cümledir; aralıklar sıkılaşır, üst satır boş görünmez. */
-:global(#main-content):has([data-page-cta]) ~ .footer .statement {
-  margin-top: 1rem;
-}
-
-:global(#main-content):has([data-page-cta]) ~ .footer .top {
-  row-gap: 2.5rem;
-}
-
-.channels {
-  display: grid;
-  gap: 1.25rem var(--footer-gap);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.channel {
-  display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr);
-  align-items: center;
-  gap: 0.875rem;
-  border-radius: 0.5rem;
-  color: #fff;
-  text-decoration: none;
-}
-
-.channelIcon {
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid var(--footer-line);
-  border-radius: 0.5rem;
-  transition:
-    border-color 0.35s var(--ease-apple),
-    background-color 0.35s var(--ease-apple);
-}
-
-.channelGlyph {
-  width: 1.15rem;
-  height: 1.15rem;
-}
-
-.channelText {
-  display: grid;
-  gap: 0.1rem;
-  min-width: 0;
-}
-
-.channelLabel {
-  color: var(--footer-muted);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.4;
-}
-
-.channelValue {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.4;
-  font-variant-numeric: tabular-nums;
-  overflow-wrap: anywhere;
-}
-
-.channelArrow {
-  display: inline-block;
-  width: 0.875rem;
-  height: 0.875rem;
-  margin-left: 0.35rem;
-  color: var(--footer-muted);
-  vertical-align: -0.08em;
-  transition:
-    transform 0.35s var(--ease-apple),
-    color 0.35s var(--ease-apple);
-}
-
-.channel:hover .channelIcon {
-  border-color: rgb(154 161 227 / 0.6);
-  background: rgb(255 255 255 / 0.06);
-}
-
-.channel:hover .channelArrow {
-  color: #fff;
-  transform: translate(2px, -2px);
-}
-
-.more {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 2.75rem;
-  margin-top: 1.25rem;
-  border-radius: 0.25rem;
-  color: #fff;
-  font-size: 0.9375rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1.4;
-  text-decoration: none;
-}
-
-.moreText {
-  position: relative;
-}
-
-.moreArrow {
-  flex: none;
-  width: 1rem;
-  height: 1rem;
-  transition: transform 0.35s var(--ease-apple);
-}
-
-.more:hover .moreArrow {
-  transform: translateX(3px);
-}
-
-/* Bağlantı grupları */
-.nav {
-  position: relative;
-  padding-bottom: 2.5rem;
-}
-
-.groups {
-  display: grid;
-}
-
-.group {
-  min-width: 0;
 }
 
 .links {
   display: grid;
-  justify-items: start;
+  gap: 0.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* 44px dokunma hedefi; metin dikeyde ortalanır, alt çizgi metnin hemen altında kalır. */
 .link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.75rem;
-  padding-block: 0.3rem;
-  color: var(--footer-text);
-  font-size: 0.9375rem;
-  line-height: 1.45;
+  color: var(--footer-muted);
   text-decoration: none;
-  transition: color 0.35s var(--ease-apple);
+  transition: color 0.25s var(--ease-apple);
 }
 
-.link::after,
-.moreText::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: calc(50% - 0.825em);
-  left: 0;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right center;
-  transition: transform 0.45s var(--ease-apple);
-}
-
-.moreText::after {
-  bottom: -0.1rem;
-}
-
-.link:hover {
-  color: #fff;
-}
-
-.link:hover::after,
-.more:hover .moreText::after {
-  transform: scaleX(1);
-  transform-origin: left center;
-}
-
+.link:hover,
 .link[aria-current='page'] {
   color: #fff;
 }
 
-.link[aria-current='page']::after {
-  background: var(--color-navy-300);
-  transform: scaleX(1);
-}
-
-/* 640px altı: akordeon */
-.details {
-  border-bottom: 1px solid var(--footer-line);
-}
-
-.summary {
-  display: block;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  list-style: none;
-}
-
-.summary::-webkit-details-marker {
-  display: none;
-}
-
-.summaryInner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 3.5rem;
-  color: #fff;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.chevron {
-  flex: none;
-  width: 1.1rem;
-  height: 1.1rem;
-  color: var(--footer-muted);
-  transition: transform 0.35s var(--ease-apple);
-}
-
-.details[open] .chevron {
-  transform: rotate(180deg);
-}
-
-.details .links {
-  padding-bottom: 1.25rem;
-}
-
-.details[open] .links {
-  animation: fold-in 0.45s var(--ease-apple) both;
-}
-
-@keyframes fold-in {
-  from {
-    opacity: 0;
-    transform: translateY(-0.5rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Lokasyonlar */
-.locations {
-  position: relative;
-  padding-block: clamp(2.5rem, 5vw, 3.5rem);
-}
-
-.address {
-  font-style: normal;
-}
-
-.locationList {
-  display: grid;
-  gap: 1.5rem var(--footer-gap);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/*
- * Satırdaki en uzun adres li'leri eşit yüksekliğe uzatır; align-content: start olmazsa kısa adresli
- * sütunda fazla boşluk etiket satırına dağılır ve ortalanan pin + etiket aşağı kayar (#71, Teknopark).
- */
-.location {
-  display: grid;
-  align-content: start;
-  gap: 0.35rem;
-  min-width: 0;
-}
-
-.locationLabel {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #fff;
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.pin {
-  flex: none;
-  width: 1rem;
-  height: 1rem;
-  color: var(--color-navy-300);
-}
-
-.locationAddress {
-  max-width: 36ch;
-  padding-left: 1.5rem;
-  color: var(--footer-muted);
-  font-size: 0.8125rem;
-  line-height: 1.6;
-}
-
-/* Alt çubuk */
+/* Legal row */
 .bottom {
-  position: relative;
-  padding-top: 1.75rem;
-}
-
-.bottomGrid {
-  display: grid;
-  gap: 1rem;
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--footer-line);
   color: var(--footer-muted);
-  font-size: 0.8125rem;
-  line-height: 1.5;
 }
 
 .copyright {
@@ -435,56 +123,13 @@
 .legal {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 1.5rem;
+  gap: 0.35rem 1.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.legalLink {
-  padding-block: 0;
-  color: var(--footer-muted);
-  font-size: 0.8125rem;
-}
-
-.toTop {
-  display: inline-flex;
-  align-items: center;
-  justify-self: start;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0 0.9rem;
-  border: 1px solid var(--footer-line);
-  border-radius: 0.5rem;
-  background: transparent;
-  color: #fff;
-  font: inherit;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    border-color 0.35s var(--ease-apple),
-    background-color 0.35s var(--ease-apple);
-}
-
-.toTop:hover {
-  border-color: rgb(255 255 255 / 0.35);
-  background: rgb(255 255 255 / 0.06);
-}
-
-.toTopIcon {
-  flex: none;
-  width: 0.95rem;
-  height: 0.95rem;
-  transition: transform 0.35s var(--ease-apple);
-}
-
-.toTop:hover .toTopIcon {
-  transform: translateY(-2px);
-}
-
-/* Dev logo: tıklamayı engellemez, yatay taşma yaratmaz (genişlik kapsayıcıyla sınırlı, footer overflow gizli). */
+/* Wordmark: never blocks clicks, never overflows (width tied to the container, footer overflow hidden). */
 .wordmark {
   position: absolute;
   right: 0;
@@ -506,126 +151,16 @@
   -webkit-user-drag: none;
 }
 
-/* Klavye odağı: koyu zeminde beyaz halka */
-.brandLink:focus-visible,
-.channel:focus-visible,
-.more:focus-visible,
-.link:focus-visible,
-.summary:focus-visible,
-.toTop:focus-visible {
+.inline:focus-visible,
+.link:focus-visible {
+  border-radius: 0.2rem;
   outline: 2px solid #fff;
   outline-offset: 3px;
 }
 
-.link:focus-visible {
-  border-radius: 0.25rem;
-}
-
-@media (min-width: 640px) {
-  .channels {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .nav {
-    padding-block: clamp(2.75rem, 5vw, 4rem);
-  }
-
-  .groups {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2.75rem var(--footer-gap);
-  }
-
-  .locationList {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.75rem var(--footer-gap);
-  }
-
-  .bottomGrid {
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 2rem;
-  }
-
-  .copyright {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .toTop {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
-  }
-
-  .legalNav {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-}
-
-@media (min-width: 768px) {
-  .footer {
-    --footer-width: min(80rem, calc(100% - 3rem));
-    --footer-gap: 2.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .top {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    align-items: end;
-    column-gap: var(--footer-gap);
-  }
-
-  .brand,
-  .contact {
-    grid-column: span 2;
-  }
-
-  .groups {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .locationList {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .bottomGrid {
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    column-gap: 2.5rem;
-  }
-
-  .legalNav {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .toTop {
-    grid-column: 3;
-  }
-}
-
-/* 1024–1279px arası iletişim sütunu dar kalır; kanallar tek sütuna iner ki e-posta ve numara bölünmesin. */
-@media (min-width: 1024px) and (max-width: 1279.98px) {
-  .channels {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .channelIcon,
-  .channelArrow,
-  .moreArrow,
-  .link,
-  .link::after,
-  .moreText::after,
-  .chevron,
-  .toTop,
-  .toTopIcon {
+  .link {
     transition: none;
-  }
-
-  .details[open] .links {
-    animation: none;
   }
 }
 
@@ -636,8 +171,7 @@
 }
 
 @media print {
-  .wordmark,
-  .toTop {
+  .wordmark {
     display: none;
   }
 }
