@@ -126,7 +126,16 @@ function ScrollExplode({ variant }: { variant: ExplodeVariant }) {
                 ))}
               </div>
 
-              <p className={styles.hint}>{copy.hint}</p>
+              <p className={styles.hint} data-hidden={phase === phaseCount - 1 ? 'true' : 'false'}>
+                <span className={styles.chevrons} aria-hidden="true">
+                  {[0, 1, 2].map((index) => (
+                    <svg key={index} className={styles.chevron} viewBox="0 0 16 8">
+                      <path d="M1.6 1.4 L8 6.1 L14.4 1.4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  ))}
+                </span>
+                <span className={styles.srOnly}>{copy.hint}</span>
+              </p>
             </div>
 
             <PartCards variant={variant} className={styles.cards} />

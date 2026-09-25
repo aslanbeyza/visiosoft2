@@ -1,7 +1,6 @@
 import Button from '../../components/Button/index.ts'
 import ChipList from '../../components/ChipList/index.ts'
 import CountUp from '../../components/CountUp/index.ts'
-import LaptopMockup from '../../components/LaptopMockup/index.ts'
 import Faq from '../../components/Faq/index.ts'
 import FeatureGrid from '../../components/FeatureGrid/index.ts'
 import PageHero from '../../components/PageHero/index.ts'
@@ -9,7 +8,6 @@ import Reveal from '../../components/Reveal/index.ts'
 import Section from '../../components/Section/index.ts'
 import SectionHeading from '../../components/SectionHeading/index.ts'
 import Seo from '../../components/Seo/index.ts'
-import { useMediaQuery } from '../../hooks/useMediaQuery/index.ts'
 import { usePath } from '../../hooks/usePath/index.ts'
 import FinanceSummaryDemo from './FinanceSummaryDemo.tsx'
 import ReportDeck from './ReportDeck.tsx'
@@ -43,7 +41,6 @@ const deckCards: DeckCard[] = [
 
 export default function ParkingReportsPage() {
   const path = usePath()
-  const onLaptop = useMediaQuery('(min-width: 1024px)')
 
   return (
     <>
@@ -87,15 +84,7 @@ export default function ParkingReportsPage() {
 
           {group.anchor === 'finansal' ? (
             <div className={styles.finance}>
-              {onLaptop ? (
-                <LaptopMockup className={styles.laptop}>
-                  <div className={styles.laptopViewport}>
-                    <FinanceSummaryDemo className={styles.inScreen} />
-                  </div>
-                </LaptopMockup>
-              ) : (
-                <FinanceSummaryDemo />
-              )}
+              <FinanceSummaryDemo />
             </div>
           ) : null}
 

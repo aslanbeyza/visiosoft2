@@ -231,7 +231,30 @@
   opacity: 0.45;
 }
 
+/* phone: six products are wider than the screen, so the row scrolls sideways instead of being clipped */
 @media (max-width: 767.98px) {
+  /* the scroller clips vertically too: the top padding keeps room for the rise and the hover lift,
+     and the matching negative margin keeps the row where it sat */
+  .row {
+    justify-content: flex-start;
+    gap: 1.25rem;
+    margin-top: -2.5rem;
+    padding: 2.5rem 1rem 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: none;
+  }
+
+  .row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item {
+    scroll-snap-align: center;
+  }
+
   .name {
     position: absolute;
     width: 1px;

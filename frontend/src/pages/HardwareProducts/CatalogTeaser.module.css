@@ -131,3 +131,39 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* phone: the vw-based sizes bottom out too small to read, so the sheets and their text get a larger floor */
+@media (max-width: 767px) {
+  .stack {
+    min-height: 20rem;
+  }
+
+  .sheet {
+    width: 12rem;
+    padding: 0.75rem;
+  }
+
+  .sheetImage {
+    inset: 4%;
+    width: 92%;
+    height: 92%;
+  }
+
+  .sheetRow {
+    padding-block: 0.12rem;
+  }
+
+  .sheetHead,
+  .sheetEyebrow {
+    font-size: 0.55rem;
+  }
+
+  .sheetName {
+    font-size: 0.8rem;
+  }
+
+  .sheetDims,
+  .sheetRow {
+    font-size: 0.52rem;
+  }
+}
