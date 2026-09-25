@@ -93,8 +93,10 @@ export default function MobileMenu({ id, items, current, reduce, sheetRef, onNav
               const primary = kind === 'hardware' ? split.cards : item.menu
               const accessories = kind === 'hardware' ? split.accessories : []
               const cta = menuCtas[kind]
+              const extraLink = menuIntros[kind].extraLink
               const footLinks = [
                 { to: path(item.route), label: menuIntros[kind].linkLabel, active: item.route === current },
+                ...(extraLink ? [{ to: path(extraLink.route), label: extraLink.label, active: extraLink.route === current }] : []),
                 { to: path(cta.route), label: cta.linkLabel, active: cta.route === current },
               ]
 

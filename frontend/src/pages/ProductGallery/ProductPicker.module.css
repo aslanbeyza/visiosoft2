@@ -1,0 +1,132 @@
+/* while the chosen model is still arriving */
+[aria-busy='true'] .product[aria-pressed='true'] {
+  opacity: 0.6;
+}
+
+.products {
+  display: grid;
+  gap: 0.25rem;
+  color: #fff;
+}
+
+.product {
+  display: grid;
+  gap: 0.125rem;
+  width: 100%;
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-left: 2px solid rgb(255 255 255 / 0.2);
+  color: rgb(255 255 255 / 0.72);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 0.25s var(--ease-apple),
+    border-color 0.25s var(--ease-apple);
+}
+
+.product b {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.product span {
+  font-size: 0.8125rem;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.product:hover,
+.product[aria-pressed='true'] {
+  color: #fff;
+}
+
+.product[aria-pressed='true'] {
+  border-color: #fff;
+}
+
+.points {
+  display: grid;
+  gap: 0.125rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: rgb(10 11 20 / 0.55);
+  backdrop-filter: blur(12px);
+}
+
+.point {
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.5rem;
+  color: rgb(255 255 255 / 0.8);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease-apple);
+}
+
+.point b {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+/* the description opens under the point being read only */
+.point span {
+  display: none;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.72);
+}
+
+.point:hover {
+  background: rgb(255 255 255 / 0.08);
+}
+
+.point[aria-pressed='true'] {
+  background: rgb(255 255 255 / 0.14);
+  color: #fff;
+}
+
+.point[aria-pressed='true'] span {
+  display: block;
+}
+
+.product:focus-visible,
+.point:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* phone: products become one scrolling row above the model */
+@media (max-width: 767px) {
+  .products {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .products > li {
+    flex: 0 0 auto;
+  }
+
+  .product {
+    padding: 0.5rem 0.875rem;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    border-radius: 999px;
+    background: rgb(10 11 20 / 0.45);
+  }
+
+  .product b {
+    font-size: 0.875rem;
+  }
+
+  .product span {
+    display: none;
+  }
+
+  .product[aria-pressed='true'] {
+    border-color: #fff;
+    background: #fff;
+    color: var(--color-corp-ink);
+  }
+}

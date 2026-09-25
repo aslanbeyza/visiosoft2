@@ -1,0 +1,104 @@
+/* matches the fixed navbar's height (Navbar.module.css), which the page sits under */
+.gallery {
+  --gallery-nav: 4rem;
+
+  position: relative;
+  min-height: 100svh;
+  padding-top: var(--gallery-nav);
+  overflow: hidden;
+  background: #0a0b14;
+  isolation: isolate;
+}
+
+@media (min-width: 1024px) {
+  .gallery {
+    --gallery-nav: 4.5rem;
+  }
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* the video is a bright daylight lot: darken it so the model and the white text stay readable */
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(10 11 20 / 0.85) 0%, rgb(10 11 20 / 0.6) 38%, rgb(10 11 20 / 0.5) 100%),
+    linear-gradient(180deg, rgb(10 11 20 / 0) 60%, rgb(10 11 20 / 0.6) 100%);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(16rem, 22rem) 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'products stage'
+    'points stage';
+  column-gap: 2rem;
+  row-gap: 1.25rem;
+  width: min(80rem, calc(100% - 3rem));
+  height: calc(100svh - var(--gallery-nav));
+  min-height: 34rem;
+  margin-inline: auto;
+  padding-block: clamp(1.5rem, 4vh, 3rem);
+}
+
+.products {
+  grid-area: products;
+}
+
+.points {
+  grid-area: points;
+  align-self: start;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.stage {
+  grid-area: stage;
+  position: relative;
+  min-height: 0;
+}
+
+/* vertical swipes keep scrolling the page; sideways drags turn the model */
+.canvas {
+  touch-action: pan-y;
+}
+
+.stageNote {
+  color: rgb(255 255 255 / 0.8);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/* phone: products, then the model, then its points */
+@media (max-width: 767px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 52svh auto;
+    grid-template-areas:
+      'products'
+      'stage'
+      'points';
+    width: calc(100% - 2rem);
+    height: auto;
+    min-height: 0;
+    padding-block: 1rem 2rem;
+  }
+
+  .points {
+    max-height: none;
+  }
+
+  .shade {
+    background: rgb(10 11 20 / 0.6);
+  }
+}

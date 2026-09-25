@@ -66,6 +66,17 @@ export default function MegaMenu({ id, item, current, custom, onNavigate }: Mega
             {intro.linkLabel}
             <NavIcon name="arrow" className={styles.allArrow} />
           </Link>
+          {intro.extraLink ? (
+            <Link
+              to={path(intro.extraLink.route)}
+              className={styles.allLink}
+              aria-current={pageState(intro.extraLink.route)}
+              onClick={onNavigate}
+            >
+              {intro.extraLink.label}
+              <NavIcon name="arrow" className={styles.allArrow} />
+            </Link>
+          ) : null}
 
           {kind === 'hardware' && accessories.length > 0 ? (
             <div className={styles.accessory}>

@@ -80,7 +80,8 @@
 }
 
 .allLink {
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 0.4rem;
   margin-top: 1rem;
@@ -93,6 +94,10 @@
   text-decoration: none;
   outline: none;
   transition: color 0.3s var(--ease-apple);
+}
+
+.allLink + .allLink {
+  margin-top: 0.5rem;
 }
 
 .allLink:hover {

@@ -27,6 +27,7 @@ const routeSlugs: Record<string, Record<LegacyLocale, string>> = {
     ru: 'kamera-montazhnaya-bashnya',
   },
   'hardware-products.ledli-reklam-paneli': { tr: 'ledli-reklam-paneli', en: 'led-panel', ru: 'svetodiodnaya-panel' },
+  'product-gallery': { tr: 'urun-galerisi', en: 'product-gallery', ru: 'galereya-produktov' },
   services: { tr: 'hizmetlerimiz', en: 'services', ru: 'uslugi' },
   'website-pricing': { tr: 'site-fiyatlari', en: 'website-pricing', ru: 'tseny-na-sayty' },
   'end-to-end': { tr: 'uctan-uca-sistem', en: 'end-to-end-system', ru: 'kompleksnaya-sistema' },

@@ -36,6 +36,7 @@ const groups: SitemapGroup[] = [
     links: [
       ...footerLinks('Donanım').slice(0, 1),
       { route: 'hardware-products.catalog', label: 'Donanım Kataloğu' },
+      { route: 'product-gallery', label: 'Ürün Galerisi' },
       ...footerLinks('Donanım').slice(1),
     ],
   },

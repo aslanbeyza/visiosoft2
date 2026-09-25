@@ -16,6 +16,8 @@ export type MenuIntro = {
   text: string
 
   linkLabel: string
+  /** A second page next to "all" in the menu intro, e.g. the 3D product gallery. */
+  extraLink?: { label: string; route: string }
 }
 
 export const menuIntros: Record<'hardware' | 'software', MenuIntro> = {
@@ -24,6 +26,7 @@ export const menuIntros: Record<'hardware' | 'software', MenuIntro> = {
     title: 'Sahaya uygun otopark donanımları',
     text: 'Kiosk, kontrol ünitesi, kabin ve kamera ekipmanları aynı sistemle çalışır.',
     linkLabel: 'Tüm donanımları görüntüle',
+    extraLink: { label: 'Ürün galerisi', route: 'product-gallery' },
   },
   software: {
     eyebrow: 'Park Yazılım',

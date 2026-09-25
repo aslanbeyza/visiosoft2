@@ -16,6 +16,7 @@ const BlogShow = lazy(pages.blogShow)
 const FieldManual = lazy(pages.fieldManual)
 const Glossary = lazy(pages.glossary)
 const Sitemap = lazy(pages.sitemap)
+const ProductGallery = lazy(pages.productGallery)
 const Payment = lazy(pages.payment)
 const NotFound = lazy(pages.notFound)
 
@@ -46,6 +47,7 @@ export default function AppRouter() {
             <Route path={pathFor('field-manual')} element={<FieldManual />} />
             <Route path={pathFor('glossary')} element={<Glossary />} />
             <Route path={pathFor('sitemap')} element={<Sitemap />} />
+            <Route path={pathFor('product-gallery')} element={<ProductGallery />} />
             <Route path={pathFor('payment')} element={<Payment />} />
             <Route path={pathFor('hgs-park')} element={<Marketing routeName="hgs-park" />} />
             {marketingRouteNames.map((name) => (
